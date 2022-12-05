@@ -26,19 +26,19 @@ trait PluginTrait
     public static function log($message, $attributes = []): void
     {
         if ($attributes) {
-            $message = Craft::t('auth', $message, $attributes);
+            $message = Craft::t('verbb-auth', $message, $attributes);
         }
 
-        Craft::getLogger()->log($message, Logger::LEVEL_INFO, 'auth');
+        Craft::getLogger()->log($message, Logger::LEVEL_INFO, 'verbb-auth');
     }
 
     public static function error($message, $attributes = []): void
     {
         if ($attributes) {
-            $message = Craft::t('auth', $message, $attributes);
+            $message = Craft::t('verbb-auth', $message, $attributes);
         }
 
-        Craft::getLogger()->log($message, Logger::LEVEL_ERROR, 'auth');
+        Craft::getLogger()->log($message, Logger::LEVEL_ERROR, 'verbb-auth');
     }
 
 
@@ -75,7 +75,7 @@ trait PluginTrait
 
     private function _registerLogTarget(): void
     {
-        BaseHelper::setFileLogging('auth');
+        BaseHelper::setFileLogging('verbb-auth');
     }
 
 }
