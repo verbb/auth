@@ -68,18 +68,18 @@ class Session
         self::setFlash($namespace, 'success', $message);
     }
 
-    public static function getError(string $namespace, string $message): void
+    public static function getError(string $namespace): mixed
     {
-        self::getFlash($namespace, 'error', $message);
+        return self::getFlash($namespace, 'error');
     }
 
-    public static function getNotice(string $namespace, string $message): void
+    public static function getNotice(string $namespace): mixed
     {
-        self::getFlash($namespace, 'notice', $message);
+        return self::getFlash($namespace, 'notice');
     }
 
-    public static function getSuccess(string $namespace, string $message): void
+    public static function getSuccess(string $namespace): mixed
     {
-        self::getFlash($namespace, 'success', $message);
+        return self::getFlash($namespace, 'success');
     }
 }
