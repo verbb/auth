@@ -21,7 +21,7 @@ trait OAuthProviderTrait
     public ?string $clientId = null;
     public ?string $clientSecret = null;
 
-    public OAuth1Provider|OAuth2Provider|null $_oauthProvider = null;
+    protected OAuth1Provider|OAuth2Provider|null $_oauthProvider = null;
 
 
     // Abstract Methods
@@ -167,5 +167,13 @@ trait OAuthProviderTrait
         }
 
         return $accessToken;
+    }
+
+    public function request(string $method, string $uri, array $options = [])
+    {
+        $oauthProvider = $this->getOAuthProvider();
+        $token = $this->getToken();
+
+        return $oauthProvider->getApiRequest($method, $uri, $token, $options);
     }
 }
