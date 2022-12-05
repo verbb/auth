@@ -111,6 +111,18 @@ class Tokens extends Component
         return $this->saveToken($token);
     }
 
+    public function refreshToken(Token $token, OAuth1Token|OAuth2Token $accessToken): bool
+    {
+        $token->accessToken = $accessToken->getToken();
+        $token->expiryDate = $accessToken->getExpires();
+        
+        if ($accessToken->getRefreshToken()) {
+            $token->refreshToken = $accessToken->getRefreshToken();
+        }
+
+        return $this->saveToken($token);
+    }
+
     public function saveToken(Token $token, bool $runValidation = true): bool
     {
         $isNewToken = !$token->id;

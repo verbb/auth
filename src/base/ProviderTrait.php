@@ -7,6 +7,10 @@ use Craft;
 use craft\helpers\ArrayHelper;
 use craft\helpers\UrlHelper;
 
+use Throwable;
+
+use League\OAuth2\Client\Token\AccessToken as OAuth2Token;
+
 trait ProviderTrait
 {
     // Abstract Methods
@@ -23,7 +27,26 @@ trait ProviderTrait
         return [];
     }
 
-    public function getApiRequest(string $method, string $uri, Token $token, array $options = [])
+    public function refreshToken(Token $token, bool $force = false): ?OAuth2Token
+    {
+        $accessToken = $token->getToken();
+
+        try {
+            if ($force || ($accessToken->getExpires() && $accessToken->hasExpired())) {
+                $accessToken = $this->getAccessToken('refresh_token', [
+                    'refresh_token' => $accessToken->getRefreshToken(),
+                ]);
+
+                Auth::$plugin->getTokens()->refreshToken($token, $accessToken);
+            }
+        } catch (Throwable $e) {
+
+        }
+
+        return $accessToken;
+    }
+
+    public function getApiRequest(string $method, string $uri, Token $token, array $options = []): mixed
     {
         // Normalise the URL
         $url = rtrim($this->getBaseApiUrl(), '/') . '/' . ltrim($uri, '/');
@@ -35,7 +58,9 @@ trait ProviderTrait
 
         $url = UrlHelper::urlWithParams($url, $params);
 
-        $request = $this->getAuthenticatedRequest($method, $url, $token->getToken(), $options);
+        $accessToken = $this->refreshToken($token);
+
+        $request = $this->getAuthenticatedRequest($method, $url, $accessToken, $options);
 
         return $this->getParsedResponse($request);
     }
