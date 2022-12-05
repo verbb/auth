@@ -114,7 +114,7 @@ class Tokens extends Component
     public function refreshToken(Token $token, OAuth1Token|OAuth2Token $accessToken): bool
     {
         $token->accessToken = $accessToken->getToken();
-        $token->expiryDate = $accessToken->getExpires();
+        $token->expires = $accessToken->getExpires();
         
         if ($accessToken->getRefreshToken()) {
             $token->refreshToken = $accessToken->getRefreshToken();

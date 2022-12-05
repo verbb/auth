@@ -164,6 +164,11 @@ trait OAuthProviderTrait
             $accessToken = $oauthProvider->getAccessToken('authorization_code', [
                 'code' => $code,
             ]);
+
+            // Some providers (Facebook, Instagram) have long-lived tokens, so use those
+            if (method_exists($oauthProvider, 'getLongLivedAccessToken')) {
+                $accessToken = $oauthProvider->getLongLivedAccessToken((string)$accessToken);
+            }
         }
 
         return $accessToken;

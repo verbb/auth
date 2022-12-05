@@ -2,6 +2,8 @@
 
 namespace verbb\auth\clients\instagram\provider;
 
+use verbb\auth\clients\instagram\grant\IgExchangeToken;
+use verbb\auth\clients\instagram\grant\IgRefreshToken;
 use verbb\auth\clients\instagram\provider\exception\InstagramIdentityProviderException;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
@@ -36,6 +38,14 @@ class Instagram extends AbstractProvider
      * @var string
      */
     protected $graphHost = 'https://graph.instagram.com';
+
+    public function __construct(array $options = [], array $collaborators = [])
+    {
+        parent::__construct($options, $collaborators);
+
+        $this->getGrantFactory()->setGrant('ig_exchange_token', new IgExchangeToken());
+        $this->getGrantFactory()->setGrant('ig_refresh_token', new IgRefreshToken());
+    }
 
     /**
      * Gets host.

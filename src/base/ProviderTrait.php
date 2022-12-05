@@ -1,6 +1,7 @@
 <?php
 namespace verbb\auth\base;
 
+use verbb\auth\Auth;
 use verbb\auth\models\Token;
 
 use Craft;
@@ -27,17 +28,32 @@ trait ProviderTrait
         return [];
     }
 
+    public function getRefreshToken(OAuth2Token $accessToken)
+    {
+        $refreshToken = $accessToken->getRefreshToken();
+
+        if ($refreshToken) {
+            return $this->getAccessToken('refresh_token', [
+                'refresh_token' => $refreshToken,
+            ]);
+        }
+
+        return null;
+    }
+
     public function refreshToken(Token $token, bool $force = false): ?OAuth2Token
     {
         $accessToken = $token->getToken();
 
         try {
             if ($force || ($accessToken->getExpires() && $accessToken->hasExpired())) {
-                $accessToken = $this->getAccessToken('refresh_token', [
-                    'refresh_token' => $accessToken->getRefreshToken(),
-                ]);
+                $newAccessToken = $this->getRefreshToken($accessToken);
 
-                Auth::$plugin->getTokens()->refreshToken($token, $accessToken);
+                if ($newAccessToken) {
+                    Auth::$plugin->getTokens()->refreshToken($token, $newAccessToken);
+
+                    return $newAccessToken;
+                }
             }
         } catch (Throwable $e) {
 

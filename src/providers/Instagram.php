@@ -5,7 +5,7 @@ use verbb\auth\base\ProviderTrait;
 use verbb\auth\clients\instagram\provider\Instagram as InstagramProvider;
 use verbb\auth\models\Token;
 
-use League\OAuth2\Client\Token\AccessTokenInterface;
+use League\OAuth2\Client\Token\AccessToken as OAuth2Token;
 
 class Instagram extends InstagramProvider
 {
@@ -30,22 +30,8 @@ class Instagram extends InstagramProvider
         ];
     }
 
-    public function getAccessToken($grant = 'authorization_code', array $params = []): AccessTokenInterface
+    public function getRefreshToken(OAuth2Token $accessToken)
     {
-        // Facebook doesn't use standard OAuth refresh tokens.
-        // Instead it has a "token exchange" system. You exchange the token prior to
-        // expiry, to push back expiry. You start with a short-lived token and each
-        // exchange gives you a long-lived one (90 days).
-
-        // We act a bit more opinionated by always wanting a long-lived access token.
-        if ($grant = 'authorization_code') {
-            // Get a short-lived token
-            $accessToken = parent::getAccessToken($grant, $params);
-
-            // With the short-lived token, generate a long-lived one.
-            return $this->getLongLivedAccessToken((string)$accessToken);
-        }
-
-        return parent::getAccessToken($grant, $params);
+        return $this->getRefreshedAccessToken($accessToken);
     }
 }

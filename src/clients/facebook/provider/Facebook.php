@@ -2,6 +2,7 @@
 
 namespace verbb\auth\clients\facebook\provider;
 
+use verbb\auth\clients\facebook\grant\FbExchangeToken;
 use verbb\auth\clients\facebook\provider\exception\FacebookProviderException;
 
 use League\OAuth2\Client\Token\AccessToken;
@@ -111,6 +112,8 @@ class Facebook extends AbstractProvider
                 $this->fields[] = 'bio';
             }
         }
+
+        $this->getGrantFactory()->setGrant('fb_exchange_token', new FbExchangeToken());
     }
 
     public function getBaseAuthorizationUrl(): string
