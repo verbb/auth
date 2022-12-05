@@ -1,0 +1,36 @@
+{
+    "name": "verbb/auth",
+    "description": "A Craft CMS module to make working with authentication for third-parties a breeze.",
+    "version": "1.0.0",
+    "support": {
+        "email": "support@verbb.io",
+        "issues": "https://github.com/verbb/auth/issues?state=open",
+        "source": "https://github.com/verbb/auth",
+        "docs": "https://github.com/verbb/auth",
+        "rss": "https://github.com/verbb/auth/commits/v2.atom"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Verbb",
+            "homepage": "https://verbb.io"
+        }
+    ],
+    "require": {
+        "php": "^8.0.2",
+        "craftcms/cms": "^4.0.0",
+        "firebase/php-jwt": "~3.0 || ~4.0 || ~5.0 || ~6.0",
+        "jakeasmith/http_build_url": "^1.0",
+        "lcobucci/jwt": "^3.4 || ^4.0",
+        "league/oauth1-client": "^1.9",
+        "league/oauth2-client": "^2.0",
+        "mollie/mollie-api-php": "^1.19 || ^2.39",
+        "psr/http-message": "^1.0",
+        "verbb/base": "^2.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+          "verbb\\auth\\": "src/"
+        }
+    }
+}

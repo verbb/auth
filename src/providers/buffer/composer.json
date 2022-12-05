@@ -1,0 +1,42 @@
+{
+  "name": "tgallice/oauth2-buffer",
+  "description": "Buffer OAuth 2.0 Client Provider for The PHP League OAuth2-Client",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Thomas Gallice",
+      "email": "tm.gallice@gmail.com",
+      "homepage": "https://github.com/tgallice"
+    }
+  ],
+  "keywords": [
+    "oauth",
+    "oauth2",
+    "client",
+    "authorization",
+    "authorisation",
+    "buffer"
+  ],
+  "require": {
+    "php": ">=5.5.0",
+    "league/oauth2-client": "~1.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "Tgallice\\OAuth2\\Client\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tgallice\\OAuth2\\Client\\Test\\": "tests/"
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0.x-dev"
+    }
+  }
+}
