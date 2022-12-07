@@ -55,7 +55,7 @@ class OAuth extends Component
         // Get the OAuth Access Token, depending on OAuth version
         $accessToken = $provider->getAccessToken();
 
-        // Save the access token to the database, and return a Token model
+        // Create a Token model from the access model to be returned
         $token = Auth::$plugin->getTokens()->createToken($ownerHandle, $provider, $accessToken);
 
         // Allow plugins to modify the access token URL

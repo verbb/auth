@@ -2,6 +2,7 @@
 namespace verbb\auth\base;
 
 use verbb\auth\helpers\Session;
+use verbb\auth\models\Token;
 
 use Craft;
 use craft\helpers\App;
@@ -18,8 +19,10 @@ trait OAuthProviderTrait
     // Properties
     // =========================================================================
 
+    public array $config = [];
     public ?string $clientId = null;
     public ?string $clientSecret = null;
+    public ?string $redirectUri = null;
 
     protected OAuth1Provider|OAuth2Provider|null $_oauthProvider = null;
 
@@ -27,7 +30,6 @@ trait OAuthProviderTrait
     // Abstract Methods
     // =========================================================================
     
-    abstract public function getRedirectUri(): string;
     abstract public function getOAuthProviderClass(): string;
 
 
@@ -42,6 +44,11 @@ trait OAuthProviderTrait
     public function getClientSecret(): ?string
     {
         return App::parseEnv($this->clientSecret);
+    }
+
+    public function getRedirectUri(): ?string
+    {
+        return $this->redirectUri;
     }
 
     public function getOAuthVersion(): int
@@ -67,18 +74,18 @@ trait OAuthProviderTrait
     public function getOAuthProviderConfig(): array
     {
         if ($this->getIsOAuth1()) {
-            return [
+            return array_merge([
                 'identifier' => $this->getClientId(),
                 'secret' => $this->getClientSecret(),
                 'callback_uri' => $this->getRedirectUri(),
-            ];
+            ], $this->config);
         }
 
-        return [
+        return array_merge([
             'clientId' => $this->getClientId(),
             'clientSecret' => $this->getClientSecret(),
             'redirectUri' => $this->getRedirectUri(),
-        ];
+        ], $this->config);
     }
 
     public function getOAuthProvider(): OAuth1Provider|OAuth2Provider
@@ -176,6 +183,11 @@ trait OAuthProviderTrait
         }
 
         return $accessToken;
+    }
+
+    public function getToken(): ?Token
+    {
+        return null; 
     }
 
     public function request(string $method, string $uri, array $options = [])
