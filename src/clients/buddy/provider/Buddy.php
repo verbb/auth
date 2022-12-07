@@ -10,7 +10,7 @@ use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
 
-final class Buddy extends AbstractProvider
+class Buddy extends AbstractProvider
 {
     use BearerAuthorizationTrait;
 

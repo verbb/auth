@@ -3,7 +3,6 @@ namespace verbb\auth\providers;
 
 use verbb\auth\base\ProviderTrait;
 use verbb\auth\clients\line\provider\Line as LineProvider;
-use verbb\auth\models\Token;
 
 class Line extends LineProvider
 {

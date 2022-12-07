@@ -3,7 +3,6 @@ namespace verbb\auth\providers;
 
 use verbb\auth\base\ProviderTrait;
 use verbb\auth\clients\zoho\provider\Zoho as ZohoProvider;
-use verbb\auth\models\Token;
 
 class Zoho extends ZohoProvider
 {

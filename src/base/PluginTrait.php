@@ -3,7 +3,6 @@ namespace verbb\auth\base;
 
 use verbb\auth\Auth;
 use verbb\auth\services\OAuth;
-use verbb\auth\services\Providers;
 use verbb\auth\services\Tokens;
 
 use Craft;
@@ -50,11 +49,6 @@ trait PluginTrait
         return $this->get('oauth');
     }
 
-    public function getProviders(): Providers
-    {
-        return $this->get('providers');
-    }
-
     public function getTokens(): Tokens
     {
         return $this->get('tokens');
@@ -68,7 +62,6 @@ trait PluginTrait
     {
         $this->setComponents([
             'oauth' => OAuth::class,
-            'providers' => Providers::class,
             'tokens' => Tokens::class,
         ]);
     }

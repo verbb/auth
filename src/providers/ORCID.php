@@ -3,7 +3,6 @@ namespace verbb\auth\providers;
 
 use verbb\auth\base\ProviderTrait;
 use verbb\auth\clients\orcid\provider\ORCID as ORCIDProvider;
-use verbb\auth\models\Token;
 
 class ORCID extends ORCIDProvider
 {

@@ -3,7 +3,6 @@ namespace verbb\auth\providers;
 
 use verbb\auth\base\ProviderTrait;
 use verbb\auth\clients\basecamp\provider\Basecamp as BasecampProvider;
-use verbb\auth\models\Token;
 
 class Basecamp extends BasecampProvider
 {

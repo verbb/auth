@@ -1,7 +1,6 @@
 <?php
 namespace verbb\auth\migrations;
 
-use Craft;
 use craft\db\Migration;
 
 class m221127_000000_install extends Migration

@@ -3,7 +3,6 @@ namespace verbb\auth\providers;
 
 use verbb\auth\base\ProviderTrait;
 use verbb\auth\clients\strava\provider\Strava as StravaProvider;
-use verbb\auth\models\Token;
 
 class Strava extends StravaProvider
 {

@@ -3,7 +3,6 @@ namespace verbb\auth\providers;
 
 use verbb\auth\base\ProviderTrait;
 use verbb\auth\clients\buffer\provider\Buffer as BufferProvider;
-use verbb\auth\models\Token;
 
 class Buffer extends BufferProvider
 {

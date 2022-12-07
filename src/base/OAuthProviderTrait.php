@@ -49,7 +49,7 @@ trait OAuthProviderTrait
         // Determine the OAuth version based on the string class, because we check against
         // the OAuth version when passing in the init config, which will throw us in a loop.
         $className = $this->getOAuthProviderClass();
-        $isOAuth1 = is_subclass_of($className, OAuth1Provider::class, true) || is_a($className, OAuth1Provider::class, true);
+        $isOAuth1 = is_subclass_of($className, OAuth1Provider::class) || is_a($className, OAuth1Provider::class, true);
 
         return ($isOAuth1) ? 1 : 2;
     }
@@ -72,13 +72,13 @@ trait OAuthProviderTrait
                 'secret' => $this->getClientSecret(),
                 'callback_uri' => $this->getRedirectUri(),
             ];
-        } else {
-            return [
-                'clientId' => $this->getClientId(),
-                'clientSecret' => $this->getClientSecret(),
-                'redirectUri' => $this->getRedirectUri(),
-            ];
         }
+
+        return [
+            'clientId' => $this->getClientId(),
+            'clientSecret' => $this->getClientSecret(),
+            'redirectUri' => $this->getRedirectUri(),
+        ];
     }
 
     public function getOAuthProvider(): OAuth1Provider|OAuth2Provider
@@ -103,6 +103,11 @@ trait OAuthProviderTrait
         $request = Craft::$app->getRequest();
         $oauthProvider = $this->getOAuthProvider();
 
+        // Allow passing in a `redirect` param to redirect to upon callback
+        $redirect = Craft::$app->getSecurity()->validateData($request->getParam('redirect'));
+        $redirect = $redirect ?: $request->getReferrer();
+        Session::set('redirect', $redirect);
+
         // OAuth v1
         if ($this->getIsOAuth1()) {
             $temporaryCredentials = $oauthProvider->getTemporaryCredentials();
@@ -119,7 +124,6 @@ trait OAuthProviderTrait
 
             Session::set('state', $oauthProvider->getState());
             Session::set('origin', $request->getReferrer());
-            Session::set('redirect', $request->getParam('redirectUrl', $request->getReferrer()));
         }
 
         return $authUrl;

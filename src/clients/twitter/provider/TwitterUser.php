@@ -1,6 +1,6 @@
 <?php
 
-namespace verbb\oauth\providers\twitter\provider;
+namespace verbb\auth\clients\twitter\provider;
 
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 

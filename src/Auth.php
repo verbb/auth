@@ -5,10 +5,6 @@ use verbb\auth\base\PluginTrait;
 
 use Craft;
 use craft\db\MigrationManager;
-use craft\events\RegisterUrlRulesEvent;
-use craft\web\UrlManager;
-
-use yii\base\Event;
 
 use verbb\base\base\Module;
 

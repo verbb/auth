@@ -14,12 +14,12 @@ class Session
         return Craft::$app->getSession()->get("verbb-auth.{$key}");
     }
 
-    public static function set(string $key, mixed $value)
+    public static function set(string $key, mixed $value): void
     {
         Craft::$app->getSession()->set("verbb-auth.{$key}", $value);
     }
 
-    public static function remove(string $key)
+    public static function remove(string $key): void
     {
         Craft::$app->getSession()->remove("verbb-auth.{$key}");
     }

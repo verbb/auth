@@ -1,8 +1,6 @@
 <?php
 namespace verbb\auth\helpers;
 
-use Craft;
-
 class Provider
 {
     // Static Methods

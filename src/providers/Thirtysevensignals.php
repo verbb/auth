@@ -3,7 +3,6 @@ namespace verbb\auth\providers;
 
 use verbb\auth\base\ProviderTrait;
 use verbb\auth\clients\thirtysevensignals\provider\Thirtysevensignals as ThirtysevensignalsProvider;
-use verbb\auth\models\Token;
 
 class Thirtysevensignals extends ThirtysevensignalsProvider
 {

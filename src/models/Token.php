@@ -1,6 +1,7 @@
 <?php
 namespace verbb\auth\models;
 
+use Craft;
 use craft\base\Model;
 use craft\base\PluginInterface;
 

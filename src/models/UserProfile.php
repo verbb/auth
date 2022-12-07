@@ -1,8 +1,6 @@
 <?php
 namespace verbb\auth\models;
 
-use Craft;
-use craft\base\Model;
 use craft\helpers\ArrayHelper;
 use craft\helpers\Json;
 
@@ -11,12 +9,12 @@ use League\OAuth2\Client\Provider\ResourceOwnerInterface as OAuth2Profile;
 
 use ReflectionClass;
 
-class UserProfile extends Model
+class UserProfile
 {
     // Properties
     // =========================================================================
 
-    public $data = [];
+    public array $data = [];
 
     public function __construct(OAuth1Profile|OAuth2Profile $resource)
     {
@@ -64,7 +62,17 @@ class UserProfile extends Model
         return ArrayHelper::getValue($this->data, $name) ?? ArrayHelper::getValue($response, $name);
     }
 
-    public function toArray(array $fields = [], array $expand = [], $recursive = true)
+    public function __isset($name)
+    {
+
+    }
+
+    public function __set($name, $value)
+    {
+
+    }
+
+    public function toArray(): array
     {
         return $this->data;
     }

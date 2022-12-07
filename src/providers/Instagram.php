@@ -30,7 +30,7 @@ class Instagram extends InstagramProvider
         ];
     }
 
-    public function getRefreshToken(OAuth2Token $accessToken)
+    public function getRefreshToken(OAuth2Token $accessToken): OAuth2Token
     {
         return $this->getRefreshedAccessToken($accessToken);
     }

@@ -2,9 +2,9 @@
 namespace verbb\auth\providers;
 
 use verbb\auth\base\ProviderTrait;
-use verbb\auth\clients\amazon\provider\Amazon as AmazonProvider;
+use verbb\auth\clients\wechat\provider\WebProvider as WeChatProvider;
 
-class Amazon extends AmazonProvider
+class WeChat extends WeChatProvider
 {
     // Traits
     // =========================================================================
@@ -17,6 +17,6 @@ class Amazon extends AmazonProvider
 
     public function getBaseApiUrl(): ?string
     {
-        return 'https://api.amazon.com/';
+        return 'https://api.weixin.qq.com/sns';
     }
 }

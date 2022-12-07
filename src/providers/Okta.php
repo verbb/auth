@@ -3,7 +3,6 @@ namespace verbb\auth\providers;
 
 use verbb\auth\base\ProviderTrait;
 use verbb\auth\clients\okta\provider\Okta as OktaProvider;
-use verbb\auth\models\Token;
 
 class Okta extends OktaProvider
 {
@@ -18,6 +17,6 @@ class Okta extends OktaProvider
 
     public function getBaseApiUrl(): ?string
     {
-        return $this->getBaseApiUrl();
+        return $this->issuer . '/' . $this->apiVersion;
     }
 }

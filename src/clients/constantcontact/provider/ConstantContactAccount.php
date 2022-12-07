@@ -5,7 +5,7 @@ namespace verbb\auth\clients\constantcontact\provider;
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 use League\OAuth2\Client\Tool\ArrayAccessorTrait;
 
-class ConstantContactAccount implements ResourceOwnerInterface
+abstract class ConstantContactAccount implements ResourceOwnerInterface
 {
     use ArrayAccessorTrait;
     

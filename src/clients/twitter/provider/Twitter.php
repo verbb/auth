@@ -11,7 +11,7 @@
  * @link https://github.com/smolblog/oauth2-twitter GitHub
  */
 
-namespace verbb\oauth\providers\twitter\provider;
+namespace verbb\auth\clients\twitter\provider;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;

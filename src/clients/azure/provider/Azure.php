@@ -74,7 +74,8 @@ class Azure extends AbstractProvider
      * @param string $tenant
      * @param string $version
      */
-    protected function getOpenIdConfiguration($tenant, $version) {
+    protected function getOpenIdConfiguration($tenant, $version)
+    {
         if (!is_array($this->openIdConfiguration)) {
             $this->openIdConfiguration = [];
         }
@@ -83,8 +84,8 @@ class Azure extends AbstractProvider
         }
         if (!array_key_exists($version, $this->openIdConfiguration[$tenant])) {
             $versionInfix = $this->getVersionUriInfix($version);
-	          $openIdConfigurationUri = $this->urlLogin . $tenant . $versionInfix . '/.well-known/openid-configuration?appid=' . $this->clientId;
-            
+            $openIdConfigurationUri = $this->urlLogin . $tenant . $versionInfix . '/.well-known/openid-configuration?appid=' . $this->clientId;
+
             $factory = $this->getRequestFactory();
             $request = $factory->getRequestWithOptions(
                 'get',
@@ -118,28 +119,28 @@ class Azure extends AbstractProvider
 
     protected function getAccessTokenRequest(array $params): RequestInterface
     {
-      if ($this->clientCertificatePrivateKey && $this->clientCertificateThumbprint) {
-        $header = [
-          'x5t' => base64_encode(hex2bin($this->clientCertificateThumbprint)),
-        ];
-        $now = time();
-        $payload = [
-          'aud' => "https://login.microsoftonline.com/{$this->tenant}/oauth2/v2.0/token",
-          'exp' => $now + 360,
-          'iat' => $now,
-          'iss' => $this->clientId,
-          'jti' => bin2hex(random_bytes(20)),
-          'nbf' => $now,
-          'sub' => $this->clientId,
-        ];
-        $jwt = JWT::encode($payload, str_replace('\n', "\n", $this->clientCertificatePrivateKey), 'RS256', null, $header);
+        if ($this->clientCertificatePrivateKey && $this->clientCertificateThumbprint) {
+            $header = [
+                'x5t' => base64_encode(hex2bin($this->clientCertificateThumbprint)),
+            ];
+            $now = time();
+            $payload = [
+                'aud' => "https://login.microsoftonline.com/{$this->tenant}/oauth2/v2.0/token",
+                'exp' => $now + 360,
+                'iat' => $now,
+                'iss' => $this->clientId,
+                'jti' => bin2hex(random_bytes(20)),
+                'nbf' => $now,
+                'sub' => $this->clientId,
+            ];
+            $jwt = JWT::encode($payload, str_replace('\n', "\n", $this->clientCertificatePrivateKey), 'RS256', null, $header);
 
-        unset($params['client_secret']);
-        $params['client_assertion_type'] = 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer';
-        $params['client_assertion'] = $jwt;
-      }
+            unset($params['client_secret']);
+            $params['client_assertion_type'] = 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer';
+            $params['client_assertion'] = $jwt;
+        }
 
-      return parent::getAccessTokenRequest($params);
+        return parent::getAccessTokenRequest($params);
     }
 
     /**
@@ -187,7 +188,7 @@ class Azure extends AbstractProvider
             }
 
             $response = $this->request('get', $ref, $accessToken, ['headers' => $headers]);
-            $values   = $response;
+            $values = $response;
             if (isset($response['value'])) {
                 $values = $response['value'];
             }
@@ -196,7 +197,7 @@ class Azure extends AbstractProvider
             }
             if (isset($response['odata.nextLink'])) {
                 $ref = $response['odata.nextLink'];
-            } elseif (isset($response['@odata.nextLink'])) {
+            } else if (isset($response['@odata.nextLink'])) {
                 $ref = $response['@odata.nextLink'];
             } else {
                 $ref = null;
@@ -294,7 +295,7 @@ class Azure extends AbstractProvider
             $options['headers']['Content-Type'] = 'application/json';
         }
 
-        $request  = $this->getAuthenticatedRequest($method, $url, $accessToken, $options);
+        $request = $this->getAuthenticatedRequest($method, $url, $accessToken, $options);
         $response = $this->getParsedResponse($request);
 
         return $response;
@@ -333,7 +334,7 @@ class Azure extends AbstractProvider
      */
     public function validateAccessToken($accessToken)
     {
-        $keys        = $this->getJwtVerificationKeys();
+        $keys = $this->getJwtVerificationKeys();
         $tokenClaims = (array)JWT::decode($accessToken, $keys, ['RS256']);
 
         $this->validateTokenClaims($tokenClaims);
@@ -348,7 +349,8 @@ class Azure extends AbstractProvider
      *
      * @return void
      */
-    public function validateTokenClaims($tokenClaims) {
+    public function validateTokenClaims($tokenClaims)
+    {
         if ($this->getClientId() != $tokenClaims['aud']) {
             throw new \RuntimeException('The client_id / audience is invalid!');
         }
@@ -389,7 +391,7 @@ class Azure extends AbstractProvider
                 foreach ($keyinfo['x5c'] as $encodedkey) {
                     $cert =
                         '-----BEGIN CERTIFICATE-----' . PHP_EOL
-                        . chunk_split($encodedkey, 64,  PHP_EOL)
+                        . chunk_split($encodedkey, 64, PHP_EOL)
                         . '-----END CERTIFICATE-----' . PHP_EOL;
 
                     $cert_object = openssl_x509_read($cert);
@@ -429,7 +431,7 @@ class Azure extends AbstractProvider
 
                 $publicKey = $pkey_array ['key'];
 
-               $keys[$keyinfo['kid']] = new Key($publicKey, 'RS256');;
+                $keys[$keyinfo['kid']] = new Key($publicKey, 'RS256');;
             }
         }
 
@@ -466,9 +468,9 @@ class Azure extends AbstractProvider
         if (isset($data['odata.error']) || isset($data['error'])) {
             if (isset($data['odata.error']['message']['value'])) {
                 $message = $data['odata.error']['message']['value'];
-            } elseif (isset($data['error']['message'])) {
+            } else if (isset($data['error']['message'])) {
                 $message = $data['error']['message'];
-            } elseif (isset($data['error']) && !is_array($data['error'])) {
+            } else if (isset($data['error']) && !is_array($data['error'])) {
                 $message = $data['error'];
             } else {
                 $message = $response->getReasonPhrase();
@@ -522,7 +524,7 @@ class Azure extends AbstractProvider
     {
         if (empty($response)) {
             return;
-        } elseif (isset($response['value'])) {
+        } else if (isset($response['value'])) {
             return $response['value'];
         }
 

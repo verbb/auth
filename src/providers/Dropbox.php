@@ -3,7 +3,6 @@ namespace verbb\auth\providers;
 
 use verbb\auth\base\ProviderTrait;
 use verbb\auth\clients\dropbox\provider\Dropbox as DropboxProvider;
-use verbb\auth\models\Token;
 
 class Dropbox extends DropboxProvider
 {

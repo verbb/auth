@@ -3,7 +3,6 @@ namespace verbb\auth\providers;
 
 use verbb\auth\base\ProviderTrait;
 use verbb\auth\clients\twitter\provider\Twitter as TwitterProvider;
-use verbb\auth\models\Token;
 
 class Twitter extends TwitterProvider
 {

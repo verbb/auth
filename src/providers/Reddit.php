@@ -3,7 +3,6 @@ namespace verbb\auth\providers;
 
 use verbb\auth\base\ProviderTrait;
 use verbb\auth\clients\reddit\provider\Reddit as RedditProvider;
-use verbb\auth\models\Token;
 
 class Reddit extends RedditProvider
 {

@@ -3,7 +3,6 @@ namespace verbb\auth\providers;
 
 use verbb\auth\base\ProviderTrait;
 use verbb\auth\clients\yahoo\provider\Yahoo as YahooProvider;
-use verbb\auth\models\Token;
 
 class Yahoo extends YahooProvider
 {

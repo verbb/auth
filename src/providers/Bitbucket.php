@@ -3,7 +3,6 @@ namespace verbb\auth\providers;
 
 use verbb\auth\base\ProviderTrait;
 use verbb\auth\clients\bitbucket\provider\Bitbucket as BitbucketProvider;
-use verbb\auth\models\Token;
 
 class Bitbucket extends BitbucketProvider
 {

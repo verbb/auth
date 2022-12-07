@@ -9,18 +9,13 @@ use verbb\auth\records\Token as TokenRecord;
 
 use Craft;
 use craft\base\MemoizableArray;
-use craft\base\PluginInterface;
 use craft\db\Query;
 use craft\helpers\ArrayHelper;
-use craft\helpers\Db;
-use craft\helpers\Json;
 
 use yii\base\Component;
 
 use League\OAuth1\Client\Credentials\TokenCredentials as OAuth1Token;
 use League\OAuth2\Client\Token\AccessToken as OAuth2Token;
-
-use Exception;
 
 class Tokens extends Component
 {
@@ -82,7 +77,7 @@ class Tokens extends Component
             $token->refreshToken = $accessToken->getRefreshToken();
             $token->resourceOwnerId = $accessToken->getResourceOwnerId();
             $token->values = $accessToken->getValues();
-        } else if ($accessToken instanceof OAuth1Token) {
+        } else {
             $token->tokenType = Token::TOKEN_TYPE_OAUTH1;
             $token->accessToken = $accessToken->getIdentifier();
             $token->secret = $accessToken->getSecret();
@@ -136,7 +131,7 @@ class Tokens extends Component
         }
 
         if ($runValidation && !$token->validate()) {
-            Formie::log('Token not saved due to validation error.');
+            Auth::log('Token not saved due to validation error.');
             return false;
         }
 
@@ -171,7 +166,7 @@ class Tokens extends Component
 
     public function deleteTokenById(int $tokenId): bool
     {
-        $token = $this->getTokenById($tokenId, false);
+        $token = $this->getTokenById($tokenId);
 
         if (!$token) {
             return false;

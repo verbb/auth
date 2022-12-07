@@ -3,7 +3,6 @@ namespace verbb\auth\providers;
 
 use verbb\auth\base\ProviderTrait;
 use verbb\auth\clients\deviantart\provider\DeviantArt as DeviantArtProvider;
-use verbb\auth\models\Token;
 
 class DeviantArt extends DeviantArtProvider
 {

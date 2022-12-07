@@ -4,12 +4,12 @@ namespace verbb\auth\base;
 use verbb\auth\Auth;
 use verbb\auth\models\Token;
 
-use Craft;
 use craft\helpers\ArrayHelper;
 use craft\helpers\UrlHelper;
 
 use Throwable;
 
+use League\OAuth2\Client\Token\AccessTokenInterface;
 use League\OAuth2\Client\Token\AccessToken as OAuth2Token;
 
 trait ProviderTrait
@@ -28,7 +28,7 @@ trait ProviderTrait
         return [];
     }
 
-    public function getRefreshToken(OAuth2Token $accessToken)
+    public function getRefreshToken(OAuth2Token $accessToken): AccessTokenInterface|OAuth2Token|null
     {
         $refreshToken = $accessToken->getRefreshToken();
 
@@ -104,7 +104,7 @@ trait ProviderTrait
             // If this has failed as unauthorized, assume it's because the token needs refreshing
             if ($e->getCode() === 401 && $forceRefresh) {
                 // Force-refresh the token
-                $newAccessToken = $this->refreshToken($token, true);
+                $this->refreshToken($token, true);
 
                 // Then try again, with the new access token
                 return $this->getApiRequest($method, $uri, $token, $options, false);

@@ -3,7 +3,6 @@ namespace verbb\auth\providers;
 
 use verbb\auth\base\ProviderTrait;
 use verbb\auth\clients\discord\provider\Discord as DiscordProvider;
-use verbb\auth\models\Token;
 
 class Discord extends DiscordProvider
 {

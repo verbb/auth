@@ -3,7 +3,6 @@ namespace verbb\auth\providers;
 
 use verbb\auth\base\ProviderTrait;
 use verbb\auth\clients\buddy\provider\Buddy as BuddyProvider;
-use verbb\auth\models\Token;
 
 class Buddy extends BuddyProvider
 {
@@ -18,6 +17,6 @@ class Buddy extends BuddyProvider
 
     public function getBaseApiUrl(): ?string
     {
-        return $this->baseUrl;
+        return 'https://api.buddy.works';
     }
 }
