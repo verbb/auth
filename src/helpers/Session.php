@@ -53,19 +53,43 @@ class Session
         return Craft::$app->getSession()->getFlash($key, $defaultValue, $delete);
     }
 
-    public static function setError(string $namespace, string $message): void
+    public static function setError(string $namespace, string $message, bool $forceCp = false): void
     {
         self::setFlash($namespace, 'error', $message);
+
+        // This is mostly for when throwing an error in a callback, which is redirected to the control panel origin
+        // However, because callback's are typically a site request (for easier routing, `usePathInfo`), the regular
+        // flash calls won't work, as they check for `getIsCpRequest()`
+        if ($forceCp) {
+            self::setNotificationFlash('error', $message, [
+                'icon' => 'alert',
+                'iconLabel' => Craft::t('app', 'Error'),
+            ]);
+        }
     }
 
-    public static function setNotice(string $namespace, string $message): void
+    public static function setNotice(string $namespace, string $message, bool $forceCp = false): void
     {
         self::setFlash($namespace, 'notice', $message);
+
+        if ($forceCp) {
+            self::setNotificationFlash('notice', $message, [
+                'icon' => 'info',
+                'iconLabel' => Craft::t('app', 'Notice'),
+            ]);
+        }
     }
 
-    public static function setSuccess(string $namespace, string $message): void
+    public static function setSuccess(string $namespace, string $message, bool $forceCp = false): void
     {
         self::setFlash($namespace, 'success', $message);
+
+        if ($forceCp) {
+            self::setNotificationFlash('success', $message, [
+                'icon' => 'check',
+                'iconLabel' => Craft::t('app', 'Success'),
+            ]);
+        }
     }
 
     public static function getError(string $namespace): mixed
@@ -81,5 +105,10 @@ class Session
     public static function getSuccess(string $namespace): mixed
     {
         return self::getFlash($namespace, 'success');
+    }
+
+    public static function setNotificationFlash(string $type, string $message, array $settings = []): void
+    {
+        Craft::$app->getSession()->setFlash("cp-notification-$type", [$message, $settings]);
     }
 }
