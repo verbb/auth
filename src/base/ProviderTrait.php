@@ -2,12 +2,18 @@
 namespace verbb\auth\base;
 
 use verbb\auth\Auth;
+use verbb\auth\models\ApiResponse;
 use verbb\auth\models\Token;
 
 use craft\helpers\ArrayHelper;
+use craft\helpers\Json;
 use craft\helpers\UrlHelper;
 
 use Throwable;
+
+use Psr\Http\Message\RequestInterface;
+
+use GuzzleHttp\Exception\RequestException;
 
 use League\OAuth2\Client\Token\AccessTokenInterface;
 use League\OAuth2\Client\Token\AccessToken as OAuth2Token;
@@ -89,10 +95,29 @@ trait ProviderTrait
             $token = $this->refreshToken($token);
             $accessToken = $token->getToken();
 
+            // Normalise passing in `form_params` or `json`, like Guzzle normally would
+            if ($json = ArrayHelper::remove($options, 'json')) {
+                $options['body'] = Json::encode($json);
+                $options['headers']['Content-Type'] = 'application/json';
+            }
+
+            if ($formParams = ArrayHelper::remove($options, 'form_params')) {
+                $options['body'] = http_build_query($formParams, '', '&');
+                $options['headers']['Content-Type'] = 'application/x-www-form-urlencoded';
+            }
+
             // Perform the actual request
             $request = $this->getAuthenticatedRequest($method, $url, $accessToken, $options);
 
-            return $this->getParsedResponse($request);
+            // Don't use `getParsedResponse()`, some providers wrap their own exceptions that replace Guzzle `BadResponseException`
+            // exceptions which has all the good bits like status codes. Instead, we want that exception thrown to be handled upstream.
+            // And of course, so they're properly handled by providers, still call `parseResponse()` and `checkResponse()`.
+            $response = $this->getResponse($request);
+            $parsed = $this->parseResponse($response);
+
+            $this->checkResponse($response, $parsed);
+
+            return $parsed;
         } catch (Throwable $e) {
             Auth::error('An error was thrown for an API request for “{provider}”: “{message}” {file}:{line}', [
                 'provider' => get_class($this),
@@ -108,9 +133,12 @@ trait ProviderTrait
 
                 // Then try again, with the new access token
                 return $this->getApiRequest($method, $uri, $token, $options, false);
+            } else {
+                // Otherwise, throw the error as normal to allow plugins upstream to handle it
+                throw $e;
             }
         }
 
-        return [];
+        return null;
     }
 }
