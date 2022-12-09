@@ -175,6 +175,18 @@ class Tokens extends Component
         return $this->deleteToken($token);
     }
 
+    public function deleteTokenByPluginReference(string $ownerHandle, string $reference): bool
+    {
+        $tokens = $this->getAllTokensByPluginReference($ownerHandle, $reference);
+
+        // Fetch all tokens that match, just in case there's been duplicates somehow
+        foreach ($tokens as $token) {
+            $this->deleteToken($token);
+        }
+
+        return true;
+    }
+
     public function deleteToken(Token $token): bool
     {
         // Fire a 'beforeDeleteToken' event
