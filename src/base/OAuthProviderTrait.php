@@ -1,11 +1,13 @@
 <?php
 namespace verbb\auth\base;
 
+use verbb\auth\Auth;
 use verbb\auth\helpers\Session;
 use verbb\auth\models\Token;
 
 use Craft;
 use craft\helpers\App;
+use craft\helpers\Json;
 
 use Exception;
 
@@ -164,11 +166,15 @@ trait OAuthProviderTrait
             $error = $request->getParam('error_code');
 
             if ($error) {
+                Auth::error('An error occurred: {error}.', Json::encode($error));
+
                 throw new Exception('An error occurred.');
             }
 
             // Run CSRF checks
             if ($state !== $sessionState) {
+                Auth::error('Invalid callback state. State is mismatched: {state} - {sessionState}.', ['state' => $state, 'sessionState' => $sessionState]);
+
                 throw new Exception('Invalid callback state. State is mismatched.');
             }
 
