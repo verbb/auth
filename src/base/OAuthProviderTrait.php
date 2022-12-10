@@ -138,6 +138,11 @@ trait OAuthProviderTrait
         return $authUrl;
     }
 
+    public function getAccessTokenOptions(array $options = []): array
+    {
+        return $options;
+    }
+
     public function getAccessToken(): OAuth1Token|OAuth2Token|null
     {
         $accessToken = null;
@@ -178,9 +183,9 @@ trait OAuthProviderTrait
                 throw new Exception('Invalid callback state. State is mismatched.');
             }
 
-            $accessToken = $oauthProvider->getAccessToken('authorization_code', [
+            $accessToken = $oauthProvider->getAccessToken('authorization_code', $this->getAccessTokenOptions([
                 'code' => $code,
-            ]);
+            ]));
 
             // Some providers (Facebook, Instagram) have long-lived tokens, so use those
             if (method_exists($oauthProvider, 'getLongLivedAccessToken')) {
