@@ -32,7 +32,7 @@ trait OAuthProviderTrait
     // Abstract Methods
     // =========================================================================
     
-    abstract public function getOAuthProviderClass(): string;
+    abstract public static function getOAuthProviderClass(): string;
 
 
     // Public Methods
@@ -96,7 +96,7 @@ trait OAuthProviderTrait
             return $this->_oauthProvider;
         }
 
-        $className = $this->getOAuthProviderClass();
+        $className = static::getOAuthProviderClass();
 
         return $this->_oauthProvider = new $className($this->getOAuthProviderConfig());
     }

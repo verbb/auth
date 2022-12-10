@@ -3,6 +3,6 @@ namespace verbb\auth\base;
 
 interface OAuthProviderInterface
 {
-    public function getOAuthProviderClass(): string;
+    public static function getOAuthProviderClass(): string;
 
 }
