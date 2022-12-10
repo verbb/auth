@@ -25,6 +25,7 @@
         "league/oauth1-client": "^1.9",
         "league/oauth2-client": "^2.0",
         "mollie/mollie-api-php": "^1.19 || ^2.39",
+        "paragonie/random-lib": "^2.0",
         "psr/http-message": "^1.0",
         "verbb/base": "^2.0.0"
     },
