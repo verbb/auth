@@ -8,7 +8,6 @@ use verbb\auth\models\Token;
 use verbb\auth\records\Token as TokenRecord;
 
 use Craft;
-use craft\base\MemoizableArray;
 use craft\db\Query;
 use craft\helpers\ArrayHelper;
 
@@ -28,38 +27,54 @@ class Tokens extends Component
     public const EVENT_AFTER_DELETE_TOKEN = 'afterDeleteToken';
 
 
-    // Properties
-    // =========================================================================
-
-    private ?MemoizableArray $_tokens = null;
-
-
     // Public Methods
     // =========================================================================
 
     public function getAllTokens(): array
     {
-        return $this->_tokens()->all();
+        $query = $this->_createTokenQuery()->all();
+
+        return array_map(function($result) {
+            return new Token($result);
+        }, $query);
     }
 
-    public function getAllPluginTokens(string $ownerHandle): array
+    public function getAllOwnerTokens(string $ownerHandle): array
     {
-        return $this->_tokens()->where('ownerHandle', $ownerHandle, true)->all();
+        $query = $this->_createTokenQuery()->where(['ownerHandle' => $ownerHandle])->all();
+
+        return array_map(function($result) {
+            return new Token($result);
+        }, $query);
     }
 
-    public function getAllTokensByPluginReference(string $ownerHandle, string $reference): array
+    public function getAllTokensByOwnerReference(string $ownerHandle, string $reference): array
     {
-        return ArrayHelper::where($this->getAllPluginTokens($ownerHandle), 'reference', $reference);
+        $query = $this->_createTokenQuery()->where([
+            'ownerHandle' => $ownerHandle,
+            'reference' => $reference,
+        ])->all();
+
+        return array_map(function($result) {
+            return new Token($result);
+        }, $query);
     }
 
     public function getTokenById(int $id): ?Token
     {
-        return $this->_tokens()->firstWhere('id', $id);
+        $result = TokenRecord::findOne($id);
+
+        return $result ? new Token($result->toArray()) : null;
     }
 
-    public function getTokenByPluginReference(string $ownerHandle, string $reference): ?Token
+    public function getTokenByOwnerReference(string $ownerHandle, string $reference): ?Token
     {
-        return ArrayHelper::firstValue($this->getAllTokensByPluginReference($ownerHandle, $reference));
+        $result = TokenRecord::findOne([
+            'ownerHandle' => $ownerHandle,
+            'reference' => $reference,
+        ]);
+
+        return $result ? new Token($result->toArray()) : null;
     }
 
     public function createToken(string $ownerHandle, OAuthProviderInterface $provider, OAuth1Token|OAuth2Token $accessToken): Token
@@ -177,7 +192,7 @@ class Tokens extends Component
 
     public function deleteTokenByPluginReference(string $ownerHandle, string $reference): bool
     {
-        $tokens = $this->getAllTokensByPluginReference($ownerHandle, $reference);
+        $tokens = $this->getAllTokensByOwnerReference($ownerHandle, $reference);
 
         // Fetch all tokens that match, just in case there's been duplicates somehow
         foreach ($tokens as $token) {
@@ -213,21 +228,6 @@ class Tokens extends Component
 
     // Private Methods
     // =========================================================================
-
-    private function _tokens(): MemoizableArray
-    {
-        if (!isset($this->_tokens)) {
-            $tokens = [];
-
-            foreach ($this->_createTokenQuery()->all() as $result) {
-                $tokens[] = new Token($result);
-            }
-
-            $this->_tokens = new MemoizableArray($tokens);
-        }
-
-        return $this->_tokens;
-    }
 
     private function _createTokenQuery(): Query
     {

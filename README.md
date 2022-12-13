@@ -383,13 +383,13 @@ For example, the [Social Login](https://github.com/verbb/social-login) allows us
 use verbb\auth\Auth;
 
 // Get all tokens for a plugin
-$tokens = Auth::$plugin->getTokens()->getAllPluginTokens('plugin-handle');
+$tokens = Auth::$plugin->getTokens()->getAllOwnerTokens('plugin-handle');
 
 // Get all tokens for a plugin and reference
-$tokens = Auth::$plugin->getTokens()->getAllTokensByPluginReference('plugin-handle', 'myToken');
+$tokens = Auth::$plugin->getTokens()->getAllTokensByOwnerReference('plugin-handle', 'myToken');
 
 // Get the latest token for a plugin and reference
-$token = Auth::$plugin->getTokens()->getTokenByPluginReference('plugin-handle', 'myToken');
+$token = Auth::$plugin->getTokens()->getTokenByOwnerReference('plugin-handle', 'myToken');
 
 // Create a Token object from a provider and the returned OAuth access token
 $token = Auth::$plugin->getTokens()->createToken('plugin-handle', $provider, $accessToken);
