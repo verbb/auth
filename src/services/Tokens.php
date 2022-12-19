@@ -130,6 +130,9 @@ class Tokens extends Component
             $token->refreshToken = $accessToken->getRefreshToken();
         }
 
+        // Ensure that we update the token's access token with new values for the next request
+        $token->setToken($accessToken);
+
         return $this->saveToken($token);
     }
 
