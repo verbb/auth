@@ -30,7 +30,7 @@ class Twitter extends TwitterProvider
     // Protected Methods
     // =========================================================================
 
-    protected function getAuthorizationQuery(array $params)
+    protected function getAuthorizationQuery(array $params): string
     {
         // Store PKCE token
         Session::set('oauth2verifier', $this->getPkceVerifier());

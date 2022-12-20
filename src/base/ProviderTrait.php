@@ -2,7 +2,6 @@
 namespace verbb\auth\base;
 
 use verbb\auth\Auth;
-use verbb\auth\models\ApiResponse;
 use verbb\auth\models\Token;
 
 use craft\helpers\ArrayHelper;
@@ -10,10 +9,6 @@ use craft\helpers\Json;
 use craft\helpers\UrlHelper;
 
 use Throwable;
-
-use Psr\Http\Message\RequestInterface;
-
-use GuzzleHttp\Exception\RequestException;
 
 use League\OAuth2\Client\Token\AccessTokenInterface;
 use League\OAuth2\Client\Token\AccessToken as OAuth2Token;
@@ -133,12 +128,10 @@ trait ProviderTrait
 
                 // Then try again, with the new access token
                 return $this->getApiRequest($method, $uri, $token, $options, false);
-            } else {
-                // Otherwise, throw the error as normal to allow plugins upstream to handle it
-                throw $e;
             }
-        }
 
-        return null;
+            // Otherwise, throw the error as normal to allow plugins upstream to handle it
+            throw $e;
+        }
     }
 }

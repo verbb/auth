@@ -57,7 +57,7 @@ trait OAuthProviderTrait
     {
         // Determine the OAuth version based on the string class, because we check against
         // the OAuth version when passing in the init config, which will throw us in a loop.
-        $className = $this->getOAuthProviderClass();
+        $className = static::getOAuthProviderClass();
         $isOAuth1 = is_subclass_of($className, OAuth1Provider::class) || is_a($className, OAuth1Provider::class, true);
 
         return ($isOAuth1) ? 1 : 2;

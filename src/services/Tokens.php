@@ -9,7 +9,6 @@ use verbb\auth\records\Token as TokenRecord;
 
 use Craft;
 use craft\db\Query;
-use craft\helpers\ArrayHelper;
 
 use yii\base\Component;
 
@@ -256,10 +255,8 @@ class Tokens extends Component
 
     private function _getTokenRecordById(?int $tokenId = null): TokenRecord
     {
-        if ($tokenId !== null) {
-            if ($tokenRecord = TokenRecord::findOne($tokenId)) {
-                return $tokenRecord;
-            }
+        if (($tokenId !== null) && $tokenRecord = TokenRecord::findOne($tokenId)) {
+            return $tokenRecord;
         }
 
         return new TokenRecord();

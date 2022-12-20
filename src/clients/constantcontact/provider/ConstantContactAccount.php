@@ -5,7 +5,7 @@ namespace verbb\auth\clients\constantcontact\provider;
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 use League\OAuth2\Client\Tool\ArrayAccessorTrait;
 
-abstract class ConstantContactAccount implements ResourceOwnerInterface
+class ConstantContactAccount implements ResourceOwnerInterface
 {
     use ArrayAccessorTrait;
     
@@ -35,6 +35,11 @@ abstract class ConstantContactAccount implements ResourceOwnerInterface
     public function getName()
     {
         return $this->getValueByKey($this->response, 'organization_name');
+    }
+
+    public function toArray()
+    {
+        return $this->response;
     }
 
 }
