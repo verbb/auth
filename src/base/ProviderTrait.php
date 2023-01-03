@@ -75,7 +75,8 @@ trait ProviderTrait
     {
         try {
             // Normalise the URL and query params
-            $url = rtrim($this->getBaseApiUrl(), '/') . '/' . ltrim($uri, '/');
+            $baseUri = ArrayHelper::remove($options, 'base_uri', $this->getBaseApiUrl());
+            $url = rtrim($baseUri, '/') . '/' . ltrim($uri, '/');
             $params = $this->getApiRequestQueryParams($token);
 
             if ($query = ArrayHelper::remove($options, 'query')) {
