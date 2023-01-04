@@ -2,6 +2,7 @@
 namespace verbb\auth\base;
 
 use verbb\auth\Auth;
+use verbb\auth\helpers\UrlHelper as AuthUrlHelper;
 use verbb\auth\models\Token;
 
 use craft\helpers\ArrayHelper;
@@ -76,7 +77,7 @@ trait ProviderTrait
         try {
             // Normalise the URL and query params
             $baseUri = ArrayHelper::remove($options, 'base_uri', $this->getBaseApiUrl());
-            $url = rtrim($baseUri, '/') . '/' . ltrim($uri, '/');
+            $url = implode('/', [AuthUrlHelper::normalizeBaseUri($baseUri), ltrim($uri, '/')]);
             $params = $this->getApiRequestQueryParams($token);
 
             if ($query = ArrayHelper::remove($options, 'query')) {
