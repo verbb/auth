@@ -23,7 +23,7 @@ trait CredentialsProviderTrait
         return Craft::createGuzzleClient($this->getCredentialsProviderConfig());
     }
 
-    public function request(string $method, string $uri, array $options = [])
+    public function request(string $method = 'GET', string $uri = '', array $options = [])
     {
         // Get the Guzzle provider
         $credentialsProvider = $this->getCredentialsProvider();

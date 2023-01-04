@@ -201,7 +201,7 @@ trait OAuthProviderTrait
         return null; 
     }
 
-    public function request(string $method, string $uri, array $options = [])
+    public function request(string $method = 'GET', string $uri = '', array $options = [])
     {
         $oauthProvider = $this->getOAuthProvider();
         $token = $this->getToken();
