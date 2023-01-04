@@ -192,7 +192,19 @@ class Tokens extends Component
         return $this->deleteToken($token);
     }
 
-    public function deleteTokenByPluginReference(string $ownerHandle, string $reference): bool
+    public function deleteTokensByOwner(string $ownerHandle): bool
+    {
+        $tokens = $this->getAllOwnerTokens($ownerHandle);
+
+        // Fetch all tokens that match, just in case there's been duplicates somehow
+        foreach ($tokens as $token) {
+            $this->deleteToken($token);
+        }
+
+        return true;
+    }
+
+    public function deleteTokenByOwnerReference(string $ownerHandle, string $reference): bool
     {
         $tokens = $this->getAllTokensByOwnerReference($ownerHandle, $reference);
 
