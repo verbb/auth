@@ -3,7 +3,7 @@ Auth is a module for Craft plugins and modules to making working with authentica
 
 As such, this module is an opinionated wrapper around these packages that lower boilerplate code, provide a consistent API layer and tightly integrate with Craft itself.
 
-**Heads up!** This isn't a Craft plugin that is intended for end-users. Instead, it's something you can install in your own Craft plugins or Craft modules to handle the intricacies of dealing with authentication. If you're looking for an easy way to use authenticated third-party APIs for your Craft site in Twig templates, check out [Consume](https://github.com/verbb/consume).
+**Heads up!** This isn't a Craft plugin that is intended for end-users. Instead, it's something you can install in your own Craft plugins or Craft modules to handle the intricacies of dealing with authentication.
 
 ## Installation
 You can add the package to your project using Composer, or as a requirement in your `composer.json` file directly:
@@ -512,7 +512,7 @@ These providers extend any [league/oauth1-client](https://github.com/thephpleagu
 
 
 ## Plugins
-You can see this plugin in action with [Social Login](https://github.com/verbb/social-login), [Social Feed](https://github.com/verbb/social-feed), [Social Poster](https://github.com/verbb/social-poster), [Formie](https://github.com/verbb/formie) and [Consume](https://github.com/verbb/consume).
+You can see this plugin in action with [Social Login](https://github.com/verbb/social-login), [Social Feed](https://github.com/verbb/social-feed) and [Social Poster](https://github.com/verbb/social-poster).
 
 ## Credits
 Thanks to all the individual developers working on `league/oauth2-client` packages.
