@@ -512,7 +512,7 @@ These providers extend any [league/oauth1-client](https://github.com/thephpleagu
 
 
 ## Plugins
-You can see this plugin in action with [Social Login](https://github.com/verbb/social-login), [Social Feed](https://github.com/verbb/social-feed) and [Social Poster](https://github.com/verbb/social-poster).
+You can see this plugin in action with [Social Login](https://github.com/verbb/social-login), [Social Feeds](https://github.com/verbb/social-feeds) and [Social Poster](https://github.com/verbb/social-poster).
 
 ## Credits
 Thanks to all the individual developers working on `league/oauth2-client` packages.
