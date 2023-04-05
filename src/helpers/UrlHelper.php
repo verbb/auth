@@ -20,7 +20,14 @@ class UrlHelper
             $lastSegment = end($segments);
 
             if (str_contains($lastSegment, '.')) {
-                return $uri;
+                // Check for the dot-length, some might have version numbers like `15.23` in the last segment
+                $parts = explode('.', $lastSegment);
+                $extension = end($parts);
+
+                // Just accept 3/4-character extensions like `php`, `html`, `json`
+                if (strlen($extension) === 3 || strlen($extension) === 4) {
+                    return $uri;
+                }
             }
         }
 
