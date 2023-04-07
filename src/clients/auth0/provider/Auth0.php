@@ -70,7 +70,7 @@ class Auth0 extends AbstractProvider
 
     public function getDefaultScopes()
     {
-        return ['openid', 'email'];
+        return ['openid', 'profile', 'email'];
     }
 
     protected function checkResponse(ResponseInterface $response, $data)
