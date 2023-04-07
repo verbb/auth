@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.3 - 2023-04-07
+
+### Fixed
+- Fix an error with Auth0 provider.
+
 ## 1.0.2 - 2023-04-07
 
 ### Added
