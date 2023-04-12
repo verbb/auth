@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.4 - 2023-04-12
+
+### Added
+- Add `defaultScopes()` to get the default scopes for clients.
+
 ## 1.0.3 - 2023-04-07
 
 ### Fixed
