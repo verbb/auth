@@ -25,6 +25,12 @@ trait ProviderTrait
     // Public Methods
     // =========================================================================
 
+    public function defaultScopes(): array
+    {
+        // Open up the default protected `getDefaultScopes()` function
+        return $this->getDefaultScopes();
+    }
+
     public function getApiRequestQueryParams(Token $token): array
     {
         return [];
