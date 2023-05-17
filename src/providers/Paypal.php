@@ -17,6 +17,6 @@ class Paypal extends PaypalProvider
 
     public function getBaseApiUrl(): ?string
     {
-        return 'https://api.paypal.com/';
+        return $this->getApiUrl();
     }
 }
