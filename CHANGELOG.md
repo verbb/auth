@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.5 - 2023-05-17
+
+### Changed
+- Update PayPal API endpoint to support sandbox.
+
 ## 1.0.4 - 2023-04-12
 
 ### Added
