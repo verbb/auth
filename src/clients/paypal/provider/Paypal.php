@@ -24,7 +24,7 @@ class Paypal extends AbstractProvider
      */
     protected function getApiUrl()
     {
-        return (bool) $this->isSandbox ? 'https://api.sandbox.paypal.com' : 'https://api.paypal.com';
+        return (bool) $this->isSandbox ? 'https://api-m.sandbox.paypal.com' : 'https://api-m.paypal.com';
     }
 
     /**
@@ -44,7 +44,7 @@ class Paypal extends AbstractProvider
      */
     public function getBaseAuthorizationUrl()
     {
-        return $this->getWebAppUrl().'/webapps/auth/protocol/openidconnect/v1/authorize';
+        return $this->getWebAppUrl().'/signin/authorize';
     }
 
     /**
@@ -54,7 +54,7 @@ class Paypal extends AbstractProvider
      */
     public function getBaseAccessTokenUrl(array $params)
     {
-        return $this->getApiUrl().'/v1/identity/openidconnect/tokenservice';
+        return $this->getApiUrl().'/v1/oauth2/token';
     }
 
     /**
@@ -79,7 +79,7 @@ class Paypal extends AbstractProvider
      */
     protected function getDefaultScopes()
     {
-        return ['openid'];
+        return [];
     }
 
     /**
@@ -91,6 +91,14 @@ class Paypal extends AbstractProvider
     protected function getScopeSeparator()
     {
         return ' ';
+    }
+
+    protected function getAccessTokenRequest(array $params)
+    {
+        $request = parent::getAccessTokenRequest($params);
+        $uri = $request->getUri()->withUserInfo($this->clientId, $this->clientSecret);
+
+        return $request->withUri($uri);
     }
 
     /**
@@ -106,7 +114,7 @@ class Paypal extends AbstractProvider
         $statusCode = $response->getStatusCode();
         if ($statusCode > 400) {
             throw new IdentityProviderException(
-                $data['message'] ?: $response->getReasonPhrase(),
+                $data['error_description'] ?: $response->getReasonPhrase(),
                 $statusCode,
                 $response
             );
