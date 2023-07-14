@@ -1,4 +1,5 @@
-<?php namespace verbb\auth\clients\thirtysevensignals\provider;
+<?php
+namespace verbb\auth\clients\thirtysevensignals\provider;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
