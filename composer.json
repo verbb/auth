@@ -1,7 +1,7 @@
 {
     "name": "verbb/auth",
     "description": "A Craft CMS module to make working with authentication for third-parties a breeze.",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "support": {
         "email": "support@verbb.io",
         "issues": "https://github.com/verbb/auth/issues?state=open",

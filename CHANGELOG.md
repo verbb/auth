@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.7 - 2023-09-07
+
+### Added
+- Add Telegram provider.
+
+### Fixed
+- Fix not returning most recent token for `getTokenByOwnerReference()`.
+
 ## 1.0.6 - 2023-05-27
 
 ### Changed
