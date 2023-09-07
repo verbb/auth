@@ -68,10 +68,10 @@ class Tokens extends Component
 
     public function getTokenByOwnerReference(string $ownerHandle, string $reference): ?Token
     {
-        $result = TokenRecord::findOne([
-            'ownerHandle' => $ownerHandle,
-            'reference' => $reference,
-        ]);
+        $result = TokenRecord::find()
+            ->where(['ownerHandle' => $ownerHandle, 'reference' => $reference])
+            ->orderBy(['dateCreated' => SORT_DESC])
+            ->one();
 
         return $result ? new Token($result->toArray()) : null;
     }
@@ -105,12 +105,15 @@ class Tokens extends Component
         // The defining characteristics of a token are the `ownerHandle`, `providerType`, `tokenType` and `reference`
         // So check against those an any existing record (if `id` is null) and use that token instead to save.
         if (!$token->id) {
-            $matchedToken = TokenRecord::findOne([
+            $matchedToken = TokenRecord::find()
+            ->where([
                 'ownerHandle' => $token->ownerHandle,
                 'providerType' => $token->providerType,
                 'tokenType' => $token->tokenType,
                 'reference' => $token->reference,
-            ]);
+            ])
+            ->orderBy(['dateCreated' => SORT_DESC])
+            ->one();
 
             if ($matchedToken) {
                 $token->id = $matchedToken->id;
