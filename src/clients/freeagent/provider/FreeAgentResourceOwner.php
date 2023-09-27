@@ -17,12 +17,26 @@ class FreeAgentResourceOwner implements ResourceOwnerInterface
 
     public function getId()
     {
-        return $this->getValueByKey($this->response, 'user.url');
+        // Return `https://api.freeagent.com/v2/users/12345`
+        $url = $this->getValueByKey($this->response, 'user.url');
+        $parts = explode('/', $url);
+
+        return array_pop($parts);
     }
 
     public function getName()
     {
-        return $this->getValueByKey($this->response, 'user.name');
+        return implode(' ', [$this->getFirstName(), $this->getLastName()]);
+    }
+
+    public function getFirstName()
+    {
+        return $this->getValueByKey($this->response, 'user.first_name');
+    }
+
+    public function getLastName()
+    {
+        return $this->getValueByKey($this->response, 'user.last_name');
     }
 
     public function getEmail()
