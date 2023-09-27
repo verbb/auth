@@ -17,17 +17,17 @@ class FreeAgentResourceOwner implements ResourceOwnerInterface
 
     public function getId()
     {
-        return $this->getValueByKey($this->response, 'id');
+        return $this->getValueByKey($this->response, 'user.url');
     }
 
     public function getName()
     {
-        return $this->getValueByKey($this->response, 'name');
+        return $this->getValueByKey($this->response, 'user.name');
     }
 
     public function getEmail()
     {
-        return $this->getValueByKey($this->response, 'email');
+        return $this->getValueByKey($this->response, 'user.email');
     }
 
     public function toArray()
