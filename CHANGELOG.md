@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.9 - 2023-10-05
+
+### Added
+- Add FreeAgent provider.
+
+### Changed
+- Change LinkedIn to use new OpenID Connect API.
+
 ## 1.0.8 - 2023-09-13
 
 ### Added
