@@ -16,7 +16,6 @@ composer require verbb/auth
 ```
 
 ## Setup
-## Setup
 There's a few things you'll need to do to get the Auth module working for your plugin.
 
 ### Initialize
