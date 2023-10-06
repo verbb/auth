@@ -44,6 +44,9 @@ class OAuth extends Component
 
     public function callback(string $ownerHandle, OAuthProviderInterface $provider): Token
     {
+        // Trigger an event on the provider
+        $provider->beforeFetchAccessToken();
+
         // Allow plugins to modify the Authorization URL
         $event = new AccessTokenEvent([
             'provider' => $provider,
@@ -57,6 +60,9 @@ class OAuth extends Component
 
         // Create a Token model from the access model to be returned
         $token = Auth::$plugin->getTokens()->createToken($ownerHandle, $provider, $accessToken);
+
+        // Trigger an event on the provider
+        $provider->afterFetchAccessToken($token);
 
         // Allow plugins to modify the access token URL
         $event = new AccessTokenEvent([

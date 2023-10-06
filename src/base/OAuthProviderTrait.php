@@ -201,6 +201,16 @@ trait OAuthProviderTrait
         return null; 
     }
 
+    public function beforeFetchAccessToken(): void
+    {
+        return;
+    }
+
+    public function afterFetchAccessToken(Token $token): void
+    {
+        return;
+    }
+
     public function request(string $method = 'GET', string $uri = '', array $options = [])
     {
         $oauthProvider = $this->getOAuthProvider();
