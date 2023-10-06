@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.10 - 2023-10-06
+
+### Added
+- Add support for LinkedIn REST APIs.
+- Add `beforeFetchAccessToken` and `afterFetchAccessToken` to providers.
+- Allow `uri` param for `getApiRequest()` to be an absolute URL.
+
 ## 1.0.9 - 2023-10-05
 
 ### Added
