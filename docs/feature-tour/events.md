@@ -1,5 +1,5 @@
 # Events
-Auth provides a collection of events for extending its functionality. Modules and plugins can register event listeners, typically in their `init()`` methods, to modify Auth’s behavior.
+Auth provides a collection of events for extending its functionality. Modules and plugins can register event listeners, typically in their `init()` methods, to modify Auth’s behavior.
 
 ## The `beforeAuthorizationRedirect` event
 The event that is triggered before a user is redirect to the provider.
