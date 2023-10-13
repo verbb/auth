@@ -22,12 +22,12 @@ class AppleResourceOwner extends GenericResourceOwner
     /**
      * @var string|null
      */
-    private $email;
+    private ?string $email;
 
     /**
      * @var boolean true when its private relay from apple else the user mail address
      */
-    private $isPrivateEmail;
+    private bool $isPrivateEmail;
 
     /**
      * Gets resource owner attribute by key. The key supports dot notation.
@@ -36,9 +36,9 @@ class AppleResourceOwner extends GenericResourceOwner
      *
      * @return mixed
      */
-    public function getAttribute($key)
+    public function getAttribute(string $key): mixed
     {
-        return $this->getValueByKey($this->response, (string) $key);
+        return $this->getValueByKey($this->response, $key);
     }
 
     /**
@@ -46,7 +46,7 @@ class AppleResourceOwner extends GenericResourceOwner
      *
      * @return string|null
      */
-    public function getFirstName()
+    public function getFirstName(): ?string
     {
         $name = $this->getAttribute('name');
         if (isset($name)) {
@@ -60,7 +60,7 @@ class AppleResourceOwner extends GenericResourceOwner
      *
      * @return string|null
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->resourceOwnerId;
     }
@@ -70,7 +70,7 @@ class AppleResourceOwner extends GenericResourceOwner
      *
      * @return string|null
      */
-    public function getLastName()
+    public function getLastName(): ?string
     {
         $name = $this->getAttribute('name');
         if (isset($name)) {
@@ -84,7 +84,7 @@ class AppleResourceOwner extends GenericResourceOwner
      *
      * @return string|null
      */
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->getAttribute('email');
     }
@@ -92,18 +92,9 @@ class AppleResourceOwner extends GenericResourceOwner
     /**
      * @return bool
      */
-    public function isPrivateEmail()
+    public function isPrivateEmail(): bool
     {
         return (bool) $this->getAttribute('isPrivateEmail');
     }
 
-    /**
-     * Return all of the owner details available as an array.
-     *
-     * @return array
-     */
-    public function toArray()
-    {
-        return $this->response;
-    }
 }

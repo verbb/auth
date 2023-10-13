@@ -12,19 +12,18 @@ class VimeoResourceOwner implements ResourceOwnerInterface
      *
      * @var array
      */
-    protected $response;
+    protected array $response;
 
     /**
      * Token
      *
-     * @var \League\OAuth2\Client\Token\AccessToken
+     * @var AccessToken
      */
-    protected $token;
+    protected AccessToken $token;
 
     /**
      * Creates new resource owner.
      *
-     * @param array $response
      */
     public function __construct(array $response, AccessToken $token)
     {
@@ -37,7 +36,7 @@ class VimeoResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getId()
+    public function getId(): ?string
     {
         $uri = $this->response['uri'];
 
@@ -49,7 +48,7 @@ class VimeoResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->response['name'] ?: null;
     }
@@ -59,7 +58,7 @@ class VimeoResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getUsername()
+    public function getUsername(): ?string
     {
         $username = null;
         $link = $this->getLink();
@@ -76,7 +75,7 @@ class VimeoResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getLink()
+    public function getLink(): ?string
     {
         return $this->response['link'] ?: null;
     }
@@ -86,7 +85,7 @@ class VimeoResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getAvatar()
+    public function getAvatar(): ?string
     {
         $avatarUrl = null;
         $avatarWidth = 0;
@@ -109,7 +108,7 @@ class VimeoResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getTokenScope()
+    public function getTokenScope(): ?string
     {
         $values = $this->token->getValues();
         return empty($values['scope']) ? null : $values['scope'];
@@ -120,7 +119,7 @@ class VimeoResourceOwner implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }

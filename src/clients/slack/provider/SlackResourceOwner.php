@@ -17,7 +17,7 @@ class SlackResourceOwner implements ResourceOwnerInterface
     /**
      * @var array
      */
-    protected $response;
+    protected array $response;
 
     /**
      * SlackResourceOwner constructor.
@@ -34,7 +34,7 @@ class SlackResourceOwner implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }
@@ -44,7 +44,7 @@ class SlackResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->response['user']['id'] ?: null;
     }
@@ -55,7 +55,7 @@ class SlackResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->response['user']['name'] ?: null;
     }
@@ -65,7 +65,7 @@ class SlackResourceOwner implements ResourceOwnerInterface
      *
      * @return bool|null
      */
-    public function isDeleted()
+    public function isDeleted(): ?bool
     {
         return $this->response['user']['deleted'] ?: null;
     }
@@ -75,7 +75,7 @@ class SlackResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getColor()
+    public function getColor(): ?string
     {
         return $this->response['user']['color'] ?: null;
     }
@@ -85,7 +85,7 @@ class SlackResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getProfile()
+    public function getProfile(): ?string
     {
         return $this->response['user']['profile'] ?: null;
     }
@@ -95,7 +95,7 @@ class SlackResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getFirstName()
+    public function getFirstName(): ?string
     {
         return $this->response['user']['profile']['first_name'] ?: null;
     }
@@ -105,7 +105,7 @@ class SlackResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getLastName()
+    public function getLastName(): ?string
     {
         return $this->response['user']['profile']['last_name'] ?: null;
     }
@@ -115,7 +115,7 @@ class SlackResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getRealName()
+    public function getRealName(): ?string
     {
         return $this->response['user']['profile']['real_name'] ?: null;
     }
@@ -125,7 +125,7 @@ class SlackResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->response['user']['profile']['email'] ?: null;
     }
@@ -135,7 +135,7 @@ class SlackResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getSkype()
+    public function getSkype(): ?string
     {
         return $this->response['user']['profile']['skype'] ?: null;
     }
@@ -145,7 +145,7 @@ class SlackResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getPhone()
+    public function getPhone(): ?string
     {
         return $this->response['user']['profile']['phone'] ?: null;
     }
@@ -155,7 +155,7 @@ class SlackResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getImage24()
+    public function getImage24(): ?string
     {
         return $this->response['user']['profile']['image_24'] ?: null;
     }
@@ -165,7 +165,7 @@ class SlackResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getImage32()
+    public function getImage32(): ?string
     {
         return $this->response['user']['profile']['image_32'] ?: null;
     }
@@ -175,7 +175,7 @@ class SlackResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getImage48()
+    public function getImage48(): ?string
     {
         return $this->response['user']['profile']['image_48'] ?: null;
     }
@@ -185,7 +185,7 @@ class SlackResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getImage72()
+    public function getImage72(): ?string
     {
         return $this->response['user']['profile']['image_72'] ?: null;
     }
@@ -195,7 +195,7 @@ class SlackResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getImage192()
+    public function getImage192(): ?string
     {
         return $this->response['user']['profile']['image_192'] ?: null;
     }
@@ -205,7 +205,7 @@ class SlackResourceOwner implements ResourceOwnerInterface
      *
      * @return bool|null
      */
-    public function isAdmin()
+    public function isAdmin(): ?bool
     {
         return $this->response['user']['is_admin'] ?: null;
     }
@@ -215,7 +215,7 @@ class SlackResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function isOwner()
+    public function isOwner(): ?string
     {
         return $this->response['user']['is_owner'] ?: null;
     }
@@ -225,7 +225,7 @@ class SlackResourceOwner implements ResourceOwnerInterface
      *
      * @return bool|null
      */
-    public function hasTwoFactorAuthentication()
+    public function hasTwoFactorAuthentication(): ?bool
     {
         return $this->response['user']['has_2fa'] ?: null;
     }
@@ -235,7 +235,7 @@ class SlackResourceOwner implements ResourceOwnerInterface
      *
      * @return bool|null
      */
-    public function hasFiles()
+    public function hasFiles(): ?bool
     {
         return $this->response['user']['has_files'] ?: null;
     }

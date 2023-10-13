@@ -19,7 +19,7 @@ class Basecamp extends AbstractProvider
      *
      * @var string
      */
-    protected $host = 'https://launchpad.37signals.com';
+    protected string $host = 'https://launchpad.37signals.com';
 
     /**
      * Type of flow
@@ -30,7 +30,7 @@ class Basecamp extends AbstractProvider
      * @var string
      * @see https://github.com/basecamp/api/blob/master/sections/authentication.md
      */
-    protected $type = 'web_server';
+    protected string $type = 'web_server';
 
     /**
      * Returns authorization parameters based on provided options.
@@ -38,7 +38,7 @@ class Basecamp extends AbstractProvider
      * @param  array $options
      * @return array Authorization parameters
      */
-    protected function getAuthorizationParameters(array $options)
+    protected function getAuthorizationParameters(array $options): array
     {
         $options = parent::getAuthorizationParameters($options);
 
@@ -52,7 +52,7 @@ class Basecamp extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return $this->getHost() . '/authorization/new';
     }
@@ -60,9 +60,8 @@ class Basecamp extends AbstractProvider
     /**
      * Get access token url to retrieve token
      *
-     * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         $params = array_merge([
             'type' => $this->type,
@@ -82,7 +81,7 @@ class Basecamp extends AbstractProvider
      *
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return $this->getHost() . '/authorization.json';
     }
@@ -95,7 +94,7 @@ class Basecamp extends AbstractProvider
      *
      * @return array
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return [];
     }
@@ -105,7 +104,7 @@ class Basecamp extends AbstractProvider
      *
      * @return string
      */
-    public function getHost()
+    public function getHost(): string
     {
         return rtrim($this->host, '/');
     }
@@ -116,7 +115,7 @@ class Basecamp extends AbstractProvider
      *
      * @return string Scope separator, defaults to ' '
      */
-    protected function getScopeSeparator()
+    protected function getScopeSeparator(): string
     {
         return ' ';
     }
@@ -129,7 +128,7 @@ class Basecamp extends AbstractProvider
      * @param  string $data Parsed response data
      * @return void
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         // At the time of initial implementation the possible error payloads returned
         // by Basecamp were not very well documented. This method will need some
@@ -142,11 +141,8 @@ class Basecamp extends AbstractProvider
     /**
      * Generate a user object from a successful user details request.
      *
-     * @param object $response
-     * @param AccessToken $token
-     * @return BasecampResourceOwner
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): BasecampResourceOwner
     {
         return new BasecampResourceOwner($response);
     }

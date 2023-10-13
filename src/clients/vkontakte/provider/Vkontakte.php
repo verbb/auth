@@ -6,19 +6,20 @@ use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;
 use Psr\Http\Message\ResponseInterface;
+use InvalidArgumentException;
 
 class Vkontakte extends AbstractProvider
 {
-    protected $baseOAuthUri = 'https://oauth.vk.com';
-    protected $baseUri      = 'https://api.vk.com/method';
-    protected $version      = '5.52';
+    protected string $baseOAuthUri = 'https://oauth.vk.com';
+    protected string $baseUri      = 'https://api.vk.com/method';
+    protected string $version      = '5.52';
     protected $language     = null;
 
     /**
      * @type array
      * @see https://vk.com/dev/permissions
      */
-    public $scopes = [
+    public array $scopes = [
         'email',
         'friends',
         'offline',
@@ -43,7 +44,7 @@ class Vkontakte extends AbstractProvider
      * @type array
      * @see https://new.vk.com/dev/fields
      */
-    public $userFields = [
+    public array $userFields = [
         'bdate',
         'city',
         'country',
@@ -112,25 +113,22 @@ class Vkontakte extends AbstractProvider
         //'wall_comments',
     ];
 
-    /**
-     * @param string $language
-     */
-    public function setLanguage($language)
+    public function setLanguage(string $language): Vkontakte
     {
-        $this->language = (string)$language;
+        $this->language = $language;
 
         return $this;
     }
 
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return "$this->baseOAuthUri/authorize";
     }
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return "$this->baseOAuthUri/access_token";
     }
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         $params = [
             'fields'       => $this->userFields,
@@ -139,15 +137,13 @@ class Vkontakte extends AbstractProvider
             'lang'         => $this->language
         ];
         $query  = $this->buildQueryString($params);
-        $url    = "$this->baseUri/users.get?$query";
-
-        return $url;
+        return "$this->baseUri/users.get?$query";
     }
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return $this->scopes;
     }
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         // Metadata info
         $contentTypeRaw = $response->getHeader('Content-Type');
@@ -176,7 +172,7 @@ class Vkontakte extends AbstractProvider
             throw new IdentityProviderException($errorMessage, $errorCode, $data);
         }
     }
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): User
     {
         $response   = reset($response['response']);
         $additional = $token->getValues();
@@ -202,10 +198,10 @@ class Vkontakte extends AbstractProvider
      *
      * @return User[]
      */
-    public function usersGet(array $ids = [], AccessToken $token = null, array $params = [])
+    public function usersGet(array $ids = [], AccessToken $token = null, array $params = []): array
     {
         if (empty($ids) && !$token) {
-            throw new \InvalidArgumentException('Some of parameters usersIds OR access_token are required');
+            throw new InvalidArgumentException('Some of parameters usersIds OR access_token are required');
         }
 
         $default = [
@@ -230,13 +226,13 @@ class Vkontakte extends AbstractProvider
     /**
      * @see https://vk.com/dev/friends.get
      *
-     * @param integer          $userId
+     * @param integer $userId
      * @param AccessToken|null $token
      * @param array            $params
      *
      * @return User[]
      */
-    public function friendsGet($userId, AccessToken $token = null, array $params = [])
+    public function friendsGet(int $userId, AccessToken $token = null, array $params = []): array
     {
         $default = [
             'user_id'      => $userId,

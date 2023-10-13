@@ -6,9 +6,10 @@ class VendProduct extends VendObject
 {
     /**
      * will create/update the product using the vend api and this object will be updated
-     * @return null
+     *
+     * @return void
      */
-    public function save()
+    public function save(): void
     {
         // wipe current product and replace with new objects properties
         $this->vendObjectProperties = $this->vend->saveProduct($this)->toArray();
@@ -16,10 +17,11 @@ class VendProduct extends VendObject
 
     /**
      * get the inventory for the given outlet (default: all outlets)
-     * @param  string $outlet
+     *
+     * @param string|null $outlet
      * @return int
      */
-    public function getInventory($outlet = null)
+    public function getInventory(string $outlet = null): int
     {
         $total = 0;
         if (!isset($this->vendObjectProperties['inventory']) || !is_array($this->vendObjectProperties['inventory'])) {
@@ -37,10 +39,11 @@ class VendProduct extends VendObject
     
     /**
      * set the inventory at $outlet to $count .. default outlet is the first found
-     * @param int    $count
-     * @param string $outlet
+     *
+     * @param int $count
+     * @param string|null $outlet
      */
-    public function setInventory($count, $outlet = null)
+    public function setInventory(int $count, string $outlet = null): void
     {
         foreach ($this->vendObjectProperties['inventory'] as $k => $o) {
             if ($o->outlet_name == $outlet || $outlet === null) {
@@ -52,7 +55,7 @@ class VendProduct extends VendObject
         $this->vendObjectProperties['inventory'] = array(
             array(
                 "outlet_name" => (
-                    $outlet ? $outlet : ($this->vend ? $this->vend->default_outlet : 'Main Outlet')),
+                    $outlet ?: ($this->vend ? $this->vend->default_outlet : 'Main Outlet')),
                 "count" => $count,
             ),
         );

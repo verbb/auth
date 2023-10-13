@@ -12,12 +12,12 @@ final class BuddyResourceOwner implements ResourceOwnerInterface
     use ArrayAccessorTrait;
 
     /**
-     * @var mixed[]
+     * @var array
      */
-    private $data;
+    private array $data;
 
     /**
-     * @param mixed[] $data
+     * @param array $data
      */
     public function __construct(array $data)
     {
@@ -30,9 +30,9 @@ final class BuddyResourceOwner implements ResourceOwnerInterface
     }
 
     /**
-     * @return mixed[]
+     * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->data;
     }

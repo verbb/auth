@@ -9,7 +9,7 @@ class FacebookUser implements ResourceOwnerInterface
     /**
      * @var array
      */
-    protected $data;
+    protected array $data;
 
     /**
      * @param  array $response
@@ -211,7 +211,7 @@ class FacebookUser implements ResourceOwnerInterface
      *
      * @return mixed|null
      */
-    private function getField(string $key)
+    private function getField(string $key): mixed
     {
         return $this->data[$key] ?? null;
     }

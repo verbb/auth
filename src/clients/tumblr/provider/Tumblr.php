@@ -12,34 +12,34 @@ class Tumblr extends AbstractProvider
 {
     use BearerAuthorizationTrait;
 
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return 'https://www.tumblr.com/oauth2/authorize';
     }
 
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return 'https://www.tumblr.com/oauth2/access_token';
     }
 
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return 'https://api.tumblr.com/v2/user/info';
     }
 
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return [];
     }
 
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         if ($response->getStatusCode() >= 400) {
             throw new IdentityProviderException($response->getReasonPhrase(), $response->getStatusCode(), $data);
         }
     }
 
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): TumblrUser
     {
         return new TumblrUser($response);
     }

@@ -15,41 +15,41 @@ class NeonCrm extends AbstractProvider
     protected $organizationId;
     protected $apiKey;
 
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return $this->baseUrl() . '/np/oauth/auth';
     }
 
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return $this->baseUrl() . '/np/oauth/token';
     }
 
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return 'https://api.neoncrm.com/v2/accounts/' . $token->getToken();
     }
 
-    protected function baseUrl()
+    protected function baseUrl(): string
     {
         return 'https://' . $this->organizationId . '.app.neoncrm.com';
     }
 
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return ['openid'];
     }
 
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): NeonCrmResourceOwner
     {
         return new NeonCrmResourceOwner($response);
     }
 
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         if (isset($data['error'])) {
             throw new IdentityProviderException(
-                (isset($data['error']['message']) ? $data['error']['message'] : $response->getReasonPhrase()),
+                ($data['error']['message'] ?? $response->getReasonPhrase()),
                 $response->getStatusCode(),
                 $response
             );

@@ -20,16 +20,13 @@ class GumroadResourceOwner implements ResourceOwnerInterface
     /**
      * @var array
      */
-    protected $response;
+    protected array $response;
 
     public function __construct(array $response = [])
     {
         $this->response = $response;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function getId()
     {
         return $this->getValueByKey($this->response, 'user_id');
@@ -40,7 +37,7 @@ class GumroadResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->getValueByKey($this->response, 'email');
     }
@@ -50,7 +47,7 @@ class GumroadResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->getValueByKey($this->response, 'name');
     }
@@ -60,7 +57,7 @@ class GumroadResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getBio()
+    public function getBio(): ?string
     {
         return $this->getValueByKey($this->response, 'bio');
     }
@@ -71,7 +68,7 @@ class GumroadResourceOwner implements ResourceOwnerInterface
      * @see https://auth0.com/docs/user-profile/user-profile-structure
      * @return array|null
      */
-    public function getIdentities()
+    public function getIdentities(): ?array
     {
         return $this->getValueByKey($this->response, 'identities');
     }
@@ -81,7 +78,7 @@ class GumroadResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getFacebookProfile()
+    public function getFacebookProfile(): ?string
     {
         return $this->getValueByKey($this->response, 'facebook_profile');
     }
@@ -91,7 +88,7 @@ class GumroadResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getTwitterHandle()
+    public function getTwitterHandle(): ?string
     {
         return $this->getValueByKey($this->response, 'twitter_handle');
     }
@@ -101,15 +98,12 @@ class GumroadResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getProfileUrl()
+    public function getProfileUrl(): ?string
     {
         return $this->getValueByKey($this->response, 'url');
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }

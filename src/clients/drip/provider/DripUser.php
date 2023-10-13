@@ -12,7 +12,7 @@ class DripUser implements ResourceOwnerInterface
   /**
    * @var array
    */
-  protected $response;
+  protected array $response;
 
   /**
    * @param array $response
@@ -37,7 +37,7 @@ class DripUser implements ResourceOwnerInterface
     return $this->getValueByKey($this->response, 'users.name');
   }
 
-  public function toArray()
+  public function toArray(): array
   {
     return $this->response;
   }

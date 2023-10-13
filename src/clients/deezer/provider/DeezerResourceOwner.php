@@ -5,23 +5,27 @@ declare(strict_types=1);
 namespace verbb\auth\clients\deezer\provider;
 
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
+use DateTimeImmutable;
+use DateTimeInterface;
+
+use function in_array;
 
 class DeezerResourceOwner implements ResourceOwnerInterface
 {
-    protected $data = [];
+    protected array $data = [];
 
     public function __construct(array $response)
     {
         $this->data = $response;
     }
 
-    public function getBirthday(): ?\DateTimeInterface
+    public function getBirthday(): ?DateTimeInterface
     {
         if (null === $this->data['birthday'] || '0000-00-00' === $this->data['birthday']) {
             return null;
         }
 
-        $date = \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $this->data['birthday'] . '00:00:00');
+        $date = DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $this->data['birthday'] . '00:00:00');
         if (false === $date) {
             return null;
         }
@@ -56,7 +60,7 @@ class DeezerResourceOwner implements ResourceOwnerInterface
 
     public function getGender(): ?string
     {
-        if (!\in_array($this->data['gender'], ['F', 'M'], true)) {
+        if (!in_array($this->data['gender'], ['F', 'M'], true)) {
             return null;
         }
 
@@ -68,13 +72,13 @@ class DeezerResourceOwner implements ResourceOwnerInterface
         return (string) $this->data['id'];
     }
 
-    public function getInscriptionDate(): ?\DateTimeInterface
+    public function getInscriptionDate(): ?DateTimeInterface
     {
         if (null === $this->data['inscription_date']) {
             return null;
         }
 
-        $date = \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $this->data['inscription_date'] . '00:00:00');
+        $date = DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $this->data['inscription_date'] . '00:00:00');
         if (false === $date) {
             return null;
         }

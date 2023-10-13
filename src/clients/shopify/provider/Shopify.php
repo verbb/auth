@@ -10,49 +10,48 @@ use Psr\Http\Message\ResponseInterface;
 class Shopify extends AbstractProvider
 {
 
-    const ACCESS_TOKEN_RESOURCE_OWNER_ID = 'id';
+    public const ACCESS_TOKEN_RESOURCE_OWNER_ID = 'id';
 
     /**
      * @var string This will be prepended to the base uri.
      * @link https://help.shopify.com/api/guides/authentication/oauth#asking-for-permission
      */
-    protected $shop;
+    protected string $shop;
 
     /**
      * @var string If set, this will be sent to shopify as the "per-user" parameter.
      * @link https://help.shopify.com/api/guides/authentication/oauth#asking-for-permission
      */
-    protected $accessType;
+    protected string $accessType;
 
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return 'https://'.$this->shop.'/admin/oauth/authorize';
     }
 
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return 'https://'.$this->shop.'/admin/oauth/access_token';
     }
 
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return 'https://'.$this->shop.'/admin/shop.json';
     }
 
-    public function getAuthorizationParameters(array $options)
+    public function getAuthorizationParameters(array $options): array
     {
         $option = (!empty($this->accessType) && $this->accessType != 'offline') ? 'per-user' : null;
-        $params = array_merge(
+
+        return array_merge(
             parent::getAuthorizationParameters($options),
             array_filter([
                 'option' => $option
             ])
         );
-
-        return $params;
     }
 
-    public function getDefaultScopes()
+    public function getDefaultScopes(): array
     {
         return [
             'read_content',
@@ -60,9 +59,9 @@ class Shopify extends AbstractProvider
         ];
     }
 
-    public function getScopeSeparator()
+    public function getScopeSeparator(): string
     {
-        return ',';
+        return parent::getScopeSeparator();
     }
 
     public function checkResponse(ResponseInterface $response, $data)
@@ -74,7 +73,7 @@ class Shopify extends AbstractProvider
         return $data;
     }
 
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): ShopifyStore
     {
         return new ShopifyStore($response);
     }
@@ -91,7 +90,7 @@ class Shopify extends AbstractProvider
      * @param  mixed|null $token Either a string or an access token instance
      * @return array
      */
-    public function getAuthorizationHeaders($token = null)
+    public function getAuthorizationHeaders($token = null): array
     {
         return array('X-Shopify-Access-Token' => $token->getToken());
     }

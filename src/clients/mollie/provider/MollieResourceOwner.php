@@ -9,7 +9,7 @@ class MollieResourceOwner implements ResourceOwnerInterface
      *
      * @var array
      */
-    protected $response;
+    protected array $response;
 
     /**
      * Set response
@@ -26,7 +26,7 @@ class MollieResourceOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getId()
+    public function getId(): string
     {
         return $this->response['id'];
     }
@@ -36,7 +36,7 @@ class MollieResourceOwner implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }
@@ -44,24 +44,24 @@ class MollieResourceOwner implements ResourceOwnerInterface
     /**
      * @return string|null
      */
-    public function getEmail()
+    public function getEmail(): ?string
     {
-        return isset($this->response['email']) ? $this->response['email'] : null;
+        return $this->response['email'] ?? null;
     }
 
     /**
      * @return string|null
      */
-    public function getRegistrationNumber()
+    public function getRegistrationNumber(): ?string
     {
-        return isset($this->response['registrationNumber']) ? $this->response['registrationNumber'] : null;
+        return $this->response['registrationNumber'] ?? null;
     }
 
     /**
      * @return string|null
      */
-    public function getVatNumber()
+    public function getVatNumber(): ?string
     {
-        return isset($this->response['vatNumber']) ? $this->response['vatNumber'] : null;
+        return $this->response['vatNumber'] ?? null;
     }
 }

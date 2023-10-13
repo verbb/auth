@@ -2,10 +2,12 @@
 
 namespace verbb\auth\clients\google\exception;
 
+use Exception;
+
 /**
  * Exception thrown if the Google Provider is configured with a hosted domain that the user doesn't belong to
  */
-class HostedDomainException extends \Exception
+class HostedDomainException extends Exception
 {
     /**
      * @param $configuredDomain

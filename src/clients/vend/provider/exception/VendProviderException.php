@@ -2,6 +2,8 @@
 
 namespace verbb\auth\clients\vend\provider\exception;
 
-class VendProviderException extends \Exception
+use Exception;
+
+class VendProviderException extends Exception
 {
 }

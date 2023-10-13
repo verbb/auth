@@ -9,7 +9,7 @@ class LineUser implements ResourceOwnerInterface
     /**
      * @var array
      */
-    protected $response;
+    protected array $response;
 
     /**
      * @param array $response
@@ -29,12 +29,12 @@ class LineUser implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->response['displayName'];
     }
 
-    public function getEmail()
+    public function getEmail(): bool
     {
         return false;
     }
@@ -44,11 +44,13 @@ class LineUser implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getAvatar()
+    public function getAvatar(): ?string
     {
         if (!empty($this->response['pictureUrl'])) {
             return $this->response['pictureUrl'];
         }
+
+        return null;
     }
 
     /**
@@ -56,7 +58,7 @@ class LineUser implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getStatusMessage()
+    public function getStatusMessage(): string
     {
         return $this->response['statusMessage'];
     }
@@ -66,7 +68,7 @@ class LineUser implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }

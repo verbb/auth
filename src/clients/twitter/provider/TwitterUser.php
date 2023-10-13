@@ -9,7 +9,7 @@ class TwitterUser implements ResourceOwnerInterface
     /**
      * @var array
      */
-    protected $response;
+    protected mixed $response;
 
     /**
      * @param array $response

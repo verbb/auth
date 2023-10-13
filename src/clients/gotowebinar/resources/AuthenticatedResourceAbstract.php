@@ -6,24 +6,22 @@ use verbb\auth\clients\gotowebinar\provider\GotoWebinar;
 use League\OAuth2\Client\Token\AccessToken;
 use verbb\auth\clients\gotowebinar\decorators\AccessTokenDecorator;
 
+use const PHP_QUERY_RFC3986;
+
 abstract class AuthenticatedResourceAbstract {
 
     /**
      * @var \DalPraS\OAuth2\Client\Provider\GotoWebinar
      */
-    protected $provider;
+    protected \DalPraS\OAuth2\Client\Provider\GotoWebinar|GotoWebinar $provider;
 
     /**
      * Original League AccessToken
      *
-     * @var \League\OAuth2\Client\Token\AccessToken
+     * @var AccessToken
      */
-    protected $accessToken;
+    protected AccessToken $accessToken;
 
-    /**
-     * @param \DalPraS\OAuth2\Client\Provider\GotoWebinar $provider
-     * @param \League\OAuth2\Client\Token\AccessToken $accessToken
-     */
     public function __construct(GotoWebinar $provider, AccessToken $accessToken) {
         $this->provider    = $provider;
         $this->accessToken = $accessToken;
@@ -32,13 +30,10 @@ abstract class AuthenticatedResourceAbstract {
     /**
      * Replace all the named keys {name} in $text with the respective value from $attribs.
      * If $queryParams are present, they will be added to the url as a query.
-     * 
-     * @param string $text
-     * @param array $attribs
-     * @param array $query
-     * @return string
+     *
      */
-    protected function getRequestUrl(string $text, array $attribs = [], array $queryParams = []) {
+    protected function getRequestUrl(string $text, array $attribs = [], array $queryParams = []): string
+    {
         $accessToken = new AccessTokenDecorator($this->accessToken);
         
         $attribs = array_replace([
@@ -52,7 +47,7 @@ abstract class AuthenticatedResourceAbstract {
         }, $text);
         
         if (count($queryParams) > 0) {
-            return $url . '?' . http_build_query($queryParams, '', '&', \PHP_QUERY_RFC3986);
+            return $url . '?' . http_build_query($queryParams, '', '&', PHP_QUERY_RFC3986);
         }
         return $url;
     }

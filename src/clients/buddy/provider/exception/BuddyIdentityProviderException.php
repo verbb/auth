@@ -7,12 +7,9 @@ namespace verbb\auth\clients\buddy\provider\exception;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use Psr\Http\Message\ResponseInterface;
 
-final class BuddyIdentityProviderException extends IdentityProviderException
+class BuddyIdentityProviderException extends IdentityProviderException
 {
-    /**
-     * @param mixed[] $data
-     */
-    public static function clientException(ResponseInterface $response, $data): self
+    public static function clientException(ResponseInterface $response, array $data): self
     {
         return static::fromResponse(
             $response,

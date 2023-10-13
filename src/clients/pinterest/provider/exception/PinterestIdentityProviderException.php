@@ -11,20 +11,20 @@ class PinterestIdentityProviderException extends IdentityProviderException
      * Creates client exception from response.
      *
      * @param  ResponseInterface $response
-     * @param  string $data Parsed response data
+     * @param string $data Parsed response data
      *
      * @return IdentityProviderException
      */
-    public static function clientException(ResponseInterface $response, $data)
+    public static function clientException(ResponseInterface $response, string $data): IdentityProviderException
     {
         $message = $response->getReasonPhrase();
         $code = $response->getStatusCode();
         $body = (string) $response->getBody();
 
-        if (isset($data['meta'], $data['meta']['error_message'])) {
+        if (isset($data['meta']['error_message'])) {
             $message = $data['meta']['error_message'];
         }
-        if (isset($data['meta'], $data['meta']['code'])) {
+        if (isset($data['meta']['code'])) {
             $code = $data['meta']['code'];
         }
 
@@ -35,11 +35,11 @@ class PinterestIdentityProviderException extends IdentityProviderException
      * Creates oauth exception from response.
      *
      * @param  ResponseInterface $response
-     * @param  string $data Parsed response data
+     * @param string $data Parsed response data
      *
      * @return IdentityProviderException
      */
-    public static function oauthException(ResponseInterface $response, $data)
+    public static function oauthException(ResponseInterface $response, string $data): IdentityProviderException
     {
         $message = $response->getReasonPhrase();
         $code = $response->getStatusCode();

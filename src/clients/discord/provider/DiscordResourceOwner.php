@@ -25,7 +25,7 @@ class DiscordResourceOwner implements ResourceOwnerInterface
      *
      * @var array
      */
-    protected $response;
+    protected array $response;
 
     /**
      * Creates new resource owner.
@@ -42,7 +42,7 @@ class DiscordResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->getValueByKey($this->response, 'id');
     }
@@ -52,7 +52,7 @@ class DiscordResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getUsername()
+    public function getUsername(): ?string
     {
         return $this->getValueByKey($this->response, 'username');
     }
@@ -62,7 +62,7 @@ class DiscordResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getDiscriminator()
+    public function getDiscriminator(): ?string
     {
         return $this->getValueByKey($this->response, 'discriminator');
     }
@@ -72,7 +72,7 @@ class DiscordResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getAvatarHash()
+    public function getAvatarHash(): ?string
     {
         return $this->getValueByKey($this->response, 'avatar');
     }
@@ -82,7 +82,7 @@ class DiscordResourceOwner implements ResourceOwnerInterface
      *
      * @return bool
      */
-    public function getVerified()
+    public function getVerified(): bool
     {
         return $this->getValueByKey($this->response, 'verified', false);
     }
@@ -92,7 +92,7 @@ class DiscordResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->getValueByKey($this->response, 'email');
     }
@@ -102,7 +102,7 @@ class DiscordResourceOwner implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }

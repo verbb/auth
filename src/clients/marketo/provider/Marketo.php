@@ -23,12 +23,12 @@ class Marketo extends AbstractProvider
      * @param array $params
      * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return $this->getBaseUrl() . "/identity/oauth/token";
     }
 
-    protected function createAccessToken(array $response, AbstractGrant $grant)
+    protected function createAccessToken(array $response, AbstractGrant $grant): \Kristenlk\OAuth2\Client\Token\AccessToken
     {
         return new \Kristenlk\OAuth2\Client\Token\AccessToken($response);
     }
@@ -41,7 +41,7 @@ class Marketo extends AbstractProvider
      *
      * @throws IdentityProviderException
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         if ($response->getStatusCode() >= 400) {
             throw new IdentityProviderException(

@@ -8,22 +8,19 @@ use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
 
+use function parse_str;
+use function strpos;
+
 class StackExchange extends AbstractProvider
 {
     use BearerAuthorizationTrait;
 
-    /**
-     * @inheritDoc
-     */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return $this->urlAuthorize;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         if (empty($params['code'])) {
             $params['code'] = '';
@@ -33,10 +30,7 @@ class StackExchange extends AbstractProvider
             $this->buildQueryString($params);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return $this->urlApi . 'me?' .
             $this->buildQueryString([
@@ -49,32 +43,32 @@ class StackExchange extends AbstractProvider
     /**
      * @var string
      */
-    protected $urlApi = 'https://api.stackexchange.com/2.2/';
+    protected string $urlApi = 'https://api.stackexchange.com/2.2/';
 
     /**
      * @var string
      */
-    protected $urlAuthorize = 'https://stackexchange.com/oauth';
+    protected string $urlAuthorize = 'https://stackexchange.com/oauth';
 
     /**
      * @var string
      */
-    protected $urlAccessToken = 'https://stackexchange.com/oauth/access_token';
+    protected string $urlAccessToken = 'https://stackexchange.com/oauth/access_token';
 
     /**
      * @var string
      */
-    protected $scope;
+    protected string $scope;
 
     /**
      * @var string
      */
-    protected $key;
+    protected string $key;
 
     /**
      * @var string
      */
-    protected $site = 'stackoverflow';
+    protected string $site = 'stackoverflow';
 
     /**
      * @var string
@@ -86,18 +80,12 @@ class StackExchange extends AbstractProvider
      */
     protected $redirectUri;
 
-    /**
-     * @inheritDoc
-     */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return [];
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function getAuthorizationParameters(array $options)
+    protected function getAuthorizationParameters(array $options): array
     {
         $options['response_type'] = 'code';
         $options['client_id'] = $this->clientId;
@@ -117,16 +105,13 @@ class StackExchange extends AbstractProvider
         return $options;
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function parseResponse(ResponseInterface $response)
+    protected function parseResponse(ResponseInterface $response): array|string
     {
         $type = $this->getContentType($response);
 
-        if (\strpos($type, 'plain') !== false) {
+        if (str_contains($type, 'plain')) {
             $content = (string) $response->getBody();
-            \parse_str($content, $parsed);
+            parse_str($content, $parsed);
 
             return $parsed;
         }
@@ -134,20 +119,14 @@ class StackExchange extends AbstractProvider
         return parent::parseResponse($response);
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         if (isset($data['error'])) {
             throw StackExchangeException::errorResponse($response, $data);
         }
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): StackExchangeResourceOwner
     {
         return new StackExchangeResourceOwner($response);
     }

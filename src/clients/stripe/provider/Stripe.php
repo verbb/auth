@@ -8,6 +8,7 @@ use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
+use League\OAuth2\Client\Token\AccessTokenInterface;
 
 class Stripe extends AbstractProvider
 {
@@ -18,7 +19,7 @@ class Stripe extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return 'https://connect.stripe.com/oauth/authorize';
     }
@@ -30,7 +31,7 @@ class Stripe extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return 'https://connect.stripe.com/oauth/token';
     }
@@ -42,7 +43,7 @@ class Stripe extends AbstractProvider
      *
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return 'https://api.stripe.com/v1/account';
     }
@@ -52,7 +53,7 @@ class Stripe extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseDeauthorizationUrl()
+    public function getBaseDeauthorizationUrl(): string
     {
         return 'https://connect.stripe.com/oauth/deauthorize';
     }
@@ -62,7 +63,7 @@ class Stripe extends AbstractProvider
      *
      * @return array
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return ['read_only'];
     }
@@ -75,7 +76,7 @@ class Stripe extends AbstractProvider
      *
      * @throws IdentityProviderException
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         if ($response->getStatusCode() >= 400) {
             throw new IdentityProviderException(
@@ -94,12 +95,12 @@ class Stripe extends AbstractProvider
      *
      * @return StripeResourceOwner
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): StripeResourceOwner
     {
         return new StripeResourceOwner($response);
     }
 
-    protected function createAccessToken(array $response, AbstractGrant $grant)
+    protected function createAccessToken(array $response, AbstractGrant $grant): AccessTokenInterface|AccessToken
     {
         $accessToken = parent::createAccessToken($response, $grant);
 
@@ -118,7 +119,7 @@ class Stripe extends AbstractProvider
      *
      * @return mixed
      */
-    public function deauthorize($stripeUserId)
+    public function deauthorize(string $stripeUserId): mixed
     {
         $request = $this->createRequest(
             self::METHOD_POST,

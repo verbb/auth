@@ -5,6 +5,7 @@ use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
+use verbb\auth\clients\eventbrite\provider\League\OAuth2\Client\Provider\ResourceOwnerInterface;
 
 class Eventbrite extends AbstractProvider
 {
@@ -15,7 +16,7 @@ class Eventbrite extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return 'https://www.eventbrite.com/oauth/authorize';
     }
@@ -23,9 +24,8 @@ class Eventbrite extends AbstractProvider
     /**
      * Get access token url to retrieve token
      *
-     * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return 'https://www.eventbrite.com/oauth/token';
     }
@@ -37,7 +37,7 @@ class Eventbrite extends AbstractProvider
      *
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return 'https://www.eventbriteapi.com/v3/users/me';
     }
@@ -50,7 +50,7 @@ class Eventbrite extends AbstractProvider
      *
      * @return array
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return [];
     }
@@ -63,7 +63,7 @@ class Eventbrite extends AbstractProvider
      * @param  string $data Parsed response data
      * @return void
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         if (isset($data['error'])) {
             throw new IdentityProviderException(
@@ -77,11 +77,11 @@ class Eventbrite extends AbstractProvider
     /**
      * Generate a user object from a successful user details request.
      *
-     * @param object $response
+     * @param array $response
      * @param AccessToken $token
-     * @return League\OAuth2\Client\Provider\ResourceOwnerInterface
+     * @return EventbriteResourceOwner
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): EventbriteResourceOwner
     {
         return new EventbriteResourceOwner($response);
     }

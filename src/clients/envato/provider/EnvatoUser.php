@@ -11,14 +11,14 @@ class EnvatoUser implements ResourceOwnerInterface
      *
      * @var string
      */
-    protected $domain;
+    protected string $domain;
 
     /**
      * Raw response
      *
      * @var array
      */
-    protected $response;
+    protected array $response;
 
     /**
      * Creates new resource owner.
@@ -35,7 +35,7 @@ class EnvatoUser implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->response['id'] ?: NULL;
     }
@@ -45,7 +45,7 @@ class EnvatoUser implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->response['email'] ?: NULL;
     }
@@ -56,7 +56,7 @@ class EnvatoUser implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getUsername()
+    public function getUsername(): ?string
     {
         return $this->response['username'] ?: NULL;
     }
@@ -66,7 +66,7 @@ class EnvatoUser implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function getPurchases()
+    public function getPurchases(): array
     {
         return $this->response['results'] ?: [];
     }
@@ -76,7 +76,7 @@ class EnvatoUser implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function getPurchasesCount()
+    public function getPurchasesCount(): array
     {
         return $this->response['count'] ?: [];
     }
@@ -88,7 +88,7 @@ class EnvatoUser implements ResourceOwnerInterface
      *
      * @return ResourceOwner
      */
-    public function setDomain($domain)
+    public function setDomain(string $domain): ResourceOwner
     {
         $this->domain = $domain;
 
@@ -100,7 +100,7 @@ class EnvatoUser implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }

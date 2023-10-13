@@ -15,35 +15,35 @@ class Aweber extends AbstractProvider
      *
      * @var array
      */
-    public $defaultScopes = ['account.read list.read'];
+    public array $defaultScopes = ['account.read list.read'];
 
     /**
      * Base url for authorization.
      *
      * @var string
      */
-    protected $urlAuthorize = 'https://auth.aweber.com/oauth2/authorize';
+    protected string $urlAuthorize = 'https://auth.aweber.com/oauth2/authorize';
 
     /**
      * Base url for access token.
      *
      * @var string
      */
-    protected $urlAccessToken = 'https://auth.aweber.com/oauth2/token';
+    protected string $urlAccessToken = 'https://auth.aweber.com/oauth2/token';
 
     /**
      * Base url for resource owner.
      *
      * @var string
      */
-    protected $urlResourceOwnerDetails = 'https://api.aweber.com/1.0/accounts';
+    protected string $urlResourceOwnerDetails = 'https://api.aweber.com/1.0/accounts';
 
     /**
      * Get authorization url to begin OAuth flow
      *
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return $this->urlAuthorize;
     }
@@ -51,9 +51,8 @@ class Aweber extends AbstractProvider
     /**
      * Get access token url to retrieve token
      *
-     * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return $this->urlAccessToken;
     }
@@ -63,7 +62,7 @@ class Aweber extends AbstractProvider
      *
      * @return array
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return $this->defaultScopes;
     }
@@ -72,14 +71,12 @@ class Aweber extends AbstractProvider
      * Check a provider response for errors.
      *
      * @throws IdentityProviderException
-     * @param  ResponseInterface $response
-     * @return void
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         if (isset($data['error'])) {
             throw new IdentityProviderException(
-                (isset($data['error']['message']) ? $data['error']['message'] : $response->getReasonPhrase()),
+                ($data['error']['message'] ?? $response->getReasonPhrase()),
                 $response->getStatusCode(),
                 $response
             );
@@ -93,7 +90,7 @@ class Aweber extends AbstractProvider
      * @param AccessToken $token
      * @return AweberResourceOwner
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): AweberResourceOwner
     {
         return new AweberResourceOwner($response);
     }
@@ -105,7 +102,7 @@ class Aweber extends AbstractProvider
      *
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         $uri = new Uri($this->urlResourceOwnerDetails);
 

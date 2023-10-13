@@ -7,23 +7,25 @@ use Firebase\JWT\Key;
 use InvalidArgumentException;
 
 use League\OAuth2\Client\Token\AccessToken;
+use Exception;
+use UnexpectedValueException;
 
 class AppleAccessToken extends AccessToken
 {
     /**
      * @var string
      */
-    protected $idToken;
+    protected mixed $idToken;
 
     /**
      * @var string
      */
-    protected $email;
+    protected mixed $email;
 
     /**
      * @var boolean
      */
-    protected $isPrivateEmail;
+    protected mixed $isPrivateEmail;
 
     /**
      * Constructs an access token.
@@ -33,7 +35,7 @@ class AppleAccessToken extends AccessToken
      *     in the access token request. The `access_token` option is required.
      * @throws InvalidArgumentException if `access_token` is not provided in `$options`.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function __construct(array $keys, array $options = [])
     {
@@ -48,18 +50,18 @@ class AppleAccessToken extends AccessToken
                 try {
                     try {
                         $decoded = JWT::decode($options['id_token'], $key);
-                    } catch (\UnexpectedValueException $e) {
+                    } catch (UnexpectedValueException $e) {
                         $decoded = JWT::decode($options['id_token'], $key, ['RS256']);
                     }
                     break;
-                } catch (\Exception $exception) {
+                } catch (Exception $exception) {
                     if ($last === $key) {
                         throw $exception;
                     }
                 }
             }
             if (null === $decoded) {
-                throw new \Exception('Got no data within "id_token"!');
+                throw new Exception('Got no data within "id_token"!');
             }
             $payload = json_decode(json_encode($decoded), true);
 
@@ -88,7 +90,7 @@ class AppleAccessToken extends AccessToken
     /**
      * @return string
      */
-    public function getIdToken()
+    public function getIdToken(): string
     {
         return $this->idToken;
     }
@@ -96,7 +98,7 @@ class AppleAccessToken extends AccessToken
     /**
      * @return string
      */
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -104,7 +106,7 @@ class AppleAccessToken extends AccessToken
     /**
      * @return boolean
      */
-    public function isPrivateEmail()
+    public function isPrivateEmail(): bool
     {
         return $this->isPrivateEmail;
     }

@@ -5,6 +5,7 @@ namespace verbb\auth\clients\gotowebinar\resources;
 use verbb\auth\clients\gotowebinar\resultset\PageResultSet;
 use verbb\auth\clients\gotowebinar\resultset\SimpleResultSet;
 use verbb\auth\clients\gotowebinar\helper\DateUtcHelper;
+use DateTime;
 
 class Webinar extends \DalPraS\OAuth2\Client\Resources\AuthenticatedResourceAbstract
 {
@@ -15,11 +16,11 @@ class Webinar extends \DalPraS\OAuth2\Client\Resources\AuthenticatedResourceAbst
      *
      * @link https://developer.goto.com/GoToWebinarV2#operation/getAllAccountWebinars
      */
-    public function getWebinarsByAccount(?\DateTime $from = null, ?\DateTime $to = null, int $page = 0, int $size = 100): PageResultSet
+    public function getWebinarsByAccount(?DateTime $from = null, ?DateTime $to = null, int $page = 0, int $size = 100): PageResultSet
     {
         $query      = [
-            'fromTime' => DateUtcHelper::date2utc($from ?? new \DateTime('-3 years')),
-            'toTime'   => DateUtcHelper::date2utc($to ?? new \DateTime('+3 years')),
+            'fromTime' => DateUtcHelper::date2utc($from ?? new DateTime('-3 years')),
+            'toTime'   => DateUtcHelper::date2utc($to ?? new DateTime('+3 years')),
             'page'     => $page,
             'size'     => $size
         ];
@@ -35,11 +36,11 @@ class Webinar extends \DalPraS\OAuth2\Client\Resources\AuthenticatedResourceAbst
      *
      * @link https://developer.goto.com/GoToWebinarV2#operation/getWebinars
      */
-    public function getWebinarsByOrganizer(?\DateTime $from = null, ?\DateTime $to = null, int $page = 0, int $size = 100): PageResultSet
+    public function getWebinarsByOrganizer(?DateTime $from = null, ?DateTime $to = null, int $page = 0, int $size = 100): PageResultSet
     {
         $query      = [
-            'fromTime' => DateUtcHelper::date2utc($from ?? new \DateTime('-3 years')),
-            'toTime'   => DateUtcHelper::date2utc($to ?? new \DateTime('+3 years')),
+            'fromTime' => DateUtcHelper::date2utc($from ?? new DateTime('-3 years')),
+            'toTime'   => DateUtcHelper::date2utc($to ?? new DateTime('+3 years')),
             'page'     => $page,
             'size'     => $size
         ];
@@ -55,7 +56,7 @@ class Webinar extends \DalPraS\OAuth2\Client\Resources\AuthenticatedResourceAbst
      *
      * @link https://developer.goto.com/GoToWebinarV2#operation/getWebinars
      */
-    public function getWebinars(?\DateTime $from = null, ?\DateTime $to = null, int $page = 0, int $size = 100): PageResultSet
+    public function getWebinars(?DateTime $from = null, ?DateTime $to = null, int $page = 0, int $size = 100): PageResultSet
     {
         return $this->getWebinarsByOrganizer($from, $to, $page, $size);
     }
@@ -69,9 +70,9 @@ class Webinar extends \DalPraS\OAuth2\Client\Resources\AuthenticatedResourceAbst
      *
      * @link https://developer.goto.com/GoToWebinarV2/#operation/getWebinars
      */
-    public function getUpcoming(?\DateTime $from = null, ?\DateTime $to = null, int $page = 0, int $size = 100): PageResultSet
+    public function getUpcoming(?DateTime $from = null, ?DateTime $to = null, int $page = 0, int $size = 100): PageResultSet
     {
-        return $this->getWebinarsByOrganizer($from ?? new \DateTime('now'), $to ?? new \DateTime('+3 years'), $page, $size);
+        return $this->getWebinarsByOrganizer($from ?? new DateTime('now'), $to ?? new DateTime('+3 years'), $page, $size);
     }
 
     /**
@@ -84,9 +85,9 @@ class Webinar extends \DalPraS\OAuth2\Client\Resources\AuthenticatedResourceAbst
      * @link https://developer.goto.com/GoToWebinarV2/#operation/getWebinars
 
      */
-    public function getPast(?\DateTime $from = null, ?\DateTime $to = null, int $page = 0, int $size = 100): PageResultSet
+    public function getPast(?DateTime $from = null, ?DateTime $to = null, int $page = 0, int $size = 100): PageResultSet
     {
-        return $this->getWebinarsByOrganizer($from ?? new \DateTime('-3 years'), $to ?? new \DateTime('now'), $page, $size);
+        return $this->getWebinarsByOrganizer($from ?? new DateTime('-3 years'), $to ?? new DateTime('now'), $page, $size);
     }
 
     /**
@@ -95,7 +96,6 @@ class Webinar extends \DalPraS\OAuth2\Client\Resources\AuthenticatedResourceAbst
      *
      * @link https://developer.goto.com/GoToWebinarV2/#operation/getWebinar
      *
-     * @param string $webinarKey
      */
     public function getWebinar(string $webinarKey): SimpleResultSet
     {
@@ -109,7 +109,6 @@ class Webinar extends \DalPraS\OAuth2\Client\Resources\AuthenticatedResourceAbst
      *
      * @link https://developer.goto.com/GoToWebinarV2#operation/getWebinarMeetingTimes
      *
-     * @param string $webinarKey
      */
     public function getWebinarMeetingTimes(string $webinarKey): SimpleResultSet
     {
@@ -125,7 +124,6 @@ class Webinar extends \DalPraS\OAuth2\Client\Resources\AuthenticatedResourceAbst
      * 
      * @link https://developer.goto.com/GoToWebinarV2#operation/getAudioInformation
      *
-     * @param string $webinarKey
      */
     public function getAudioInformation(string $webinarKey): SimpleResultSet
     {
@@ -142,7 +140,6 @@ class Webinar extends \DalPraS\OAuth2\Client\Resources\AuthenticatedResourceAbst
      * 
      * @link https://developer.goto.com/GoToWebinarV2#operation/getInSessionWebinars
      *
-     * @param string $webinarKey
      */
     public function getInSessionWebinars(): SimpleResultSet
     {
@@ -171,8 +168,6 @@ class Webinar extends \DalPraS\OAuth2\Client\Resources\AuthenticatedResourceAbst
      *
      * @link https://developer.goto.com/GoToWebinarV2#operation/updateWebinar
      *
-     * @param string $webinarKey
-     * @param array $body
      */
     public function updateWebinar(string $webinarKey, array $body = []): SimpleResultSet
     {
@@ -190,9 +185,10 @@ class Webinar extends \DalPraS\OAuth2\Client\Resources\AuthenticatedResourceAbst
      * @link https://developer.goto.com/GoToWebinarV2#operation/cancelWebinar
      *
      * @param string $webinarKey
-     * @return void
+     * @param bool $sendEmail
+     * @return SimpleResultSet
      */
-    public function deleteWebinar($webinarKey, $sendEmail = false): SimpleResultSet
+    public function deleteWebinar(string $webinarKey, bool $sendEmail = false): SimpleResultSet
     {
         $url = $this->getRequestUrl('/organizers/{organizerKey}/webinars/{webinarKey}', ['webinarKey' => $webinarKey], ['sendCancellationEmails' => $sendEmail]);
         $request  = $this->provider->getAuthenticatedRequest('DELETE', $url, $this->accessToken);

@@ -15,27 +15,27 @@ class Pipedrive extends AbstractProvider
 {
     use BearerAuthorizationTrait;
 
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return 'https://oauth.pipedrive.com/oauth/authorize';
     }
 
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return 'https://oauth.pipedrive.com/oauth/token';
     }
 
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return 'https://api-proxy.pipedrive.com/users/me';
     }
 
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return [];
     }
 
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         if (isset($data['error'])) {
             throw new PipedriveIdentityProviderException(
@@ -46,7 +46,7 @@ class Pipedrive extends AbstractProvider
         }
     }
 
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): PipedriveResourceOwner
     {
         return new PipedriveResourceOwner($response);
     }

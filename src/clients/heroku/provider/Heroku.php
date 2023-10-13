@@ -13,14 +13,14 @@ class Heroku extends AbstractProvider
     /**
      * @var string Key used in a token response to identify the resource owner.
      */
-    const ACCESS_TOKEN_RESOURCE_OWNER_ID = 'user_id';
+    public const ACCESS_TOKEN_RESOURCE_OWNER_ID = 'user_id';
 
     /**
      * Get authorization url to begin OAuth flow
      *
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return 'https://id.heroku.com/oauth/authorize';
     }
@@ -28,9 +28,8 @@ class Heroku extends AbstractProvider
     /**
      * Get access token url to retrieve token
      *
-     * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return 'https://id.heroku.com/oauth/token';
     }
@@ -42,7 +41,7 @@ class Heroku extends AbstractProvider
      *
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return 'https://api.heroku.com/account';
     }
@@ -55,7 +54,7 @@ class Heroku extends AbstractProvider
      *
      * @return array
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return [];
     }
@@ -66,7 +65,7 @@ class Heroku extends AbstractProvider
      *
      * @return string Scope separator, defaults to ','
      */
-    protected function getScopeSeparator()
+    protected function getScopeSeparator(): string
     {
         return ' ';
     }
@@ -79,12 +78,12 @@ class Heroku extends AbstractProvider
      * @param  string $data Parsed response data
      * @return void
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         $statusCode = $response->getStatusCode();
         if ($statusCode >= 400) {
             throw new IdentityProviderException(
-                isset($data['message']) ? $data['message'] : $response->getReasonPhrase(),
+                $data['message'] ?? $response->getReasonPhrase(),
                 $statusCode,
                 $response
             );
@@ -94,11 +93,11 @@ class Heroku extends AbstractProvider
     /**
      * Generate a user object from a successful user details request.
      *
-     * @param object $response
+     * @param array $response
      * @param AccessToken $token
      * @return HerokuResourceOwner
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): HerokuResourceOwner
     {
         return new HerokuResourceOwner($response);
     }

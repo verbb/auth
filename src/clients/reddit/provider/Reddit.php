@@ -9,6 +9,8 @@ use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface as Response;
 use verbb\auth\clients\reddit\grant\InstalledClient;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
+use League\OAuth2\Client\Token\AccessTokenInterface;
+use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 
 class Reddit extends AbstractProvider
 {
@@ -20,70 +22,50 @@ class Reddit extends AbstractProvider
      *
      * @see https://github.com/reddit/reddit/wiki/API
      */
-    public $userAgent = "";
+    public string $userAgent = "";
 
     /**
-     * {@inheritDoc}
+     * {}
      */
-    public $authorizationHeader = "bearer";
+    public string $authorizationHeader = "bearer";
 
-    /**
-     * {@inheritDoc}
-     */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return "https://ssl.reddit.com/api/v1/authorize";
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return "https://ssl.reddit.com/api/v1/access_token";
     }
 
     // AbstractProvider::getBaseAuthorizationUrl, League\OAuth2\Client\Provider\AbstractProvider::getBaseAccessTokenUrl
 
-    /**
-     * {@inheritDoc}
-     */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return "https://oauth.reddit.com/api/v1/me";
     }
 
-    public function getDefaultScopes()
+    public function getDefaultScopes(): array
     {
         return ['identity', 'read'];
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function createResourceOwner(array $response, AccessToken $token)
+    public function createResourceOwner(array $response, AccessToken $token): array|ResourceOwnerInterface
     {
         return $response;
     }
 
-    private function parseErrorMessage($data)
+    private function parseErrorMessage($data): string
     {
         if (isset($data['error_description'])) {
             return $data['error_description'];
         }
 
-        if (isset($data['message'])) {
-            return $data['message'];
-        }
-
-        if (isset($data['error'])) {
-            return $data['error'];
-        }
-
-        return 'Unknown error';
+        return $data['message'] ?? $data['error'] ?? 'Unknown error';
     }
 
-    public function checkResponse(Response $response, $data)
+    public function checkResponse(Response $response, $data): void
     {
         if (isset($data['error'])) {
             throw new IdentityProviderException(
@@ -99,7 +81,7 @@ class Reddit extends AbstractProvider
      * @return string
      * @throws Rudolf\OAuth2\Client\Exception\ProviderException
      */
-    protected function getUserAgent()
+    protected function getUserAgent(): string
     {
         if ($this->userAgent) {
             return $this->userAgent;
@@ -116,17 +98,14 @@ class Reddit extends AbstractProvider
      *
      * @throws Rudolf\OAuth2\Client\Exception\ProviderException
      */
-    protected function validateUserAgent()
+    protected function validateUserAgent(): void
     {
         if ( ! preg_match("~^.+:.+:.+ \(by /u/.+\)$~", $this->getUserAgent())) {
             throw new InvalidArgumentException("User agent is not valid");
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function getHeaders($token = null)
+    public function getHeaders($token = null): array
     {
         $this->validateUserAgent();
 
@@ -148,7 +127,7 @@ class Reddit extends AbstractProvider
      *
      * @see https://github.com/reddit/reddit/wiki/OAuth2
      */
-    public function getAccessToken($grant, array $options = [])
+    public function getAccessToken($grant, array $options = []): AccessTokenInterface|AccessToken
     {
         // Allow Reddit-specific 'installed_client' to be specified as a string,
         // keeping consistent with the other grant types.
@@ -159,10 +138,7 @@ class Reddit extends AbstractProvider
         return parent::getAccessToken($grant, $options);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function getAuthorizationUrl(array $options = [])
+    public function getAuthorizationUrl(array $options = []): string
     {
         $url = parent::getAuthorizationUrl($options);
 

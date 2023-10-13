@@ -12,7 +12,7 @@ class ConstantContactAccount implements ResourceOwnerInterface
     /**
      * @var array
      */
-    protected $response;
+    protected array $response;
 
     /**
      * @param array $response
@@ -32,12 +32,12 @@ class ConstantContactAccount implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->getValueByKey($this->response, 'organization_name');
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }

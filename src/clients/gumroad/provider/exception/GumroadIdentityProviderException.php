@@ -27,11 +27,11 @@ class GumroadIdentityProviderException extends IdentityProviderException
      * @param mixed $data Parsed response data
      * @return IdentityProviderException
      */
-    public static function clientException(ResponseInterface $response, $data)
+    public static function clientException(ResponseInterface $response, mixed $data): IdentityProviderException
     {
         return static::fromResponse(
             $response,
-            isset($data['message']) ? $data['message'] : $response->getReasonPhrase()
+            $data['message'] ?? $response->getReasonPhrase()
         );
     }
 
@@ -42,11 +42,11 @@ class GumroadIdentityProviderException extends IdentityProviderException
      * @param string $data                Parsed response data
      * @return IdentityProviderException
      */
-    public static function oauthException(ResponseInterface $response, $data)
+    public static function oauthException(ResponseInterface $response, string $data): IdentityProviderException
     {
         return static::fromResponse(
             $response,
-            isset($data['error']) ? $data['error'] : $response->getReasonPhrase()
+            $data['error'] ?? $response->getReasonPhrase()
         );
     }
 
@@ -57,7 +57,7 @@ class GumroadIdentityProviderException extends IdentityProviderException
      * @param string|null $message        Parsed message
      * @return IdentityProviderException
      */
-    protected static function fromResponse(ResponseInterface $response, $message = null)
+    protected static function fromResponse(ResponseInterface $response, string $message = null): IdentityProviderException
     {
         return new static($message, $response->getStatusCode(), (string) $response->getBody());
     }

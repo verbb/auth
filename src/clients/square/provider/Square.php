@@ -13,43 +13,44 @@ use League\OAuth2\Client\Grant\Exception\InvalidGrantException;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use League\OAuth2\Client\Grant\AbstractGrant;
 
 class Square extends AbstractProvider
 {
     use BearerAuthorizationTrait;
 
-    const ACCESS_TOKEN_RESOURCE_OWNER_ID = 'merchant_id';
+    public const ACCESS_TOKEN_RESOURCE_OWNER_ID = 'merchant_id';
 
     /**
      * Enable debugging by connecting to the Square staging server.
      *
      * @var boolean
      */
-    protected $debug = false;
+    protected bool $debug = false;
 
     /**
      * Get a Square connect URL, depending on path.
      *
-     * @param  string $path
+     * @param string $path
      * @return string
      */
-    protected function getConnectUrl($path)
+    protected function getConnectUrl(string $path): string
     {
         $staging = $this->debug ? 'staging' : '';
         return "https://connect.squareup{$staging}.com/{$path}";
     }
 
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return $this->getConnectUrl('oauth2/authorize');
     }
 
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return $this->getConnectUrl('oauth2/token');
     }
 
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return $this->getConnectUrl('v1/me');
     }
@@ -63,7 +64,7 @@ class Square extends AbstractProvider
      * @param  array $params
      * @return string
      */
-    public function getBaseRenewTokenUrl(array $params)
+    public function getBaseRenewTokenUrl(array $params): string
     {
         return $this->getConnectUrl(sprintf(
             'oauth2/clients/%s/access-token/renew',
@@ -71,7 +72,7 @@ class Square extends AbstractProvider
         ));
     }
 
-    public function setGrantFactory(GrantFactory $factory)
+    public function setGrantFactory(GrantFactory $factory): Square
     {
         // Register the renew token as a possible grant, rather than overloading
         // getAccessToken to support it.
@@ -84,7 +85,7 @@ class Square extends AbstractProvider
         return parent::setGrantFactory($factory);
     }
 
-    protected function verifyGrant($grant)
+    protected function verifyGrant($grant): AbstractGrant
     {
         $grant = parent::verifyGrant($grant);
 
@@ -95,33 +96,33 @@ class Square extends AbstractProvider
         return $grant;
     }
 
-    protected function getScopeSeparator()
+    protected function getScopeSeparator(): string
     {
         return ' ';
     }
 
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return [
             'MERCHANT_PROFILE_READ',
         ];
     }
 
-    protected function getDefaultHeaders()
+    protected function getDefaultHeaders(): array
     {
         return array_merge(parent::getDefaultHeaders(), [
             'Accept' => 'application/json',
         ]);
     }
 
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         if (!empty($data['type']) && $response->getStatusCode() >= 400) {
             throw new IdentityProviderException($data['message'], 0, $data);
         }
     }
 
-    protected function prepareAccessTokenResponse(array $result)
+    protected function prepareAccessTokenResponse(array $result): array
     {
         // Square uses a ISO 8601 timestamp to represent the expiration date.
         // http://docs.connect.squareup.com/#post-token
@@ -130,7 +131,7 @@ class Square extends AbstractProvider
         return parent::prepareAccessTokenResponse($result);
     }
 
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): SquareMerchant
     {
         return new SquareMerchant($response);
     }

@@ -12,7 +12,6 @@ class Registrant extends \DalPraS\OAuth2\Client\Resources\AuthenticatedResourceA
      *
      * @link https://developer.goto.com/GoToWebinarV2#operation/getAllRegistrantsForWebinar
      *
-     * @param string $webinarKey
      */
     public function getRegistrants(string $webinarKey): SimpleResultSet
     {
@@ -29,8 +28,6 @@ class Registrant extends \DalPraS\OAuth2\Client\Resources\AuthenticatedResourceA
      *
      * @link https://developer.goto.com/GoToWebinarV2#operation/getRegistrant
      *
-     * @param string $webinarKey
-     * @param string $registrantKey
      */
     public function getRegistrant(string $webinarKey, string $registrantKey): SimpleResultSet
     {
@@ -49,7 +46,7 @@ class Registrant extends \DalPraS\OAuth2\Client\Resources\AuthenticatedResourceA
      *
      * @param string $webinarKey
      * @param string $email
-     * @return array|NULL
+     * @return SimpleResultSet
      */
     public function getRegistrantByEmail(string $webinarKey, string $email): SimpleResultSet
     {
@@ -71,8 +68,6 @@ class Registrant extends \DalPraS\OAuth2\Client\Resources\AuthenticatedResourceA
      *
      * @link https://developer.goto.com/GoToWebinarV2#operation/createRegistrant
      *
-     * @param string $webinarKey
-     * @param array $body 
      * @param bool $resendConfirmation
      *      Indicates whether the confirmation email should be resent when a registrant is re-registered
      */
@@ -108,7 +103,7 @@ class Registrant extends \DalPraS\OAuth2\Client\Resources\AuthenticatedResourceA
         $request  = $this->provider->getAuthenticatedRequest('GET', $url, $this->accessToken);
         return new SimpleResultSet($this->provider->getParsedResponse($request));
     }
-    
+
     /**
      * Unsubscribe a registrant from a webinar.
      * https://api.getgo.com/G2W/rest/v2/organizers/{organizerKey}/webinars/{webinarKey}/registrants/{registrantKey}
@@ -117,7 +112,7 @@ class Registrant extends \DalPraS\OAuth2\Client\Resources\AuthenticatedResourceA
      *
      * @param string $webinarKey
      * @param string $registrantKey
-     * @return array
+     * @return SimpleResultSet
      */
     public function deleteRegistrant(string $webinarKey, string $registrantKey): SimpleResultSet
     {

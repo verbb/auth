@@ -18,22 +18,22 @@ class Telegram extends AbstractProvider
     protected $clientSecret;
     protected $params;
     
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return 'https://oauth.telegram.org/auth';
     }
     
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return '';
     }
     
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return '';
     }
     
-    public function getAccessToken($grant, array $options = [])
+    public function getAccessToken($grant, array $options = []): ?AccessToken
     {
         if (!isset($options['code']))
         {
@@ -84,7 +84,7 @@ class Telegram extends AbstractProvider
         return new AccessToken($prepared);
     }
     
-    protected function getAllowedClientOptions(array $options)
+    protected function getAllowedClientOptions(array $options): array
     {
         $this->clientId = $options['clientId'];
         $this->redirectUri = $options['redirectUri'];
@@ -104,7 +104,7 @@ class Telegram extends AbstractProvider
         return $options;
     }
 
-    public function getDefaultScopes()
+    public function getDefaultScopes(): array
     {
         return [];
     }
@@ -114,7 +114,7 @@ class Telegram extends AbstractProvider
         return ' ';
     }
     
-    public function getResourceOwner(AccessToken $token)
+    public function getResourceOwner(AccessToken $token): TelegramUser
     {
         return $this->createResourceOwner([], $token);
     }

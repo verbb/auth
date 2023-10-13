@@ -15,6 +15,8 @@ use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use verbb\auth\clients\gumroad\provider\exception\GumroadIdentityProviderException;
 use Psr\Http\Message\ResponseInterface;
+use League\OAuth2\Client\Provider\ResourceOwnerInterface;
+use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 
 /**
  * Gumroad provider.
@@ -30,7 +32,7 @@ class Gumroad extends AbstractProvider
      *
      * @var string
      */
-    public $apiDomain = 'https://gumroad.com';
+    public string $apiDomain = 'https://gumroad.com';
 
     /**
      * Get authorization URL to begin OAuth flow
@@ -38,7 +40,7 @@ class Gumroad extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return $this->apiDomain.'/oauth/authorize';
     }
@@ -51,7 +53,7 @@ class Gumroad extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return $this->apiDomain.'/oauth/token';
     }
@@ -63,7 +65,7 @@ class Gumroad extends AbstractProvider
      *
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return $this->apiDomain.'/api/v2/user';
     }
@@ -76,7 +78,7 @@ class Gumroad extends AbstractProvider
      *
      * @return string Scope separator
      */
-    protected function getScopeSeparator()
+    protected function getScopeSeparator(): string
     {
         return ' ';
     }
@@ -89,7 +91,7 @@ class Gumroad extends AbstractProvider
      *
      * @return array
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return ['view_sales'];
     }
@@ -97,16 +99,18 @@ class Gumroad extends AbstractProvider
     /**
      * Check a provider response for errors.
      *
-     * @throws \League\OAuth2\Client\Provider\Exception\IdentityProviderException
+     * @throws IdentityProviderException
      * @param  ResponseInterface $response
      * @param  array $data Parsed response data
      * @return void
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         if ($response->getStatusCode() >= 400) {
             throw GumroadIdentityProviderException::clientException($response, $data);
-        } elseif (isset($data['error'])) {
+        }
+
+        if (isset($data['error'])) {
             throw GumroadIdentityProviderException::oauthException($response, $data);
         }
     }
@@ -116,9 +120,9 @@ class Gumroad extends AbstractProvider
      *
      * @param array $response
      * @param AccessToken $token
-     * @return \League\OAuth2\Client\Provider\ResourceOwnerInterface
+     * @return GumroadResourceOwner|ResourceOwnerInterface
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): GumroadResourceOwner|ResourceOwnerInterface
     {
         return new GumroadResourceOwner($response);
     }

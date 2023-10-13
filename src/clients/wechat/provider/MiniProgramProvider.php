@@ -12,6 +12,8 @@ use League\OAuth2\Client\Tool\RequiredParameterTrait;
 use League\OAuth2\Client\Token\AccessToken;
 use verbb\auth\clients\wechat\grant\miniprogram\AuthorizationCode;
 use Psr\Http\Message\ResponseInterface;
+use InvalidArgumentException;
+use LogicException;
 
 class MiniProgramProvider extends AbstractProvider
 {
@@ -56,9 +58,9 @@ class MiniProgramProvider extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
-        throw new \LogicException('use wx.login(OBJECT) to get js_code');
+        throw new LogicException('use wx.login(OBJECT) to get js_code');
     }
 
     /**
@@ -69,7 +71,7 @@ class MiniProgramProvider extends AbstractProvider
      * @param array $params
      * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return 'https://api.weixin.qq.com/sns/jscode2session';
     }
@@ -79,9 +81,9 @@ class MiniProgramProvider extends AbstractProvider
      *
      * @param  string $jsCode
      * @param  array $options
-     * @return AccessToken
+     * @return \Oakhope\OAuth2\Client\Token\MiniProgram\AccessToken
      */
-    public function getAccessToken($jsCode, array $options = [])
+    public function getAccessToken($jsCode, array $options = []): \Oakhope\OAuth2\Client\Token\MiniProgram\AccessToken
     {
         $this->jscode = $jsCode;
         $grant = new AuthorizationCode();
@@ -96,9 +98,8 @@ class MiniProgramProvider extends AbstractProvider
         $request = $this->getAccessTokenRequest($params);
         $response = $this->getParsedResponse($request);
         $prepared = $this->prepareAccessTokenResponse($response);
-        $token = $this->createAccessToken($prepared, $grant);
 
-        return $token;
+        return $this->createAccessToken($prepared, $grant);
     }
 
     /**
@@ -109,9 +110,9 @@ class MiniProgramProvider extends AbstractProvider
      *
      * @param  array $response
      * @param  AbstractGrant $grant
-     * @return AccessToken
+     * @return \Oakhope\OAuth2\Client\Token\MiniProgram\AccessToken
      */
-    protected function createAccessToken(array $response, AbstractGrant $grant)
+    protected function createAccessToken(array $response, AbstractGrant $grant): \Oakhope\OAuth2\Client\Token\MiniProgram\AccessToken
     {
         return new \Oakhope\OAuth2\Client\Token\MiniProgram\AccessToken(
             $response
@@ -124,9 +125,9 @@ class MiniProgramProvider extends AbstractProvider
      * @param AccessToken $token
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
-        throw new \LogicException(
+        throw new LogicException(
             'use wx.getUserInfo(OBJECT) to get ResourceOwnerDetails'
         );
     }
@@ -139,7 +140,7 @@ class MiniProgramProvider extends AbstractProvider
      *
      * @return array
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return [];
     }
@@ -152,25 +153,25 @@ class MiniProgramProvider extends AbstractProvider
      * @param  array|string $data Parsed response data
      * @return void
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         $errcode = $this->getValueByKey($data, 'errcode');
         $errmsg = $this->getValueByKey($data, 'errmsg');
 
         if ($errcode || $errmsg) {
             throw new IdentityProviderException($errmsg, $errcode, $response);
-        };
+        }
     }
 
     /**
      * Generates a resource owner object from a successful resource owner
      * details request.
      *
-     * @param  array $response
-     * @param  AccessToken $token
-     * @return ResourceOwnerInterface
+     * @param array $response
+     * @param AccessToken $token
+     * @return ResourceOwnerInterface|MiniProgramResourceOwner
      */
-    public function createResourceOwner(array $response, AccessToken $token)
+    public function createResourceOwner(array $response, AccessToken $token): ResourceOwnerInterface|MiniProgramResourceOwner
     {
         return new MiniProgramResourceOwner($response, $token, $this->appid);
     }
@@ -178,13 +179,13 @@ class MiniProgramProvider extends AbstractProvider
     /**
      * Requests and returns the resource owner of given access token.
      *
-     * @param  AccessToken $token
-     * @return ResourceOwnerInterface
+     * @param AccessToken $token
+     * @return ResourceOwnerInterface|MiniProgramResourceOwner
      */
-    public function getResourceOwner(AccessToken $token)
+    public function getResourceOwner(AccessToken $token): ResourceOwnerInterface|MiniProgramResourceOwner
     {
         if (null == $this->responseUserInfo) {
-            throw new \InvalidArgumentException(
+            throw new InvalidArgumentException(
                 "setResponseUserInfo by wx.getUserInfo(OBJECT)'s response data first"
             );
         }
@@ -197,7 +198,7 @@ class MiniProgramProvider extends AbstractProvider
      *
      * @param array $response
      */
-    public function setResponseUserInfo($response)
+    public function setResponseUserInfo(array $response): void
     {
         $this->responseUserInfo = $response;
     }

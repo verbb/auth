@@ -10,6 +10,8 @@ use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use verbb\auth\clients\deezer\provider\exception\DeezerIdentityProviderException;
 use Psr\Http\Message\ResponseInterface;
+use function array_key_exists;
+use UnexpectedValueException;
 
 class Deezer extends AbstractProvider
 {
@@ -29,33 +31,21 @@ class Deezer extends AbstractProvider
     public const SCOPE_DELETE_LIBRARY = 'delete_library';
     public const SCOPE_LISTENING_HISTORY = 'listening_history';
 
-    /**
-     * {@inheritdoc}
-     */
     public function getBaseAuthorizationUrl(): string
     {
         return self::BASE_DEEZER_URL . 'auth.php';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getBaseAccessTokenUrl(array $params): string
     {
         return self::BASE_DEEZER_URL . 'access_token.php';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return 'https://api.deezer.com/user/me?' . http_build_query(['access_token' => $token->getToken()]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getDefaultScopes(): array
     {
         return [
@@ -63,9 +53,6 @@ class Deezer extends AbstractProvider
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function checkResponse(ResponseInterface $response, $data): void
     {
         // handle HTTP Status errors
@@ -78,41 +65,32 @@ class Deezer extends AbstractProvider
         }
 
         // Skip error checking if we get what we expected
-        if (\array_key_exists('access_token', $data)) {
+        if (array_key_exists('access_token', $data)) {
             return;
         }
 
         // handle errors in 'error' key
         if (!empty($data['error'])) {
-            switch ($data['error']['type']) {
-                case 'DataException':
-                    $message = 'No data returned.';
-                    break;
-                default:
-                    $message = $data['error']['type'] . ': ' . $data['error']['message'];
-            }
+            $message = match ($data['error']['type']) {
+                'DataException' => 'No data returned.',
+                default => $data['error']['type'] . ': ' . $data['error']['message'],
+            };
 
             throw new DeezerIdentityProviderException($message, 0, $data);
         }
 
         // handle errors NOT in 'error' key
-        if (\array_key_exists('wrong_code', $data)) {
+        if (array_key_exists('wrong_code', $data)) {
             throw new DeezerIdentityProviderException('Wrong code.', 0, $data);
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function createResourceOwner(array $response, AccessToken $token): ResourceOwnerInterface
     {
         return new DeezerResourceOwner($response);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function parseResponse(ResponseInterface $response)
+    protected function parseResponse(ResponseInterface $response): array|string
     {
         $content = (string) $response->getBody();
         $type = $this->getContentType($response);
@@ -127,7 +105,7 @@ class Deezer extends AbstractProvider
         // exception if the JSON could not be parsed when it was expected to.
         try {
             return $this->parseJson($content);
-        } catch (\UnexpectedValueException $e) {
+        } catch (UnexpectedValueException $e) {
             if (mb_strpos($type, 'json') !== false) {
                 throw $e;
             }
@@ -136,13 +114,10 @@ class Deezer extends AbstractProvider
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function prepareAccessTokenResponse(array $result)
+    protected function prepareAccessTokenResponse(array $result): array
     {
         $result = parent::prepareAccessTokenResponse($result);
-        if (\array_key_exists('expires', $result) && '0' === $result['expires']) {
+        if (array_key_exists('expires', $result) && '0' === $result['expires']) {
             // the token never expires. set a very long time expiring token because we need to set it
             $result['expires_in'] = 50 * 31556952;
             unset($result['expires']);

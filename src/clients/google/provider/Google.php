@@ -18,25 +18,25 @@ class Google extends AbstractProvider
      * @var string If set, this will be sent to google as the "access_type" parameter.
      * @link https://developers.google.com/identity/protocols/OpenIDConnect#authenticationuriparameters
      */
-    protected $accessType;
+    protected string $accessType;
 
     /**
      * @var string If set, this will be sent to google as the "hd" parameter.
      * @link https://developers.google.com/identity/protocols/OpenIDConnect#authenticationuriparameters
      */
-    protected $hostedDomain;
+    protected string $hostedDomain;
 
     /**
      * @var string If set, this will be sent to google as the "prompt" parameter.
      * @link https://developers.google.com/identity/protocols/OpenIDConnect#authenticationuriparameters
      */
-    protected $prompt;
+    protected string $prompt;
 
     /**
      * @var array List of scopes that will be used for authentication.
      * @link https://developers.google.com/identity/protocols/googlescopes
      */
-    protected $scopes = [];
+    protected array $scopes = [];
 
     public function getBaseAuthorizationUrl(): string
     {

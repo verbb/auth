@@ -9,7 +9,7 @@ class BoxResourceOwner implements ResourceOwnerInterface
      *
      * @var array
      */
-    protected $response;
+    protected array $response;
 
     /**
      * Creates new resource owner.
@@ -26,7 +26,7 @@ class BoxResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->response['id'] ?: null;
     }
@@ -36,7 +36,7 @@ class BoxResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->response['login'] ?: null;
     }
@@ -46,7 +46,7 @@ class BoxResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->response['name'] ?: null;
     }
@@ -56,7 +56,7 @@ class BoxResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getAvatarUrl()
+    public function getAvatarUrl(): ?string
     {
         return $this->response['avatar_url'] ?: null;
     }
@@ -66,7 +66,7 @@ class BoxResourceOwner implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }

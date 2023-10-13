@@ -10,21 +10,22 @@ namespace verbb\auth\clients\wechat\support\miniprogram;
  */
 class MiniProgramDataCrypt
 {
-    const OK = 0;
-    const ILLEGAL_AES_KEY = -41001;
-    const ILLEGAL_IV = -41002;
-    const ILLEGAL_BUFFER = -41003;
-    const DECODE_BASE64_ERROR = -41004;
+    public const OK = 0;
+    public const ILLEGAL_AES_KEY = -41001;
+    public const ILLEGAL_IV = -41002;
+    public const ILLEGAL_BUFFER = -41003;
+    public const DECODE_BASE64_ERROR = -41004;
 
-    private $appid;
-    private $sessionKey;
+    private string $appid;
+    private string $sessionKey;
 
     /**
      * 构造函数
+     *
      * @param $sessionKey string 用户在小程序登录后获取的会话密钥
      * @param $appid string 小程序的appid
      */
-    public function __construct($appid, $sessionKey)
+    public function __construct(string $appid, string $sessionKey)
     {
         $this->sessionKey = $sessionKey;
         $this->appid = $appid;
@@ -33,13 +34,14 @@ class MiniProgramDataCrypt
 
     /**
      * 检验数据的真实性，并且获取解密后的明文.
+     *
      * @param $encryptedData string 加密的用户数据
      * @param $iv string 与用户数据一同返回的初始向量
      * @param $data string 解密后的原文
      *
      * @return int 成功0，失败返回对应的错误码
      */
-    public function decryptData($encryptedData, $iv, &$data)
+    public function decryptData(string $encryptedData, string $iv, string &$data): int
     {
         if (strlen($this->sessionKey) != 24) {
             return self::ILLEGAL_AES_KEY;

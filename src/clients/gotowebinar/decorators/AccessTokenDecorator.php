@@ -2,11 +2,16 @@
 
 namespace verbb\auth\clients\gotowebinar\decorators;
 
+use BadMethodCallException;
+use Exception;
+use League\OAuth2\Client\Token\AccessToken;
+
 /**
  * Wrapper of the accessToken for retriving the properties of the accessToken.
  *
  * If you wrap the accessToken with this decorator, you can
  * access other properties of the accessToken that are stored inside the token.
+ *
  * @author DalPraS
  *
  * @method string|null getTokenType()
@@ -43,9 +48,9 @@ namespace verbb\auth\clients\gotowebinar\decorators;
 class AccessTokenDecorator {
 
     /**
-     * @var \League\OAuth2\Client\Token\AccessToken
+     * @var AccessToken
      */
-    private $accessToken;
+    private AccessToken $accessToken;
 
     /**
      * Getters allowed for properties proxied to accessToken.
@@ -54,7 +59,7 @@ class AccessTokenDecorator {
      * 
      * @var array
      */
-    private $tokenProps = [
+    private array $tokenProps = [
         // 'access_token',   // OAuth access token
         'token_type',        // The type of the access token (always "Bearer")
         // 'refresh_token',  // Refresh token identifier, valid for 30 days, or until product logout
@@ -68,9 +73,9 @@ class AccessTokenDecorator {
     ];
     
     /**
-     * @param \League\OAuth2\Client\Token\AccessToken $accessToken
+     * @param AccessToken $accessToken
      */
-    public function __construct(\League\OAuth2\Client\Token\AccessToken $accessToken){
+    public function __construct(AccessToken $accessToken){
         $this->accessToken = $accessToken;
     }
 
@@ -81,11 +86,11 @@ class AccessTokenDecorator {
      * 
      * @param string $method
      * @param array $args
-     * @throws \Exception
      * @return NULL|mixed
+     *@throws Exception
      */
-    public function __call($method, $args) {
-        if ( substr($method, 0, 3) === 'get' ) {
+    public function __call(string $method, array $args) {
+        if (str_starts_with($method, 'get')) {
             $property = substr($this->camelToDashed($method), 4);
             if (in_array($property, $this->tokenProps)) {
                 return $this->accessToken->getValues()[$property] ?? NULL;
@@ -95,7 +100,7 @@ class AccessTokenDecorator {
         if (is_callable([$this->accessToken, $method])) {
             return call_user_func_array([$this->accessToken, $method], $args);
         }
-        throw new \BadMethodCallException('Wrong method call ' . get_class($this->accessToken) . '::' . $method . ' in ' . __CLASS__ . ' line ' . __LINE__);
+        throw new BadMethodCallException('Wrong method call ' . get_class($this->accessToken) . '::' . $method . ' in ' . __CLASS__ . ' line ' . __LINE__);
     }
 
     public function __get($property) {
@@ -109,7 +114,8 @@ class AccessTokenDecorator {
         return $this;
     }
 
-    private function camelToDashed(string $name) {
+    private function camelToDashed(string $name): string
+    {
         return strtolower(preg_replace('/([a-zA-Z])(?=[A-Z])/', '$1_', $name));
     }    
 }

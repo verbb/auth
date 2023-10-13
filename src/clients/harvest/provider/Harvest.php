@@ -7,6 +7,7 @@ use GlobalVisionMedia\OAuth2\Client\Provider\Exception\HarvestIdentityProviderEx
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\RequestInterface;
 
 class Harvest extends AbstractProvider {
     use BearerAuthorizationTrait;
@@ -21,14 +22,15 @@ class Harvest extends AbstractProvider {
      *
      * @var string
      */
-    public $apiDomain = 'https://api.harvestapp.com';
+    public string $apiDomain = 'https://api.harvestapp.com';
 
     /**
      * Get authorization url to begin OAuth flow
      *
      * @return string
      */
-    public function getBaseAuthorizationUrl() {
+    public function getBaseAuthorizationUrl(): string
+    {
         return 'https://id.getharvest.com/oauth2/authorize';
     }
 
@@ -39,7 +41,8 @@ class Harvest extends AbstractProvider {
      *
      * @return string
      */
-    public function getBaseAccessTokenUrl(array $params) {
+    public function getBaseAccessTokenUrl(array $params): string
+    {
         return 'https://id.getharvest.com/api/v2/oauth2/token';
     }
 
@@ -50,7 +53,8 @@ class Harvest extends AbstractProvider {
      *
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token) {
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
+    {
         if ($this->domain === 'https://api.harvestapp.com') {
             return $this->apiDomain.'/account/who_am_i';
         }
@@ -64,7 +68,8 @@ class Harvest extends AbstractProvider {
      * required for the provider user interface!
      *
      * @return array
-     */ protected function getDefaultScopes() {
+     */ protected function getDefaultScopes(): array
+{
         return [];
     }
 
@@ -72,9 +77,9 @@ class Harvest extends AbstractProvider {
   /**
    * Returns the default headers used by this provider.
    *
-   * @return array
    */
-   protected function getDefaultHeaders($token = null) {
+   protected function getDefaultHeaders($token = null): array
+   {
 
     return ['Harvest-Account-Id' => $this->accountId,
             'User-Agent'         => $this->userAgent ];
@@ -87,10 +92,13 @@ class Harvest extends AbstractProvider {
      * @param  string $data Parsed response data
      * @return void
      */
-    protected function checkResponse(ResponseInterface $response, $data) {
+    protected function checkResponse(ResponseInterface $response, $data): void
+    {
         if ($response->getStatusCode() >= 400) {
             throw HarvestIdentityProviderException::clientException($response, $data);
-        } elseif (isset($data['error'])) {
+        }
+
+        if (isset($data['error'])) {
             throw HarvestIdentityProviderException::oauthException($response, $data);
         }
     }
@@ -100,9 +108,10 @@ class Harvest extends AbstractProvider {
      *
      * @param array $response
      * @param AccessToken $token
-     * @return League\OAuth2\Client\Provider\ResourceOwnerInterface
+     * @return ResourceOwner
      */
-    protected function createResourceOwner(array $response, AccessToken $token) {
+    protected function createResourceOwner(array $response, AccessToken $token): ResourceOwner
+    {
         $user = new HarvestResourceOwner($response);
 
         return $user->setDomain($this->domain);
@@ -117,7 +126,8 @@ class Harvest extends AbstractProvider {
      * @param  array $options Any of "headers", "body", and "protocolVersion".
      * @return RequestInterface
      */
-    public function getAuthenticatedRequest($method, $url, $token, array $options = []) {
+    public function getAuthenticatedRequest($method, $url, $token, array $options = []): RequestInterface
+    {
         $options['headers'] = array('Content-Type' => 'application/json','Accept' => 'application/json');
         return $this->createRequest($method, $url, $token, $options);
     }

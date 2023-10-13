@@ -12,7 +12,7 @@ class StripeResourceOwner implements ResourceOwnerInterface
      *
      * @var array
      */
-    protected $response;
+    protected array $response;
 
     /**
      * Set response
@@ -29,7 +29,7 @@ class StripeResourceOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getId()
+    public function getId(): string
     {
         return $this->response['id'];
     }
@@ -39,7 +39,7 @@ class StripeResourceOwner implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }
@@ -49,7 +49,7 @@ class StripeResourceOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->response['email'];
     }
@@ -59,7 +59,7 @@ class StripeResourceOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getStatementDescriptor()
+    public function getStatementDescriptor(): string
     {
         return $this->response['statement_descriptor'];
     }
@@ -69,7 +69,7 @@ class StripeResourceOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getDisplayName()
+    public function getDisplayName(): string
     {
         return $this->response['display_name'];
     }
@@ -79,7 +79,7 @@ class StripeResourceOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getTimezone()
+    public function getTimezone(): string
     {
         return $this->response['timezone'];
     }
@@ -90,7 +90,7 @@ class StripeResourceOwner implements ResourceOwnerInterface
      *
      * @return bool
      */
-    public function getDetailsSubmitted()
+    public function getDetailsSubmitted(): bool
     {
         return $this->response['details_submitted'];
     }
@@ -100,7 +100,7 @@ class StripeResourceOwner implements ResourceOwnerInterface
      *
      * @return bool
      */
-    public function getChargesEnabled()
+    public function getChargesEnabled(): bool
     {
         return $this->response['charges_enabled'];
     }
@@ -111,7 +111,7 @@ class StripeResourceOwner implements ResourceOwnerInterface
      *
      * @return bool
      */
-    public function getTransfersEnabled()
+    public function getTransfersEnabled(): bool
     {
         return $this->response['transfers_enabled'];
     }
@@ -121,7 +121,7 @@ class StripeResourceOwner implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function getCurrenciesSupported()
+    public function getCurrenciesSupported(): array
     {
         return $this->response['currencies_supported'];
     }
@@ -131,7 +131,7 @@ class StripeResourceOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getDefaultCurrency()
+    public function getDefaultCurrency(): string
     {
         return $this->response['default_currency'];
     }
@@ -141,7 +141,7 @@ class StripeResourceOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getCountry()
+    public function getCountry(): string
     {
         return $this->response['country'];
     }
@@ -151,7 +151,7 @@ class StripeResourceOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getObject()
+    public function getObject(): string
     {
         return $this->response['object'];
     }
@@ -161,7 +161,7 @@ class StripeResourceOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getBusinessName()
+    public function getBusinessName(): string
     {
         return $this->response['business_name'];
     }
@@ -171,7 +171,7 @@ class StripeResourceOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getBusinessUrl()
+    public function getBusinessUrl(): string
     {
         return $this->response['business_url'];
     }
@@ -181,7 +181,7 @@ class StripeResourceOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getSupportPhone()
+    public function getSupportPhone(): string
     {
         return $this->response['support_phone'];
     }
@@ -191,7 +191,7 @@ class StripeResourceOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getBusinessLogo()
+    public function getBusinessLogo(): string
     {
         return $this->response['business_logo'];
     }
@@ -202,7 +202,7 @@ class StripeResourceOwner implements ResourceOwnerInterface
      * @see https://stripe.com/docs/api/curl#metadata
      * @return array
      */
-    public function getMetaData()
+    public function getMetaData(): array
     {
         return $this->response['metadata'];
     }
@@ -213,7 +213,7 @@ class StripeResourceOwner implements ResourceOwnerInterface
      *
      * @return bool
      */
-    public function getManaged()
+    public function getManaged(): bool
     {
         return $this->response['managed'];
     }

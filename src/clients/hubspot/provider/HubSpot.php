@@ -8,14 +8,14 @@ use Psr\Http\Message\ResponseInterface;
 
 class HubSpot extends AbstractProvider
 {
-    protected $baseApiUrl = 'https://api.hubapi.com/oauth/v1';
+    protected string $baseApiUrl = 'https://api.hubapi.com/oauth/v1';
 
     /**
      * Get authorization url to begin OAuth flow
      *
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return 'https://app.hubspot.com/oauth/authorize';
     }
@@ -27,12 +27,12 @@ class HubSpot extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return $this->baseApiUrl . '/token';
     }
 
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return $this->baseApiUrl . '/access-tokens/' . $token->getToken();
     }
@@ -45,7 +45,7 @@ class HubSpot extends AbstractProvider
      *
      * @return array
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return [];
     }
@@ -56,7 +56,7 @@ class HubSpot extends AbstractProvider
      *
      * @return string
      */
-    protected function getScopeSeparator()
+    protected function getScopeSeparator(): string
     {
         return ' ';
     }
@@ -67,12 +67,12 @@ class HubSpot extends AbstractProvider
      *
      * @throws IdentityProviderException
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         $statusCode = $response->getStatusCode();
         if ($statusCode >= 400) {
             throw new IdentityProviderException(
-                isset($data['message']) ? $data['message'] : $response->getReasonPhrase(),
+                $data['message'] ?? $response->getReasonPhrase(),
                 $statusCode,
                 $response
             );
@@ -87,7 +87,7 @@ class HubSpot extends AbstractProvider
      *
      * @return HubSpotResourceOwner
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): HubSpotResourceOwner
     {
         return new HubSpotResourceOwner($response);
     }

@@ -5,6 +5,7 @@ use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
+use verbb\auth\clients\uber\provider\League\OAuth2\Client\Provider\ResourceOwnerInterface;
 
 class Uber extends AbstractProvider
 {
@@ -15,21 +16,21 @@ class Uber extends AbstractProvider
      *
      * @var array
      */
-    public $defaultScopes = [];
+    public array $defaultScopes = [];
 
     /**
      * Uber Api version
      *
      * @var string
      */
-    public $version = 'v1';
+    public string $version = 'v1';
 
     /**
      * Get authorization url to begin OAuth flow
      *
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return 'https://login.uber.com/oauth/authorize';
     }
@@ -37,9 +38,8 @@ class Uber extends AbstractProvider
     /**
      * Get access token url to retrieve token
      *
-     * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return 'https://login.uber.com/oauth/token';
     }
@@ -51,7 +51,7 @@ class Uber extends AbstractProvider
      *
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return 'https://api.uber.com/'.$this->version.'/me';
     }
@@ -64,7 +64,7 @@ class Uber extends AbstractProvider
      *
      * @return array
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return $this->defaultScopes;
     }
@@ -75,7 +75,7 @@ class Uber extends AbstractProvider
      *
      * @return string Scope separator, defaults to ' '
      */
-    protected function getScopeSeparator()
+    protected function getScopeSeparator(): string
     {
         return ' ';
     }
@@ -89,7 +89,7 @@ class Uber extends AbstractProvider
      * @param  string $data Parsed response data
      * @return void
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         $acceptableStatuses = [200, 201];
 
@@ -105,11 +105,11 @@ class Uber extends AbstractProvider
     /**
      * Generate a user object from a successful user details request.
      *
-     * @param object $response
+     * @param array $response
      * @param AccessToken $token
-     * @return League\OAuth2\Client\Provider\ResourceOwnerInterface
+     * @return UberResourceOwner
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): UberResourceOwner
     {
         return new UberResourceOwner($response);
     }

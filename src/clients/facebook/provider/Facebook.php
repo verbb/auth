@@ -10,6 +10,7 @@ use League\OAuth2\Client\Token\AccessTokenInterface;
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use Psr\Http\Message\ResponseInterface;
+use InvalidArgumentException;
 
 /**
  * @method FacebookUser getResourceOwner(AccessToken $token)
@@ -56,40 +57,40 @@ class Facebook extends AbstractProvider
      *
      * @var string
      */
-    protected $graphApiVersion;
+    protected mixed $graphApiVersion;
 
     /**
      * A toggle to enable the beta tier URL's.
      *
      * @var boolean
      */
-    private $enableBetaMode = false;
+    private bool $enableBetaMode = false;
 
     /**
      * The fields to look up when requesting the resource owner
      *
      * @var string[]
      */
-    protected $fields;
+    protected array $fields;
 
     /**
      * @param array $options
      * @param array $collaborators
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    public function __construct($options = [], array $collaborators = [])
+    public function __construct(array $options = [], array $collaborators = [])
     {
         parent::__construct($options, $collaborators);
 
         if (empty($options['graphApiVersion'])) {
             $message = 'The "graphApiVersion" option not set. Please set a default Graph API version.';
-            throw new \InvalidArgumentException($message);
+            throw new InvalidArgumentException($message);
         }
 
         if (!preg_match(self::GRAPH_API_VERSION_REGEX, $options['graphApiVersion'])) {
             $message = 'The "graphApiVersion" must start with letter "v" followed by version number, ie: "v2.4".';
-            throw new \InvalidArgumentException($message);
+            throw new InvalidArgumentException($message);
         }
 
         $this->graphApiVersion = $options['graphApiVersion'];
@@ -141,13 +142,13 @@ class Facebook extends AbstractProvider
             . '&access_token=' . $token . '&appsecret_proof=' . $appSecretProof;
     }
 
-    public function getAccessToken($grant = 'authorization_code', array $params = []): AccessTokenInterface
+    public function getAccessToken($grant = 'authorization_code', array $options = []): AccessTokenInterface
     {
-        if (isset($params['refresh_token'])) {
+        if (isset($options['refresh_token'])) {
             throw new FacebookProviderException('Facebook does not support token refreshing.');
         }
 
-        return parent::getAccessToken($grant, $params);
+        return parent::getAccessToken($grant, $options);
     }
 
     /**
@@ -177,20 +178,17 @@ class Facebook extends AbstractProvider
         throw new IdentityProviderException($message, $data['error']['code'], $data);
     }
 
-    /**
-     * @inheritdoc
-     */
     protected function getContentType(ResponseInterface $response): string
     {
         $type = parent::getContentType($response);
 
         // Fix for Facebook's pseudo-JSONP support
-        if (strpos($type, 'javascript') !== false) {
+        if (str_contains($type, 'javascript')) {
             return 'application/json';
         }
 
         // Fix for Facebook's pseudo-urlencoded support
-        if (strpos($type, 'plain') !== false) {
+        if (str_contains($type, 'plain')) {
             return 'application/x-www-form-urlencoded';
         }
 

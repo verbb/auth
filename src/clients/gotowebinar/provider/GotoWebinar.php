@@ -12,6 +12,7 @@ use League\OAuth2\Client\Grant\GrantFactory;
 use GuzzleHttp\Client as HttpClient;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use verbb\auth\clients\gotowebinar\provider\exception\GotoWebinarProviderException;
+use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 
 /**
  * GotoWebinar Provider.
@@ -27,7 +28,7 @@ class GotoWebinar extends AbstractProvider
      *
      * @var string
      */
-    public $domain = 'https://api.getgo.com';
+    public string $domain = 'https://api.getgo.com';
 
     /**
      * Constructs an OAuth 2.0 service provider.
@@ -76,7 +77,7 @@ class GotoWebinar extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return $this->domain.'/oauth/v2/authorize';
     }
@@ -88,7 +89,7 @@ class GotoWebinar extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return $this->domain.'/oauth/v2/token';
     }
@@ -100,7 +101,7 @@ class GotoWebinar extends AbstractProvider
      *
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return $this->domain.'/admin/rest/v1/me';
     }
@@ -113,7 +114,7 @@ class GotoWebinar extends AbstractProvider
      *
      * @return array
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return [];
     }
@@ -127,11 +128,13 @@ class GotoWebinar extends AbstractProvider
      *      Parsed response data
      * @return void
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         if ($response->getStatusCode() >= 400) {
             throw GotoWebinarProviderException::clientException($response, $data);
-        } elseif (isset($data['error'])) {
+        }
+
+        if (isset($data['error'])) {
             throw GotoWebinarProviderException::oauthException($response, $data);
         }
     }
@@ -154,13 +157,11 @@ class GotoWebinar extends AbstractProvider
      *
      * @param array $response
      * @param AccessToken $token
-     * @return \League\OAuth2\Client\Provider\ResourceOwnerInterface
+     * @return GotoWebinarResourceOwner|ResourceOwnerInterface
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): GotoWebinarResourceOwner|ResourceOwnerInterface
     {
-        $user = new GotoWebinarResourceOwner($response);
-        
-        return $user;
+        return new GotoWebinarResourceOwner($response);
     }
 
 

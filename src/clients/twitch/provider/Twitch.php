@@ -11,16 +11,16 @@ class Twitch extends AbstractProvider
 {
     use BearerAuthorizationTrait;
 
-    const PATH_AUTHORIZE = '/oauth2/authorize';
-    const PATH_TOKEN = '/oauth2/token';
-    const USER_RESOURCE = '//users';
-    const SCOPE_SEPARATOR = ' ';
+    public const PATH_AUTHORIZE = '/oauth2/authorize';
+    public const PATH_TOKEN = '/oauth2/token';
+    public const USER_RESOURCE = '//users';
+    public const SCOPE_SEPARATOR = ' ';
 
-    protected $domain = 'https://id.twitch.tv';
-    protected $resourceDomain = 'https://api.twitch.tv';
+    protected string $domain = 'https://id.twitch.tv';
+    protected string $resourceDomain = 'https://api.twitch.tv';
 
-    private $scopes = ['user:read:email'];
-    private $responseError = 'error';
+    private array $scopes = ['user:read:email'];
+    private string $responseError = 'error';
     private $responseCode;
 
     public function __construct(array $options = [])
@@ -37,7 +37,7 @@ class Twitch extends AbstractProvider
         parent::__construct($options);
     }
 
-    protected function getConfigurableOptions()
+    protected function getConfigurableOptions(): array
     {
         return [
             'accessTokenMethod',
@@ -50,32 +50,32 @@ class Twitch extends AbstractProvider
         ];
     }
 
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return $this->domain . self::PATH_AUTHORIZE;
     }
 
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return $this->domain . self::PATH_TOKEN;
     }
 
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return $this->resourceDomain . self::USER_RESOURCE;
     }
 
-    public function getDefaultScopes()
+    public function getDefaultScopes(): array
     {
         return $this->scopes;
     }
 
-    protected function getScopeSeparator()
+    protected function getScopeSeparator(): string
     {
         return self::SCOPE_SEPARATOR;
     }
 
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         if (!empty($data[$this->responseError])) {
             $error = $data[$this->responseError];
@@ -85,19 +85,19 @@ class Twitch extends AbstractProvider
         }
     }
 
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): TwitchResourceOwner
     {
         return new TwitchResourceOwner($response);
     }
 
-    protected function getDefaultHeaders()
+    protected function getDefaultHeaders(): array
     {
         return [
             'Client-ID' => $this->clientId
         ];
     }
 
-    protected function getAuthorizationHeaders($token = null)
+    protected function getAuthorizationHeaders($token = null): array
     {
         if ($token === null) {
             return [];

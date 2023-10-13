@@ -5,6 +5,7 @@ use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\RequestInterface;
 
 class Paypal extends AbstractProvider
 {
@@ -15,16 +16,16 @@ class Paypal extends AbstractProvider
      *
      * @var string
      */
-    protected $isSandbox = false;
+    protected string|bool $isSandbox = false;
 
     /**
      * Creates and returns api base url base on client configuration.
      *
      * @return string
      */
-    protected function getApiUrl()
+    protected function getApiUrl(): string
     {
-        return (bool) $this->isSandbox ? 'https://api-m.sandbox.paypal.com' : 'https://api-m.paypal.com';
+        return $this->isSandbox ? 'https://api-m.sandbox.paypal.com' : 'https://api-m.paypal.com';
     }
 
     /**
@@ -32,9 +33,9 @@ class Paypal extends AbstractProvider
      *
      * @return string
      */
-    protected function getWebAppUrl()
+    protected function getWebAppUrl(): string
     {
-        return (bool) $this->isSandbox ? 'https://www.sandbox.paypal.com' : 'https://www.paypal.com';
+        return $this->isSandbox ? 'https://www.sandbox.paypal.com' : 'https://www.paypal.com';
     }
 
     /**
@@ -42,7 +43,7 @@ class Paypal extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return $this->getWebAppUrl().'/signin/authorize';
     }
@@ -50,9 +51,8 @@ class Paypal extends AbstractProvider
     /**
      * Get access token url to retrieve token
      *
-     * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return $this->getApiUrl().'/v1/oauth2/token';
     }
@@ -64,7 +64,7 @@ class Paypal extends AbstractProvider
      *
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return $this->getApiUrl().'/v1/identity/openidconnect/userinfo?schema=openid';
     }
@@ -77,7 +77,7 @@ class Paypal extends AbstractProvider
      *
      * @return string[]
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return [];
     }
@@ -88,12 +88,12 @@ class Paypal extends AbstractProvider
      *
      * @return string Scope separator, defaults to ','
      */
-    protected function getScopeSeparator()
+    protected function getScopeSeparator(): string
     {
         return ' ';
     }
 
-    protected function getAccessTokenRequest(array $params)
+    protected function getAccessTokenRequest(array $params): RequestInterface
     {
         $request = parent::getAccessTokenRequest($params);
         $uri = $request->getUri()->withUserInfo($this->clientId, $this->clientSecret);
@@ -109,7 +109,7 @@ class Paypal extends AbstractProvider
      * @param  string $data Parsed response data
      * @return void
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         $statusCode = $response->getStatusCode();
         if ($statusCode > 400) {
@@ -124,11 +124,11 @@ class Paypal extends AbstractProvider
     /**
      * Generate a user object from a successful user details request.
      *
-     * @param object $response
+     * @param array $response
      * @param AccessToken $token
      * @return PaypalResourceOwner
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): PaypalResourceOwner
     {
         return new PaypalResourceOwner($response);
     }

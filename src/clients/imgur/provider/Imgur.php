@@ -18,7 +18,7 @@ class Imgur extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return 'https://api.imgur.com/oauth2/authorize';
     }
@@ -30,7 +30,7 @@ class Imgur extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return 'https://api.imgur.com/oauth2/token';
     }
@@ -42,7 +42,7 @@ class Imgur extends AbstractProvider
      *
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return 'https://api.imgur.com/3/account/me';
     }
@@ -52,7 +52,7 @@ class Imgur extends AbstractProvider
      *
      * @return array
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return [];
     }
@@ -65,7 +65,7 @@ class Imgur extends AbstractProvider
      *
      * @throws IdentityProviderException
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         if ($response->getStatusCode() >= 400) {
             throw new IdentityProviderException(
@@ -82,9 +82,9 @@ class Imgur extends AbstractProvider
      * @param array $response
      * @param AccessToken $token
      *
-     * @return League\OAuth2\Client\Provider\ResourceOwnerInterface
+     * @return ImgurResourceOwner
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): ImgurResourceOwner
     {
         return new ImgurResourceOwner($response);
     }

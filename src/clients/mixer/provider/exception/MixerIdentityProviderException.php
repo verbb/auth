@@ -13,12 +13,13 @@ class MixerIdentityProviderException extends IdentityProviderException
 {
     /**
      * Creates identity exception from response.
+     *
      * @param  ResponseInterface $response
-     * @param  string|null $message
+     * @param string|null $message
      * @return IdentityProviderException
      * @throws \Morgann\OAuth2\Client\Mixer\Provider\Exception\MixerIdentityProviderException
      */
-    public static function fromResponse(ResponseInterface $response, $message = null)
+    public static function fromResponse(ResponseInterface $response, string $message = null): IdentityProviderException
     {
         throw new static($message, $response->getStatusCode(), (string) $response->getBody());
     }

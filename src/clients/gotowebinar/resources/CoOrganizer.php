@@ -3,6 +3,7 @@
 namespace verbb\auth\clients\gotowebinar\resources;
 
 use verbb\auth\clients\gotowebinar\resultset\SimpleResultSet;
+use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 
 class CoOrganizer extends AuthenticatedResourceAbstract
 {
@@ -10,9 +11,8 @@ class CoOrganizer extends AuthenticatedResourceAbstract
      * Get co-organizers
      *
      * @param string $webinarKey
-     * @return array
-     * @throws \League\OAuth2\Client\Provider\Exception\IdentityProviderException
-     *
+     * @return SimpleResultSet
+     * @throws IdentityProviderException
      * @link https://developer.goto.com/GoToWebinarV2/#operation/getCoorganizers
      */
     public function getCoOrganizers(string $webinarKey): SimpleResultSet
@@ -29,9 +29,8 @@ class CoOrganizer extends AuthenticatedResourceAbstract
      *
      * @param string $webinarKey
      * @param array $body
-     * @return array
-     * @throws \League\OAuth2\Client\Provider\Exception\IdentityProviderException
-     *
+     * @return SimpleResultSet
+     * @throws IdentityProviderException
      * @link https://developer.goto.com/GoToWebinarV2/#operation/createCoorganizers
      */
     public function createCoOrganizers(string $webinarKey, array $body): SimpleResultSet
@@ -48,12 +47,11 @@ class CoOrganizer extends AuthenticatedResourceAbstract
     /**
      * Delete co-organizer
      *
-     * @param int|string $webinarKey
-     * @param int|string $coOrganizerKey
-     * @param bool       $external
-     * @return array|null
-     * @throws \League\OAuth2\Client\Provider\Exception\IdentityProviderException
-     *
+     * @param string $webinarKey
+     * @param string $coOrganizerKey
+     * @param bool $external
+     * @return SimpleResultSet
+     * @throws IdentityProviderException
      * @link https://developer.goto.com/GoToWebinarV2/#operation/deleteCoorganizer
      */
     public function deleteCoOrganizer(string $webinarKey, string $coOrganizerKey, bool $external = false): SimpleResultSet
@@ -75,12 +73,9 @@ class CoOrganizer extends AuthenticatedResourceAbstract
      * 
      * https://api.getgo.com/G2W/rest/v2/organizers/{organizerKey}/webinars/{webinarKey}/coorganizers/{coorganizerKey}/resendInvitation
      *
+     * @throws IdentityProviderException
+     *
      * @deprecated use resendCoOrganizerInvitation
-     * 
-     * @param string $webinarKey
-     * @param string $coOrganizerKey
-     * @param bool $external
-     * @throws \League\OAuth2\Client\Provider\Exception\IdentityProviderException
      *
      * @link https://developer.goto.com/GoToWebinarV2/#operation/resendCoorganizerInvitation
      */
@@ -94,11 +89,8 @@ class CoOrganizer extends AuthenticatedResourceAbstract
      * (individuals who do not have a shared GoToWebinar account), set the URL parameter 'external' = true.
      * 
      * https://api.getgo.com/G2W/rest/v2/organizers/{organizerKey}/webinars/{webinarKey}/coorganizers/{coorganizerKey}/resendInvitation
-     * 
-     * @param string $webinarKey
-     * @param string $coOrganizerKey
-     * @param bool $external
-     * @throws \League\OAuth2\Client\Provider\Exception\IdentityProviderException
+     *
+     * @throws IdentityProviderException
      *
      * @link https://developer.goto.com/GoToWebinarV2/#operation/resendCoorganizerInvitation
      */

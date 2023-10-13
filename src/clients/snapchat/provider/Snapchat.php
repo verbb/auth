@@ -8,34 +8,35 @@ use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\RequestInterface;
 
 class Snapchat extends AbstractProvider
 {
     /**
      * @var string Key used in a token response to identify the resource owner.
      */
-    const ACCESS_TOKEN_RESOURCE_OWNER_ID = 'user.id';
+    public const ACCESS_TOKEN_RESOURCE_OWNER_ID = 'user.id';
 
     /**
      * Default scopes
      *
      * @var array
      */
-    public $defaultScopes = ['snapchat-marketing-api'];
+    public array $defaultScopes = ['snapchat-marketing-api'];
 
     /**
      * Default host
      *
      * @var string
      */
-    protected $host = 'https://accounts.snapchat.com';
+    protected string $host = 'https://accounts.snapchat.com';
 
     /**
      * Gets host.
      *
      * @return string
      */
-    public function getHost()
+    public function getHost(): string
     {
         return $this->host;
     }
@@ -45,7 +46,7 @@ class Snapchat extends AbstractProvider
      *
      * @return string
      */
-    protected function getScopeSeparator()
+    protected function getScopeSeparator(): string
     {
         return ' ';
     }
@@ -56,7 +57,7 @@ class Snapchat extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return 'https://accounts.snapchat.com/login/oauth2/authorize';
     }
@@ -68,7 +69,7 @@ class Snapchat extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return 'https://accounts.snapchat.com/login/oauth2/access_token';
     }
@@ -80,7 +81,7 @@ class Snapchat extends AbstractProvider
      *
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         $url = "https://api.snapchat.com/v1/me/?access_token={$token->getToken()}";
         $url .= "&fields=first_name%2Cid%2Clast_name%2Curl%2Cimage%2Cusername%2Ccreated_at%2Ccounts";
@@ -95,9 +96,9 @@ class Snapchat extends AbstractProvider
      * @param  AccessToken|string $token
      * @param  array $options Any of "headers", "body", and "protocolVersion".
      *
-     * @return \Psr\Http\Message\RequestInterface
+     * @return RequestInterface
      */
-    public function getAuthenticatedRequest($method, $url, $token, array $options = [])
+    public function getAuthenticatedRequest($method, $url, $token, array $options = []): RequestInterface
     {
         $parsedUrl = parse_url($url);
         $queryString = array();
@@ -125,7 +126,7 @@ class Snapchat extends AbstractProvider
      *
      * @return array
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return $this->defaultScopes;
     }
@@ -139,7 +140,7 @@ class Snapchat extends AbstractProvider
      * @param  string $data Parsed response data
      * @return void
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         if ($response->getStatusCode() >= 400) {
             throw new SnapchatIdentityProviderException(
@@ -155,9 +156,9 @@ class Snapchat extends AbstractProvider
      *
      * @param array $response
      * @param AccessToken $token
-     * @return ResourceOwnerInterface
+     * @return SnapchatResourceOwner
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): SnapchatResourceOwner
     {
         return new SnapchatResourceOwner($response);
     }
@@ -169,7 +170,7 @@ class Snapchat extends AbstractProvider
      *
      * @return string
      */
-    public function setHost($host)
+    public function setHost(string $host): string
     {
         $this->host = $host;
 

@@ -14,7 +14,7 @@ class BasecampResourceOwner implements ResourceOwnerInterface
      *
      * @var array
      */
-    protected $response;
+    protected array $response;
 
     /**
      * Creates new resource owner.
@@ -31,7 +31,7 @@ class BasecampResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->getValueByKey($this->response, 'identity.id');
     }
@@ -41,7 +41,7 @@ class BasecampResourceOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return implode(' ', array_filter([
             $this->getValueByKey($this->response, 'identity.first_name'),
@@ -54,7 +54,7 @@ class BasecampResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->getValueByKey($this->response, 'identity.email_address');
     }
@@ -64,7 +64,7 @@ class BasecampResourceOwner implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }

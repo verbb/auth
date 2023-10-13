@@ -21,6 +21,9 @@ use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
 use Lcobucci\JWT\Encoding\JoseEncoder;
 use Lcobucci\JWT\Token;
+use GuzzleHttp\Psr7\Request;
+use Exception;
+use Psr\Http\Message\RequestInterface;
 
 class ORCID extends AbstractProvider
 {
@@ -34,19 +37,19 @@ class ORCID extends AbstractProvider
     /**
      * @var string
      */
-    public $sandbox = false;
+    public string|bool $sandbox = false;
 
     /**
      * @var string
      */
-    public $member = false;
+    public string|bool $member = false;
 
     /**
      * Returns the base URL for authorizing a client.
      *
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return 'https://' .
             (($this->sandbox) ? 'sandbox.' : '') .
@@ -59,7 +62,7 @@ class ORCID extends AbstractProvider
      * @param array $params
      * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return 'https://' .
             (($this->sandbox) ? 'sandbox.' : '') .
@@ -73,7 +76,7 @@ class ORCID extends AbstractProvider
      *
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return 'https://' .
             (($this->member) ? 'api.' : 'pub.') .
@@ -91,7 +94,7 @@ class ORCID extends AbstractProvider
      *
      * @return array
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return [ '/authenticate' ];
     }
@@ -102,7 +105,7 @@ class ORCID extends AbstractProvider
      *
      * @return string Scope separator, defaults to ','
      */
-    protected function getScopeSeparator()
+    protected function getScopeSeparator(): string
     {
         return ' ';
     }
@@ -114,7 +117,7 @@ class ORCID extends AbstractProvider
      *
      * @return array
      */
-    protected function getDefaultHeaders()
+    protected function getDefaultHeaders(): array
     {
         return [ 'Accept' => 'application/json' ];
     }
@@ -128,7 +131,7 @@ class ORCID extends AbstractProvider
      * @param  string $data Parsed response data
      * @return void
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         $error = false;
         $errcode = 0;
@@ -160,11 +163,11 @@ class ORCID extends AbstractProvider
     /**
      * Generate a user object from a successful user details request.
      *
-     * @param object $response
+     * @param array $response
      * @param AccessToken $token
      * @return ORCIDResourceOwner
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): ORCIDResourceOwner
     {
         // Attempt to extract 'amr' (AuthnMethodRef) from the id_token
         // and add it to the response. Note that 'amr' is available only
@@ -177,11 +180,11 @@ class ORCID extends AbstractProvider
                 $token2 = $parser->parse((string) $jwt);
                 if ($token2->claims()->has('amr')) {
                     $amr = $token2->claims()->get('amr');
-                    if (strlen($amr) > 0) {
+                    if ($amr != '') {
                         $response['amr'] = $amr;
                     }
                 }
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 // Do not set 'amr' in case of errors.
             }
         }
@@ -193,27 +196,24 @@ class ORCID extends AbstractProvider
      * Returns a prepared request for requesting an access token.
      *
      * @param array $params Query string parameters
-     * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getAccessTokenRequest(array $params, $accesstoken = null)
+    protected function getAccessTokenRequest(array $params, $accesstoken = null): RequestInterface
     {
         $method  = $this->getAccessTokenMethod();
         $url     = $this->getAccessTokenUrl($params);
         $options = $this->optionProvider->getAccessTokenOptions($method, $params);
         if (is_null($accesstoken)) {
             return $this->getRequest($method, $url, $options);
-        } else {
-            return $this->getAuthenticatedRequest($method, $url, $accesstoken, $options);
         }
+
+        return $this->getAuthenticatedRequest($method, $url, $accesstoken, $options);
     }
     /**
      * Requests an access token using a specified grant and option set.
      *
      * @param  mixed $grant
-     * @param  array $options
-     * @return AccessToken
      */
-    public function getAccessToken($grant, array $options = [], $accesstoken = null)
+    public function getAccessToken($grant, array $options = [], $accesstoken = null): AccessToken
     {
         $grant = $this->verifyGrant($grant);
         $params = [
@@ -225,7 +225,7 @@ class ORCID extends AbstractProvider
         $request  = $this->getAccessTokenRequest($params, $accesstoken);
         $response = $this->getParsedResponse($request);
         $prepared = $this->prepareAccessTokenResponse($response);
-        $token    = $this->createAccessToken($prepared, $grant);
-        return $token;
+
+        return $this->createAccessToken($prepared, $grant);
     }
 }

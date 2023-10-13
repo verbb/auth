@@ -9,7 +9,7 @@ class UberResourceOwner implements ResourceOwnerInterface
      *
      * @var array
      */
-    protected $response;
+    protected array $response;
 
     /**
      * Creates new resource owner.
@@ -26,7 +26,7 @@ class UberResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->response['email'] ?: null;
     }
@@ -36,7 +36,7 @@ class UberResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getFirstname()
+    public function getFirstname(): ?string
     {
         return $this->response['first_name'] ?: null;
     }
@@ -46,7 +46,7 @@ class UberResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getImageurl()
+    public function getImageurl(): ?string
     {
         return $this->response['picture'] ?: null;
     }
@@ -56,7 +56,7 @@ class UberResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getLastname()
+    public function getLastname(): ?string
     {
         return $this->response['last_name'] ?: null;
     }
@@ -66,7 +66,7 @@ class UberResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->response['uuid'] ?: null;
     }
@@ -76,7 +76,7 @@ class UberResourceOwner implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }

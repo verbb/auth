@@ -10,7 +10,7 @@ use verbb\auth\clients\drip\provider\DripUser;
 
 class Drip extends AbstractProvider
 {
-  const ACCESS_TOKEN_RESOURCE_OWNER_ID = 'id';
+  public const ACCESS_TOKEN_RESOURCE_OWNER_ID = 'id';
 
   /**
    * Constructs an OAuth 2.0 service provider.
@@ -28,22 +28,22 @@ class Drip extends AbstractProvider
     parent::__construct($options, $collaborators);
   }
 
-  public function getBaseAuthorizationUrl()
+  public function getBaseAuthorizationUrl(): string
   {
     return 'https://www.getdrip.com/oauth/authorize';
   }
 
-  public function getBaseAccessTokenUrl(array $params)
+  public function getBaseAccessTokenUrl(array $params): string
   {
     return 'https://www.getdrip.com/oauth/token';
   }
 
-  public function getResourceOwnerDetailsUrl(AccessToken $token)
+  public function getResourceOwnerDetailsUrl(AccessToken $token): string
   {
     return 'https://api.getdrip.com/v2/user';
   }
 
-  public function getDefaultScopes()
+  public function getDefaultScopes(): array
   {
     return [];
   }
@@ -57,7 +57,7 @@ class Drip extends AbstractProvider
     return $data;
   }
 
-  protected function createResourceOwner(array $response, AccessToken $token)
+  protected function createResourceOwner(array $response, AccessToken $token): \verbb\auth\clients\drip\provider\DripUser
   {
     return new DripUser($response);
   }

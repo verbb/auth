@@ -14,7 +14,7 @@ class JiraResourceOwner implements ResourceOwnerInterface
      *
      * @var array
      */
-    protected $response;
+    protected array $response;
 
     /**
      * Creates new resource owner.
@@ -31,7 +31,7 @@ class JiraResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->getValueByKey($this->response, 'emailAddress');
     }
@@ -41,7 +41,7 @@ class JiraResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->getValueByKey($this->response, 'accountId');
     }
@@ -51,7 +51,7 @@ class JiraResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->getValueByKey($this->response, 'displayName');
     }
@@ -61,7 +61,7 @@ class JiraResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getNickname()
+    public function getNickname(): ?string
     {
         return $this->getValueByKey($this->response, 'name');
     }
@@ -71,7 +71,7 @@ class JiraResourceOwner implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }

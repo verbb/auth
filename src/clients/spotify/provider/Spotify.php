@@ -12,6 +12,8 @@ use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
 
+use function is_array;
+
 class Spotify extends AbstractProvider
 {
     use BearerAuthorizationTrait;
@@ -76,7 +78,7 @@ class Spotify extends AbstractProvider
             $error = $data['error_description'] ?? $data['error'] ?? $response->getReasonPhrase();
             $statusCode = $response->getStatusCode();
 
-            if (\is_array($data['error'])) {
+            if (is_array($data['error'])) {
                 $error = $data['error']['message'];
                 $statusCode = $data['error']['status'];
             }

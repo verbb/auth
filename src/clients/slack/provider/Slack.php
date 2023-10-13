@@ -22,7 +22,7 @@ class Slack extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return 'https://slack.com/oauth/authorize';
     }
@@ -34,7 +34,7 @@ class Slack extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return 'https://slack.com/api/oauth.access';
     }
@@ -46,7 +46,7 @@ class Slack extends AbstractProvider
      *
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         $authorizedUser = $this->getAuthorizedUser($token);
 
@@ -63,7 +63,7 @@ class Slack extends AbstractProvider
      *
      * @return string
      */
-    public function getAuthorizedUserTestUrl($token)
+    public function getAuthorizedUserTestUrl($token): string
     {
         return 'https://slack.com/api/auth.test?token=' . $token;
     }
@@ -72,16 +72,17 @@ class Slack extends AbstractProvider
      * Checks a provider response for errors.
      *
      * @param ResponseInterface $response
-     * @param array|string      $data Parsed response data
+     * @param array|string $data Parsed response data
      *
-     * @return \League\OAuth2\Client\Provider\Exception\IdentityProviderException
-     * @throws \AdamPaterson\OAuth2\Client\Provider\Exception\SlackProviderException
+     * @return IdentityProviderException|null
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): ?IdentityProviderException
     {
         if (isset($data['ok']) && $data['ok'] === false) {
             return SlackProviderException::fromResponse($response, $data['error']);
         }
+
+        return null;
     }
 
     /**
@@ -92,7 +93,7 @@ class Slack extends AbstractProvider
      *
      * @return SlackResourceOwner
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): SlackResourceOwner
     {
         return new SlackResourceOwner($response);
     }
@@ -100,7 +101,7 @@ class Slack extends AbstractProvider
     /**
      * @return array
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return [];
     }
@@ -110,7 +111,7 @@ class Slack extends AbstractProvider
      *
      * @return mixed
      */
-    public function fetchAuthorizedUserDetails(AccessToken $token)
+    public function fetchAuthorizedUserDetails(AccessToken $token): mixed
     {
         $url = $this->getAuthorizedUserTestUrl($token);
 
@@ -129,7 +130,7 @@ class Slack extends AbstractProvider
      *
      * @return SlackAuthorizedUser
      */
-    public function getAuthorizedUser(AccessToken $token)
+    public function getAuthorizedUser(AccessToken $token): SlackAuthorizedUser
     {
         $response = $this->fetchAuthorizedUserDetails($token);
 
@@ -141,7 +142,7 @@ class Slack extends AbstractProvider
      *
      * @return SlackAuthorizedUser
      */
-    protected function createAuthorizedUser($response)
+    protected function createAuthorizedUser($response): SlackAuthorizedUser
     {
         return new SlackAuthorizedUser($response);
     }

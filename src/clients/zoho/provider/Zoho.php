@@ -19,7 +19,7 @@ class Zoho extends AbstractProvider
      * The following are the various domains and their corresponding accounts URLs.
      */
 
-    private $dcDomain = [
+    private array $dcDomain = [
         'US' => 'https://accounts.zoho.com',
         'AU' => 'https://accounts.zoho.com.au',
         'EU' => 'https://accounts.zoho.eu',
@@ -31,16 +31,16 @@ class Zoho extends AbstractProvider
      * @var string define which data center you want to use
      * @link https://www.zoho.com/crm/developer/docs/api/multi-dc.html
      */
-    protected $dc;
+    protected string $dc;
 
     /**
      * Get authorization url to begin OAuth flow
      *
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
-        $dc = $this->dc && $this->dc == 'CN' ? $this->dc : 'US';
+        $dc = $this->dc == 'CN' ? $this->dc : 'US';
         return $this->getDcDomain($dc) . '/oauth/v2/auth';
     }
 
@@ -51,7 +51,7 @@ class Zoho extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return $this->getDcDomain($this->dc) . '/oauth/v2/token';
     }
@@ -63,7 +63,7 @@ class Zoho extends AbstractProvider
      *
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return 'https://accounts.zoho.com/oauth/user/info';
     }
@@ -76,20 +76,9 @@ class Zoho extends AbstractProvider
      *
      * @return array
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return ['aaaserver.profile.READ'];
-    }
-
-    /**
-     * Returns the string that should be used to separate scopes when building
-     * the URL for requesting an access token.
-     *
-     * @return string Scope separator, defaults to ','
-     */
-    protected function getScopeSeparator()
-    {
-        return ',';
     }
 
     /**
@@ -100,7 +89,7 @@ class Zoho extends AbstractProvider
      *
      * @throws IdentityProviderException
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         // @codeCoverageIgnoreStart
         if (empty($data['error'])) {
@@ -108,7 +97,7 @@ class Zoho extends AbstractProvider
         }
         // @codeCoverageIgnoreEnd
 
-        $error = isset($data['error']) ? $data['error'] : null;
+        $error = $data['error'];
         throw new IdentityProviderException(
             $error,
             $response->getStatusCode(),
@@ -122,9 +111,9 @@ class Zoho extends AbstractProvider
      * @param array $response
      * @param AccessToken $token
      *
-     * @return League\OAuth2\Client\Provider\ResourceOwnerInterface
+     * @return ZohoUser
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): ZohoUser
     {
         return new ZohoUser($response);
     }
@@ -137,9 +126,9 @@ class Zoho extends AbstractProvider
      *
      * @param  array $response
      * @param  AbstractGrant $grant
-     * @return AccessTokenInterface
+     * @return ZohoAccessToken
      */
-    protected function createAccessToken(array $response, AbstractGrant $grant)
+    protected function createAccessToken(array $response, AbstractGrant $grant): ZohoAccessToken
     {
         return new ZohoAccessToken($response);
     }
@@ -149,7 +138,7 @@ class Zoho extends AbstractProvider
      * @return string zoho data center url
      */
 
-    private function getDcDomain($dc)
+    private function getDcDomain($dc): string
     {
         return $dc && isset($this->dcDomain[$dc]) ? $this->dcDomain[$dc] : $this->fallbackDc();
     }
@@ -158,7 +147,7 @@ class Zoho extends AbstractProvider
      * The zoho default data center
      * @return string zoho default data center url
      */
-    private function fallbackDc()
+    private function fallbackDc(): string
     {
         return $this->dcDomain['US'];
     }

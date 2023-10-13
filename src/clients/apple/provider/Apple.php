@@ -18,6 +18,8 @@ use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
+use DateTimeImmutable;
+use Psr\Http\Message\RequestInterface;
 
 class Apple extends AbstractProvider
 {
@@ -28,22 +30,22 @@ class Apple extends AbstractProvider
      *
      * @var array
      */
-    public $defaultScopes = ['name', 'email'];
+    public array $defaultScopes = ['name', 'email'];
 
     /**
      * @var string the team id
      */
-    protected $teamId;
+    protected string $teamId;
 
     /**
      * @var string the key file id
      */
-    protected $keyFileId;
+    protected string $keyFileId;
 
     /**
      * @var string the key file path
      */
-    protected $keyFilePath;
+    protected string $keyFilePath;
 
     /**
      * Constructs Apple's OAuth 2.0 service provider.
@@ -74,11 +76,12 @@ class Apple extends AbstractProvider
      * The grant that was used to fetch the response can be used to provide
      * additional context.
      *
-     * @param  array         $response
-     * @param  AbstractGrant $grant
-     * @return AccessTokenInterface
+     * @param array $response
+     * @param AbstractGrant $grant
+     * @return AccessTokenInterface|AppleAccessToken
+     * @throws Exception
      */
-    protected function createAccessToken(array $response, AbstractGrant $grant)
+    protected function createAccessToken(array $response, AbstractGrant $grant): AccessTokenInterface|AppleAccessToken
     {
         return new AppleAccessToken($this->getAppleKeys(), $response);
     }
@@ -86,11 +89,11 @@ class Apple extends AbstractProvider
     /**
      * @return string[] Apple's JSON Web Keys
      */
-    private function getAppleKeys()
+    private function getAppleKeys(): array
     {
         $response = $this->httpClient->request('GET', 'https://appleid.apple.com/auth/keys');
 
-        if ($response && $response->getStatusCode() === 200) {
+        if ($response->getStatusCode() === 200) {
             return JWK::parseKeySet(json_decode($response->getBody()->__toString(), true));
         }
 
@@ -102,7 +105,7 @@ class Apple extends AbstractProvider
      *
      * @return string
      */
-    protected function getScopeSeparator()
+    protected function getScopeSeparator(): string
     {
         return ' ';
     }
@@ -114,10 +117,10 @@ class Apple extends AbstractProvider
      *
      * @return array
      */
-    protected function getAuthorizationParameters(array $options)
+    protected function getAuthorizationParameters(array $options): array
     {
         $options = parent::getAuthorizationParameters($options);
-        if (strpos($options['scope'], 'name') !== false || strpos($options['scope'], 'email') !== false) {
+        if (str_contains($options['scope'], 'name') || str_contains($options['scope'], 'email')) {
             $options['response_mode'] = 'form_post';
         }
         return $options;
@@ -128,7 +131,7 @@ class Apple extends AbstractProvider
      *
      * @return mixed
      */
-    protected function fetchResourceOwnerDetails(AccessToken $token)
+    protected function fetchResourceOwnerDetails(AccessToken $token): mixed
     {
         return json_decode(array_key_exists('user', $_GET) ? $_GET['user']
             : (array_key_exists('user', $_POST) ? $_POST['user'] : '[]'), true) ?: [];
@@ -139,7 +142,7 @@ class Apple extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return 'https://appleid.apple.com/auth/authorize';
     }
@@ -147,9 +150,8 @@ class Apple extends AbstractProvider
     /**
      * Get access token url to retrieve token
      *
-     * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return 'https://appleid.apple.com/auth/token';
     }
@@ -157,9 +159,8 @@ class Apple extends AbstractProvider
     /**
      * Get revoke token url to revoke token
      *
-     * @return string
      */
-    public function getBaseRevokeTokenUrl(array $params)
+    public function getBaseRevokeTokenUrl(array $params): string
     {
         return 'https://appleid.apple.com/auth/revoke';
     }
@@ -172,7 +173,7 @@ class Apple extends AbstractProvider
      * @return string
      * @throws Exception
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         throw new Exception('No Apple ID REST API available yet!');
     }
@@ -185,7 +186,7 @@ class Apple extends AbstractProvider
      *
      * @return array
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return $this->defaultScopes;
     }
@@ -198,7 +199,7 @@ class Apple extends AbstractProvider
      * @return void
      * @throws AppleAccessDeniedException
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         if ($response->getStatusCode() >= 400) {
             throw new AppleAccessDeniedException(
@@ -216,15 +217,14 @@ class Apple extends AbstractProvider
      * @param AccessToken $token
      * @return AppleResourceOwner
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): AppleResourceOwner
     {
         return new AppleResourceOwner(
             array_merge(
                 ['sub' => $token->getResourceOwnerId()],
                 $response,
                 [
-                    'email' => isset($token->getValues()['email'])
-                        ? $token->getValues()['email'] : (isset($response['email']) ? $response['email'] : null),
+                    'email' => $token->getValues()['email'] ?? ($response['email'] ?? null),
                     'isPrivateEmail' => $token instanceof AppleAccessToken ? $token->isPrivateEmail() : null
                 ]
             ),
@@ -232,13 +232,10 @@ class Apple extends AbstractProvider
         );
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function getAccessToken($grant, array $options = [])
+    public function getAccessToken($grant, array $options = []): AccessTokenInterface|AccessToken
     {
         $configuration = $this->getConfiguration();
-        $time = new \DateTimeImmutable();
+        $time = new DateTimeImmutable();
         $time = $time->setTime($time->format('H'), $time->format('i'), $time->format('s'));
         $expiresAt = $time->modify('+1 Hour');
         $expiresAt = $expiresAt->setTime($expiresAt->format('H'), $expiresAt->format('i'), $expiresAt->format('s'));
@@ -265,12 +262,12 @@ class Apple extends AbstractProvider
      *
      * @param string $token
      * @param string|null $tokenTypeHint
-     * @return \Psr\Http\Message\RequestInterface
+     * @return RequestInterface
      */
-    public function revokeAccessToken($token, $tokenTypeHint = null)
+    public function revokeAccessToken(string $token, string $tokenTypeHint = null): RequestInterface
     {
         $configuration = $this->getConfiguration();
-        $time = new \DateTimeImmutable();
+        $time = new DateTimeImmutable();
         $time = $time->setTime($time->format('H'), $time->format('i'), $time->format('s'));
         $expiresAt = $time->modify('+1 Hour');
         $expiresAt = $expiresAt->setTime($expiresAt->format('H'), $expiresAt->format('i'), $expiresAt->format('s'));
@@ -309,27 +306,27 @@ class Apple extends AbstractProvider
     }
 
     /**
-     * @return Configuration
+     * @return Configuration|null
      */
-    public function getConfiguration()
+    public function getConfiguration(): ?Configuration
     {
         if (method_exists(Signer\Ecdsa\Sha256::class, 'create')) {
             return Configuration::forSymmetricSigner(
                 Signer\Ecdsa\Sha256::create(),
                 $this->getLocalKey()
             );
-        } else {
-            return Configuration::forSymmetricSigner(
-                new Signer\Ecdsa\Sha256(),
-                $this->getLocalKey()
-            );
         }
+
+        return Configuration::forSymmetricSigner(
+            new Signer\Ecdsa\Sha256(),
+            $this->getLocalKey()
+        );
     }
 
     /**
      * @return Key
      */
-    public function getLocalKey()
+    public function getLocalKey(): Key
     {
         return InMemory::file($this->keyFilePath);
     }

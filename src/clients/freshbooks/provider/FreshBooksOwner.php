@@ -18,11 +18,11 @@ class FreshBooksOwner implements ResourceOwnerInterface
     /**
      * @var array
      */
-    protected $response;
+    protected mixed $response;
     /**
      * @var AccessToken
      */
-    private $accessToken;
+    private AccessToken $accessToken;
 
 
     /**
@@ -43,7 +43,7 @@ class FreshBooksOwner implements ResourceOwnerInterface
      *
      * @return mixed
      */
-    public function getId()
+    public function getId(): mixed
     {
         return $this->response['id'];
     }
@@ -53,7 +53,7 @@ class FreshBooksOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->response['email'];
     }
@@ -63,7 +63,7 @@ class FreshBooksOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getFirstName()
+    public function getFirstName(): string
     {
         return $this->response['first_name'];
     }
@@ -73,7 +73,7 @@ class FreshBooksOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getLastName()
+    public function getLastName(): string
     {
         return $this->response['last_name'];
     }
@@ -83,7 +83,7 @@ class FreshBooksOwner implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function getProfile()
+    public function getProfile(): array
     {
         return $this->response['profile'];
     }
@@ -93,7 +93,7 @@ class FreshBooksOwner implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }
@@ -101,7 +101,7 @@ class FreshBooksOwner implements ResourceOwnerInterface
     /**
      * @return AccessToken
      */
-    public function getToken()
+    public function getToken(): AccessToken
     {
         return $this->accessToken;
     }

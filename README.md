@@ -14,14 +14,14 @@ composer require verbb/auth
 
 ```json
 "require": {
-    "php": "^8.0.2",
-    "craftcms/cms": "^4.0.0",
-    "verbb/auth": "^1.0.0"
+    "php": "^8.2",
+    "craftcms/cms": "^5.0.0-alpha.1",
+    "verbb/auth": "^2.0.0-beta.1"
 }
 ```
 
 ## Requirements
-Auth requires Craft CMS 4.0+ and PHP 8.0.2+.
+Auth requires Craft CMS 5.0+ and PHP 8.2+.
 
 ## Setup
 There's a few things you'll need to do to get the Auth module working for your plugin.

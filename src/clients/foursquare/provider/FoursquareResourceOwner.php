@@ -9,7 +9,7 @@ class FoursquareResourceOwner implements ResourceOwnerInterface
      *
      * @var array
      */
-    protected $response;
+    protected mixed $response;
 
     /**
      * Creates new resource owner.
@@ -18,15 +18,15 @@ class FoursquareResourceOwner implements ResourceOwnerInterface
      */
     public function __construct(array $response = array())
     {
-        $this->response = isset($response['response']) ? $response['response'] : [];
+        $this->response = $response['response'] ?? [];
     }
 
     /**
      * Get user id
      *
-     * @return string|null
+     * @return array|string|null
      */
-    public function getId()
+    public function getId(): array|string|null
     {
         return $this->getResponseData('user.id');
     }
@@ -34,9 +34,9 @@ class FoursquareResourceOwner implements ResourceOwnerInterface
     /**
      * Get user first name
      *
-     * @return string|null
+     * @return array|string|null
      */
-    public function getFirstName()
+    public function getFirstName(): array|string|null
     {
         return $this->getResponseData('user.firstName');
     }
@@ -44,9 +44,9 @@ class FoursquareResourceOwner implements ResourceOwnerInterface
     /**
      * Get user last name
      *
-     * @return string|null
+     * @return array|string|null
      */
-    public function getLastName()
+    public function getLastName(): array|string|null
     {
         return $this->getResponseData('user.lastName');
     }
@@ -54,9 +54,9 @@ class FoursquareResourceOwner implements ResourceOwnerInterface
     /**
      * Get user email
      *
-     * @return string|null
+     * @return array|string|null
      */
-    public function getEmail()
+    public function getEmail(): array|string|null
     {
         return $this->getResponseData('user.contact.email');
     }
@@ -64,9 +64,9 @@ class FoursquareResourceOwner implements ResourceOwnerInterface
     /**
      * Get user bio
      *
-     * @return string|null
+     * @return array|string|null
      */
-    public function getBio()
+    public function getBio(): array|string|null
     {
         return $this->getResponseData('user.bio');
     }
@@ -75,11 +75,11 @@ class FoursquareResourceOwner implements ResourceOwnerInterface
      * Attempts to pull value from array using dot notation.
      *
      * @param string $path
-     * @param string $default
+     * @param string|null $default
      *
      * @return mixed
      */
-    protected function getResponseData($path, $default = null)
+    protected function getResponseData(string $path, string $default = null): mixed
     {
         $array = $this->response;
 
@@ -103,7 +103,7 @@ class FoursquareResourceOwner implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }

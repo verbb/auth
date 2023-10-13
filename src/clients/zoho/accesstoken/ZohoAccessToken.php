@@ -9,12 +9,12 @@ class ZohoAccessToken extends AccessToken
     /**
      * @var string
      */
-    protected $apiDomain;
+    protected mixed $apiDomain;
 
     /**
      * @var string
      */
-    protected $tokenType;
+    protected mixed $tokenType;
     /**
      * api_domain and token type will get everytime
      */
@@ -39,7 +39,7 @@ class ZohoAccessToken extends AccessToken
      * Zoho API domain name
      * @return string
      */
-    public function getApiDomain()
+    public function getApiDomain(): string
     {
         return $this->apiDomain;
     }
@@ -48,7 +48,7 @@ class ZohoAccessToken extends AccessToken
      * Oauth2 Bearer Toekn type
      * @return string
      */
-    public function getTokenType()
+    public function getTokenType(): string
     {
         return $this->tokenType;
     }

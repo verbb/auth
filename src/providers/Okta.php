@@ -15,8 +15,4 @@ class Okta extends OktaProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(): ?string
-    {
-        return $this->issuer . '/' . $this->apiVersion;
-    }
 }

@@ -9,7 +9,7 @@ class BitbucketResourceOwner implements ResourceOwnerInterface
      *
      * @var array
      */
-    protected $response;
+    protected array $response;
 
     /**
      * Creates new resource owner.
@@ -26,7 +26,7 @@ class BitbucketResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->response['uuid'] ?: null;
     }
@@ -36,7 +36,7 @@ class BitbucketResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->response['display_name'] ?: null;
     }
@@ -46,7 +46,7 @@ class BitbucketResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getUsername()
+    public function getUsername(): ?string
     {
         return $this->response['username'] ?: null;
     }
@@ -56,7 +56,7 @@ class BitbucketResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getLocation()
+    public function getLocation(): ?string
     {
         return $this->response['location'] ?: null;
     }
@@ -66,7 +66,7 @@ class BitbucketResourceOwner implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }

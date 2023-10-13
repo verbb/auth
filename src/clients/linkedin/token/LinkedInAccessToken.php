@@ -9,7 +9,7 @@ class LinkedInAccessToken extends AccessToken
     /**
      * @var int
      */
-    protected $refreshTokenExpires;
+    protected mixed $refreshTokenExpires;
 
     /**
      * Constructs an access token.
@@ -36,7 +36,7 @@ class LinkedInAccessToken extends AccessToken
      *
      * @return integer|null
      */
-    public function getRefreshTokenExpires()
+    public function getRefreshTokenExpires(): ?int
     {
         return $this->refreshTokenExpires;
     }

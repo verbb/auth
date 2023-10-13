@@ -12,20 +12,20 @@ class InstagramIdentityProviderException extends IdentityProviderException
      * Creates client exception from response.
      *
      * @param  ResponseInterface $response
-     * @param  string $data Parsed response data
+     * @param string $data Parsed response data
      *
      * @return IdentityProviderException
      */
-    public static function clientException(ResponseInterface $response, $data)
+    public static function clientException(ResponseInterface $response, string $data): IdentityProviderException
     {
         $message = $response->getReasonPhrase();
         $code = $response->getStatusCode();
         $body = (string) $response->getBody();
 
-        if (isset($data['error'], $data['error']['message'])) {
+        if (isset($data['error']['message'])) {
             $message = $data['error']['message'];
         }
-        if (isset($data['error'], $data['error']['code'])) {
+        if (isset($data['error']['code'])) {
             $code = $data['error']['code'];
         }
 
@@ -36,11 +36,11 @@ class InstagramIdentityProviderException extends IdentityProviderException
      * Creates oauth exception from response.
      *
      * @param  ResponseInterface $response
-     * @param  string $data Parsed response data
+     * @param string $data Parsed response data
      *
      * @return IdentityProviderException
      */
-    public static function oauthException(ResponseInterface $response, $data)
+    public static function oauthException(ResponseInterface $response, string $data): IdentityProviderException
     {
         $message = $response->getReasonPhrase();
         $code = $response->getStatusCode();

@@ -9,9 +9,9 @@ use RuntimeException;
 
 class AccessToken extends \League\OAuth2\Client\Token\AccessToken
 {
-    protected $idToken;
+    protected mixed $idToken;
 
-    protected $idTokenClaims;
+    protected array $idTokenClaims;
 
     public function __construct(array $options, $provider)
     {
@@ -52,14 +52,11 @@ class AccessToken extends \League\OAuth2\Client\Token\AccessToken
         return $this->idToken;
     }
 
-    public function getIdTokenClaims()
+    public function getIdTokenClaims(): array
     {
         return $this->idTokenClaims;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function jsonSerialize()
     {
         $parameters = parent::jsonSerialize();

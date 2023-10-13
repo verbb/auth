@@ -10,7 +10,7 @@ class GotoWebinarProviderException extends IdentityProviderException {
     /**
      * @var int
      */
-    private $httpStatusCode;
+    private int $httpStatusCode;
 
     /**
      * @param string $message
@@ -26,37 +26,37 @@ class GotoWebinarProviderException extends IdentityProviderException {
      * Creates client exception from response.
      *
      * @param  ResponseInterface $response
-     * @param  string $data Parsed response data
+     * @param string $data Parsed response data
      *
      * @return GotoWebinarProviderException
      */
-    public static function clientException(ResponseInterface $response, $data)
+    public static function clientException(ResponseInterface $response, string $data): GotoWebinarProviderException
     {
-        return static::fromResponse($response, isset($data['errorCode']) ?  $data['errorCode'] : $response->getReasonPhrase());
+        return static::fromResponse($response, $data['errorCode'] ?? $response->getReasonPhrase());
     }
 
     /**
      * Creates oauth exception from response.
      *
      * @param  ResponseInterface $response
-     * @param  string $data Parsed response data
+     * @param string $data Parsed response data
      *
      * @return GotoWebinarProviderException
      */
-    public static function oauthException(ResponseInterface $response, $data)
+    public static function oauthException(ResponseInterface $response, string $data): GotoWebinarProviderException
     {
-        return static::fromResponse($response, isset($data['errorCode']) ?  $data['errorCode'] : $response->getReasonPhrase());
+        return static::fromResponse($response, $data['errorCode'] ?? $response->getReasonPhrase());
     }
 
     /**
      * Creates identity exception from response.
      *
      * @param  ResponseInterface $response
-     * @param  string $message
+     * @param string|null $message
      *
      * @return GotoWebinarProviderException
      */
-    protected static function fromResponse(ResponseInterface $response, $message = null)
+    protected static function fromResponse(ResponseInterface $response, string $message = null): GotoWebinarProviderException
     {
         return new static($message, $response->getStatusCode(), (string) $response->getBody());
     }
@@ -65,12 +65,10 @@ class GotoWebinarProviderException extends IdentityProviderException {
      * Generate a HTTP response.
      *
      * @param ResponseInterface $response
-     * @param bool              $useFragment True if errors should be in the URI fragment instead of query string
-     * @param int               $jsonOptions options passed to json_encode
-     *
      * @return ResponseInterface
      */
-    public function generateHttpResponse(ResponseInterface $response) {
+    public function generateHttpResponse(ResponseInterface $response): ResponseInterface
+    {
         $headers = $this->getHttpHeaders();
         foreach ($headers as $header => $content) {
             $response = $response->withHeader($header, $content);
@@ -84,7 +82,8 @@ class GotoWebinarProviderException extends IdentityProviderException {
      *
      * @return array Array with header values
      */
-    public function getHttpHeaders() {
+    public function getHttpHeaders(): array
+    {
         return [
             'Content-type' => 'application/json',
         ];
@@ -95,7 +94,7 @@ class GotoWebinarProviderException extends IdentityProviderException {
      *
      * @return bool
      */
-    public function hasRedirect()
+    public function hasRedirect(): bool
     {
         return false;
     }
@@ -105,7 +104,7 @@ class GotoWebinarProviderException extends IdentityProviderException {
      *
      * @return int
      */
-    public function getHttpStatusCode()
+    public function getHttpStatusCode(): int
     {
         return $this->httpStatusCode;
     }

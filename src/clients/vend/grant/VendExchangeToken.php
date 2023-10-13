@@ -11,14 +11,14 @@ class VendExchangeToken extends AbstractGrant
         return 'vend_exchange_token';
     }
 
-    protected function getRequiredRequestParameters()
+    protected function getRequiredRequestParameters(): array
     {
         return [
             'vend_exchange_token',
         ];
     }
 
-    protected function getName()
+    protected function getName(): string
     {
         return 'vend_exchange_token';
     }

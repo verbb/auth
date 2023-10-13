@@ -17,8 +17,8 @@ use RuntimeException;
 
 class AccessToken extends \League\OAuth2\Client\Token\AccessToken
 {
-    protected $idToken;
-    protected $idTokenClaims;
+    protected mixed $idToken;
+    protected ?array $idTokenClaims;
 
     /**
      * Authentiq Access Token constructor that extends the original Access token constructor and gives back user info through the id token.
@@ -62,7 +62,7 @@ class AccessToken extends \League\OAuth2\Client\Token\AccessToken
          */
 
         if (is_array($idTokenClaims['aud'])) {
-            if (strpos(implode(" ", $idTokenClaims['aud']), $provider->getClientId()) === false) {
+            if (!str_contains(implode(" ", $idTokenClaims['aud']), $provider->getClientId())) {
                 throw new RuntimeException('Invalid audience');
             }
         } else if ($provider->getClientId() != $idTokenClaims['aud']) {
@@ -80,7 +80,7 @@ class AccessToken extends \League\OAuth2\Client\Token\AccessToken
         $this->idTokenClaims = $idTokenClaims;
     }
 
-    public function getIdTokenClaims()
+    public function getIdTokenClaims(): ?array
     {
         return $this->idTokenClaims;
     }

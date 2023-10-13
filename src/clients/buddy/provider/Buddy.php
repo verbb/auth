@@ -39,11 +39,11 @@ class Buddy extends AbstractProvider
     /**
      * @var string
      */
-    private $baseUrl;
+    private string $baseUrl;
 
     /**
-     * @param mixed[] $options
-     * @param mixed[] $collaborators
+     * @param array $options
+     * @param array $collaborators
      */
     public function __construct(array $options = [], array $collaborators = [])
     {
@@ -56,9 +56,6 @@ class Buddy extends AbstractProvider
         return $this->baseUrl.'/oauth2/authorize';
     }
 
-    /**
-     * @param mixed[] $params
-     */
     public function getBaseAccessTokenUrl(array $params): string
     {
         return $this->baseUrl.'/oauth2/token';
@@ -78,7 +75,7 @@ class Buddy extends AbstractProvider
     }
 
     /**
-     * @param mixed[] $data
+     * @param array $data
      */
     protected function checkResponse(ResponseInterface $response, $data): void
     {
@@ -87,17 +84,12 @@ class Buddy extends AbstractProvider
         }
     }
 
-    /**
-     * @param mixed[] $response
-     *
-     * @return BuddyResourceOwner
-     */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): BuddyResourceOwner
     {
         return new BuddyResourceOwner($response);
     }
 
-    protected function getScopeSeparator()
+    protected function getScopeSeparator(): string
     {
         return self::SCOPE_SEPARATOR;
     }

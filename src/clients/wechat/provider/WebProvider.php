@@ -24,7 +24,7 @@ class WebProvider extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return 'https://open.weixin.qq.com/connect/qrconnect';
     }
@@ -35,7 +35,7 @@ class WebProvider extends AbstractProvider
      * @param  array $options
      * @return array Authorization parameters
      */
-    protected function getAuthorizationParameters(array $options)
+    protected function getAuthorizationParameters(array $options): array
     {
         $options += [
             'appid' => $this->appid
@@ -74,7 +74,7 @@ class WebProvider extends AbstractProvider
      * @param array $params
      * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return 'https://api.weixin.qq.com/sns/oauth2/access_token';
     }
@@ -86,7 +86,7 @@ class WebProvider extends AbstractProvider
      * @param  array $options
      * @return AccessToken
      */
-    public function getAccessToken($grant, array $options = [])
+    public function getAccessToken($grant, array $options = []): AccessToken
     {
         $grant = $this->verifyGrant($grant);
         $params = [
@@ -98,24 +98,7 @@ class WebProvider extends AbstractProvider
         $request  = $this->getAccessTokenRequest($params);
         $response = $this->getParsedResponse($request);
         $prepared = $this->prepareAccessTokenResponse($response);
-        $token    = $this->createAccessToken($prepared, $grant);
-
-        return $token;
-    }
-
-    /**
-     * Creates an access token from a response.
-     *
-     * The grant that was used to fetch the response can be used to provide
-     * additional context.
-     *
-     * @param  array $response
-     * @param  AbstractGrant $grant
-     * @return AccessToken
-     */
-    protected function createAccessToken(array $response, AbstractGrant $grant)
-    {
-        return new AccessToken($response);
+        return $this->createAccessToken($prepared, $grant);
     }
 
     /**
@@ -124,7 +107,7 @@ class WebProvider extends AbstractProvider
      * @param AccessToken $token
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return 'https://api.weixin.qq.com/sns/userinfo?access_token='.
             $token->getToken().'&openid='.$token->getValues()['openid'];
@@ -138,7 +121,7 @@ class WebProvider extends AbstractProvider
      *
      * @return array
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return ['snsapi_userinfo'];
     }
@@ -148,28 +131,28 @@ class WebProvider extends AbstractProvider
      *
      * @throws IdentityProviderException
      * @param  ResponseInterface $response
-     * @param  array|string|\Psr\Http\Message\ResponseInterface $data Parsed response data
+     * @param  array|string|ResponseInterface $data Parsed response data
      * @return void
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         $errcode = $this->getValueByKey($data, 'errcode');
         $errmsg = $this->getValueByKey($data, 'errmsg');
 
         if ($errcode || $errmsg) {
             throw new IdentityProviderException($errmsg, $errcode, $response);
-        };
+        }
     }
 
     /**
      * Generates a resource owner object from a successful resource owner
      * details request.
      *
-     * @param  array $response
-     * @param  AccessToken $token
-     * @return ResourceOwnerInterface
+     * @param array $response
+     * @param AccessToken $token
+     * @return WebResourceOwner|ResourceOwnerInterface
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): WebResourceOwner|ResourceOwnerInterface
     {
         return new WebResourceOwner($response);
     }

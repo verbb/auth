@@ -10,20 +10,21 @@ class FitbitOptionsProvider extends PostAuthOptionProvider
      * The fitbit client id
      * @var string
      */
-    private $clientId;
+    private string $clientId;
 
     /**
      * the fitbit client secret
      * @var string
      */
-    private $clientSecret;
+    private string $clientSecret;
 
     /**
      * Set the client id and secret
+     *
      * @param string $clientId
      * @param string $clientSecret
      */
-    public function __construct($clientId, $clientSecret)
+    public function __construct(string $clientId, string $clientSecret)
     {
         $this->clientId = $clientId;
         $this->clientSecret = $clientSecret;
@@ -36,7 +37,7 @@ class FitbitOptionsProvider extends PostAuthOptionProvider
      * @param  array $params
      * @return array
      */
-    public function getAccessTokenOptions($method, array $params)
+    public function getAccessTokenOptions($method, array $params): array
     {
         $options = parent::getAccessTokenOptions($method, $params);
         $options['headers']['Authorization'] =

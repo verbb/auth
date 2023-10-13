@@ -9,7 +9,7 @@ class OktaUser implements ResourceOwnerInterface
     /**
      * @var array
      */
-    protected $response;
+    protected array $response;
 
     /**
      * @param array $response
@@ -29,7 +29,7 @@ class OktaUser implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->response['name'];
     }
@@ -39,7 +39,7 @@ class OktaUser implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getFirstName()
+    public function getFirstName(): string
     {
         return $this->response['given_name'];
     }
@@ -49,7 +49,7 @@ class OktaUser implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getLastName()
+    public function getLastName(): string
     {
         return $this->response['family_name'];
     }
@@ -59,12 +59,9 @@ class OktaUser implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getLocale()
+    public function getLocale(): ?string
     {
-        if (array_key_exists('locale', $this->response)) {
-            return $this->response['locale'];
-        }
-        return null;
+        return $this->response['locale'] ?? null;
     }
 
     /**
@@ -72,12 +69,9 @@ class OktaUser implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getEmail()
+    public function getEmail(): ?string
     {
-        if (array_key_exists('email', $this->response)) {
-            return $this->response['email'];
-        }
-        return null;
+        return $this->response['email'] ?? null;
     }
     
     /**
@@ -85,12 +79,9 @@ class OktaUser implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getPreferredUsername()
+    public function getPreferredUsername(): ?string
     {
-        if (array_key_exists('preferred_username', $this->response)) {
-            return $this->response['preferred_username'];
-        }
-        return null;
+        return $this->response['preferred_username'] ?? null;
     }
     
     /**
@@ -98,12 +89,9 @@ class OktaUser implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getZoneInfo()
+    public function getZoneInfo(): ?string
     {
-        if (array_key_exists('zoneinfo', $this->response)) {
-            return $this->response['zoneinfo'];
-        }
-        return null;
+        return $this->response['zoneinfo'] ?? null;
     }
 
     /**
@@ -111,7 +99,7 @@ class OktaUser implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }

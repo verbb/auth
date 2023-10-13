@@ -14,6 +14,7 @@ use Gitlab\Client;
 use Gitlab\HttpClient\Builder;
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 use League\OAuth2\Client\Token\AccessToken;
+use LogicException;
 
 /**
  * GitlabResourceOwner.
@@ -55,7 +56,7 @@ class GitlabResourceOwner implements ResourceOwnerInterface
     public function getApiClient(Builder $builder = null): Client
     {
         if (!class_exists('\\Gitlab\\Client')) {
-            throw new \LogicException(__METHOD__ . ' requires package m4tthumphrey/php-gitlab-api to be installed and autoloaded'); // @codeCoverageIgnore
+            throw new LogicException(__METHOD__ . ' requires package m4tthumphrey/php-gitlab-api to be installed and autoloaded'); // @codeCoverageIgnore
         }
         $client = new Client($builder);
         $client->setUrl(rtrim($this->domain, '/') . self::PATH_API);

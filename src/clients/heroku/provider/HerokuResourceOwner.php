@@ -12,7 +12,7 @@ class HerokuResourceOwner implements ResourceOwnerInterface
      *
      * @var array
      */
-    protected $response;
+    protected array $response;
 
     /**
      * Creates new resource owner.
@@ -29,7 +29,7 @@ class HerokuResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->getResponseData('id');
     }
@@ -39,7 +39,7 @@ class HerokuResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->getResponseData('name');
     }
@@ -49,7 +49,7 @@ class HerokuResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->getResponseData('email');
     }
@@ -58,11 +58,11 @@ class HerokuResourceOwner implements ResourceOwnerInterface
      * Attempts to pull value from array using dot notation.
      *
      * @param string $path
-     * @param string $default
+     * @param string|null $default
      *
      * @return mixed
      */
-    protected function getResponseData($path, $default = null)
+    protected function getResponseData(string $path, string $default = null): mixed
     {
         return $this->getValueByKey($this->response, $path, $default);
     }
@@ -72,7 +72,7 @@ class HerokuResourceOwner implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }

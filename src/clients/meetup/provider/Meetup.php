@@ -12,7 +12,7 @@ use Psr\Http\Message\ResponseInterface;
 
 class Meetup extends AbstractProvider
 {
-    const ACCESS_TOKEN_RESOURCE_OWNER_ID = 'id';
+    public const ACCESS_TOKEN_RESOURCE_OWNER_ID = 'id';
 
     public function getBaseAuthorizationUrl(): string
     {
@@ -40,7 +40,7 @@ class Meetup extends AbstractProvider
             throw new IdentityProviderException(
                 'Invalid response body',
                 0,
-                strval($data)
+                (string)$data
             );
         }
 

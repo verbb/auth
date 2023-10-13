@@ -9,6 +9,7 @@ use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
 use verbb\auth\clients\steemconnect\common\http\Request;
 use verbb\auth\clients\steemconnect\config\Config;
+use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 
 /**
  * Class Provider.
@@ -27,32 +28,26 @@ class Provider extends AbstractProvider
     /**
      * @var Config Instance of the configuration class holder.
      */
-    protected $config;
+    protected Config $config;
 
     /**
      * @TODO check error messages for correct data key.
      *
      * @var string Erro key to parse error responses.
      */
-    protected $responseError = 'error';
+    protected string $responseError = 'error';
 
     /**
      * @var string Current response code.
      */
-    protected $responseCode;
+    protected string $responseCode;
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDefaultScopes() : array
     {
         return $this->config->getScopes();
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return $this->config->buildUrl('account');
     }
@@ -88,42 +83,30 @@ class Provider extends AbstractProvider
     /**
      * @var string Key used in a token response to identify the resource owner.
      */
-    const ACCESS_TOKEN_RESOURCE_OWNER_ID = 'username';
+    public const ACCESS_TOKEN_RESOURCE_OWNER_ID = 'username';
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return $this->config->buildUrl('authorization');
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return $this->config->buildUrl('access_token');
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         if (!empty($data[$this->responseError])) {
             $error = array_get($data, $this->responseError, null);
 
             $code = $this->responseCode && !empty(array_get($data, $this->responseCode)) ? array_get($data, $this->responseCode) : 0;
 
-            throw new IdentityProviderException($error, (int) $code, $data);
+            throw new IdentityProviderException($error, $code, $data);
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): ResourceOwner|ResourceOwnerInterface
     {
         return new ResourceOwner($response);
     }
@@ -138,7 +121,7 @@ class Provider extends AbstractProvider
     public function parseReturn(string $code = null): ?AccessToken
     {
         // if no code was passed, request code will be detected, if any.
-        $code = $code ? $code : Request::current()->query->get('code', null);
+        $code = $code ?: Request::current()->query->get('code', null);
 
         // just return null for now.
         if (!$code) {
@@ -146,12 +129,11 @@ class Provider extends AbstractProvider
         }
 
         // try a token exchange.
-        $accessToken = $this->getAccessToken('authorization_code', [
-            'code' => $code,
-        ]);
 
         // returns the token instance, if possible.
-        return $accessToken;
+        return $this->getAccessToken('authorization_code', [
+            'code' => $code,
+        ]);
     }
 
     /**
@@ -195,12 +177,10 @@ class Provider extends AbstractProvider
     public function refreshTokenString(string $refreshToken): ?AccessToken
     {
         // ask for a new access token using the refresh_token grant type.
-        $accessToken = $this->getAccessToken('refresh_token', [
+        // returns the token instance, if possible.
+        return $this->getAccessToken('refresh_token', [
             'refresh_token' => $refreshToken,
         ]);
-
-        // returns the token instance, if possible.
-        return $accessToken;
     }
 
     /**

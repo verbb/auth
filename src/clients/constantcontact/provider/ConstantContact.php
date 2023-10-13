@@ -10,7 +10,7 @@ use Psr\Http\Message\ResponseInterface;
 class ConstantContact extends AbstractProvider
 {
 
-    const ACCESS_TOKEN_RESOURCE_OWNER_ID = 'id';
+    public const ACCESS_TOKEN_RESOURCE_OWNER_ID = 'id';
 
     /**
      * Constructs an OAuth 2.0 service provider.
@@ -28,22 +28,22 @@ class ConstantContact extends AbstractProvider
         parent::__construct($options, $collaborators);
     }
 
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return 'https://authz.constantcontact.com/oauth2/default/v1/authorize';
     }
 
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return 'https://authz.constantcontact.com/oauth2/default/v1/token';
     }
 
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return 'https://api.cc.email/v3/account/summary';
     }
 
-    public function getDefaultScopes()
+    public function getDefaultScopes(): array
     {
         return [];
     }
@@ -57,7 +57,7 @@ class ConstantContact extends AbstractProvider
         return $data;
     }
 
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): ConstantContactAccount
     {
         return new ConstantContactAccount($response);
     }

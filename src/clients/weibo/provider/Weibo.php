@@ -18,14 +18,14 @@ class Weibo extends AbstractProvider
     /**
      * @var string
      */
-    public $domain = "https://api.weibo.com";
+    public string $domain = "https://api.weibo.com";
 
     /**
      * Get authorization url to begin OAuth flow
      *
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return $this->domain . '/oauth2/authorize';
     }
@@ -35,21 +35,20 @@ class Weibo extends AbstractProvider
      * @param array $params
      * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return $this->domain . '/oauth2/access_token';
     }
 
     /**
      * get user's uid
-     * @return string
      */
-    protected function getUidUrl(AccessToken $token)
+    protected function getUidUrl(AccessToken $token): string
     {
         return $this->domain . '/2/account/get_uid.json?access_token=' . $token;
     }
 
-    public function fetchUid(AccessToken $token)
+    public function fetchUid(AccessToken $token): array
     {
         $url = $this->getUidUrl($token);
         $request = $this->getAuthenticatedRequest(self::METHOD_GET, $url, $token);
@@ -58,10 +57,10 @@ class Weibo extends AbstractProvider
 
     /**
      * @param RequestInterface $request
-     * @return mixed
+     * @return array
      * @throws IdentityProviderException
      */
-    protected function getSpecificResponse(RequestInterface $request)
+    protected function getSpecificResponse(RequestInterface $request): array
     {
         $response = $this->getResponse($request);
         $parsed = $this->parseSpecificResponse($response);
@@ -73,10 +72,11 @@ class Weibo extends AbstractProvider
 
     /**
      * A specific parseResponse function
+     *
      * @param ResponseInterface $response
-     * @return mixed
+     * @return array
      */
-    protected function parseSpecificResponse(ResponseInterface $response)
+    protected function parseSpecificResponse(ResponseInterface $response): array
     {
         $content = (string)$response->getBody();
         parse_str($content, $parsed);
@@ -89,7 +89,7 @@ class Weibo extends AbstractProvider
      * @param AccessToken $token
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         $uid = json_decode(array_keys($this->fetchUid($token))[0], true);
         $this->uid = $uid['uid'];
@@ -104,7 +104,7 @@ class Weibo extends AbstractProvider
      * @param string $data Parsed response data
      * @return void
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         if (isset($data['error'])) {
             throw new IdentityProviderException($data['error_description'], $response->getStatusCode(), $response);
@@ -119,7 +119,7 @@ class Weibo extends AbstractProvider
      *
      * @return array
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return [];
     }
@@ -130,7 +130,7 @@ class Weibo extends AbstractProvider
      * @param AccessToken $token
      * @return weiboResourceOwner
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): weiboResourceOwner
     {
         return new weiboResourceOwner($response);
     }

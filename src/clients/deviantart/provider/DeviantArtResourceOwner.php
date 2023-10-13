@@ -14,7 +14,7 @@ class DeviantArtResourceOwner implements ResourceOwnerInterface
      *
      * @var array
      */
-    protected $response;
+    protected array $response;
 
     /**
      * @param array $response
@@ -29,7 +29,7 @@ class DeviantArtResourceOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getId()
+    public function getId(): string
     {
         return $this->getValueByKey($this->response, 'userid');
     }
@@ -39,7 +39,7 @@ class DeviantArtResourceOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->getValueByKey($this->response, 'username');
     }
@@ -50,7 +50,7 @@ class DeviantArtResourceOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getIcon()
+    public function getIcon(): string
     {
         return $this->getValueByKey($this->response, 'usericon');
     }
@@ -68,12 +68,12 @@ class DeviantArtResourceOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getType()
+    public function getType(): string
     {
         return $this->getValueByKey($this->response, 'type');
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }

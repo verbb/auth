@@ -99,7 +99,9 @@ class Gitlab extends AbstractProvider
     {
         if ($response->getStatusCode() >= 400) {
             throw GitlabIdentityProviderException::clientException($response, $data);
-        } elseif (isset($data['error'])) {
+        }
+
+        if (isset($data['error'])) {
             throw GitlabIdentityProviderException::oauthException($response, $data);
         }
     }

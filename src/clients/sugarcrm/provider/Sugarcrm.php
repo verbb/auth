@@ -17,7 +17,7 @@ class Sugarcrm extends AbstractProvider
     /**
      * @var string Key used in a token response to identify the resource owner.
      */
-    const ACCESS_TOKEN_RESOURCE_OWNER_ID = 'id';
+    public const ACCESS_TOKEN_RESOURCE_OWNER_ID = 'id';
 
     /**
      * Constructs an OAuth 2.0 service provider.
@@ -40,7 +40,7 @@ class Sugarcrm extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return $this->url . '/rest/v11/oauth2/authorize';
     }
@@ -48,9 +48,8 @@ class Sugarcrm extends AbstractProvider
     /**
      * Get access token url to retrieve token
      *
-     * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return $this->url . '/rest/v11/oauth2/token';
     }
@@ -62,7 +61,7 @@ class Sugarcrm extends AbstractProvider
      *
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return $this->url . '/rest/v11/metadata';
     }
@@ -75,7 +74,7 @@ class Sugarcrm extends AbstractProvider
      *
      * @return array
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return [];
     }
@@ -86,7 +85,7 @@ class Sugarcrm extends AbstractProvider
      *
      * @return string Scope separator, defaults to ','
      */
-    protected function getScopeSeparator()
+    protected function getScopeSeparator(): string
     {
         return ' ';
     }
@@ -99,12 +98,12 @@ class Sugarcrm extends AbstractProvider
      * @param  string $data Parsed response data
      * @return void
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         $statusCode = $response->getStatusCode();
         if ($statusCode >= 400) {
             throw new IdentityProviderException(
-                isset($data['description']) ? $data['description'] : $response->getReasonPhrase(),
+                $data['description'] ?? $response->getReasonPhrase(),
                 $statusCode,
                 $response
             );
@@ -114,11 +113,11 @@ class Sugarcrm extends AbstractProvider
     /**
      * Generate a user object from a successful user details request.
      *
-     * @param object $response
+     * @param array $response
      * @param AccessToken $token
      * @return SugarcrmResourceOwner
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): SugarcrmResourceOwner
     {
         return new SugarcrmResourceOwner($response);
     }

@@ -11,15 +11,15 @@ class HarvestIdentityProviderException extends IdentityProviderException
      * Creates client exception from response.
      *
      * @param  ResponseInterface $response
-     * @param  string $data Parsed response data
+     * @param string $data Parsed response data
      *
      * @return IdentityProviderException
      */
-    public static function clientException(ResponseInterface $response, $data)
+    public static function clientException(ResponseInterface $response, string $data): IdentityProviderException
     {
         return static::fromResponse(
             $response,
-            isset($data['message']) ? $data['message'] : $response->getReasonPhrase()
+            $data['message'] ?? $response->getReasonPhrase()
         );
     }
 
@@ -27,15 +27,15 @@ class HarvestIdentityProviderException extends IdentityProviderException
      * Creates oauth exception from response.
      *
      * @param  ResponseInterface $response
-     * @param  string $data Parsed response data
+     * @param string $data Parsed response data
      *
      * @return IdentityProviderException
      */
-    public static function oauthException(ResponseInterface $response, $data)
+    public static function oauthException(ResponseInterface $response, string $data): IdentityProviderException
     {
         return static::fromResponse(
             $response,
-            isset($data['error']) ? $data['error'] : $response->getReasonPhrase()
+            $data['error'] ?? $response->getReasonPhrase()
         );
     }
 
@@ -43,11 +43,11 @@ class HarvestIdentityProviderException extends IdentityProviderException
      * Creates identity exception from response.
      *
      * @param  ResponseInterface $response
-     * @param  string $message
+     * @param string|null $message
      *
      * @return IdentityProviderException
      */
-    protected static function fromResponse(ResponseInterface $response, $message = null)
+    protected static function fromResponse(ResponseInterface $response, string $message = null): IdentityProviderException
     {
         return new static($message, $response->getStatusCode(), (string) $response->getBody());
     }

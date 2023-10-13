@@ -11,7 +11,7 @@ class MailruResourceOwner implements ResourceOwnerInterface
      *
      * @var array
      */
-    private $response;
+    private mixed $response;
 
     /**
      * Class constructor
@@ -24,9 +24,6 @@ class MailruResourceOwner implements ResourceOwnerInterface
         $this->response = $response[0];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getId()
     {
         return $this->response['uid'];
@@ -37,7 +34,7 @@ class MailruResourceOwner implements ResourceOwnerInterface
      *
      * @return string Email address
      */
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->response['email'];
     }
@@ -49,7 +46,7 @@ class MailruResourceOwner implements ResourceOwnerInterface
      *
      * @return string Full name
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->response['first_name'] . ' ' . $this->response['last_name'];
     }
@@ -59,7 +56,7 @@ class MailruResourceOwner implements ResourceOwnerInterface
      *
      * @return string First name
      */
-    public function getFirstName()
+    public function getFirstName(): string
     {
         return $this->response['first_name'];
     }
@@ -69,7 +66,7 @@ class MailruResourceOwner implements ResourceOwnerInterface
      *
      * @return string Last name
      */
-    public function getLastName()
+    public function getLastName(): string
     {
         return $this->response['last_name'];
     }
@@ -79,7 +76,7 @@ class MailruResourceOwner implements ResourceOwnerInterface
      *
      * @return string Nickname
      */
-    public function getNickname()
+    public function getNickname(): string
     {
         return $this->response['nick'];
     }
@@ -89,7 +86,7 @@ class MailruResourceOwner implements ResourceOwnerInterface
      *
      * @return string Profile picture url
      */
-    public function getImageUrl()
+    public function getImageUrl(): string
     {
         return ($this->response['has_pic']) ? $this->response['pic'] : '' ;
     }
@@ -99,7 +96,7 @@ class MailruResourceOwner implements ResourceOwnerInterface
      *
      * @return string Gender
      */
-    public function getGender()
+    public function getGender(): string
     {
         return ($this->response['sex']) ? 'female' : 'male' ;
     }
@@ -109,10 +106,9 @@ class MailruResourceOwner implements ResourceOwnerInterface
      *
      * @return string Country name
      */
-    public function getCountry()
+    public function getCountry(): string
     {
-        return (isset($this->response['location']['country']['name']))
-            ? $this->response['location']['country']['name'] : '';
+        return $this->response['location']['country']['name'] ?? '';
     }
 
     /**
@@ -120,10 +116,9 @@ class MailruResourceOwner implements ResourceOwnerInterface
      *
      * @return string City name
      */
-    public function getCity()
+    public function getCity(): string
     {
-        return (isset($this->response['location']['city']['name']))
-            ? $this->response['location']['city']['name'] : '';
+        return $this->response['location']['city']['name'] ?? '';
     }
 
     /**
@@ -133,7 +128,7 @@ class MailruResourceOwner implements ResourceOwnerInterface
      *
      * @return string Location
      */
-    public function getLocation()
+    public function getLocation(): string
     {
         $country = $this->getCountry();
         $city = $this->getCity();
@@ -141,9 +136,6 @@ class MailruResourceOwner implements ResourceOwnerInterface
         return (empty($country)) ? $city : $country . ', ' . $city;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function toArray()
     {
         return $this->response;

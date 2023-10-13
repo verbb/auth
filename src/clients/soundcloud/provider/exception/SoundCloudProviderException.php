@@ -2,6 +2,8 @@
 
 namespace verbb\auth\clients\soundcloud\provider\exception;
 
-class SoundCloudProviderException extends \Exception
+use Exception;
+
+class SoundCloudProviderException extends Exception
 {
 }

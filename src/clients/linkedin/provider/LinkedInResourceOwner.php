@@ -24,12 +24,12 @@ class LinkedInResourceOwner extends GenericResourceOwner
      *
      * @var array
      */
-    protected $sortedProfilePictures = [];
+    protected array $sortedProfilePictures = [];
 
     /**
      * @var string|null
      */
-    private $email;
+    private ?string $email;
 
     /**
      * Creates new resource owner.
@@ -45,9 +45,8 @@ class LinkedInResourceOwner extends GenericResourceOwner
     /**
      * Gets resource owner attribute by key. The key supports dot notation.
      *
-     * @return mixed
      */
-    public function getAttribute($key)
+    public function getAttribute($key): mixed
     {
         return $this->getValueByKey($this->response, (string) $key);
     }
@@ -57,7 +56,7 @@ class LinkedInResourceOwner extends GenericResourceOwner
      *
      * @return string|null
      */
-    public function getFirstName()
+    public function getFirstName(): ?string
     {
         return $this->getAttribute('localizedFirstName');
     }
@@ -67,7 +66,7 @@ class LinkedInResourceOwner extends GenericResourceOwner
      *
      * @return string|null
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->getAttribute('id');
     }
@@ -78,7 +77,7 @@ class LinkedInResourceOwner extends GenericResourceOwner
      * @param integer $size
      * @return array|null
      */
-    public function getImageBySize($size)
+    public function getImageBySize(int $size): ?array
     {
         $pictures = array_filter($this->sortedProfilePictures, function ($picture) use ($size) {
             return isset($picture['width']) && $picture['width'] == $size;
@@ -92,7 +91,7 @@ class LinkedInResourceOwner extends GenericResourceOwner
      *
      * @return array
      */
-    public function getImageSizes()
+    public function getImageSizes(): array
     {
         return array_map(function ($picture) {
             return $this->getValueByKey($picture, 'width');
@@ -104,7 +103,7 @@ class LinkedInResourceOwner extends GenericResourceOwner
      *
      * @return string|null
      */
-    public function getImageUrl()
+    public function getImageUrl(): ?string
     {
         $pictures = $this->getSortedProfilePictures();
         $picture = array_pop($pictures);
@@ -117,7 +116,7 @@ class LinkedInResourceOwner extends GenericResourceOwner
      *
      * @return string|null
      */
-    public function getLastName()
+    public function getLastName(): ?string
     {
         return $this->getAttribute('localizedLastName');
     }
@@ -127,7 +126,7 @@ class LinkedInResourceOwner extends GenericResourceOwner
      *
      * @return array
      */
-    public function getSortedProfilePictures()
+    public function getSortedProfilePictures(): array
     {
         return $this->sortedProfilePictures;
     }
@@ -137,7 +136,7 @@ class LinkedInResourceOwner extends GenericResourceOwner
      *
      * @return string|null
      */
-    public function getUrl()
+    public function getUrl(): ?string
     {
         $vanityName = $this->getAttribute('vanityName');
 
@@ -149,7 +148,7 @@ class LinkedInResourceOwner extends GenericResourceOwner
      *
      * @return string|null
      */
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->getAttribute('email');
     }
@@ -160,7 +159,7 @@ class LinkedInResourceOwner extends GenericResourceOwner
      *
      * @return void
      */
-    private function setSortedProfilePictures()
+    private function setSortedProfilePictures(): void
     {
         $pictures = $this->getAttribute('profilePicture.displayImage~.elements');
         if (is_array($pictures)) {
@@ -196,13 +195,4 @@ class LinkedInResourceOwner extends GenericResourceOwner
         $this->sortedProfilePictures = $pictures;
     }
 
-    /**
-     * Return all of the owner details available as an array.
-     *
-     * @return array
-     */
-    public function toArray()
-    {
-        return $this->response;
-    }
 }

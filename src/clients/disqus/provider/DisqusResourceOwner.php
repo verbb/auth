@@ -12,19 +12,18 @@ class DisqusResourceOwner implements ResourceOwnerInterface
      *
      * @var array
      */
-    protected $response;
+    protected array $response;
 
     /**
      * Token
      *
-     * @var \League\OAuth2\Client\Token\AccessToken
+     * @var AccessToken
      */
-    protected $token;
+    protected AccessToken $token;
 
     /**
      * Creates new resource owner.
      *
-     * @param array $response
      */
     public function __construct(array $response, AccessToken $token)
     {
@@ -37,7 +36,7 @@ class DisqusResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->response['id'] ?? null;
     }
@@ -47,7 +46,7 @@ class DisqusResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->response['name'] ?? null;
     }
@@ -57,7 +56,7 @@ class DisqusResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->response['email'] ?? null;
     }
@@ -67,7 +66,7 @@ class DisqusResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getUsername()
+    public function getUsername(): ?string
     {
         return $this->response['username'] ?? null;
     }
@@ -77,7 +76,7 @@ class DisqusResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getAvatar()
+    public function getAvatar(): ?string
     {
         return $this->response['avatar']['permalink'] ?? null;
     }
@@ -87,7 +86,7 @@ class DisqusResourceOwner implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }

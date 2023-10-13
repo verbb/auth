@@ -7,8 +7,8 @@ use League\OAuth2\Client\Token\AccessToken;
 
 class DocusignUser implements ResourceOwnerInterface
 {
-    private $userInfo;
-    private $token;
+    private array $userInfo;
+    private AccessToken $token;
 
     public function __construct(
         array $userInfo,
@@ -18,18 +18,12 @@ class DocusignUser implements ResourceOwnerInterface
         $this->token = $token;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getId()
     {
         return $this->userInfo['sub'];
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->userInfo;
     }
@@ -49,7 +43,7 @@ class DocusignUser implements ResourceOwnerInterface
      *
      * @return array|null
      */
-    public function getDefaultAccount()
+    public function getDefaultAccount(): ?array
     {
         foreach ($this->userInfo['accounts'] as $account) {
             if ($account['is_default']) {
@@ -63,7 +57,7 @@ class DocusignUser implements ResourceOwnerInterface
     /**
      * @return AccessToken
      */
-    public function getToken()
+    public function getToken(): AccessToken
     {
         return $this->token;
     }

@@ -12,7 +12,7 @@ class ShopifyStore implements ResourceOwnerInterface
     /**
      * @var array
      */
-    protected $response;
+    protected array $response;
 
     /**
      * @param array $response
@@ -32,7 +32,7 @@ class ShopifyStore implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->getValueByKey($this->response, 'shop.name');
     }
@@ -42,7 +42,7 @@ class ShopifyStore implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->getValueByKey($this->response, 'shop.email');
     }
@@ -52,7 +52,7 @@ class ShopifyStore implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getDomain()
+    public function getDomain(): string
     {
         return $this->getValueByKey($this->response, 'shop.domain');
     }
@@ -62,7 +62,7 @@ class ShopifyStore implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getCountry()
+    public function getCountry(): ?string
     {
         return $this->getValueByKey($this->response, 'shop.country_name');
     }
@@ -72,7 +72,7 @@ class ShopifyStore implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getShopOwner()
+    public function getShopOwner(): ?string
     {
         return $this->getValueByKey($this->response, 'shop.shop_owner');
     }
@@ -82,7 +82,7 @@ class ShopifyStore implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->getValueByKey($this->response, 'shop');
     }

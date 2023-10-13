@@ -2,6 +2,8 @@
 namespace verbb\auth\base;
 
 use Craft;
+use Psr\Http\Message\ResponseInterface;
+use GuzzleHttp\Client;
 
 trait CredentialsProviderTrait
 {
@@ -18,12 +20,12 @@ trait CredentialsProviderTrait
         return $options;
     }
 
-    public function getCredentialsProvider()
+    public function getCredentialsProvider(): Client
     {
         return Craft::createGuzzleClient($this->getCredentialsProviderConfig());
     }
 
-    public function request(string $method = 'GET', string $uri = '', array $options = [])
+    public function request(string $method = 'GET', string $uri = '', array $options = []): ResponseInterface
     {
         // Get the Guzzle provider
         $credentialsProvider = $this->getCredentialsProvider();

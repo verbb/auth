@@ -4,24 +4,26 @@ namespace verbb\auth\clients\gotowebinar\resources;
 use verbb\auth\clients\gotowebinar\resultset\SimpleResultSet;
 use verbb\auth\clients\gotowebinar\resultset\PageResultSet;
 use verbb\auth\clients\gotowebinar\helper\DateUtcHelper;
+use DateTime;
 
 class Webhook extends \DalPraS\OAuth2\Client\Resources\AuthenticatedResourceAbstract
 {
-    
+
     /**
-     * A new webhook will be created with the provided callback URL. 
-     * Callback URL should be a secure (https://) URL. 
+     * A new webhook will be created with the provided callback URL.
+     * Callback URL should be a secure (https://) URL.
      * Callback URL will be validated by making a GET request.
-     * 
+     *
      * https://api.getgo.com/G2W/rest/v2/webhooks/secretkey
-     * 
-     * @param string $validFrom The secret key will be activated at the given date
+     *
+     * @param DateTime|null $validFrom The secret key will be activated at the given date
+     * @return SimpleResultSet
      * @link https://developer.goto.com/GoToWebinarV2#operation/createSecretKey
      */
-    public function createSecretKey(?\DateTime $validFrom = null): SimpleResultSet
+    public function createSecretKey(?DateTime $validFrom = null): SimpleResultSet
     {
         $body = [
-            'validFrom' => DateUtcHelper::date2utc($validFrom ?? new \DateTime('now'))
+            'validFrom' => DateUtcHelper::date2utc($validFrom ?? new DateTime('now'))
         ];
         $url = $this->getRequestUrl('/webhooks/secretkey');
         $request  = $this->provider->getAuthenticatedRequest('POST', $url, $this->accessToken, [
@@ -97,8 +99,7 @@ class Webhook extends \DalPraS\OAuth2\Client\Resources\AuthenticatedResourceAbst
      * https://api.getgo.com/G2W/rest/v2/webhooks/{webhookKey}
      * 
      * @link https://developer.goto.com/GoToWebinarV2/#operation/getWebhook
-     * 
-     * @param string $webhookKey
+     *
      */
     public function getWebhook(string $webhookKey): SimpleResultSet 
     {

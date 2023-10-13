@@ -7,14 +7,14 @@ class AccessToken extends \League\OAuth2\Client\Token\AccessToken
     /**
      * All Salesforce Organisation IDs start with this Prefix
      */
-    const ORG_ID_PREFIX = '00D';
+    public const ORG_ID_PREFIX = '00D';
 
     /**
      * Instance URL
      *
      * @var string
      */
-    private $instanceUrl;
+    private mixed $instanceUrl;
 
     /**
      * Constructs an access token.
@@ -34,7 +34,7 @@ class AccessToken extends \League\OAuth2\Client\Token\AccessToken
      *
      * @return string
      */
-    public function getInstanceUrl()
+    public function getInstanceUrl(): string
     {
         return $this->instanceUrl;
     }
@@ -44,7 +44,7 @@ class AccessToken extends \League\OAuth2\Client\Token\AccessToken
      *
      * @return string|null
      */
-    public function getOrgId()
+    public function getOrgId(): ?string
     {
         return preg_match('/' . self::ORG_ID_PREFIX .  '(\w{15}|\w{12})/', $this->getResourceOwnerId(), $result)
             ? $result[0]

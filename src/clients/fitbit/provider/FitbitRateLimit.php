@@ -6,10 +6,10 @@ use Psr\Http\Message\ResponseInterface;
 
 class FitbitRateLimit
 {
-    private $retryAfter;
-    private $limit;
-    private $remaining;
-    private $reset;
+    private string $retryAfter;
+    private string $limit;
+    private string $remaining;
+    private string $reset;
 
     /**
      * @param ResponseInterface $response
@@ -30,7 +30,7 @@ class FitbitRateLimit
      *
      * @return String Number of seconds until request should be retried.
      */
-    public function getRetryAfter()
+    public function getRetryAfter(): string
     {
         return $this->retryAfter;
     }
@@ -38,7 +38,7 @@ class FitbitRateLimit
     /**
      * @return String The quota number of calls.
      */
-    public function getLimit()
+    public function getLimit(): string
     {
         return $this->limit;
     }
@@ -46,7 +46,7 @@ class FitbitRateLimit
     /**
      * @return String The number of calls remaining before hitting the rate limit.
      */
-    public function getRemaining()
+    public function getRemaining(): string
     {
         return $this->remaining;
     }
@@ -54,7 +54,7 @@ class FitbitRateLimit
     /**
      * @return String The number of seconds until the rate limit resets.
      */
-    public function getReset()
+    public function getReset(): string
     {
         return $this->reset;
     }

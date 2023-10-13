@@ -10,34 +10,36 @@ use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Token\AccessTokenInterface;
 use Psr\Http\Message\ResponseInterface;
+use UnexpectedValueException;
+use Psr\Http\Message\RequestInterface;
 
 class Instagram extends AbstractProvider
 {
     /**
      * @var string Key used in a token response to identify the resource owner.
      */
-    const ACCESS_TOKEN_RESOURCE_OWNER_ID = 'user_id';
+    public const ACCESS_TOKEN_RESOURCE_OWNER_ID = 'user_id';
 
     /**
      * Default scopes
      *
      * @var array
      */
-    public $defaultScopes = ['user_profile'];
+    public array $defaultScopes = ['user_profile'];
 
     /**
      * Default host
      *
      * @var string
      */
-    protected $host = 'https://api.instagram.com';
+    protected string $host = 'https://api.instagram.com';
 
     /**
      * Default Graph API host
      *
      * @var string
      */
-    protected $graphHost = 'https://graph.instagram.com';
+    protected string $graphHost = 'https://graph.instagram.com';
 
     public function __construct(array $options = [], array $collaborators = [])
     {
@@ -52,7 +54,7 @@ class Instagram extends AbstractProvider
      *
      * @return string
      */
-    public function getHost()
+    public function getHost(): string
     {
         return $this->host;
     }
@@ -62,7 +64,7 @@ class Instagram extends AbstractProvider
      *
      * @return string
      */
-    public function getGraphHost()
+    public function getGraphHost(): string
     {
         return $this->graphHost;
     }
@@ -72,7 +74,7 @@ class Instagram extends AbstractProvider
      *
      * @return string
      */
-    protected function getScopeSeparator()
+    protected function getScopeSeparator(): string
     {
         return ' ';
     }
@@ -82,7 +84,7 @@ class Instagram extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return $this->host.'/oauth/authorize';
     }
@@ -94,7 +96,7 @@ class Instagram extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return $this->host.'/oauth/access_token';
     }
@@ -109,7 +111,7 @@ class Instagram extends AbstractProvider
      *
      * @return string
      */
-    public function getUpdateAccessTokenUrl(array $params, $endPoint)
+    public function getUpdateAccessTokenUrl(array $params, string $endPoint): string
     {
         return $this->graphHost.'/'.$endPoint;
     }
@@ -121,7 +123,7 @@ class Instagram extends AbstractProvider
      *
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return $this->graphHost.'/me?fields=id,username&access_token='.$token;
     }
@@ -134,9 +136,9 @@ class Instagram extends AbstractProvider
      * @param  AccessToken|string $token
      * @param  array $options Any of "headers", "body", and "protocolVersion".
      *
-     * @return \Psr\Http\Message\RequestInterface
+     * @return RequestInterface
      */
-    public function getAuthenticatedRequest($method, $url, $token, array $options = [])
+    public function getAuthenticatedRequest($method, $url, $token, array $options = []): RequestInterface
     {
         $parsedUrl = parse_url($url);
         $queryString = array();
@@ -164,7 +166,7 @@ class Instagram extends AbstractProvider
      *
      * @return array
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return $this->defaultScopes;
     }
@@ -177,7 +179,7 @@ class Instagram extends AbstractProvider
      * @param  string $data Parsed response data
      * @return void
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         // Standard error response format
         if (!empty($data['error'])) {
@@ -195,11 +197,11 @@ class Instagram extends AbstractProvider
      *
      * @param string|AccessTokenInterface $accessToken
      *
-     * @return \League\OAuth2\Client\Token\AccessToken
+     * @return AccessToken
      *
      * @throws InstagramIdentityProviderException
      */
-    public function getLongLivedAccessToken($accessToken)
+    public function getLongLivedAccessToken(AccessTokenInterface|string $accessToken): AccessToken
     {
         $params = [
             'client_secret' => $this->clientSecret
@@ -213,11 +215,11 @@ class Instagram extends AbstractProvider
      *
      * @param string|AccessTokenInterface $accessToken
      *
-     * @return \League\OAuth2\Client\Token\AccessToken
+     * @return AccessToken
      *
      * @throws InstagramIdentityProviderException
      */
-    public function getRefreshedAccessToken($accessToken)
+    public function getRefreshedAccessToken(AccessTokenInterface|string $accessToken): AccessToken
     {
         return $this->getUpdatedAccessToken($accessToken, 'ig_refresh_token');
     }
@@ -229,11 +231,11 @@ class Instagram extends AbstractProvider
      * @param string $grant
      * @param array $params
      *
-     * @return \League\OAuth2\Client\Token\AccessToken
+     * @return AccessToken
      *
      * @throws InstagramIdentityProviderException
      */
-    protected function getUpdatedAccessToken($accessToken, $grant, $params = [])
+    protected function getUpdatedAccessToken(AccessTokenInterface|string $accessToken, string $grant, array $params = []): AccessToken
     {
         $verifiedGrant = $this->verifyGrant($grant);
 
@@ -248,7 +250,7 @@ class Instagram extends AbstractProvider
         } elseif ($grant === 'ig_refresh_token') {
             $updateEndpoint = 'refresh_access_token';
         } else {
-            throw new \UnexpectedValueException(
+            throw new UnexpectedValueException(
                 sprintf('Invalid grand type "%s". cannot generate update token url.', $grant)
             );
         }
@@ -260,7 +262,7 @@ class Instagram extends AbstractProvider
         $response = $this->getParsedResponse($request);
 
         if (false === is_array($response)) {
-            throw new \UnexpectedValueException(
+            throw new UnexpectedValueException(
                 'Invalid response received from Authorization Server. Expected JSON.'
             );
         }
@@ -276,9 +278,9 @@ class Instagram extends AbstractProvider
      *
      * @param array $response
      * @param AccessToken $token
-     * @return ResourceOwnerInterface
+     * @return InstagramResourceOwner
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): InstagramResourceOwner
     {
         return new InstagramResourceOwner($response);
     }
@@ -290,7 +292,7 @@ class Instagram extends AbstractProvider
      *
      * @return self
      */
-    public function setHost($host)
+    public function setHost(string $host): self
     {
         $this->host = $host;
 
@@ -304,7 +306,7 @@ class Instagram extends AbstractProvider
      *
      * @return self
      */
-    public function setGraphHost($host)
+    public function setGraphHost(string $host): self
     {
         $this->graphHost = $host;
 

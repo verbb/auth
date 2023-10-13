@@ -7,6 +7,7 @@ use Psr\Http\Message\ResponseInterface;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
+use Psr\Http\Message\RequestInterface;
 
 class Amazon extends AbstractProvider
 {
@@ -17,7 +18,7 @@ class Amazon extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return 'https://www.amazon.com/ap/oa';
     }
@@ -29,7 +30,7 @@ class Amazon extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return 'https://api.amazon.com/auth/o2/token';
     }
@@ -41,7 +42,7 @@ class Amazon extends AbstractProvider
      *
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return 'https://api.amazon.com/user/profile';
     }
@@ -51,7 +52,7 @@ class Amazon extends AbstractProvider
      *
      * @return array
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return ['profile'];
     }
@@ -62,7 +63,7 @@ class Amazon extends AbstractProvider
      *
      * @return string Scope separator, defaults to ','
      */
-    protected function getScopeSeparator()
+    protected function getScopeSeparator(): string
     {
         return ' ';
     }
@@ -75,13 +76,13 @@ class Amazon extends AbstractProvider
      *
      * @throws IdentityProviderException
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         if (isset($data['error'])) {
             $statusCode = $response->getStatusCode();
             $error = $data['error'];
             $errorDescription = $data['error_description'];
-            $errorLink = (isset($data['error_uri']) ? $data['error_uri'] : false);
+            $errorLink = ($data['error_uri'] ?? false);
             throw new IdentityProviderException(
                 $statusCode . ' - ' . $errorDescription . ': ' . $error . ($errorLink ? ' (see: ' . $errorLink . ')' : ''),
                 $response->getStatusCode(),
@@ -96,9 +97,9 @@ class Amazon extends AbstractProvider
      * @param array $response
      * @param AccessToken $token
      *
-     * @return League\OAuth2\Client\Provider\ResourceOwnerInterface
+     * @return AmazonResourceOwner
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): AmazonResourceOwner
     {
         return new AmazonResourceOwner($response);
     }
@@ -108,9 +109,9 @@ class Amazon extends AbstractProvider
      *
      * @param array $params
      *
-     * @return Psr\Http\Message\RequestInterface
+     * @return RequestInterface
      */
-    protected function getAccessTokenRequest(array $params)
+    protected function getAccessTokenRequest(array $params): RequestInterface
     {
         $request = parent::getAccessTokenRequest($params);
         $uri = $request->getUri()

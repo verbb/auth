@@ -5,6 +5,7 @@ namespace verbb\auth\clients\unsplash\provider;
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Token\AccessToken;
 use Psr\Http\Message\ResponseInterface;
+use Exception;
 
 /**
  * Class Unsplash
@@ -18,7 +19,7 @@ class Unsplash extends AbstractProvider
      * Used for public scoped requests
      * @return string
      */
-    public function getClientId()
+    public function getClientId(): string
     {
         return $this->clientId;
     }
@@ -26,7 +27,7 @@ class Unsplash extends AbstractProvider
     /**
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return 'https://unsplash.com/oauth/authorize';
     }
@@ -35,7 +36,7 @@ class Unsplash extends AbstractProvider
      * @param array $params
      * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return 'https://unsplash.com/oauth/token';
     }
@@ -44,7 +45,7 @@ class Unsplash extends AbstractProvider
      * @param AccessToken $token
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return 'https://api.unsplash.com/me?access_token=' . $token;
     }
@@ -52,7 +53,7 @@ class Unsplash extends AbstractProvider
     /**
      * @return array
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return ['public'];
     }
@@ -60,13 +61,13 @@ class Unsplash extends AbstractProvider
     /**
      * @param ResponseInterface $response
      * @param array|string $data
-     * @throws \Exception
+     * @throws Exception
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         if (! empty($data['error'])) {
             $message = $data['error'].": ".$data['error_description'];
-            throw new \Exception($message);
+            throw new Exception($message);
         }
     }
 
@@ -75,7 +76,7 @@ class Unsplash extends AbstractProvider
      * @param AccessToken $token
      * @return UnsplashResourceOwner
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): UnsplashResourceOwner
     {
         return new UnsplashResourceOwner($response);
     }
@@ -83,7 +84,7 @@ class Unsplash extends AbstractProvider
     /**
      * @return string
      */
-    protected function getScopeSeparator()
+    protected function getScopeSeparator(): string
     {
         return ' ';
     }

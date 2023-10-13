@@ -17,28 +17,28 @@ class Fitbit extends AbstractProvider
      *
      * @const string
      */
-    const BASE_FITBIT_URL = 'https://www.fitbit.com';
+    public const BASE_FITBIT_URL = 'https://www.fitbit.com';
 
     /**
      * Fitbit API URL.
      *
      * @const string
      */
-    const BASE_FITBIT_API_URL = 'https://api.fitbit.com';
+    public const BASE_FITBIT_API_URL = 'https://api.fitbit.com';
 
     /**
      * HTTP header Accept-Language.
      *
      * @const string
      */
-    const HEADER_ACCEPT_LANG = 'Accept-Language';
+    public const HEADER_ACCEPT_LANG = 'Accept-Language';
 
     /**
      * HTTP header Accept-Locale.
      *
      * @const string
      */
-    const HEADER_ACCEPT_LOCALE = 'Accept-Locale';
+    public const HEADER_ACCEPT_LOCALE = 'Accept-Locale';
 
     /**
      * Overridden to inject our options provider
@@ -59,7 +59,7 @@ class Fitbit extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return static::BASE_FITBIT_URL.'/oauth2/authorize';
     }
@@ -71,7 +71,7 @@ class Fitbit extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return static::BASE_FITBIT_API_URL.'/oauth2/token';
     }
@@ -83,7 +83,7 @@ class Fitbit extends AbstractProvider
      *
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return static::BASE_FITBIT_API_URL.'/1/user/-/profile.json';
     }
@@ -94,7 +94,7 @@ class Fitbit extends AbstractProvider
      *
      * @return array
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return ['activity', 'heartrate', 'location', 'profile', 'settings', 'sleep', 'social', 'weight', 'nutrition'];
     }
@@ -107,7 +107,7 @@ class Fitbit extends AbstractProvider
      * @param ResponseInterface $response
      * @param array|string      $data     Parsed response data
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         if ($response->getStatusCode() >= 400) {
             $errorMessage = '';
@@ -134,7 +134,7 @@ class Fitbit extends AbstractProvider
      *
      * @return string
      */
-    protected function getScopeSeparator()
+    protected function getScopeSeparator(): string
     {
         return ' ';
     }
@@ -147,7 +147,7 @@ class Fitbit extends AbstractProvider
      *
      * @return array Authorization parameters
      */
-    protected function getAuthorizationParameters(array $options)
+    protected function getAuthorizationParameters(array $options): array
     {
         $params = parent::getAuthorizationParameters($options);
         unset($params['approval_prompt']);
@@ -167,7 +167,7 @@ class Fitbit extends AbstractProvider
      *
      * @return FitbitUser
      */
-    public function createResourceOwner(array $response, AccessToken $token)
+    public function createResourceOwner(array $response, AccessToken $token): FitbitUser
     {
         return new FitbitUser($response);
     }
@@ -177,7 +177,7 @@ class Fitbit extends AbstractProvider
      *
      * @return string|null Resource owner identifier key
      */
-    protected function getAccessTokenResourceOwnerId()
+    protected function getAccessTokenResourceOwnerId(): ?string
     {
         return 'user_id';
     }
@@ -187,9 +187,9 @@ class Fitbit extends AbstractProvider
      *
      * @param AccessToken $accessToken
      *
-     * @return mixed
+     * @return ResponseInterface
      */
-    public function revoke(AccessToken $accessToken)
+    public function revoke(AccessToken $accessToken): ResponseInterface
     {
         $options = $this->getOptionProvider()
             ->getAccessTokenOptions(self::METHOD_POST, []);
@@ -203,7 +203,7 @@ class Fitbit extends AbstractProvider
         return $this->getResponse($request);
     }
 
-    public function parseResponse(ResponseInterface $response)
+    public function parseResponse(ResponseInterface $response): array|string
     {
         return parent::parseResponse($response);
     }
@@ -215,7 +215,7 @@ class Fitbit extends AbstractProvider
      *
      * @return FitbitRateLimit Fitbit API Rate Limit information
      */
-    public function getFitbitRateLimit(ResponseInterface $response)
+    public function getFitbitRateLimit(ResponseInterface $response): FitbitRateLimit
     {
         return new FitbitRateLimit($response);
     }

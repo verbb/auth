@@ -28,7 +28,7 @@ class ImgurResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->response['data']['id'] ?: null;
     }
@@ -38,7 +38,7 @@ class ImgurResourceOwner implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response['data'];
     }
@@ -48,7 +48,7 @@ class ImgurResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getUrl()
+    public function getUrl(): ?string
     {
         return $this->response['data']['url'] ?: null;
     }
@@ -58,7 +58,7 @@ class ImgurResourceOwner implements ResourceOwnerInterface
      *
      * @return mixed
      */
-    public function getBio()
+    public function getBio(): mixed
     {
         return $this->response['data']['bio'] ?: null;
     }
@@ -68,7 +68,7 @@ class ImgurResourceOwner implements ResourceOwnerInterface
      *
      * @return mixed
      */
-    public function getReputation()
+    public function getReputation(): mixed
     {
         return $this->response['data']['reputation'] ?: null;
     }
@@ -76,9 +76,9 @@ class ImgurResourceOwner implements ResourceOwnerInterface
     /**
      * Get created at timestamp
      *
-     * @return string
+     * @return string|null
      */
-    public function getCreated()
+    public function getCreated(): ?string
     {
         return $this->response['data']['created'] ?: null;
     }
@@ -86,9 +86,9 @@ class ImgurResourceOwner implements ResourceOwnerInterface
     /**
      * Get pro account expiration timestamp
      *
-     * @return string
+     * @return string|null
      */
-    public function getProExpiration()
+    public function getProExpiration(): ?string
     {
         return $this->response['data']['pro_expiration'] ?: null;
     }

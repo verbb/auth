@@ -14,14 +14,14 @@ class GithubResourceOwner implements ResourceOwnerInterface
      *
      * @var string
      */
-    protected $domain;
+    protected string $domain;
 
     /**
      * Raw response
      *
      * @var array
      */
-    protected $response;
+    protected array $response;
 
     /**
      * Creates new resource owner.
@@ -38,7 +38,7 @@ class GithubResourceOwner implements ResourceOwnerInterface
      *
      * @return int|null
      */
-    public function getId()
+    public function getId(): ?int
     {
         return $this->getValueByKey($this->response, 'id');
     }
@@ -48,7 +48,7 @@ class GithubResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->getValueByKey($this->response, 'email');
     }
@@ -58,7 +58,7 @@ class GithubResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->getValueByKey($this->response, 'name');
     }
@@ -68,7 +68,7 @@ class GithubResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getNickname()
+    public function getNickname(): ?string
     {
         return $this->getValueByKey($this->response, 'login');
     }
@@ -78,7 +78,7 @@ class GithubResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getUrl()
+    public function getUrl(): ?string
     {
         $urlParts = array_filter([$this->domain, $this->getNickname()]);
 
@@ -92,7 +92,7 @@ class GithubResourceOwner implements ResourceOwnerInterface
      *
      * @return ResourceOwner
      */
-    public function setDomain($domain)
+    public function setDomain(string $domain): ResourceOwner
     {
         $this->domain = $domain;
 
@@ -104,7 +104,7 @@ class GithubResourceOwner implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }

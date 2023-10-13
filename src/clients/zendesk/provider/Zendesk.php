@@ -10,12 +10,12 @@ class Zendesk extends AbstractProvider
 {
     use BearerAuthorizationTrait;
 
-    protected $subdomain;
+    protected string $subdomain;
 
     /**
      * @var string Key used in a token response to identify the resource owner.
      */
-    const ACCESS_TOKEN_RESOURCE_OWNER_ID = 'id';
+    public const ACCESS_TOKEN_RESOURCE_OWNER_ID = 'id';
 
     /**
      * Constructs an OAuth 2.0 service provider.
@@ -44,7 +44,7 @@ class Zendesk extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return 'https://'.$this->subdomain.'.zendesk.com/oauth/authorizations/new';
     }
@@ -52,9 +52,8 @@ class Zendesk extends AbstractProvider
     /**
      * Get access token url to retrieve token
      *
-     * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return 'https://'.$this->subdomain.'.zendesk.com/oauth/tokens';
     }
@@ -66,7 +65,7 @@ class Zendesk extends AbstractProvider
      *
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return 'https://'.$this->subdomain.'.zendesk.com/api/v2/users/me.json';
     }
@@ -79,7 +78,7 @@ class Zendesk extends AbstractProvider
      *
      * @return array
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return [];
     }
@@ -90,7 +89,7 @@ class Zendesk extends AbstractProvider
      *
      * @return string Scope separator, defaults to ','
      */
-    protected function getScopeSeparator()
+    protected function getScopeSeparator(): string
     {
         return ' ';
     }
@@ -103,12 +102,12 @@ class Zendesk extends AbstractProvider
      * @param  string $data Parsed response data
      * @return void
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         $statusCode = $response->getStatusCode();
         if ($statusCode >= 400) {
             throw new IdentityProviderException(
-                isset($data['description']) ? $data['description'] : $response->getReasonPhrase(),
+                $data['description'] ?? $response->getReasonPhrase(),
                 $statusCode,
                 $response
             );
@@ -118,11 +117,11 @@ class Zendesk extends AbstractProvider
     /**
      * Generate a user object from a successful user details request.
      *
-     * @param object $response
+     * @param array $response
      * @param AccessToken $token
      * @return ZendeskResourceOwner
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): ZendeskResourceOwner
     {
         return new ZendeskResourceOwner($response);
     }
@@ -132,7 +131,7 @@ class Zendesk extends AbstractProvider
      *
      * @return string
      */
-    public function getSubdomain()
+    public function getSubdomain(): string
     {
         return $this->subdomain;
     }
@@ -144,7 +143,7 @@ class Zendesk extends AbstractProvider
      *
      * @return Zendesk
      */
-    public function setSubdomain($subdomain)
+    public function setSubdomain(string $subdomain): Zendesk
     {
         if (!empty($subdomain)) {
             $this->subdomain = $subdomain;

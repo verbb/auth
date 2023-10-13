@@ -17,42 +17,33 @@ class Buffer extends AbstractProvider
      *
      * @const string
      */
-    const BASE_BUFFER_URL = 'https://bufferapp.com';
+    public const BASE_BUFFER_URL = 'https://bufferapp.com';
 
     /**
      * Buffer API base url
      *
      * @const string
      */
-    const BASE_BUFFER_API_URL = 'https://api.bufferapp.com';
+    public const BASE_BUFFER_API_URL = 'https://api.bufferapp.com';
 
     /**
      * Buffer API version
      *
      * @const string
      */
-    const BUFFER_API_VERSION = 1;
+    public const BUFFER_API_VERSION = 1;
 
-    /**
-     * @inheritdoc
-     */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return static::BASE_BUFFER_URL . '/oauth2/authorize';
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return $this->getApiUrl() . '/oauth2/token.json';
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return $this->getApiUrl() . '/user.json';
     }
@@ -62,23 +53,17 @@ class Buffer extends AbstractProvider
      *
      * @return string
      */
-    public function getApiUrl()
+    public function getApiUrl(): string
     {
         return static::BASE_BUFFER_API_URL . '/' . static::BUFFER_API_VERSION;
     }
 
-    /**
-     * @inheritdoc
-     */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return [];
     }
 
-    /**
-     * @inheritdoc
-     */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         if ($response->getStatusCode() >= 400) {
             throw new BufferProviderException(
@@ -89,10 +74,7 @@ class Buffer extends AbstractProvider
         }
     }
 
-    /**
-     * @inheritdoc
-     */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): BufferUser
     {
         return new BufferUser($response);
     }

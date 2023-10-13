@@ -7,6 +7,7 @@ use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
+use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 
 class Strava extends AbstractProvider
 {
@@ -15,17 +16,17 @@ class Strava extends AbstractProvider
     /**
      * @var string Key used in the access token response to identify the resource owner.
      */
-    const ACCESS_TOKEN_RESOURCE_OWNER_ID = 'athlete.id';
+    public const ACCESS_TOKEN_RESOURCE_OWNER_ID = 'athlete.id';
 
     /**
      * @var string
      */
-    const BASE_STRAVA_URL = 'https://www.strava.com';
+    public const BASE_STRAVA_URL = 'https://www.strava.com';
 
     /**
      * @var string
      */
-    protected $apiVersion = 'v3';
+    protected string $apiVersion = 'v3';
 
     /**
      * Constructs an OAuth 2.0 service provider.
@@ -54,7 +55,7 @@ class Strava extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return self::BASE_STRAVA_URL . '/oauth/authorize';
     }
@@ -66,7 +67,7 @@ class Strava extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return self::BASE_STRAVA_URL . '/oauth/token';
     }
@@ -78,7 +79,7 @@ class Strava extends AbstractProvider
      *
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return self::BASE_STRAVA_URL . '/api/' . $this->apiVersion . '/athlete';
     }
@@ -93,7 +94,7 @@ class Strava extends AbstractProvider
      *
      * @return array
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return ['read'];
     }
@@ -106,7 +107,7 @@ class Strava extends AbstractProvider
      * @return void
      * @throws IdentityProviderException
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         if ($response->getStatusCode() >= 400) {
             throw new IdentityProviderException(
@@ -122,9 +123,9 @@ class Strava extends AbstractProvider
      *
      * @param array $response
      * @param AccessToken $token
-     * @return \League\OAuth2\Client\Provider\ResourceOwnerInterface
+     * @return StravaResourceOwner|ResourceOwnerInterface
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): StravaResourceOwner|ResourceOwnerInterface
     {
         return new StravaResourceOwner($response);
     }
@@ -132,7 +133,7 @@ class Strava extends AbstractProvider
     /**
      * @return string
      */
-    public function getBaseStravaUrl()
+    public function getBaseStravaUrl(): string
     {
         return self::BASE_STRAVA_URL;
     }
@@ -140,7 +141,7 @@ class Strava extends AbstractProvider
     /**
      * @return string
      */
-    public function getApiVersion()
+    public function getApiVersion(): string
     {
         return $this->apiVersion;
     }
@@ -152,7 +153,7 @@ class Strava extends AbstractProvider
      *
      * @return array
      */
-    protected function getDefaultHeaders()
+    protected function getDefaultHeaders(): array
     {
         return [
             'Accept' => 'application/json',

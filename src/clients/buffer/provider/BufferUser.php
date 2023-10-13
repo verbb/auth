@@ -9,12 +9,12 @@ class BufferUser implements ResourceOwnerInterface
     /**
      * @var array
      */
-    private $response;
+    private array $response;
 
     /**
      * @var array
      */
-    private $defaultFields = array(
+    private array $defaultFields = array(
         'id' => null,
         'name' => null,
     );
@@ -32,7 +32,7 @@ class BufferUser implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->response['id'];
     }
@@ -42,7 +42,7 @@ class BufferUser implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->response['name'];
     }
@@ -52,7 +52,7 @@ class BufferUser implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }

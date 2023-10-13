@@ -9,7 +9,7 @@ class InstagramResourceOwner implements ResourceOwnerInterface
      *
      * @var array
      */
-    protected $response;
+    protected array $response;
 
     /**
      * Creates new resource owner.
@@ -26,7 +26,7 @@ class InstagramResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->response['id'] ?: null;
     }
@@ -36,7 +36,7 @@ class InstagramResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getNickname()
+    public function getNickname(): ?string
     {
         return $this->response['username'] ?: null;
     }
@@ -46,7 +46,7 @@ class InstagramResourceOwner implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }

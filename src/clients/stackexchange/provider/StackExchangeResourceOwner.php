@@ -16,7 +16,7 @@ class StackExchangeResourceOwner implements ResourceOwnerInterface
     /**
      * @return array
      */
-    public function getId()
+    public function getId(): array
     {
         $items = $this->items;
 
@@ -31,7 +31,7 @@ class StackExchangeResourceOwner implements ResourceOwnerInterface
     /**
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->items;
     }
@@ -39,5 +39,5 @@ class StackExchangeResourceOwner implements ResourceOwnerInterface
     /**
      * @var array
      */
-    protected $items = [];
+    protected mixed $items = [];
 }

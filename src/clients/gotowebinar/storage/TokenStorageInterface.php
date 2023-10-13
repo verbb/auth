@@ -1,6 +1,8 @@
 <?php
 namespace verbb\auth\clients\gotowebinar\storage;
 
+use League\OAuth2\Client\Token\AccessToken;
+
 interface TokenStorageInterface {
     
     /**
@@ -8,7 +10,7 @@ interface TokenStorageInterface {
      *
      * @var string
      */
-    const STORAGE_DOMAIN = 'G2W_TOKEN_%s';
+    public const STORAGE_DOMAIN = 'G2W_TOKEN_%s';
     
     /**
      * Fetch the access token for a given organizer with. 
@@ -20,9 +22,9 @@ interface TokenStorageInterface {
     /**
      * Store a token for the current organizer.
      * 
-     * @param \League\OAuth2\Client\Token\AccessToken $accessToken
+     * @param AccessToken $accessToken
      */
-    public function saveToken(\League\OAuth2\Client\Token\AccessToken $accessToken);
+    public function saveToken(AccessToken $accessToken);
     
 }
 

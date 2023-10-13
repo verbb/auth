@@ -8,7 +8,7 @@ use League\OAuth2\Client\Tool\ArrayAccessorTrait;
 
 class PipedriveResourceOwner implements ResourceOwnerInterface
 {
-    protected $response;
+    protected array $response;
 
     public function __construct(array $response = array())
     {
@@ -35,7 +35,7 @@ class PipedriveResourceOwner implements ResourceOwnerInterface
         return $this->response['data']['company_id'] ?: null;
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }

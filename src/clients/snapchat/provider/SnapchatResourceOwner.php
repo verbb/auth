@@ -9,7 +9,7 @@ class SnapchatResourceOwner implements ResourceOwnerInterface
      *
      * @var array
      */
-    protected $response;
+    protected array $response;
 
     /**
      * Creates new resource owner.
@@ -26,7 +26,7 @@ class SnapchatResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->response['data']['id'] ?: null;
     }
@@ -36,7 +36,7 @@ class SnapchatResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getImageurl()
+    public function getImageurl(): ?string
     {
         if (empty($this->response['data']['image']['60x60']['url'])) {
             return null;
@@ -49,7 +49,7 @@ class SnapchatResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getAvatar()
+    public function getAvatar(): ?string
     {
         return $this->getImageurl();
     }
@@ -59,7 +59,7 @@ class SnapchatResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getPictureUrl()
+    public function getPictureUrl(): ?string
     {
         return $this->getImageurl();
     }
@@ -69,7 +69,7 @@ class SnapchatResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getFirstName()
+    public function getFirstName(): ?string
     {
         return $this->response['data']['first_name'] ?: null;
     }
@@ -79,7 +79,7 @@ class SnapchatResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getLastName()
+    public function getLastName(): ?string
     {
         return $this->response['data']['last_name'] ?: null;
     }
@@ -89,7 +89,7 @@ class SnapchatResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getNickname()
+    public function getNickname(): ?string
     {
         return $this->response['data']['username'] ?: null;
     }
@@ -99,7 +99,7 @@ class SnapchatResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getUsername()
+    public function getUsername(): ?string
     {
         return $this->getNickname();
     }
@@ -109,7 +109,7 @@ class SnapchatResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getUrl()
+    public function getUrl(): ?string
     {
         return $this->response['data']['url'] ?: null;
     }
@@ -119,7 +119,7 @@ class SnapchatResourceOwner implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response['data'];
     }

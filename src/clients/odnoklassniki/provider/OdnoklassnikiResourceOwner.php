@@ -9,7 +9,7 @@ class OdnoklassnikiResourceOwner implements ResourceOwnerInterface
     /**
      * @var array
      */
-    private $response;
+    private array $response;
 
     /**
      * @param array $response
@@ -19,9 +19,6 @@ class OdnoklassnikiResourceOwner implements ResourceOwnerInterface
         $this->response = $response;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getId()
     {
         return $this->response['uid'];
@@ -30,7 +27,7 @@ class OdnoklassnikiResourceOwner implements ResourceOwnerInterface
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->response['name'];
     }
@@ -38,7 +35,7 @@ class OdnoklassnikiResourceOwner implements ResourceOwnerInterface
     /**
      * @return string
      */
-    public function getFirstName()
+    public function getFirstName(): string
     {
         return $this->response['first_name'];
     }
@@ -46,7 +43,7 @@ class OdnoklassnikiResourceOwner implements ResourceOwnerInterface
     /**
      * @return string
      */
-    public function getLastName()
+    public function getLastName(): string
     {
         return $this->response['last_name'];
     }
@@ -54,7 +51,7 @@ class OdnoklassnikiResourceOwner implements ResourceOwnerInterface
     /**
      * @return string
      */
-    public function getImageUrl()
+    public function getImageUrl(): string
     {
         return $this->response['pic_3'];
     }
@@ -62,7 +59,7 @@ class OdnoklassnikiResourceOwner implements ResourceOwnerInterface
     /**
      * @return string
      */
-    public function getGender()
+    public function getGender(): string
     {
         return $this->response['gender'];
     }
@@ -70,7 +67,7 @@ class OdnoklassnikiResourceOwner implements ResourceOwnerInterface
     /**
      * @return string
      */
-    public function getLocation()
+    public function getLocation(): string
     {
         return $this->response['location']['city'];
     }
@@ -78,15 +75,12 @@ class OdnoklassnikiResourceOwner implements ResourceOwnerInterface
     /**
      * @return string
      */
-    public function getLocale()
+    public function getLocale(): string
     {
         return $this->response['locale'];
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }

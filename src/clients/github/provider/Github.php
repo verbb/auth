@@ -8,6 +8,7 @@ use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
+use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 
 class Github extends AbstractProvider
 {
@@ -18,21 +19,21 @@ class Github extends AbstractProvider
      *
      * @var string
      */
-    public $domain = 'https://github.com';
+    public string $domain = 'https://github.com';
 
     /**
      * Api domain
      *
      * @var string
      */
-    public $apiDomain = 'https://api.github.com';
+    public string $apiDomain = 'https://api.github.com';
 
     /**
      * Get authorization url to begin OAuth flow
      *
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return $this->domain . '/login/oauth/authorize';
     }
@@ -44,7 +45,7 @@ class Github extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return $this->domain . '/login/oauth/access_token';
     }
@@ -56,7 +57,7 @@ class Github extends AbstractProvider
      *
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         if ($this->domain === 'https://github.com') {
             return $this->apiDomain . '/user';
@@ -75,7 +76,7 @@ class Github extends AbstractProvider
 
             $responseEmail = $this->getParsedResponse($request);
 
-            $response['email'] = isset($responseEmail[0]['email']) ? $responseEmail[0]['email'] : null;
+            $response['email'] = $responseEmail[0]['email'] ?? null;
         }
 
         return $response;
@@ -89,7 +90,7 @@ class Github extends AbstractProvider
      *
      * @return array
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return [
             'user.email',
@@ -106,11 +107,13 @@ class Github extends AbstractProvider
      * @param  array             $data     Parsed response data
      * @return void
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         if ($response->getStatusCode() >= 400) {
             throw GithubIdentityProviderException::clientException($response, $data);
-        } elseif (isset($data['error'])) {
+        }
+
+        if (isset($data['error'])) {
             throw GithubIdentityProviderException::oauthException($response, $data);
         }
     }
@@ -120,9 +123,9 @@ class Github extends AbstractProvider
      *
      * @param  array       $response
      * @param  AccessToken $token
-     * @return \League\OAuth2\Client\Provider\ResourceOwnerInterface
+     * @return ResourceOwner
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): ResourceOwner
     {
         $user = new GithubResourceOwner($response);
 

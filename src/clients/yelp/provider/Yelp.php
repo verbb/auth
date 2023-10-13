@@ -14,9 +14,8 @@ class Yelp extends AbstractProvider
     /**
      * Get access token url to retrieve token
      *
-     * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return 'https://api.yelp.com/oauth2/token';
     }
@@ -29,12 +28,12 @@ class Yelp extends AbstractProvider
      * @param  string $data Parsed response data
      * @return void
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         $statusCode = $response->getStatusCode();
         if ($statusCode >= 400) {
             throw new IdentityProviderException(
-                isset($data['error']['description']) ? $data['error']['description'] : $response->getReasonPhrase(),
+                $data['error']['description'] ?? $response->getReasonPhrase(),
                 $statusCode,
                 $response
             );

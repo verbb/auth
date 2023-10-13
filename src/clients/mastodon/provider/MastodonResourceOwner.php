@@ -19,7 +19,7 @@ class MastodonResourceOwner implements ResourceOwnerInterface
     /**
      * @var array
      */
-    protected $response;
+    protected array $response;
 
     public function __construct(array $response = array())
     {
@@ -29,7 +29,7 @@ class MastodonResourceOwner implements ResourceOwnerInterface
     /**
      * @return string
      */
-    public function getId()
+    public function getId(): string
     {
         return $this->getValueByKey($this->response, 'id');
     }
@@ -37,7 +37,7 @@ class MastodonResourceOwner implements ResourceOwnerInterface
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->getValueByKey($this->response, 'username');
     }
@@ -46,7 +46,7 @@ class MastodonResourceOwner implements ResourceOwnerInterface
     /**
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }

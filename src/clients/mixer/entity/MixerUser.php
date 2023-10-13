@@ -13,7 +13,7 @@ class MixerUser  implements ResourceOwnerInterface
     /**
      * @var array
      */
-    protected $response;
+    protected array $response;
 
     /**
      * @param array $response
@@ -27,7 +27,7 @@ class MixerUser  implements ResourceOwnerInterface
      * Get id
      * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->response['id'];
     }
@@ -36,7 +36,7 @@ class MixerUser  implements ResourceOwnerInterface
      * Get avatar
      * @return string
      */
-    public function getAvatar()
+    public function getAvatar(): string
     {
         return $this->response['avatarUrl'];
     }
@@ -45,7 +45,7 @@ class MixerUser  implements ResourceOwnerInterface
      * Get bio
      * @return string
      */
-    public function getBio()
+    public function getBio(): string
     {
         return $this->response['bio'];
     }
@@ -54,7 +54,7 @@ class MixerUser  implements ResourceOwnerInterface
      * Get createdAt
      * @return int
      */
-    public function getCreatedAt()
+    public function getCreatedAt(): int
     {
         return $this->response['createdAt'];
     }
@@ -63,7 +63,7 @@ class MixerUser  implements ResourceOwnerInterface
      * Get email
      * @return string|null
      */
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->response['email'];
     }
@@ -72,7 +72,7 @@ class MixerUser  implements ResourceOwnerInterface
      * Get experience
      * @return int
      */
-    public function getExperience()
+    public function getExperience(): int
     {
         return $this->response['experience'];
     }
@@ -81,7 +81,7 @@ class MixerUser  implements ResourceOwnerInterface
      * Get level
      * @return int
      */
-    public function getLevel()
+    public function getLevel(): int
     {
         return $this->response['level'];
     }
@@ -90,7 +90,7 @@ class MixerUser  implements ResourceOwnerInterface
      * Get display name
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->response['username'];
     }
@@ -99,7 +99,7 @@ class MixerUser  implements ResourceOwnerInterface
      * Get array
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }

@@ -18,11 +18,10 @@ class AuthentiqResourceOwner implements ResourceOwnerInterface
      * @var array
      */
 
-    protected $data;
+    protected mixed $data;
 
     /**
      * AuthentiqResourceOwner constructor.
-     * @param array $response
      */
     public function __construct($data = [])
     {
@@ -34,7 +33,7 @@ class AuthentiqResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->claim('sub');
     }
@@ -44,7 +43,7 @@ class AuthentiqResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getFirstName()
+    public function getFirstName(): ?string
     {
         return $this->claim('given_name');
     }
@@ -54,7 +53,7 @@ class AuthentiqResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getLastName()
+    public function getLastName(): ?string
     {
         return $this->claim('family_name');
     }
@@ -66,9 +65,9 @@ class AuthentiqResourceOwner implements ResourceOwnerInterface
      *
      * @return mixed|null
      */
-    public function claim($name)
+    public function claim(string $name): mixed
     {
-        return isset($this->data[$name]) ? $this->data[$name] : null;
+        return $this->data[$name] ?? null;
     }
 
     /**
@@ -76,7 +75,7 @@ class AuthentiqResourceOwner implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->data;
     }

@@ -5,10 +5,10 @@ use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 
 class TrelloUser implements ResourceOwnerInterface
 {
-    private $id;
-    private $email;
-    private $name;
-    private $photo;
+    private mixed $id;
+    private mixed $email;
+    private mixed $name;
+    private mixed $photo;
 
     public function __construct(array $response)
     {
@@ -38,7 +38,7 @@ class TrelloUser implements ResourceOwnerInterface
         return $this->photo;
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'id' => $this->id,

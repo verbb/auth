@@ -12,7 +12,7 @@ class Foursquare extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return 'https://foursquare.com/oauth2/authenticate';
     }
@@ -20,9 +20,8 @@ class Foursquare extends AbstractProvider
     /**
      * Get access token url to retrieve token
      *
-     * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return 'https://foursquare.com/oauth2/access_token';
     }
@@ -34,7 +33,7 @@ class Foursquare extends AbstractProvider
      *
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return 'https://api.foursquare.com/v2/users/self?v=20140806&oauth_token='.$token;
     }
@@ -47,7 +46,7 @@ class Foursquare extends AbstractProvider
      *
      * @return array
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return [];
     }
@@ -60,12 +59,12 @@ class Foursquare extends AbstractProvider
      * @param  string $data Parsed response data
      * @return void
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         $statusCode = $response->getStatusCode();
         if ($statusCode >= 400) {
             throw new IdentityProviderException(
-                isset($data['meta']['errorDetail']) ? $data['meta']['errorDetail'] : $response->getReasonPhrase(),
+                $data['meta']['errorDetail'] ?? $response->getReasonPhrase(),
                 $statusCode,
                 $response
             );
@@ -75,11 +74,11 @@ class Foursquare extends AbstractProvider
     /**
      * Generate a user object from a successful user details request.
      *
-     * @param object $response
+     * @param array $response
      * @param AccessToken $token
      * @return FoursquareResourceOwner
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): FoursquareResourceOwner
     {
         return new FoursquareResourceOwner($response);
     }

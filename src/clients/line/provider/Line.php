@@ -12,13 +12,13 @@ class Line extends AbstractProvider
 {
     use BearerAuthorizationTrait;
 
-    const ACCESS_TOKEN_RESOURCE_OWNER_ID = 'id';
+    public const ACCESS_TOKEN_RESOURCE_OWNER_ID = 'id';
 
     /**
      * @var array Default fields to be requested from the user profile.
      * @link https://devdocs.line.me/en/#getting-user-profiles
      */
-    protected $defaultUserFields = [
+    protected array $defaultUserFields = [
         'userId',
         'displayName',
         'pictureUrl',
@@ -28,19 +28,19 @@ class Line extends AbstractProvider
      * @var array Additional fields to be requested from the user profile.
      *            If set, these values will be included with the defaults.
      */
-    protected $userFields = [];
+    protected array $userFields = [];
 
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return 'https://access.line.me/dialog/oauth/weblogin';
     }
 
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return 'https://api.line.me/v2/oauth/accessToken';
     }
 
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         $fields = array_merge($this->defaultUserFields, $this->userFields);
         return 'https://api.line.me/v2/profile?' . http_build_query([
@@ -49,7 +49,7 @@ class Line extends AbstractProvider
         ]);
     }
 
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return [
             'email',
@@ -58,12 +58,12 @@ class Line extends AbstractProvider
         ];
     }
 
-    protected function getScopeSeparator()
+    protected function getScopeSeparator(): string
     {
         return ' ';
     }
 
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         if (!empty($data['error'])) {
             $code  = 0;
@@ -78,7 +78,7 @@ class Line extends AbstractProvider
         }
     }
 
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): LineUser
     {
         return new LineUser($response);
     }

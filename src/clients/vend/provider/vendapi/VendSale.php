@@ -8,7 +8,7 @@ class VendSale extends VendObject
      * Gets the customer associated with the sale
      * @return VendCustomer
      */
-    public function getCustomer()
+    public function getCustomer(): VendCustomer
     {
         $customers = $this->vend->getCustomers(array('id' => $this->customer_id));
         if (empty($customers)) {
@@ -21,7 +21,7 @@ class VendSale extends VendObject
      * Gets the products associated with the sale - return array of [VendProduct]s
      * @return array
      */
-    public function getProducts()
+    public function getProducts(): array
     {
         $products = array();
         foreach ($this->register_sale_products as $product) {
@@ -32,9 +32,10 @@ class VendSale extends VendObject
 
     /**
      * will create/update the user using the vend api and this object will be updated
-     * @return null
+     *
+     * @return void
      */
-    public function save()
+    public function save(): void
     {
         // wipe current user and replace with new objects properties
         $this->vendObjectProperties = $this->vend->saveSale($this)->toArray();

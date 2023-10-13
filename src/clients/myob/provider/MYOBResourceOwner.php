@@ -27,7 +27,8 @@ class MYOBResourceOwner implements ResourceOwnerInterface {
    *
    * @return mixed
    */
-  public function getId() {
+  public function getId(): mixed
+  {
     return $this->getValueByKey($this->response, 'username');
   }
 
@@ -36,7 +37,8 @@ class MYOBResourceOwner implements ResourceOwnerInterface {
    *
    * @return array
    */
-  public function toArray() {
+  public function toArray(): array
+  {
     return $this->response;
   }
 }

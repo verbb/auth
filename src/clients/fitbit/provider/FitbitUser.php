@@ -9,7 +9,7 @@ class FitbitUser implements ResourceOwnerInterface
     /**
      * @var array
      */
-    protected $userInfo = [];
+    protected mixed $userInfo = [];
 
     /**
      * @param array $response
@@ -29,7 +29,7 @@ class FitbitUser implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getDisplayName()
+    public function getDisplayName(): string
     {
         return $this->userInfo['displayName'];
     }
@@ -39,7 +39,7 @@ class FitbitUser implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->userInfo;
     }

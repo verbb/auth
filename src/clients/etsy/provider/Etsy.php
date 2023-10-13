@@ -14,27 +14,18 @@ class Etsy extends AbstractProvider
 
     use BearerAuthorizationTrait;
 
-    protected $baseApiUrl = 'https://openapi.etsy.com/v3';
+    protected string $baseApiUrl = 'https://openapi.etsy.com/v3';
 
-    /**
-     * {@inheritDoc}
-     */
     public function getBaseAuthorizationUrl() : string
     {
         return 'https://www.etsy.com/oauth/connect';
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getBaseAccessTokenUrl(array $params): string
     {
         return $this->baseApiUrl . '/public/oauth/token?' . $this->buildQueryString($params);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getResourceOwnerDetailsUrl(AccessToken $token) : string
     {
         // we need to get the userId from the access token
@@ -42,37 +33,27 @@ class Etsy extends AbstractProvider
         return $this->baseApiUrl . '/application/users/' . $tokenData[0];
     }
 
-    /**
-     * {@inheritDoc}
-     */
     protected function getDefaultScopes() : array
     {
         return ['email_r'];
     }
 
-    /**
-     * {@inheritDoc}
-     */
     protected function checkResponse(ResponseInterface $response, $data) : void
     {
         if ($response->getStatusCode() >= 400) {
             throw EtsyIdentityProviderException::clientException($response, $data);
-        } elseif (isset($data['error'])) {
+        }
+
+        if (isset($data['error'])) {
             throw EtsyIdentityProviderException::oauthException($response, $data);
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     protected function createResourceOwner(array $response, AccessToken $token): ResourceOwnerInterface
     {
         return new EtsyResourceOwner($response, $token);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getDefaultHeaders() : array
     {
         return [
@@ -80,9 +61,6 @@ class Etsy extends AbstractProvider
         ];
     }
 
-    /**
-     * {@inheritDoc}
-     */
     protected function getScopeSeparator() : string
     {
         return ' ';

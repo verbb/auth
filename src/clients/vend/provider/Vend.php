@@ -9,75 +9,66 @@ use Psr\Http\Message\ResponseInterface;
 use verbb\auth\clients\vend\provider\vendapi\VendAPI;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
+use Exception;
+use InvalidArgumentException;
 
 class Vend extends AbstractProvider
 {
-    const VEND_AUTHORIZATION_URI = 'https://secure.vendhq.com/connect';
-    const VEND_API_URI = 'https://%s.vendhq.com';
-    const VEND_ACCESS_TOKEN_URI = 'https://%s.vendhq.com/api/1.0/token';
+    public const VEND_AUTHORIZATION_URI = 'https://secure.vendhq.com/connect';
+    public const VEND_API_URI = 'https://%s.vendhq.com';
+    public const VEND_ACCESS_TOKEN_URI = 'https://%s.vendhq.com/api/1.0/token';
 
     /** @var string */
-    protected $storeName;
+    protected mixed $storeName;
 
     /**
      * @param array $options
      * @param array $collaborators
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    public function __construct($options = [], array $collaborators = [])
+    public function __construct(array $options = [], array $collaborators = [])
     {
         parent::__construct($options, $collaborators);
 
         if (empty($options['storeName'])) {
             $message = 'The "storeName" option not set. Please set Store Name.';
-            throw new \InvalidArgumentException($message);
+            throw new InvalidArgumentException($message);
         }
 
         $this->storeName = $options['storeName'];
     }
 
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return static::VEND_AUTHORIZATION_URI;
     }
 
-    /**
-     * @param array $params
-     */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return sprintf(self::VEND_ACCESS_TOKEN_URI, $this->getStoreName());
     }
 
-    public function getDefaultScopes()
+    public function getDefaultScopes(): array
     {
         return [];
     }
 
     /**
      * @param AccessToken $token
-     * @return mixed
+     * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return $this->getBaseVendApiUrl();
     }
 
-    /**
-     * @param array $response
-     * @param AccessToken $token
-     */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): null
     {
         return null;
     }
 
-    /**
-     * @param array $response
-     * @param AccessToken $token
-     */
-    public function vendApi(AccessToken $token)
+    public function vendApi(AccessToken $token): VendAPI
     {
         return new VendAPI($this->getBaseVendApiUrl(), 'Bearer', $token);
     }
@@ -87,7 +78,7 @@ class Vend extends AbstractProvider
      *
      * @return array
      */
-    protected function getRequiredOptions()
+    protected function getRequiredOptions(): array
     {
         return [
             'urlAuthorize',
@@ -99,12 +90,12 @@ class Vend extends AbstractProvider
      * @param ResponseInterface $response
      * @param $data
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         if (!empty($data['error'])) {
             $message = $data['error'];
             $message = isset($data['error_description']) ? $message . ': '. $data['error_description'] : $message;
-            throw new \Exception($message);
+            throw new Exception($message);
         }
     }
 
@@ -113,16 +104,17 @@ class Vend extends AbstractProvider
      *
      * @return string
      */
-    protected function getBaseVendApiUrl()
+    protected function getBaseVendApiUrl(): string
     {
         return sprintf(self::VEND_API_URI, $this->getStoreName());
     }
 
     /**
      * Set the store name
+     *
      * @param string $storeName
      */
-    protected function setStoreName($storeName)
+    protected function setStoreName(string $storeName): void
     {
         $this->storeName = $storeName;
     }
@@ -131,7 +123,7 @@ class Vend extends AbstractProvider
      * Get the store name
      * @return string
      */
-    protected function getStoreName()
+    protected function getStoreName(): string
     {
         return $this->storeName;
     }
@@ -143,7 +135,7 @@ class Vend extends AbstractProvider
      * @return void
      * @throws InvalidArgumentException
      */
-    private function assertRequiredOptions(array $options)
+    private function assertRequiredOptions(array $options): void
     {
         $missing = array_diff_key(array_flip($this->getRequiredOptions()), $options);
         if (!empty($missing)) {

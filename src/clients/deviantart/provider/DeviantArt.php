@@ -12,27 +12,27 @@ class DeviantArt extends AbstractProvider
 {
     use BearerAuthorizationTrait;
 
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return 'https://www.deviantart.com/oauth2/authorize';
     }
 
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return 'https://www.deviantart.com/oauth2/token';
     }
 
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return 'https://www.deviantart.com/api/v1/oauth2/user/whoami';
     }
 
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return ['user'];
     }
 
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         if (isset($data['error'])) {
             throw new IdentityProviderException(
@@ -43,12 +43,12 @@ class DeviantArt extends AbstractProvider
         }
     }
 
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): DeviantArtResourceOwner
     {
         return new DeviantArtResourceOwner($response);
     }
 
-    protected function getScopeSeparator()
+    protected function getScopeSeparator(): string
     {
         return ' ';
     }
@@ -57,7 +57,7 @@ class DeviantArt extends AbstractProvider
      * @inheritdoc
      * @throws IdentityProviderException
      */
-    protected function parseResponse(ResponseInterface $response)
+    protected function parseResponse(ResponseInterface $response): array|string
     {
         $statusCode = $response->getStatusCode();
         if ($statusCode > 500) {

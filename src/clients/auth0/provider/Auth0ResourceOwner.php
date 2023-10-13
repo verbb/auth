@@ -11,16 +11,13 @@ class Auth0ResourceOwner implements ResourceOwnerInterface
     /**
      * @var array
      */
-    protected $response;
+    protected array $response;
 
     public function __construct(array $response = [])
     {
         $this->response = $response;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function getId()
     {
         return $this->getValueByKey($this->response, 'user_id') ?? $this->getValueByKey($this->response, 'sub');
@@ -31,7 +28,7 @@ class Auth0ResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->getValueByKey($this->response, 'email');
     }
@@ -41,7 +38,7 @@ class Auth0ResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->getValueByKey($this->response, 'name');
     }
@@ -51,7 +48,7 @@ class Auth0ResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getNickname()
+    public function getNickname(): ?string
     {
         return $this->getValueByKey($this->response, 'nickname');
     }
@@ -62,7 +59,7 @@ class Auth0ResourceOwner implements ResourceOwnerInterface
      * @see https://auth0.com/docs/user-profile/user-profile-structure
      * @return array|null
      */
-    public function getIdentities()
+    public function getIdentities(): ?array
     {
         return $this->getValueByKey($this->response, 'identities');
     }
@@ -72,15 +69,12 @@ class Auth0ResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getPictureUrl()
+    public function getPictureUrl(): ?string
     {
         return $this->getValueByKey($this->response, 'picture');
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }

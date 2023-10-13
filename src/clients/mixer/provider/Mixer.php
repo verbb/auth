@@ -8,6 +8,7 @@ use verbb\auth\clients\mixer\provider\exception\MixerIdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
+use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 
 /**
  * Class Mixer
@@ -21,19 +22,19 @@ class Mixer extends AbstractProvider
      * OAuth domain
      * @var string
      */
-    public $oauthDomain = 'https://mixer.com/oauth';
+    public string $oauthDomain = 'https://mixer.com/oauth';
 
     /**
      * Api domain
      * @var string
      */
-    public $apiDomain = 'https://mixer.com/api/v1';
+    public string $apiDomain = 'https://mixer.com/api/v1';
 
     /**
      *  Scopes
      * @var array
      */
-    public $scopes = [
+    public array $scopes = [
         'user:details:self'
     ];
 
@@ -41,7 +42,7 @@ class Mixer extends AbstractProvider
      * Get authorization url to begin OAuth flow
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return $this->oauthDomain.'/authorize';
     }
@@ -51,7 +52,7 @@ class Mixer extends AbstractProvider
      * @param  array $params
      * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return $this->apiDomain.'/oauth/token';
     }
@@ -61,18 +62,19 @@ class Mixer extends AbstractProvider
      * @param  AccessToken $token
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return $this->getAuthenticatedUrlForEndpoint('/users/current', $token);
     }
 
     /**
      * Get the full uri with appended oauth_token query string
+     *
      * @param string $endpoint | with leading slash
      * @param AccessToken $token
      * @return string
      */
-    public function getAuthenticatedUrlForEndpoint($endpoint, AccessToken $token)
+    public function getAuthenticatedUrlForEndpoint(string $endpoint, AccessToken $token): string
     {
         return $this->apiDomain.$endpoint.'?oauth_token='.$token->getToken();
     }
@@ -82,7 +84,7 @@ class Mixer extends AbstractProvider
      * the URL for requesting an access token.
      * @return string Scope separator
      */
-    protected function getScopeSeparator()
+    protected function getScopeSeparator(): string
     {
         return ' ';
     }
@@ -93,23 +95,25 @@ class Mixer extends AbstractProvider
      * required for the provider user interface!
      * @return array
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return $this->scopes;
     }
 
     /**
      * Checks response
+     *
      * @param ResponseInterface $response
      * @param array|string $data
-     * @return \League\OAuth2\Client\Provider\Exception\IdentityProviderException
-     * @throws \Morgann\OAuth2\Client\Mixer\Provider\Exception\MixerIdentityProviderException
+     * @return IdentityProviderException|null
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): ?IdentityProviderException
     {
         if (isset($data['error'])) {
             return MixerIdentityProviderException::fromResponse($response, $data['error']);
         }
+
+        return null;
     }
 
     /**
@@ -118,7 +122,7 @@ class Mixer extends AbstractProvider
      * @param AccessToken $token
      * @return MixerUser
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): MixerUser
     {
         return new MixerUser($response);
     }

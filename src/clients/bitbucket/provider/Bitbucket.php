@@ -6,6 +6,8 @@ use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\ArrayAccessorTrait;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
+use verbb\auth\clients\bitbucket\provider\League\OAuth2\Client\Provider\ResourceOwnerInterface;
+use Psr\Http\Message\RequestInterface;
 
 class Bitbucket extends AbstractProvider
 {
@@ -17,7 +19,7 @@ class Bitbucket extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return 'https://bitbucket.org/site/oauth2/authorize';
     }
@@ -25,9 +27,8 @@ class Bitbucket extends AbstractProvider
     /**
      * Get access token url to retrieve token
      *
-     * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return 'https://bitbucket.org/site/oauth2/access_token';
     }
@@ -39,7 +40,7 @@ class Bitbucket extends AbstractProvider
      *
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return 'https://api.bitbucket.org/2.0/user';
     }
@@ -52,7 +53,7 @@ class Bitbucket extends AbstractProvider
      *
      * @return array
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return [];
     }
@@ -63,7 +64,7 @@ class Bitbucket extends AbstractProvider
      *
      * @return string Scope separator, defaults to ' '
      */
-    protected function getScopeSeparator()
+    protected function getScopeSeparator(): string
     {
         return ' ';
     }
@@ -76,7 +77,7 @@ class Bitbucket extends AbstractProvider
      * @param  string $data Parsed response data
      * @return void
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         $errors = [
             'error_description',
@@ -93,11 +94,11 @@ class Bitbucket extends AbstractProvider
     /**
      * Generate a user object from a successful user details request.
      *
-     * @param object $response
+     * @param array $response
      * @param AccessToken $token
-     * @return League\OAuth2\Client\Provider\ResourceOwnerInterface
+     * @return BitbucketResourceOwner
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): BitbucketResourceOwner
     {
         return new BitbucketResourceOwner($response);
     }
@@ -106,9 +107,9 @@ class Bitbucket extends AbstractProvider
      * Returns a prepared request for requesting an access token.
      *
      * @param array $params Query string parameters
-     * @return Psr\Http\Message\RequestInterface
+     * @return RequestInterface
      */
-    protected function getAccessTokenRequest(array $params)
+    protected function getAccessTokenRequest(array $params): RequestInterface
     {
         $request = parent::getAccessTokenRequest($params);
         $uri = $request->getUri()

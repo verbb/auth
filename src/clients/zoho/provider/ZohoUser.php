@@ -9,7 +9,7 @@ class ZohoUser implements ResourceOwnerInterface
     /**
      * @var array
      */
-    protected $response;
+    protected array $response;
 
     /**
      * @param array $response
@@ -34,7 +34,7 @@ class ZohoUser implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getDisplayName()
+    public function getDisplayName(): string
     {
         return $this->response['Display_Name'];
     }
@@ -44,7 +44,7 @@ class ZohoUser implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getFirstName()
+    public function getFirstName(): ?string
     {
         return $this->getResponseValue('First_Name');
     }
@@ -54,7 +54,7 @@ class ZohoUser implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getLastName()
+    public function getLastName(): ?string
     {
         return $this->getResponseValue('Last_Name');
     }
@@ -64,7 +64,7 @@ class ZohoUser implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->getResponseValue('Email');
     }
@@ -74,16 +74,13 @@ class ZohoUser implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }
 
     private function getResponseValue($key)
     {
-        if (array_key_exists($key, $this->response)) {
-            return $this->response[$key];
-        }
-        return null;
+        return $this->response[$key] ?? null;
     }
 }

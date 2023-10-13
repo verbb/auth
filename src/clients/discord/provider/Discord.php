@@ -18,6 +18,8 @@ use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
 use verbb\auth\clients\discord\provider\exception\DiscordIdentityProviderException;
+use League\OAuth2\Client\Provider\ResourceOwnerInterface;
+use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 
 class Discord extends AbstractProvider
 {
@@ -28,14 +30,14 @@ class Discord extends AbstractProvider
      *
      * @var string
      */
-    public $apiDomain = 'https://discord.com/api/v9';
+    public string $apiDomain = 'https://discord.com/api/v9';
 
     /**
      * Get authorization URL to begin OAuth flow
      *
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return $this->apiDomain.'/oauth2/authorize';
     }
@@ -47,7 +49,7 @@ class Discord extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return $this->apiDomain.'/oauth2/token';
     }
@@ -59,7 +61,7 @@ class Discord extends AbstractProvider
      *
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return $this->apiDomain.'/users/@me';
     }
@@ -72,7 +74,7 @@ class Discord extends AbstractProvider
      *
      * @return string Scope separator
      */
-    protected function getScopeSeparator()
+    protected function getScopeSeparator(): string
     {
         return ' ';
     }
@@ -85,7 +87,7 @@ class Discord extends AbstractProvider
      *
      * @return array
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return [
             'identify',
@@ -99,12 +101,12 @@ class Discord extends AbstractProvider
     /**
      * Check a provider response for errors.
      *
-     * @throws IdentityProviderException
-     * @param  ResponseInterface @response
-     * @param  array $data Parsed response data
+     * @param ResponseInterface $response
+     * @param array $data Parsed response data
      * @return void
+     * @throws IdentityProviderException
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         if ($response->getStatusCode() >= 400) {
             throw DiscordIdentityProviderException::clientException($response, $data);
@@ -116,9 +118,9 @@ class Discord extends AbstractProvider
      *
      * @param array $response
      * @param AccessToken $token
-     * @return \League\OAuth2\Client\Provider\ResourceOwnerInterface
+     * @return DiscordResourceOwner|ResourceOwnerInterface
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): DiscordResourceOwner|ResourceOwnerInterface
     {
         return new DiscordResourceOwner($response);
     }

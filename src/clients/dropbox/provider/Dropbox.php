@@ -15,14 +15,14 @@ class Dropbox extends AbstractProvider
     /**
      * @var string Key used in the access token response to identify the resource owner.
      */
-    const ACCESS_TOKEN_RESOURCE_OWNER_ID = 'account_id';
+    public const ACCESS_TOKEN_RESOURCE_OWNER_ID = 'account_id';
 
     /**
      * Get authorization url to begin OAuth flow
      *
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return 'https://www.dropbox.com/oauth2/authorize';
     }
@@ -30,9 +30,8 @@ class Dropbox extends AbstractProvider
     /**
      * Get access token url to retrieve token
      *
-     * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return 'https://api.dropbox.com/oauth2/token';
     }
@@ -44,7 +43,7 @@ class Dropbox extends AbstractProvider
      *
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return 'https://api.dropbox.com/2/users/get_current_account';
     }
@@ -57,7 +56,7 @@ class Dropbox extends AbstractProvider
      *
      * @return array
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return [];
     }
@@ -71,7 +70,7 @@ class Dropbox extends AbstractProvider
      * @param  string $data Parsed response data
      * @return void
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         if (isset($data['error'])) {
             throw new IdentityProviderException(
@@ -85,11 +84,11 @@ class Dropbox extends AbstractProvider
     /**
      * Generate a user object from a successful user details request.
      *
-     * @param object $response
+     * @param array $response
      * @param AccessToken $token
      * @return DropboxResourceOwner
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): DropboxResourceOwner
     {
         return new DropboxResourceOwner($response);
     }
@@ -100,7 +99,7 @@ class Dropbox extends AbstractProvider
      * @param  AccessToken $token
      * @return mixed
      */
-    protected function fetchResourceOwnerDetails(AccessToken $token)
+    protected function fetchResourceOwnerDetails(AccessToken $token): mixed
     {
         $url = $this->getResourceOwnerDetailsUrl($token);
 
@@ -115,7 +114,7 @@ class Dropbox extends AbstractProvider
      * @param  array $options
      * @return string Authorization URL
      */
-    public function getAuthorizationUrl(array $options = [])
+    public function getAuthorizationUrl(array $options = []): string
     {
         return parent::getAuthorizationUrl(array_merge([
             'approval_prompt' => []

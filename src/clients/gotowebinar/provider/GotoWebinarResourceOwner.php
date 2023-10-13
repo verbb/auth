@@ -18,7 +18,7 @@ class GotoWebinarResourceOwner implements ResourceOwnerInterface
      *
      * @var array
      */
-    protected $response;
+    protected array $response;
 
     /**
      * Creates new resource owner.
@@ -88,7 +88,8 @@ class GotoWebinarResourceOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getId() {
+    public function getId(): string
+    {
         return $this->getKey();
     }
 
@@ -97,7 +98,8 @@ class GotoWebinarResourceOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getKey() {
+    public function getKey(): string
+    {
         return $this->getValueByKey($this->response, 'key');
     }
 
@@ -106,7 +108,8 @@ class GotoWebinarResourceOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getAccountKey() {
+    public function getAccountKey(): string
+    {
         return $this->getValueByKey($this->response, 'accountKey');
     }
 
@@ -115,7 +118,8 @@ class GotoWebinarResourceOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getEmail() {
+    public function getEmail(): string
+    {
         return $this->getValueByKey($this->response, 'email');
     }
 
@@ -124,7 +128,8 @@ class GotoWebinarResourceOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getFirstName() {
+    public function getFirstName(): string
+    {
         return $this->getValueByKey($this->response, 'firstName');
     }
 
@@ -133,7 +138,8 @@ class GotoWebinarResourceOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getLastName() {
+    public function getLastName(): string
+    {
         return $this->getValueByKey($this->response, 'lastName');
     }
 
@@ -142,7 +148,8 @@ class GotoWebinarResourceOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getLocale() {
+    public function getLocale(): string
+    {
         return $this->getValueByKey($this->response, 'locale');
     }
 
@@ -151,7 +158,8 @@ class GotoWebinarResourceOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getCreateTime() {
+    public function getCreateTime(): string
+    {
         return $this->getValueByKey($this->response, 'createTime');
     }
 
@@ -160,7 +168,7 @@ class GotoWebinarResourceOwner implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }

@@ -7,31 +7,32 @@ use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
+use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 
 class Yahoo extends AbstractProvider
 {
     use BearerAuthorizationTrait;
 
-    const ACCESS_TOKEN_RESOURCE_OWNER_ID = 'xoauth_yahoo_guid';
+    public const ACCESS_TOKEN_RESOURCE_OWNER_ID = 'xoauth_yahoo_guid';
 
     /*
     https://developer.yahoo.com/oauth2/guide/flows_authcode/#step-2-get-an-authorization-url-and-authorize-access
     */
-    protected $language = "en-us";
+    protected string $language = "en-us";
 
-    private $imageSize = '192x192';
+    private string $imageSize = '192x192';
 
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return 'https://api.login.yahoo.com/oauth2/request_auth';
     }
 
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return 'https://api.login.yahoo.com/oauth2/get_token';
     }
 
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         $guid = $token->getResourceOwnerId();
 
@@ -41,12 +42,12 @@ class Yahoo extends AbstractProvider
     /**
      * Get user image from provider
      *
-     * @param  array $response
-     * @param  AccessToken $token
+     * @param array $response
+     * @param AccessToken $token
      *
      * @return array
      */
-    protected function getUserImage(array $response, AccessToken $token)
+    protected function getUserImage(array $response, AccessToken $token): array
     {
         $guid = $token->getResourceOwnerId();
 
@@ -54,21 +55,19 @@ class Yahoo extends AbstractProvider
 
         $request = $this->getAuthenticatedRequest('get', $url, $token);
 
-        $response = $this->getResponse($request);
-
-        return $response;
+        return $this->getResponse($request);
     }
 
-    protected function getAuthorizationParameters(array $options)
+    protected function getAuthorizationParameters(array $options): array
     {
         $params = parent::getAuthorizationParameters($options);
 
-        $params['language'] = isset($options['language']) ? $options['language'] : $this->language;
+        $params['language'] = $options['language'] ?? $this->language;
 
         return $params;
     }
 
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         /*
            No scope is required. scopes are part of APP Settings.
@@ -76,12 +75,12 @@ class Yahoo extends AbstractProvider
         return [];
     }
 
-    protected function getScopeSeparator()
+    protected function getScopeSeparator(): string
     {
         return ' ';
     }
 
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         if (!empty($data['error'])) {
             $code = 0;
@@ -98,7 +97,7 @@ class Yahoo extends AbstractProvider
         }
     }
 
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): YahooUser|ResourceOwnerInterface
     {
         $user = new YahooUser($response);
 
@@ -110,18 +109,15 @@ class Yahoo extends AbstractProvider
     /**
      * Get user image url from provider, if available
      *
-     * @param  array $response
-     * @param  AccessToken $token
+     * @param array $response
+     * @param AccessToken $token
      *
-     * @return string
+     * @return string|null
      */
-    protected function getUserImageUrl(array $response, AccessToken $token)
+    protected function getUserImageUrl(array $response, AccessToken $token): ?string
     {
         $image = $this->getUserImage($response, $token);
 
-        if (isset($image['image']['imageUrl'])) {
-            return $image['image']['imageUrl'];
-        }
-        return null;
+        return $image['image']['imageUrl'] ?? null;
     }
 }

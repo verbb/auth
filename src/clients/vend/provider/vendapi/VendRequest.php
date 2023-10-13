@@ -7,32 +7,20 @@ class VendRequest
     /**
      * @var mixed
      */
-    private $curl;
+    private mixed $curl;
     /**
      * @var mixed
      */
-    private $curl_debug;
+    private mixed $debug;
     /**
      * @var mixed
      */
-    private $debug;
-    /**
-     * @var mixed
-     */
-    private $cookie;
-    /**
-     * @var mixed
-     */
-    private $http_header;
-    /**
-     * @var mixed
-     */
-    private $http_body;
+    private mixed $cookie;
 
     /**
      * @var mixed
      */
-    public $http_code;
+    public mixed $http_code;
 
     /**
      * @param $url
@@ -72,10 +60,11 @@ class VendRequest
 
     /**
      * set option for request, also accepts an array of key/value pairs for the first param
+     *
      * @param string $name  option name to set
-     * @param misc $value value
+     * @param false|misc $value value
      */
-    public function setOpt($name, $value = false)
+    public function setOpt(string $name, misc|false $value = false): void
     {
         if (is_array($name)) {
             curl_setopt_array($this->curl, $name);
@@ -95,7 +84,7 @@ class VendRequest
      * @param $rawdata
      * @return mixed
      */
-    public function post($path, $rawdata)
+    public function post($path, $rawdata): mixed
     {
         $this->setOpt(
             array(
@@ -112,7 +101,7 @@ class VendRequest
      * @param $path
      * @return mixed
      */
-    public function get($path)
+    public function get($path): mixed
     {
         $this->setOpt(
             array(
@@ -129,7 +118,7 @@ class VendRequest
      * @param $path
      * @return mixed
      */
-    public function delete($path)
+    public function delete($path): mixed
     {
         $this->setOpt(
             array(
@@ -146,7 +135,7 @@ class VendRequest
      * @param $type
      * @return mixed
      */
-    private function request($path, $type)
+    private function request($path, $type): mixed
     {
         $this->setOpt(CURLOPT_URL, $this->url . $path);
 
@@ -155,21 +144,21 @@ class VendRequest
         $this->http_code = $curl_status['http_code'];
         $header_size = $curl_status['header_size'];
 
-        $this->http_header = substr($response, 0, $header_size);
-        $this->http_body = substr($response, $header_size);
+        $http_header = substr($response, 0, $header_size);
+        $http_body = substr($response, $header_size);
 
         if ($this->debug) {
-            $this->curl_debug = $curl_status;
+            $curl_debug = $curl_status;
             $head = $foot = "\n";
-            if (php_sapi_name() !== 'cli') {
+            if (PHP_SAPI !== 'cli') {
                 $head = '<pre>';
                 $foot = '</pre>';
             }
-            echo $head . $this->curl_debug['request_header'] . $foot .
+            echo $head . $curl_debug['request_header'] . $foot .
             ($this->posted ? $head . $this->posted . $foot : '') .
-            $head . $this->http_header . $foot .
-            $head . $this->http_body . $foot;
+            $head . $http_header . $foot .
+            $head . $http_body . $foot;
         }
-        return $this->http_body;
+        return $http_body;
     }
 }

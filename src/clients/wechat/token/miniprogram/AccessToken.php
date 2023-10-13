@@ -3,22 +3,24 @@
 
 namespace verbb\auth\clients\wechat\token\miniprogram;
 
+use InvalidArgumentException;
+
 class AccessToken extends \League\OAuth2\Client\Token\AccessToken
 {
     /**
      * @var string
      */
-    protected $sessionKey;
+    protected mixed $sessionKey;
 
     /**
      * @var string
      */
-    protected $openId;
+    protected mixed $openId;
 
     /**
      * @var string
      */
-    protected $unionId;
+    protected mixed $unionId;
 
     /**
      * @var array
@@ -30,7 +32,7 @@ class AccessToken extends \League\OAuth2\Client\Token\AccessToken
      *
      * @param array $options An array of options returned by the service provider
      *     in the access token request. The `access_token` option is required.
-     * @throws \InvalidArgumentException if `access_token` is not provided in `$options`.
+     * @throws InvalidArgumentException if `access_token` is not provided in `$options`.
      */
     public function __construct(array $options = [])
     {
@@ -39,7 +41,7 @@ class AccessToken extends \League\OAuth2\Client\Token\AccessToken
         parent::__construct($options);
 
         if (empty($options['session_key'])) {
-            throw new \InvalidArgumentException('Required option not passed: "session_key"');
+            throw new InvalidArgumentException('Required option not passed: "session_key"');
         }
 
         $this->sessionKey = $options['session_key'];
@@ -67,7 +69,7 @@ class AccessToken extends \League\OAuth2\Client\Token\AccessToken
      *
      * @return string
      */
-    public function getSessionKey()
+    public function getSessionKey(): string
     {
         return $this->sessionKey;
     }
@@ -77,7 +79,7 @@ class AccessToken extends \League\OAuth2\Client\Token\AccessToken
      *
      * @return string|null
      */
-    public function getOpenId()
+    public function getOpenId(): ?string
     {
         return $this->openId;
     }
@@ -87,19 +89,9 @@ class AccessToken extends \League\OAuth2\Client\Token\AccessToken
      *
      * @return string|null
      */
-    public function getUnionId()
+    public function getUnionId(): ?string
     {
         return $this->unionId;
-    }
-
-    /**
-     * Returns additional vendor values stored in the token.
-     *
-     * @return array
-     */
-    public function getValues()
-    {
-        return $this->values;
     }
 
     /**
@@ -109,7 +101,7 @@ class AccessToken extends \League\OAuth2\Client\Token\AccessToken
      */
     public function __toString()
     {
-        return (string) $this->getSessionKey();
+        return $this->getSessionKey();
     }
 
     /**
@@ -118,7 +110,7 @@ class AccessToken extends \League\OAuth2\Client\Token\AccessToken
      *
      * @return array
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $parameters = $this->values;
 

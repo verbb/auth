@@ -14,7 +14,7 @@ class AmazonResourceOwner implements ResourceOwnerInterface
      *
      * @var array
      */
-    protected $response;
+    protected array $response;
 
     /**
      * Creates new resource owner.
@@ -31,7 +31,7 @@ class AmazonResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->getValueByKey($this->response, 'user_id');
     }
@@ -41,7 +41,7 @@ class AmazonResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->getValueByKey($this->response, 'name');
     }
@@ -51,7 +51,7 @@ class AmazonResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getPostalCode()
+    public function getPostalCode(): ?string
     {
         return $this->getValueByKey($this->response, 'postal_code');
     }
@@ -61,7 +61,7 @@ class AmazonResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->getValueByKey($this->response, 'email');
     }
@@ -71,7 +71,7 @@ class AmazonResourceOwner implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }

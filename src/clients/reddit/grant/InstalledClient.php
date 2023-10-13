@@ -11,7 +11,7 @@ use League\OAuth2\Client\Token\AccessToken;
  */
 class InstalledClient extends AbstractGrant
 {
-    public function getName()
+    public function getName(): string
     {
         return 'https://oauth.reddit.com/grants/installed_client';
     }
@@ -21,9 +21,9 @@ class InstalledClient extends AbstractGrant
         return ['device_id'];
     }
 
-    public function prepareRequestParameters(array $defaults, array $options)
+    public function prepareRequestParameters(array $defaults, array $options): array
     {
-        if ( ! isset($options["device_id"]) || empty($options["device_id"])) {
+        if (empty($options["device_id"])) {
             throw new InvalidArgumentException("Missing device_id");
         }
 

@@ -8,7 +8,7 @@ use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 
 class RdioResourceOwner implements ResourceOwnerInterface
 {
-    protected $response;
+    protected array $response;
 
     public function __construct(array $response = array())
     {
@@ -80,7 +80,7 @@ class RdioResourceOwner implements ResourceOwnerInterface
         return $this->response['result']['icon'];
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }

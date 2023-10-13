@@ -9,7 +9,7 @@ class UrlHelper
     // Static Methods
     // =========================================================================
 
-    public static function normalizeBaseUri(string $uri)
+    public static function normalizeBaseUri(string $uri): string
     {
         $uri = rtrim($uri, '/');
         $path = parse_url($uri)['path'] ?? null;

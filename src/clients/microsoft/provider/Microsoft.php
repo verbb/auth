@@ -13,35 +13,35 @@ class Microsoft extends AbstractProvider
      *
      * @var array
      */
-    public $defaultScopes = ['wl.basic', 'wl.emails'];
+    public array $defaultScopes = ['wl.basic', 'wl.emails'];
 
     /**
      * Base url for authorization.
      *
      * @var string
      */
-    protected $urlAuthorize = 'https://login.live.com/oauth20_authorize.srf';
+    protected string $urlAuthorize = 'https://login.live.com/oauth20_authorize.srf';
 
     /**
      * Base url for access token.
      *
      * @var string
      */
-    protected $urlAccessToken = 'https://login.live.com/oauth20_token.srf';
+    protected string $urlAccessToken = 'https://login.live.com/oauth20_token.srf';
 
     /**
      * Base url for resource owner.
      *
      * @var string
      */
-    protected $urlResourceOwnerDetails = 'https://apis.live.net/v5.0/me';
+    protected string $urlResourceOwnerDetails = 'https://apis.live.net/v5.0/me';
 
     /**
      * Get authorization url to begin OAuth flow
      *
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return $this->urlAuthorize;
     }
@@ -49,9 +49,8 @@ class Microsoft extends AbstractProvider
     /**
      * Get access token url to retrieve token
      *
-     * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return $this->urlAccessToken;
     }
@@ -61,7 +60,7 @@ class Microsoft extends AbstractProvider
      *
      * @return array
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return $this->defaultScopes;
     }
@@ -70,14 +69,12 @@ class Microsoft extends AbstractProvider
      * Check a provider response for errors.
      *
      * @throws IdentityProviderException
-     * @param  ResponseInterface $response
-     * @return void
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         if (isset($data['error'])) {
             throw new IdentityProviderException(
-                (isset($data['error']['message']) ? $data['error']['message'] : $response->getReasonPhrase()),
+                ($data['error']['message'] ?? $response->getReasonPhrase()),
                 $response->getStatusCode(),
                 $response
             );
@@ -91,7 +88,7 @@ class Microsoft extends AbstractProvider
      * @param AccessToken $token
      * @return MicrosoftResourceOwner
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): MicrosoftResourceOwner
     {
         return new MicrosoftResourceOwner($response);
     }
@@ -103,7 +100,7 @@ class Microsoft extends AbstractProvider
      *
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         $uri = new Uri($this->urlResourceOwnerDetails);
 

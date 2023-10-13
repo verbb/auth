@@ -18,21 +18,21 @@ class Salesforce extends AbstractProvider
     /**
      * @var string Key used in a token response to identify the resource owner.
      */
-    const ACCESS_TOKEN_RESOURCE_OWNER_ID = 'id';
+    public const ACCESS_TOKEN_RESOURCE_OWNER_ID = 'id';
 
     /**
      * Base domain used for authentication
      *
      * @var string
      */
-    protected $domain = 'https://login.salesforce.com';
+    protected string $domain = 'https://login.salesforce.com';
 
     /**
      * Get authorization url to begin OAuth flow
      *
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return $this->domain . '/services/oauth2/authorize';
     }
@@ -40,9 +40,8 @@ class Salesforce extends AbstractProvider
     /**
      * Get access token url to retrieve token
      *
-     * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return $this->domain . '/services/oauth2/token';
     }
@@ -54,7 +53,7 @@ class Salesforce extends AbstractProvider
      *
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return $token->getResourceOwnerId();
     }
@@ -67,7 +66,7 @@ class Salesforce extends AbstractProvider
      *
      * @return array
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return [];
     }
@@ -77,7 +76,7 @@ class Salesforce extends AbstractProvider
      *
      * @return string
      */
-    public function getDomain()
+    public function getDomain(): string
     {
         return $this->domain;
     }
@@ -88,7 +87,7 @@ class Salesforce extends AbstractProvider
      *
      * @return string Scope separator, defaults to ','
      */
-    protected function getScopeSeparator()
+    protected function getScopeSeparator(): string
     {
         return ' ';
     }
@@ -101,12 +100,12 @@ class Salesforce extends AbstractProvider
      * @param  string $data Parsed response data
      * @return void
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         $statusCode = $response->getStatusCode();
         if ($statusCode >= 400) {
             throw new IdentityProviderException(
-                isset($data[0]['message']) ? $data[0]['message'] : $response->getReasonPhrase(),
+                $data[0]['message'] ?? $response->getReasonPhrase(),
                 $statusCode,
                 $response
             );
@@ -116,11 +115,11 @@ class Salesforce extends AbstractProvider
     /**
      * Generate a user object from a successful user details request.
      *
-     * @param object $response
+     * @param array $response
      * @param AccessToken $token
      * @return SalesforceResourceOwner
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): SalesforceResourceOwner
     {
         return new SalesforceResourceOwner($response);
     }
@@ -133,9 +132,9 @@ class Salesforce extends AbstractProvider
      *
      * @param  array $response
      * @param  AbstractGrant $grant
-     * @return AccessToken
+     * @return \Stevenmaguire\OAuth2\Client\Token\AccessToken
      */
-    protected function createAccessToken(array $response, AbstractGrant $grant)
+    protected function createAccessToken(array $response, AbstractGrant $grant): \Stevenmaguire\OAuth2\Client\Token\AccessToken
     {
         return new \Stevenmaguire\OAuth2\Client\Token\AccessToken($response);
     }
@@ -143,14 +142,14 @@ class Salesforce extends AbstractProvider
     /**
      * Updates the provider domain with a given value.
      *
-     * @throws  InvalidArgumentException
      * @param string $domain
      * @return  Salesforce
+     *@throws  InvalidArgumentException
      */
-    public function setDomain($domain)
+    public function setDomain(string $domain): Salesforce
     {
         try {
-            $this->domain = (string) $domain;
+            $this->domain = $domain;
         } catch (Exception $e) {
             throw new InvalidArgumentException(
                 'Value provided as domain is not a string'

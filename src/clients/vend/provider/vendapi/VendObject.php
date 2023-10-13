@@ -7,15 +7,15 @@ abstract class VendObject
     /**
      * @var mixed
      */
-    protected $vend;
+    protected mixed $vend;
     /**
      * @var array
      */
-    protected $vendObjectProperties = array();
+    protected array $vendObjectProperties = array();
     /**
      * @var array
      */
-    protected $initialObjectProperties = array();
+    protected array $initialObjectProperties = array();
 
     /**
      * @param $data
@@ -47,16 +47,9 @@ abstract class VendObject
      */
     public function __get($key)
     {
-        if (array_key_exists($key, $this->vendObjectProperties)) {
-            return $this->vendObjectProperties[$key];
-        }
-
-        return null;
+        return $this->vendObjectProperties[$key] ?? null;
     }
 
-    /**
-     * @param $key
-     */
     public function __isset($key)
     {
         return isset($this->vendObjectProperties[$key]);
@@ -70,15 +63,15 @@ abstract class VendObject
         unset($this->vendObjectProperties[$key]);
     }
 
-    public function clear()
+    public function clear(): void
     {
         $this->vendObjectProperties = array();
     }
 
     /**
-     * @return mixed
+     * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->vendObjectProperties;
     }
@@ -87,7 +80,7 @@ abstract class VendObject
      * will return an array of all changed properties and the id
      * return array
      */
-    public function saveArray()
+    public function saveArray(): array
     {
         // only output the changed properties
         $output = $this->vendObjectProperties;

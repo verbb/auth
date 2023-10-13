@@ -8,7 +8,7 @@ class FreeAgentResourceOwner implements ResourceOwnerInterface
 {
     use ArrayAccessorTrait;
 
-    protected $response;
+    protected array $response;
 
     public function __construct(array $response = array())
     {
@@ -24,7 +24,7 @@ class FreeAgentResourceOwner implements ResourceOwnerInterface
         return array_pop($parts);
     }
 
-    public function getName()
+    public function getName(): string
     {
         return implode(' ', [$this->getFirstName(), $this->getLastName()]);
     }
@@ -44,7 +44,7 @@ class FreeAgentResourceOwner implements ResourceOwnerInterface
         return $this->getValueByKey($this->response, 'user.email');
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }

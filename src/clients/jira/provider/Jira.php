@@ -8,6 +8,8 @@ use League\OAuth2\Client\Tool\ArrayAccessorTrait;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use verbb\auth\clients\jira\provider\exception\JiraIdentityProviderException;
 use Psr\Http\Message\ResponseInterface;
+use UnexpectedValueException;
+use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 
 class Jira extends AbstractProvider
 {
@@ -18,7 +20,7 @@ class Jira extends AbstractProvider
      *
      * @var string URL used for non-OAuth API calls
      */
-    protected $apiUrl;
+    protected string $apiUrl;
 
     /**
      * Check a provider response for errors.
@@ -29,11 +31,13 @@ class Jira extends AbstractProvider
      *
      * @return void
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         if ($response->getStatusCode() >= 400) {
             throw JiraIdentityProviderException::clientException($response, $data);
-        } elseif (isset($data['error'])) {
+        }
+
+        if (isset($data['error'])) {
             throw JiraIdentityProviderException::oauthException($response, $data);
         }
     }
@@ -44,9 +48,9 @@ class Jira extends AbstractProvider
      * @param array $response
      * @param AccessToken $token
      *
-     * @return \League\OAuth2\Client\Provider\ResourceOwnerInterface
+     * @return JiraResourceOwner|ResourceOwnerInterface
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): JiraResourceOwner|ResourceOwnerInterface
     {
         return new JiraResourceOwner($response);
     }
@@ -55,7 +59,7 @@ class Jira extends AbstractProvider
      *
      * @return string URL used for non-OAuth API calls
      */
-    public function getApiUrl()
+    public function getApiUrl(): string
     {
         return $this->apiUrl;
     }
@@ -67,7 +71,7 @@ class Jira extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return 'https://auth.atlassian.com/oauth/token';
     }
@@ -77,7 +81,7 @@ class Jira extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return 'https://auth.atlassian.com/authorize?audience=api.atlassian.com&prompt=consent';
     }
@@ -90,7 +94,7 @@ class Jira extends AbstractProvider
      *
      * @return array
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return ['read:jira-user'];
     }
@@ -102,7 +106,7 @@ class Jira extends AbstractProvider
      *
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         $request = $this->getAuthenticatedRequest(
             self::METHOD_GET,
@@ -113,7 +117,7 @@ class Jira extends AbstractProvider
         $response = $this->getParsedResponse($request);
 
         if (false === is_array($response)) {
-            throw new \UnexpectedValueException(
+            throw new UnexpectedValueException(
                 'Invalid response received from Authorization Server. Expected JSON.'
             );
         }
@@ -131,7 +135,7 @@ class Jira extends AbstractProvider
      *
      * @return string Scope separator, defaults to ' '
      */
-    protected function getScopeSeparator()
+    protected function getScopeSeparator(): string
     {
         return ' ';
     }
@@ -140,7 +144,7 @@ class Jira extends AbstractProvider
      *
      * @param string $url URL used for non-OAuth API calls
      */
-    protected function setApiUrl($url)
+    protected function setApiUrl(string $url): void
     {
         $this->apiUrl = $url;
     }

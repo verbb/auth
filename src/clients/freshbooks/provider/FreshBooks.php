@@ -29,7 +29,7 @@ class FreshBooks extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return 'https://my.freshbooks.com/service/auth/oauth/authorize';
     }
@@ -43,17 +43,17 @@ class FreshBooks extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return 'https://api.freshbooks.com/auth/oauth/token';
     }
 
-    public function getAuthorizationHeaders($token = null)
+    public function getAuthorizationHeaders($token = null): array
     {
         return ['Authorization' => 'Bearer ' . $token];
     }
 
-    protected function getDefaultHeaders()
+    protected function getDefaultHeaders(): array
     {
         return ['Api-Version' => 'alpha'];
     }
@@ -65,7 +65,7 @@ class FreshBooks extends AbstractProvider
      *
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return 'https://api.freshbooks.com/auth/api/v1/users/me';
     }
@@ -78,7 +78,7 @@ class FreshBooks extends AbstractProvider
      *
      * @return array
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return ['profile:write'];
     }
@@ -93,7 +93,7 @@ class FreshBooks extends AbstractProvider
      *
      * @return void
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         static $errors = [
             'error'      => 'error_description',
@@ -111,12 +111,12 @@ class FreshBooks extends AbstractProvider
      * Generates a resource owner object from a successful resource owner
      * details request.
      *
-     * @param  array       $response
-     * @param  AccessToken $token
+     * @param array $response
+     * @param AccessToken $token
      *
-     * @return ResourceOwnerInterface
+     * @return FreshBooksOwner|ResourceOwnerInterface
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): FreshBooksOwner|ResourceOwnerInterface
     {
         return new FreshBooksOwner($response, $token);
     }

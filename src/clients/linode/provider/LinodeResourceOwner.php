@@ -22,7 +22,7 @@ class LinodeResourceOwner implements ResourceOwnerInterface
     use ArrayAccessorTrait;
 
     /** @var array */
-    protected $response;
+    protected array $response;
 
     /**
      * Creates new resource owner.
@@ -34,18 +34,12 @@ class LinodeResourceOwner implements ResourceOwnerInterface
         $this->response = $response;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getId()
     {
         return null;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }
@@ -53,7 +47,7 @@ class LinodeResourceOwner implements ResourceOwnerInterface
     /**
      * @return string
      */
-    public function getFirstName()
+    public function getFirstName(): string
     {
         return $this->getValueByKey($this->response, 'first_name');
     }
@@ -61,7 +55,7 @@ class LinodeResourceOwner implements ResourceOwnerInterface
     /**
      * @return string
      */
-    public function getLastName()
+    public function getLastName(): string
     {
         return $this->getValueByKey($this->response, 'last_name');
     }
@@ -69,7 +63,7 @@ class LinodeResourceOwner implements ResourceOwnerInterface
     /**
      * @return string
      */
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->getValueByKey($this->response, 'email');
     }
@@ -77,7 +71,7 @@ class LinodeResourceOwner implements ResourceOwnerInterface
     /**
      * @return string
      */
-    public function getCompany()
+    public function getCompany(): string
     {
         return $this->getValueByKey($this->response, 'company');
     }
@@ -85,7 +79,7 @@ class LinodeResourceOwner implements ResourceOwnerInterface
     /**
      * @return array
      */
-    public function getAddress()
+    public function getAddress(): array
     {
         $keys = ['address_1', 'address_2', 'city', 'state', 'country', 'zip'];
         $data = [];
@@ -100,7 +94,7 @@ class LinodeResourceOwner implements ResourceOwnerInterface
     /**
      * @return string
      */
-    public function getPhone()
+    public function getPhone(): string
     {
         return $this->getValueByKey($this->response, 'phone');
     }
@@ -108,7 +102,7 @@ class LinodeResourceOwner implements ResourceOwnerInterface
     /**
      * @return string
      */
-    public function getTaxId()
+    public function getTaxId(): string
     {
         return $this->getValueByKey($this->response, 'tax_id');
     }
@@ -116,7 +110,7 @@ class LinodeResourceOwner implements ResourceOwnerInterface
     /**
      * @return string
      */
-    public function getBalance()
+    public function getBalance(): string
     {
         return $this->getValueByKey($this->response, 'balance');
     }
@@ -124,7 +118,7 @@ class LinodeResourceOwner implements ResourceOwnerInterface
     /**
      * @return array
      */
-    public function getCreditCard()
+    public function getCreditCard(): array
     {
         return $this->getValueByKey($this->response, 'credit_card');
     }

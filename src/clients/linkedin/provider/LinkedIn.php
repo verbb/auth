@@ -23,7 +23,7 @@ class LinkedIn extends AbstractProvider
      *
      * @var array
      */
-    public $defaultScopes = ['r_liteprofile', 'r_emailaddress'];
+    public array $defaultScopes = ['r_liteprofile', 'r_emailaddress'];
 
     /**
      * Requested fields in scope, seeded with default values
@@ -31,7 +31,7 @@ class LinkedIn extends AbstractProvider
      * @var array
      * @see https://developer.linkedin.com/docs/fields/basic-profile
      */
-    protected $fields = [
+    protected array $fields = [
         'id', 'firstName', 'lastName', 'localizedFirstName', 'localizedLastName',
         'profilePicture(displayImage~:playableStreams)',
     ];
@@ -65,9 +65,9 @@ class LinkedIn extends AbstractProvider
      *
      * @param  array $response
      * @param  AbstractGrant $grant
-     * @return AccessTokenInterface
+     * @return LinkedInAccessToken
      */
-    protected function createAccessToken(array $response, AbstractGrant $grant)
+    protected function createAccessToken(array $response, AbstractGrant $grant): LinkedInAccessToken
     {
         return new LinkedInAccessToken($response);
     }
@@ -77,7 +77,7 @@ class LinkedIn extends AbstractProvider
      *
      * @return string
      */
-    protected function getScopeSeparator()
+    protected function getScopeSeparator(): string
     {
         return ' ';
     }
@@ -87,7 +87,7 @@ class LinkedIn extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return 'https://www.linkedin.com/oauth/v2/authorization';
     }
@@ -95,9 +95,8 @@ class LinkedIn extends AbstractProvider
     /**
      * Get access token url to retrieve token
      *
-     * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return 'https://www.linkedin.com/oauth/v2/accessToken';
     }
@@ -109,7 +108,7 @@ class LinkedIn extends AbstractProvider
      *
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         $query = http_build_query([
             'projection' => '(' . implode(',', $this->fields) . ')'
@@ -125,7 +124,7 @@ class LinkedIn extends AbstractProvider
      *
      * @return string
      */
-    public function getResourceOwnerEmailUrl(AccessToken $token)
+    public function getResourceOwnerEmailUrl(AccessToken $token): string
     {
         $query = http_build_query([
             'q' => 'members',
@@ -143,7 +142,7 @@ class LinkedIn extends AbstractProvider
      *
      * @return array
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return $this->defaultScopes;
     }
@@ -157,14 +156,14 @@ class LinkedIn extends AbstractProvider
      * @throws IdentityProviderException
      * @see https://developer.linkedin.com/docs/guide/v2/error-handling
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         $this->checkResponseUnauthorized($response, $data);
 
         if ($response->getStatusCode() >= 400) {
             throw new IdentityProviderException(
-                isset($data['message']) ? $data['message'] : $response->getReasonPhrase(),
-                isset($data['status']) ? $data['status'] : $response->getStatusCode(),
+                $data['message'] ?? $response->getReasonPhrase(),
+                $data['status'] ?? $response->getStatusCode(),
                 $response
             );
         }
@@ -174,17 +173,17 @@ class LinkedIn extends AbstractProvider
      * Check a provider response for unauthorized errors.
      *
      * @param  ResponseInterface $response
-     * @param  array $data Parsed response data
+     * @param array $data Parsed response data
      * @return void
      * @throws LinkedInAccessDeniedException
      * @see https://developer.linkedin.com/docs/guide/v2/error-handling
      */
-    protected function checkResponseUnauthorized(ResponseInterface $response, $data)
+    protected function checkResponseUnauthorized(ResponseInterface $response, array $data): void
     {
         if (isset($data['status']) && $data['status'] === 403) {
             throw new LinkedInAccessDeniedException(
-                isset($data['message']) ? $data['message'] : $response->getReasonPhrase(),
-                isset($data['status']) ? $data['status'] : $response->getStatusCode(),
+                $data['message'] ?? $response->getReasonPhrase(),
+                $data['status'],
                 $response
             );
         }
@@ -197,7 +196,7 @@ class LinkedIn extends AbstractProvider
      * @param AccessToken $token
      * @return LinkedInResourceOwner
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): LinkedInResourceOwner
     {
         // If current accessToken is not authorized with r_emailaddress scope,
         // getResourceOwnerEmail will throw LinkedInAccessDeniedException, it will be caught here,
@@ -217,7 +216,7 @@ class LinkedIn extends AbstractProvider
      *
      * @return array
      */
-    public function getFields()
+    public function getFields(): array
     {
         return $this->fields;
     }
@@ -229,7 +228,7 @@ class LinkedIn extends AbstractProvider
      * @return string|null
      * @throws IdentityProviderException
      */
-    public function getResourceOwnerEmail(AccessToken $token)
+    public function getResourceOwnerEmail(AccessToken $token): ?string
     {
         $emailUrl = $this->getResourceOwnerEmailUrl($token);
         $emailRequest = $this->getAuthenticatedRequest(self::METHOD_GET, $emailUrl, $token);
@@ -245,7 +244,7 @@ class LinkedIn extends AbstractProvider
      *
      * @return LinkedIn
      */
-    public function withFields(array $fields)
+    public function withFields(array $fields): LinkedIn
     {
         $this->fields = $fields;
 
@@ -255,10 +254,10 @@ class LinkedIn extends AbstractProvider
     /**
      * Attempts to extract the email address from a valid email api response.
      *
-     * @param  array  $response
+     * @param array $response
      * @return string|null
      */
-    protected function extractEmailFromResponse($response = [])
+    protected function extractEmailFromResponse(array $response = []): ?string
     {
         try {
             $confirmedEmails = array_filter($response['elements'], function ($element) {

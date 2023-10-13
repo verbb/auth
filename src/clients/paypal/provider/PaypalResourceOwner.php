@@ -9,7 +9,7 @@ class PaypalResourceOwner implements ResourceOwnerInterface
      *
      * @var array
      */
-    protected $response;
+    protected array $response;
 
     /**
      * Creates new resource owner.
@@ -26,7 +26,7 @@ class PaypalResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->response['user_id'] ?: null;
     }
@@ -36,7 +36,7 @@ class PaypalResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->response['name'] ?: null;
     }
@@ -46,7 +46,7 @@ class PaypalResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getGivenName()
+    public function getGivenName(): ?string
     {
         return $this->response['given_name'] ?: null;
     }
@@ -56,7 +56,7 @@ class PaypalResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getFamilyName()
+    public function getFamilyName(): ?string
     {
         return $this->response['family_name'] ?: null;
     }
@@ -66,7 +66,7 @@ class PaypalResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->response['email'] ?: null;
     }
@@ -76,7 +76,7 @@ class PaypalResourceOwner implements ResourceOwnerInterface
      *
      * @return boolean
      */
-    public function isVerified()
+    public function isVerified(): bool
     {
         return $this->response['verified'] ?: false;
     }
@@ -86,7 +86,7 @@ class PaypalResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getGender()
+    public function getGender(): ?string
     {
         return $this->response['gender'] ?: null;
     }
@@ -96,7 +96,7 @@ class PaypalResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getBirthdate()
+    public function getBirthdate(): ?string
     {
         return $this->response['birthdate'] ?: null;
     }
@@ -106,7 +106,7 @@ class PaypalResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getZoneinfo()
+    public function getZoneinfo(): ?string
     {
         return $this->response['zoneinfo'] ?: null;
     }
@@ -116,7 +116,7 @@ class PaypalResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getLocale()
+    public function getLocale(): ?string
     {
         return $this->response['locale'] ?: null;
     }
@@ -126,7 +126,7 @@ class PaypalResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getPhoneNumber()
+    public function getPhoneNumber(): ?string
     {
         return $this->response['phone_number'] ?: null;
     }
@@ -136,7 +136,7 @@ class PaypalResourceOwner implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function getAddress()
+    public function getAddress(): array
     {
         return $this->response['address'] ?: [];
     }
@@ -146,7 +146,7 @@ class PaypalResourceOwner implements ResourceOwnerInterface
      *
      * @return boolean
      */
-    public function isVerifiedAccount()
+    public function isVerifiedAccount(): bool
     {
         return $this->response['verified_account'] ?: false;
     }
@@ -156,7 +156,7 @@ class PaypalResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getAccountType()
+    public function getAccountType(): ?string
     {
         return $this->response['account_type'] ?: null;
     }
@@ -166,7 +166,7 @@ class PaypalResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getAgeRange()
+    public function getAgeRange(): ?string
     {
         return $this->response['age_range'] ?: null;
     }
@@ -176,7 +176,7 @@ class PaypalResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getPayerId()
+    public function getPayerId(): ?string
     {
         return $this->response['payer_id'] ?: null;
     }
@@ -186,7 +186,7 @@ class PaypalResourceOwner implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }

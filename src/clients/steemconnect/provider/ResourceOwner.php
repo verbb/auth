@@ -16,7 +16,7 @@ class ResourceOwner implements ResourceOwnerInterface
     /**
      * @var array Holds account information.
      */
-    protected $accountData = [];
+    protected array $accountData = [];
 
     /**
      * ResourceOwner constructor.
@@ -34,7 +34,7 @@ class ResourceOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getId()
+    public function getId(): string
     {
         return array_get($this->accountData, 'name');
     }
@@ -44,7 +44,7 @@ class ResourceOwner implements ResourceOwnerInterface
      *
      * @return array Quasi-non-parsed steem account data.
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->accountData;
     }

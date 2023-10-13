@@ -8,6 +8,8 @@ use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Token\AccessTokenInterface;
 use verbb\auth\clients\soundcloud\provider\exception\SoundCloudIdentityProviderException;
 use Psr\Http\Message\ResponseInterface;
+use function array_key_exists;
+use UnexpectedValueException;
 
 class SoundCloud extends AbstractProvider
 {
@@ -16,25 +18,16 @@ class SoundCloud extends AbstractProvider
     public const BASE_SOUNDCLOUD_URL = 'https://api.soundcloud.com/';
     public const RESPONSE_TYPE = 'code';
 
-    /**
-     * {@inheritdoc}
-     */
     public function getBaseAuthorizationUrl(): string
     {
         return self::BASE_SOUNDCLOUD_URL . 'connect';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getBaseAccessTokenUrl(array $params): string
     {
         return self::BASE_SOUNDCLOUD_URL . 'oauth2/token';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return 'https://api.soundcloud.com/me';
@@ -50,17 +43,11 @@ class SoundCloud extends AbstractProvider
         return ['Authorization' => 'OAuth ' . $token];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getDefaultScopes(): array
     {
         return [];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function checkResponse(ResponseInterface $response, $data): void
     {
         // handle HTTP Status errors
@@ -73,41 +60,32 @@ class SoundCloud extends AbstractProvider
         }
 
         // Skip error checking if we get what we expected
-        if (\array_key_exists('access_token', $data)) {
+        if (array_key_exists('access_token', $data)) {
             return;
         }
 
         // handle errors in 'error' key
         if (!empty($data['error'])) {
-            switch ($data['error']['type']) {
-                case 'DataException':
-                    $message = 'No data returned.';
-                    break;
-                default:
-                    $message = $data['error']['type'] . ': ' . $data['error']['message'];
-            }
+            $message = match ($data['error']['type']) {
+                'DataException' => 'No data returned.',
+                default => $data['error']['type'] . ': ' . $data['error']['message'],
+            };
 
             throw new SoundCloudIdentityProviderException($message, 0, $data);
         }
 
         // handle errors NOT in 'error' key
-        if (\array_key_exists('wrong_code', $data)) {
+        if (array_key_exists('wrong_code', $data)) {
             throw new SoundCloudIdentityProviderException('Wrong code.', 0, $data);
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function createResourceOwner(array $response, AccessToken $token): ResourceOwnerInterface
     {
         return new SoundCloudResourceOwner($response);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function parseResponse(ResponseInterface $response)
+    protected function parseResponse(ResponseInterface $response): array|string
     {
         $content = (string) $response->getBody();
         $type = $this->getContentType($response);
@@ -122,7 +100,7 @@ class SoundCloud extends AbstractProvider
         // exception if the JSON could not be parsed when it was expected to.
         try {
             return $this->parseJson($content);
-        } catch (\UnexpectedValueException $e) {
+        } catch (UnexpectedValueException $e) {
             if (mb_strpos($type, 'json') !== false) {
                 throw $e;
             }
@@ -131,13 +109,10 @@ class SoundCloud extends AbstractProvider
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function prepareAccessTokenResponse(array $result): array
     {
         $result = parent::prepareAccessTokenResponse($result);
-        if (\array_key_exists('expires', $result) && '0' === $result['expires']) {
+        if (array_key_exists('expires', $result) && '0' === $result['expires']) {
             // the token never expires. set a very long time expiring token because we need to set it
             $result['expires_in'] = 50 * 31556952;
             unset($result['expires']);

@@ -50,6 +50,14 @@
       "oO" : 0,
       "oS" : 1
     },
+    "\/composer.lock" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/composer.lock",
+      "oF" : 0
+    },
     "\/LICENSE.md" : {
       "cB" : 0,
       "cS" : 0,
@@ -88,10 +96,12 @@
       "rFN" : 0,
       "uCM" : 0
     },
-    "\/src\/assetbundles" : {
-      "ft" : 65536,
-      "oA" : 1,
-      "oAP" : "\/src\/assetbundles",
+    "\/src\/Auth.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/Auth.php",
       "oF" : 0
     },
     "\/src\/base" : {
@@ -100,58 +110,2986 @@
       "oAP" : "\/src\/base",
       "oF" : 0
     },
-    "\/src\/Base.php" : {
+    "\/src\/clients\/amazon\/provider\/Amazon.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
-      "oAP" : "\/src\/Base.php",
+      "oAP" : "\/src\/clients\/amazon\/provider\/Amazon.php",
       "oF" : 0
     },
-    "\/src\/BaseHelper.php" : {
+    "\/src\/clients\/amazon\/provider\/AmazonResourceOwner.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
-      "oAP" : "\/src\/BaseHelper.php",
+      "oAP" : "\/src\/clients\/amazon\/provider\/AmazonResourceOwner.php",
       "oF" : 0
     },
-    "\/src\/resources\/dist" : {
-      "ft" : 65536,
-      "oA" : 1,
-      "oAP" : "\/src\/resources\/dist",
+    "\/src\/clients\/apple\/provider\/Apple.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/apple\/provider\/Apple.php",
       "oF" : 0
     },
-    "\/src\/resources\/src\/js\/verbb-ui.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 1,
-      "mi" : 1,
-      "oA" : 0,
-      "oAP" : "\/src\/resources\/dist\/js\/verbb-ui.js",
-      "oF" : 0,
-      "sC" : 0,
-      "tS" : 0
+    "\/src\/clients\/apple\/provider\/AppleResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/apple\/provider\/AppleResourceOwner.php",
+      "oF" : 0
     },
-    "\/src\/resources\/src\/scss\/verbb-ui.scss" : {
-      "aP" : 1,
-      "bl" : 0,
-      "co" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 0,
-      "oAP" : "\/src\/resources\/dist\/css\/verbb-ui.css",
-      "oF" : 0,
-      "oS" : 3,
-      "pg" : 0,
-      "sct" : 1
+    "\/src\/clients\/apple\/provider\/exception\/AppleAccessDeniedException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/apple\/provider\/exception\/AppleAccessDeniedException.php",
+      "oF" : 0
     },
-    "\/src\/templates" : {
+    "\/src\/clients\/apple\/token\/AppleAccessToken.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/apple\/token\/AppleAccessToken.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/auth0\/provider\/Auth0.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/auth0\/provider\/Auth0.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/auth0\/provider\/Auth0ResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/auth0\/provider\/Auth0ResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/auth0\/provider\/exception\/AccountNotProvidedException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/auth0\/provider\/exception\/AccountNotProvidedException.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/auth0\/provider\/exception\/Auth0IdentityProviderException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/auth0\/provider\/exception\/Auth0IdentityProviderException.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/auth0\/provider\/exception\/InvalidRegionException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/auth0\/provider\/exception\/InvalidRegionException.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/authentiq\/provider\/Authentiq.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/authentiq\/provider\/Authentiq.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/authentiq\/provider\/AuthentiqResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/authentiq\/provider\/AuthentiqResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/authentiq\/token\/AccessToken.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/authentiq\/token\/AccessToken.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/aweber\/provider\/Aweber.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/aweber\/provider\/Aweber.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/aweber\/provider\/AweberResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/aweber\/provider\/AweberResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/azure\/grant\/JwtBearer.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/azure\/grant\/JwtBearer.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/azure\/provider\/Azure.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/azure\/provider\/Azure.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/azure\/provider\/AzureResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/azure\/provider\/AzureResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/azure\/token\/AccessToken.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/azure\/token\/AccessToken.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/basecamp\/provider\/Basecamp.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/basecamp\/provider\/Basecamp.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/basecamp\/provider\/BasecampResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/basecamp\/provider\/BasecampResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/bitbucket\/provider\/Bitbucket.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/bitbucket\/provider\/Bitbucket.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/bitbucket\/provider\/BitbucketResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/bitbucket\/provider\/BitbucketResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/box\/provider\/Box.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/box\/provider\/Box.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/box\/provider\/BoxResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/box\/provider\/BoxResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/buddy\/provider\/Buddy.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/buddy\/provider\/Buddy.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/buddy\/provider\/BuddyResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/buddy\/provider\/BuddyResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/buddy\/provider\/exception\/BuddyIdentityProviderException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/buddy\/provider\/exception\/BuddyIdentityProviderException.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/buffer\/composer.json" : {
+      "ft" : 524288,
+      "oA" : 1,
+      "oAP" : "\/src\/clients\/buffer\/composer-min.json",
+      "oF" : 0,
+      "oO" : 0,
+      "oS" : 1
+    },
+    "\/src\/clients\/buffer\/provider\/Buffer.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/buffer\/provider\/Buffer.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/buffer\/provider\/BufferUser.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/buffer\/provider\/BufferUser.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/buffer\/provider\/exception\/BufferProviderException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/buffer\/provider\/exception\/BufferProviderException.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/constantcontact\/provider\/ConstantContact.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/constantcontact\/provider\/ConstantContact.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/constantcontact\/provider\/ConstantContactAccount.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/constantcontact\/provider\/ConstantContactAccount.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/deezer\/provider\/Deezer.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/deezer\/provider\/Deezer.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/deezer\/provider\/DeezerResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/deezer\/provider\/DeezerResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/deezer\/provider\/exception\/DeezerIdentityProviderException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/deezer\/provider\/exception\/DeezerIdentityProviderException.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/deezer\/provider\/exception\/DeezerProviderException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/deezer\/provider\/exception\/DeezerProviderException.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/deviantart\/provider\/DeviantArt.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/deviantart\/provider\/DeviantArt.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/deviantart\/provider\/DeviantArtResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/deviantart\/provider\/DeviantArtResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/discord\/provider\/Discord.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/discord\/provider\/Discord.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/discord\/provider\/DiscordResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/discord\/provider\/DiscordResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/discord\/provider\/exception\/DiscordIdentityProviderException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/discord\/provider\/exception\/DiscordIdentityProviderException.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/disqus\/provider\/Disqus.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/disqus\/provider\/Disqus.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/disqus\/provider\/DisqusResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/disqus\/provider\/DisqusResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/docusign\/provider\/Docusign.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/docusign\/provider\/Docusign.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/docusign\/provider\/DocusignUser.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/docusign\/provider\/DocusignUser.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/dribbble\/provider\/Dribbble.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/dribbble\/provider\/Dribbble.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/dribbble\/provider\/DribbbleResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/dribbble\/provider\/DribbbleResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/drip\/provider\/Drip.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/drip\/provider\/Drip.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/drip\/provider\/DripUser.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/drip\/provider\/DripUser.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/dropbox\/provider\/Dropbox.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/dropbox\/provider\/Dropbox.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/dropbox\/provider\/DropboxResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/dropbox\/provider\/DropboxResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/envato\/provider\/Envato.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/envato\/provider\/Envato.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/envato\/provider\/EnvatoUser.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/envato\/provider\/EnvatoUser.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/etsy\/provider\/Etsy.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/etsy\/provider\/Etsy.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/etsy\/provider\/EtsyResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/etsy\/provider\/EtsyResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/etsy\/provider\/exception\/EtsyIdentityProviderException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/etsy\/provider\/exception\/EtsyIdentityProviderException.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/eventbrite\/provider\/Eventbrite.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/eventbrite\/provider\/Eventbrite.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/eventbrite\/provider\/EventbriteResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/eventbrite\/provider\/EventbriteResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/facebook\/grant\/FbExchangeToken.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/facebook\/grant\/FbExchangeToken.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/facebook\/provider\/AppSecretProof.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/facebook\/provider\/AppSecretProof.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/facebook\/provider\/exception\/FacebookProviderException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/facebook\/provider\/exception\/FacebookProviderException.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/facebook\/provider\/Facebook.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/facebook\/provider\/Facebook.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/facebook\/provider\/FacebookUser.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/facebook\/provider\/FacebookUser.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/fitbit\/provider\/Fitbit.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/fitbit\/provider\/Fitbit.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/fitbit\/provider\/FitbitOptionsProvider.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/fitbit\/provider\/FitbitOptionsProvider.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/fitbit\/provider\/FitbitRateLimit.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/fitbit\/provider\/FitbitRateLimit.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/fitbit\/provider\/FitbitUser.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/fitbit\/provider\/FitbitUser.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/foursquare\/provider\/Foursquare.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/foursquare\/provider\/Foursquare.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/foursquare\/provider\/FoursquareResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/foursquare\/provider\/FoursquareResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/freeagent\/provider\/FreeAgent.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/freeagent\/provider\/FreeAgent.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/freeagent\/provider\/FreeAgentResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/freeagent\/provider\/FreeAgentResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/freshbooks\/provider\/FreshBooks.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/freshbooks\/provider\/FreshBooks.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/freshbooks\/provider\/FreshBooksOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/freshbooks\/provider\/FreshBooksOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/github\/provider\/exception\/GithubIdentityProviderException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/github\/provider\/exception\/GithubIdentityProviderException.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/github\/provider\/Github.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/github\/provider\/Github.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/github\/provider\/GithubResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/github\/provider\/GithubResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/gitlab\/provider\/exception\/GitlabIdentityProviderException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/gitlab\/provider\/exception\/GitlabIdentityProviderException.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/gitlab\/provider\/Gitlab.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/gitlab\/provider\/Gitlab.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/gitlab\/provider\/GitlabResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/gitlab\/provider\/GitlabResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/google\/exception\/HostedDomainException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/google\/exception\/HostedDomainException.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/google\/provider\/Google.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/google\/provider\/Google.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/google\/provider\/GoogleUser.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/google\/provider\/GoogleUser.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/gotowebinar\/decorators\/AccessTokenDecorator.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/gotowebinar\/decorators\/AccessTokenDecorator.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/gotowebinar\/helper\/DateUtcHelper.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/gotowebinar\/helper\/DateUtcHelper.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/gotowebinar\/loader\/ResourceLoader.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/gotowebinar\/loader\/ResourceLoader.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/gotowebinar\/provider\/exception\/GotoWebinarProviderException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/gotowebinar\/provider\/exception\/GotoWebinarProviderException.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/gotowebinar\/provider\/GotoWebinar.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/gotowebinar\/provider\/GotoWebinar.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/gotowebinar\/provider\/GotoWebinarResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/gotowebinar\/provider\/GotoWebinarResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/gotowebinar\/resources\/Attendee.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/gotowebinar\/resources\/Attendee.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/gotowebinar\/resources\/AuthenticatedResourceAbstract.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/gotowebinar\/resources\/AuthenticatedResourceAbstract.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/gotowebinar\/resources\/CoOrganizer.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/gotowebinar\/resources\/CoOrganizer.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/gotowebinar\/resources\/Registrant.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/gotowebinar\/resources\/Registrant.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/gotowebinar\/resources\/Session.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/gotowebinar\/resources\/Session.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/gotowebinar\/resources\/Webhook.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/gotowebinar\/resources\/Webhook.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/gotowebinar\/resources\/Webinar.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/gotowebinar\/resources\/Webinar.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/gotowebinar\/resultset\/PageResultSet.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/gotowebinar\/resultset\/PageResultSet.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/gotowebinar\/resultset\/ResultSetInterface.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/gotowebinar\/resultset\/ResultSetInterface.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/gotowebinar\/resultset\/SimpleResultSet.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/gotowebinar\/resultset\/SimpleResultSet.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/gotowebinar\/storage\/RedisTokenStorage.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/gotowebinar\/storage\/RedisTokenStorage.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/gotowebinar\/storage\/SessionTokenStorage.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/gotowebinar\/storage\/SessionTokenStorage.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/gotowebinar\/storage\/TokenStorageInterface.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/gotowebinar\/storage\/TokenStorageInterface.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/gumroad\/provider\/exception\/GumroadIdentityProviderException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/gumroad\/provider\/exception\/GumroadIdentityProviderException.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/gumroad\/provider\/Gumroad.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/gumroad\/provider\/Gumroad.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/gumroad\/provider\/GumroadResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/gumroad\/provider\/GumroadResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/harvest\/provider\/exception\/HarvestIdentityProviderException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/harvest\/provider\/exception\/HarvestIdentityProviderException.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/harvest\/provider\/Harvest.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/harvest\/provider\/Harvest.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/harvest\/provider\/HarvestResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/harvest\/provider\/HarvestResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/heroku\/provider\/exception\/ProviderConfigurationException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/heroku\/provider\/exception\/ProviderConfigurationException.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/heroku\/provider\/Heroku.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/heroku\/provider\/Heroku.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/heroku\/provider\/HerokuResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/heroku\/provider\/HerokuResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/hubspot\/provider\/HubSpot.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/hubspot\/provider\/HubSpot.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/hubspot\/provider\/HubSpotResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/hubspot\/provider\/HubSpotResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/imgur\/provider\/Imgur.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/imgur\/provider\/Imgur.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/imgur\/provider\/ImgurResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/imgur\/provider\/ImgurResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/infusionsoft\/provider\/Infusionsoft.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/infusionsoft\/provider\/Infusionsoft.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/infusionsoft\/provider\/InfusionsoftResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/infusionsoft\/provider\/InfusionsoftResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/instagram\/grant\/IgExchangeToken.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/instagram\/grant\/IgExchangeToken.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/instagram\/grant\/IgRefreshToken.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/instagram\/grant\/IgRefreshToken.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/instagram\/provider\/exception\/InstagramIdentityProviderException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/instagram\/provider\/exception\/InstagramIdentityProviderException.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/instagram\/provider\/Instagram.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/instagram\/provider\/Instagram.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/instagram\/provider\/InstagramResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/instagram\/provider\/InstagramResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/jira\/provider\/exception\/JiraIdentityProviderException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/jira\/provider\/exception\/JiraIdentityProviderException.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/jira\/provider\/Jira.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/jira\/provider\/Jira.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/jira\/provider\/JiraResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/jira\/provider\/JiraResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/line\/provider\/Line.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/line\/provider\/Line.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/line\/provider\/LineUser.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/line\/provider\/LineUser.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/linkedin\/provider\/exception\/LinkedInAccessDeniedException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/linkedin\/provider\/exception\/LinkedInAccessDeniedException.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/linkedin\/provider\/LinkedIn.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/linkedin\/provider\/LinkedIn.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/linkedin\/provider\/LinkedInResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/linkedin\/provider\/LinkedInResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/linkedin\/token\/LinkedInAccessToken.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/linkedin\/token\/LinkedInAccessToken.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/linode\/provider\/Linode.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/linode\/provider\/Linode.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/linode\/provider\/LinodeResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/linode\/provider\/LinodeResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/mailchimp\/provider\/exception\/ProviderConfigurationException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/mailchimp\/provider\/exception\/ProviderConfigurationException.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/mailchimp\/provider\/Mailchimp.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/mailchimp\/provider\/Mailchimp.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/mailchimp\/provider\/MailchimpResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/mailchimp\/provider\/MailchimpResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/mailru\/provider\/Mailru.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/mailru\/provider\/Mailru.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/mailru\/provider\/MailruResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/mailru\/provider\/MailruResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/marketo\/provider\/Marketo.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/marketo\/provider\/Marketo.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/marketo\/token\/AccessToken.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/marketo\/token\/AccessToken.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/mastodon\/provider\/Mastodon.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/mastodon\/provider\/Mastodon.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/mastodon\/provider\/MastodonResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/mastodon\/provider\/MastodonResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/meetup\/provider\/Meetup.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/meetup\/provider\/Meetup.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/meetup\/provider\/ResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/meetup\/provider\/ResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/microsoft\/provider\/Microsoft.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/microsoft\/provider\/Microsoft.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/microsoft\/provider\/MicrosoftResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/microsoft\/provider\/MicrosoftResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/mixer\/entity\/MixerUser.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/mixer\/entity\/MixerUser.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/mixer\/provider\/exception\/MixerIdentityProviderException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/mixer\/provider\/exception\/MixerIdentityProviderException.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/mixer\/provider\/Mixer.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/mixer\/provider\/Mixer.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/mollie\/provider\/Mollie.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/mollie\/provider\/Mollie.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/mollie\/provider\/MollieResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/mollie\/provider\/MollieResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/myob\/provider\/MYOB.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/myob\/provider\/MYOB.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/myob\/provider\/MYOBResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/myob\/provider\/MYOBResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/neoncrm\/provider\/NeonCrm.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/neoncrm\/provider\/NeonCrm.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/neoncrm\/provider\/NeonCrmResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/neoncrm\/provider\/NeonCrmResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/odnoklassniki\/provider\/Odnoklassniki.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/odnoklassniki\/provider\/Odnoklassniki.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/odnoklassniki\/provider\/OdnoklassnikiResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/odnoklassniki\/provider\/OdnoklassnikiResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/okta\/provider\/Okta.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/okta\/provider\/Okta.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/okta\/provider\/OktaUser.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/okta\/provider\/OktaUser.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/orcid\/provider\/ORCID.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/orcid\/provider\/ORCID.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/orcid\/provider\/ORCIDResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/orcid\/provider\/ORCIDResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/paypal\/provider\/Paypal.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/paypal\/provider\/Paypal.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/paypal\/provider\/PaypalResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/paypal\/provider\/PaypalResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/pinterest\/provider\/exception\/PinterestIdentityProviderException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/pinterest\/provider\/exception\/PinterestIdentityProviderException.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/pinterest\/provider\/Pinterest.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/pinterest\/provider\/Pinterest.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/pinterest\/provider\/PinterestResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/pinterest\/provider\/PinterestResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/pipedrive\/provider\/exception\/PipedriveIdentityProviderException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/pipedrive\/provider\/exception\/PipedriveIdentityProviderException.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/pipedrive\/provider\/Pipedrive.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/pipedrive\/provider\/Pipedrive.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/pipedrive\/provider\/PipedriveResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/pipedrive\/provider\/PipedriveResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/rdio\/provider\/Rdio.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/rdio\/provider\/Rdio.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/rdio\/provider\/RdioResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/rdio\/provider\/RdioResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/reddit\/grant\/InstalledClient.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/reddit\/grant\/InstalledClient.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/reddit\/provider\/Reddit.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/reddit\/provider\/Reddit.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/salesforce\/provider\/Salesforce.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/salesforce\/provider\/Salesforce.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/salesforce\/provider\/SalesforceResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/salesforce\/provider\/SalesforceResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/salesforce\/token\/AccessToken.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/salesforce\/token\/AccessToken.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/shopify\/provider\/Shopify.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/shopify\/provider\/Shopify.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/shopify\/provider\/ShopifyStore.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/shopify\/provider\/ShopifyStore.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/slack\/provider\/exception\/SlackProviderException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/slack\/provider\/exception\/SlackProviderException.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/slack\/provider\/Slack.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/slack\/provider\/Slack.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/slack\/provider\/SlackAuthorizedUser.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/slack\/provider\/SlackAuthorizedUser.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/slack\/provider\/SlackResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/slack\/provider\/SlackResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/snapchat\/provider\/exception\/SnapchatIdentityProviderException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/snapchat\/provider\/exception\/SnapchatIdentityProviderException.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/snapchat\/provider\/Snapchat.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/snapchat\/provider\/Snapchat.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/snapchat\/provider\/SnapchatResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/snapchat\/provider\/SnapchatResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/soundcloud\/provider\/exception\/SoundCloudIdentityProviderException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/soundcloud\/provider\/exception\/SoundCloudIdentityProviderException.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/soundcloud\/provider\/exception\/SoundCloudProviderException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/soundcloud\/provider\/exception\/SoundCloudProviderException.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/soundcloud\/provider\/SoundCloud.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/soundcloud\/provider\/SoundCloud.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/soundcloud\/provider\/SoundCloudResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/soundcloud\/provider\/SoundCloudResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/spotify\/provider\/exception\/SpotifyIdentityProviderException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/spotify\/provider\/exception\/SpotifyIdentityProviderException.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/spotify\/provider\/exception\/SpotifyProviderException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/spotify\/provider\/exception\/SpotifyProviderException.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/spotify\/provider\/Spotify.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/spotify\/provider\/Spotify.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/spotify\/provider\/SpotifyResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/spotify\/provider\/SpotifyResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/spotify\/provider\/SpotifyScope.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/spotify\/provider\/SpotifyScope.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/square\/grant\/RenewToken.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/square\/grant\/RenewToken.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/square\/provider\/Square.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/square\/provider\/Square.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/square\/provider\/SquareMerchant.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/square\/provider\/SquareMerchant.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/stackexchange\/provider\/exception\/StackExchangeException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/stackexchange\/provider\/exception\/StackExchangeException.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/stackexchange\/provider\/StackExchange.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/stackexchange\/provider\/StackExchange.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/stackexchange\/provider\/StackExchangeResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/stackexchange\/provider\/StackExchangeResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/steemconnect\/common\/http\/Request.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/steemconnect\/common\/http\/Request.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/steemconnect\/config\/Config.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/steemconnect\/config\/Config.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/steemconnect\/provider\/Provider.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/steemconnect\/provider\/Provider.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/steemconnect\/provider\/ResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/steemconnect\/provider\/ResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/strava\/provider\/Strava.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/strava\/provider\/Strava.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/strava\/provider\/StravaResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/strava\/provider\/StravaResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/stripe\/provider\/Stripe.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/stripe\/provider\/Stripe.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/stripe\/provider\/StripeResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/stripe\/provider\/StripeResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/sugarcrm\/provider\/Sugarcrm.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/sugarcrm\/provider\/Sugarcrm.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/sugarcrm\/provider\/SugarcrmResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/sugarcrm\/provider\/SugarcrmResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/telegram\/provider\/Telegram.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/telegram\/provider\/Telegram.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/telegram\/provider\/TelegramUser.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/telegram\/provider\/TelegramUser.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/thirtysevensignals\/provider\/Thirtysevensignals.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/thirtysevensignals\/provider\/Thirtysevensignals.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/thirtysevensignals\/provider\/ThirtysevensignalsResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/thirtysevensignals\/provider\/ThirtysevensignalsResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/tiktok\/grant\/TikTokAuthorizationCodeGrant.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/tiktok\/grant\/TikTokAuthorizationCodeGrant.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/tiktok\/grant\/TikTokRefreshTokenGrant.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/tiktok\/grant\/TikTokRefreshTokenGrant.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/tiktok\/provider\/TikTokAuthProvider.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/tiktok\/provider\/TikTokAuthProvider.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/tiktok\/provider\/TikTokOptionProvider.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/tiktok\/provider\/TikTokOptionProvider.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/tiktok\/provider\/TikTokResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/tiktok\/provider\/TikTokResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/trello\/provider\/Trello.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/trello\/provider\/Trello.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/trello\/provider\/TrelloUser.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/trello\/provider\/TrelloUser.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/trustpilot\/provider\/Trustpilot.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/trustpilot\/provider\/Trustpilot.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/tumblr\/provider\/Tumblr.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/tumblr\/provider\/Tumblr.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/tumblr\/provider\/TumblrUser.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/tumblr\/provider\/TumblrUser.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/twitch\/provider\/exception\/TwitchIdentityProviderException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/twitch\/provider\/exception\/TwitchIdentityProviderException.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/twitch\/provider\/Twitch.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/twitch\/provider\/Twitch.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/twitch\/provider\/TwitchResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/twitch\/provider\/TwitchResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/twitter\/provider\/Twitter.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/twitter\/provider\/Twitter.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/twitter\/provider\/TwitterUser.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/twitter\/provider\/TwitterUser.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/uber\/provider\/Uber.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/uber\/provider\/Uber.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/uber\/provider\/UberResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/uber\/provider\/UberResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/unsplash\/provider\/Unsplash.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/unsplash\/provider\/Unsplash.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/unsplash\/provider\/UnsplashResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/unsplash\/provider\/UnsplashResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/vend\/grant\/VendExchangeToken.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/vend\/grant\/VendExchangeToken.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/vend\/provider\/exception\/VendProviderException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/vend\/provider\/exception\/VendProviderException.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/vend\/provider\/Vend.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/vend\/provider\/Vend.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/vend\/provider\/vendapi\/VendAPI.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/vend\/provider\/vendapi\/VendAPI.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/vend\/provider\/vendapi\/VendCustomer.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/vend\/provider\/vendapi\/VendCustomer.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/vend\/provider\/vendapi\/VendObject.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/vend\/provider\/vendapi\/VendObject.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/vend\/provider\/vendapi\/VendOutlet.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/vend\/provider\/vendapi\/VendOutlet.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/vend\/provider\/vendapi\/VendProduct.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/vend\/provider\/vendapi\/VendProduct.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/vend\/provider\/vendapi\/VendRegister.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/vend\/provider\/vendapi\/VendRegister.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/vend\/provider\/vendapi\/VendRequest.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/vend\/provider\/vendapi\/VendRequest.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/vend\/provider\/vendapi\/VendSale.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/vend\/provider\/vendapi\/VendSale.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/vend\/provider\/vendapi\/VendWebhook.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/vend\/provider\/vendapi\/VendWebhook.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/vimeo\/provider\/Vimeo.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/vimeo\/provider\/Vimeo.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/vimeo\/provider\/VimeoResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/vimeo\/provider\/VimeoResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/vkontakte\/provider\/User.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/vkontakte\/provider\/User.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/vkontakte\/provider\/Vkontakte.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/vkontakte\/provider\/Vkontakte.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/wechat\/grant\/miniprogram\/AuthorizationCode.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/wechat\/grant\/miniprogram\/AuthorizationCode.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/wechat\/provider\/MiniProgramProvider.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/wechat\/provider\/MiniProgramProvider.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/wechat\/provider\/MiniProgramResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/wechat\/provider\/MiniProgramResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/wechat\/provider\/WebProvider.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/wechat\/provider\/WebProvider.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/wechat\/provider\/WebResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/wechat\/provider\/WebResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/wechat\/support\/common\/AESEncoder.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/wechat\/support\/common\/AESEncoder.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/wechat\/support\/miniprogram\/demo.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/wechat\/support\/miniprogram\/demo.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/wechat\/support\/miniprogram\/MiniProgramDataCrypt.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/wechat\/support\/miniprogram\/MiniProgramDataCrypt.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/wechat\/support\/miniprogram\/PKCS7Encoder.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/wechat\/support\/miniprogram\/PKCS7Encoder.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/wechat\/token\/miniprogram\/AccessToken.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/wechat\/token\/miniprogram\/AccessToken.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/weibo\/provider\/Weibo.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/weibo\/provider\/Weibo.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/weibo\/provider\/WeiboResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/weibo\/provider\/WeiboResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/yahoo\/provider\/Yahoo.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/yahoo\/provider\/Yahoo.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/yahoo\/provider\/YahooUser.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/yahoo\/provider\/YahooUser.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/yelp\/provider\/exception\/ProviderConfigurationException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/yelp\/provider\/exception\/ProviderConfigurationException.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/yelp\/provider\/Yelp.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/yelp\/provider\/Yelp.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/yelp\/tool\/ClientCredentialsOnlyTrait.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/yelp\/tool\/ClientCredentialsOnlyTrait.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/zendesk\/provider\/exception\/ProviderConfigurationException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/zendesk\/provider\/exception\/ProviderConfigurationException.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/zendesk\/provider\/Zendesk.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/zendesk\/provider\/Zendesk.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/zendesk\/provider\/ZendeskResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/zendesk\/provider\/ZendeskResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/zoho\/accesstoken\/ZohoAccessToken.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/zoho\/accesstoken\/ZohoAccessToken.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/zoho\/provider\/Zoho.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/zoho\/provider\/Zoho.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/zoho\/provider\/ZohoUser.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/zoho\/provider\/ZohoUser.php",
+      "oF" : 0
+    },
+    "\/src\/events\/AccessTokenEvent.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/events\/AccessTokenEvent.php",
+      "oF" : 0
+    },
+    "\/src\/events\/AuthorizationUrlEvent.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/events\/AuthorizationUrlEvent.php",
+      "oF" : 0
+    },
+    "\/src\/events\/TokenEvent.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/events\/TokenEvent.php",
+      "oF" : 0
+    },
+    "\/src\/helpers" : {
       "ft" : 65536,
       "oA" : 1,
-      "oAP" : "\/src\/templates",
+      "oAP" : "\/src\/helpers",
+      "oF" : 0
+    },
+    "\/src\/migrations" : {
+      "ft" : 65536,
+      "oA" : 1,
+      "oAP" : "\/src\/migrations",
+      "oF" : 0
+    },
+    "\/src\/models" : {
+      "ft" : 65536,
+      "oA" : 1,
+      "oAP" : "\/src\/models",
+      "oF" : 0
+    },
+    "\/src\/providers\/Amazon.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Amazon.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Apple.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Apple.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Auth0.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Auth0.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Authentiq.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Authentiq.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Aweber.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Aweber.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Azure.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Azure.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Basecamp.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Basecamp.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Bitbucket.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Bitbucket.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Box.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Box.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Buddy.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Buddy.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Buffer.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Buffer.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/ConstantContact.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/ConstantContact.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Deezer.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Deezer.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/DeviantArt.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/DeviantArt.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Discord.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Discord.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Disqus.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Disqus.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Docusign.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Docusign.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Dribbble.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Dribbble.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Drip.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Drip.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Dropbox.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Dropbox.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Envato.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Envato.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Etsy.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Etsy.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Eventbrite.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Eventbrite.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Facebook.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Facebook.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Fitbit.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Fitbit.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Foursquare.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Foursquare.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/FreeAgent.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/FreeAgent.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/FreshBooks.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/FreshBooks.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Generic.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Generic.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Github.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Github.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Gitlab.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Gitlab.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Google.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Google.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/GotoWebinar.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/GotoWebinar.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Gumroad.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Gumroad.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Harvest.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Harvest.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Heroku.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Heroku.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/HubSpot.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/HubSpot.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Imgur.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Imgur.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Infusionsoft.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Infusionsoft.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Instagram.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Instagram.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Jira.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Jira.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Line.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Line.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/LinkedIn.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/LinkedIn.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Linode.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Linode.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Mailchimp.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Mailchimp.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Mailru.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Mailru.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Marketo.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Marketo.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Mastodon.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Mastodon.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Meetup.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Meetup.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Microsoft.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Microsoft.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Mixer.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Mixer.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Mollie.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Mollie.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/MYOB.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/MYOB.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/NeonCrm.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/NeonCrm.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Odnoklassniki.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Odnoklassniki.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Okta.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Okta.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/ORCID.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/ORCID.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Paypal.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Paypal.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Pinterest.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Pinterest.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Pipedrive.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Pipedrive.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Rdio.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Rdio.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Reddit.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Reddit.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Salesforce.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Salesforce.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Shopify.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Shopify.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Slack.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Slack.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Snapchat.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Snapchat.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/SoundCloud.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/SoundCloud.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Spotify.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Spotify.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Square.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Square.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/StackExchange.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/StackExchange.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Strava.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Strava.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Stripe.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Stripe.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Sugarcrm.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Sugarcrm.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Telegram.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Telegram.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Thirtysevensignals.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Thirtysevensignals.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/TikTok.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/TikTok.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Trello.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Trello.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Trustpilot.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Trustpilot.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Tumblr.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Tumblr.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Twitch.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Twitch.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Twitter.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Twitter.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Uber.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Uber.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Unsplash.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Unsplash.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Vend.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Vend.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Vimeo.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Vimeo.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Vkontakte.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Vkontakte.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/WeChat.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/WeChat.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Weibo.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Weibo.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Yahoo.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Yahoo.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Yelp.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Yelp.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Zendesk.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Zendesk.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Zoho.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/providers\/Zoho.php",
+      "oF" : 0
+    },
+    "\/src\/records" : {
+      "ft" : 65536,
+      "oA" : 1,
+      "oAP" : "\/src\/records",
+      "oF" : 0
+    },
+    "\/src\/services" : {
+      "ft" : 65536,
+      "oA" : 1,
+      "oAP" : "\/src\/services",
       "oF" : 0
     }
   },
@@ -163,7 +3101,7 @@
   },
   "projectAttributes" : {
     "creationDate" : 528723773,
-    "displayValue" : "verbb-base",
+    "displayValue" : "auth",
     "displayValueWasSetByUser" : 0,
     "iconImageName" : "brackets-koamaru",
     "iconImageWasSetByUser" : 1
@@ -1670,7 +4608,17 @@
       "targetECMAVersion" : 0
     },
     "languageDefaultsUserDefined" : [
-
+      {
+        "autoOutputAction" : 1,
+        "autoOutputPathFilenamePattern" : "*-output.php",
+        "autoOutputPathRelativePath" : "",
+        "autoOutputPathReplace1" : "",
+        "autoOutputPathReplace2" : "",
+        "autoOutputPathStyle" : 0,
+        "fileExtension" : "php",
+        "htmlMinifierStyle" : 0,
+        "shouldRunCacheBuster" : 0
+      }
     ],
     "npmAbbreviatedPath" : "",
     "npmCreatePackageLock" : 1,

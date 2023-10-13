@@ -11,14 +11,14 @@ class AzureResourceOwner implements ResourceOwnerInterface
      *
      * @var array
      */
-    protected $data;
+    protected array $data;
 
     /**
      * Creates new azure resource owner.
      *
      * @param array $data
      */
-    public function __construct($data = [])
+    public function __construct(array $data = [])
     {
         $this->data = $data;
     }
@@ -28,7 +28,7 @@ class AzureResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->claim('oid');
     }
@@ -38,7 +38,7 @@ class AzureResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getFirstName()
+    public function getFirstName(): ?string
     {
         return $this->claim('given_name');
     }
@@ -48,7 +48,7 @@ class AzureResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getLastName()
+    public function getLastName(): ?string
     {
         return $this->claim('family_name');
     }
@@ -58,7 +58,7 @@ class AzureResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getUpn()
+    public function getUpn(): ?string
     {
         return $this->claim('upn');
     }
@@ -68,7 +68,7 @@ class AzureResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getTenantId()
+    public function getTenantId(): ?string
     {
         return $this->claim('tid');
     }
@@ -80,9 +80,9 @@ class AzureResourceOwner implements ResourceOwnerInterface
      *
      * @return mixed|null
      */
-    public function claim($name)
+    public function claim(string $name): mixed
     {
-        return isset($this->data[$name]) ? $this->data[$name] : null;
+        return $this->data[$name] ?? null;
     }
 
     /**
@@ -90,7 +90,7 @@ class AzureResourceOwner implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->data;
     }

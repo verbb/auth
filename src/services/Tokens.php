@@ -151,7 +151,7 @@ class Tokens extends Component
         }
 
         if ($runValidation && !$token->validate()) {
-            Auth::log('Token not saved due to validation error.');
+            Auth::info('Token not saved due to validation error.');
             return false;
         }
 

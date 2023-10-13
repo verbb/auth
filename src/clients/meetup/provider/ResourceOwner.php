@@ -8,22 +8,22 @@ use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 
 class ResourceOwner implements ResourceOwnerInterface
 {
-    private $id;
-    private $link;
-    private $name;
-    private $birthday;
-    private $photo;
-    private $status;
-    private $joined;
-    private $visited;
-    private $lang;
-    private $country;
-    private $city;
-    private $lat;
-    private $lon;
-    private $topics;
-    private $otherServices;
-    private $self;
+    private int $id;
+    private string $link;
+    private string $name;
+    private array $birthday;
+    private array $photo;
+    private string $status;
+    private int $joined;
+    private int $visited;
+    private string $lang;
+    private string $country;
+    private string $city;
+    private float $lat;
+    private float $lon;
+    private array $topics;
+    private array $otherServices;
+    private array $self;
 
 
     /**

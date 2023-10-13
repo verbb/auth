@@ -12,7 +12,7 @@ trait ClientCredentialsOnlyTrait
      *
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         throw ProviderConfigurationException::clientCredentialsOnly();
     }
@@ -26,7 +26,7 @@ trait ClientCredentialsOnlyTrait
      * @return array
      * @codeCoverageIgnore
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return [];
     }
@@ -38,7 +38,7 @@ trait ClientCredentialsOnlyTrait
      *
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         throw ProviderConfigurationException::clientCredentialsOnly();
     }
@@ -46,12 +46,13 @@ trait ClientCredentialsOnlyTrait
     /**
      * Generate a user object from a successful user details request.
      *
-     * @param object $response
+     * @param array $response
      * @param AccessToken $token
      * @return YelpResourceOwner
+     * @throws ProviderConfigurationException
      * @codeCoverageIgnore
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): YelpResourceOwner
     {
         throw ProviderConfigurationException::clientCredentialsOnly();
     }

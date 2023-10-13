@@ -24,7 +24,7 @@ class TumblrUser implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getNickname()
+    public function getNickname(): string
     {
         return $this->response['user']['name'];
     }
@@ -34,7 +34,7 @@ class TumblrUser implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->response['user']['email'];
     }
@@ -44,7 +44,7 @@ class TumblrUser implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }

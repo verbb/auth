@@ -17,7 +17,7 @@ class Dribbble extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return 'https://dribbble.com/oauth/authorize';
     }
@@ -29,7 +29,7 @@ class Dribbble extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return 'https://dribbble.com/oauth/token';
     }
@@ -41,7 +41,7 @@ class Dribbble extends AbstractProvider
      *
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return 'https://api.dribbble.com/v2/user?' . http_build_query(['access_token' => $token->getToken()]);
     }
@@ -51,7 +51,7 @@ class Dribbble extends AbstractProvider
      *
      * @return array
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return ['public'];
     }
@@ -64,10 +64,10 @@ class Dribbble extends AbstractProvider
      *
      * @throws IdentityProviderException
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         if ($response->getStatusCode() >= 400) {
-            $errorString = (isset($data['error'])) ? $data['error'] : $response->getReasonPhrase();
+            $errorString = $data['error'] ?? $response->getReasonPhrase();
             throw new IdentityProviderException(
                 $errorString,
                 $response->getStatusCode(),
@@ -82,9 +82,9 @@ class Dribbble extends AbstractProvider
      * @param array $response
      * @param AccessToken $token
      *
-     * @return League\OAuth2\Client\Provider\ResourceOwnerInterface
+     * @return DribbbleResourceOwner
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): DribbbleResourceOwner
     {
         return new DribbbleResourceOwner($response);
     }

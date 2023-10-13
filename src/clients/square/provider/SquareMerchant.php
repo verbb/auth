@@ -9,77 +9,77 @@ class SquareMerchant implements ResourceOwnerInterface
     /**
      * @var string
      */
-    protected $uid;
+    protected mixed $uid;
 
     /**
      * @var string
      */
-    protected $name;
+    protected string $name;
 
     /**
      * @var string
      */
-    protected $email;
+    protected string $email;
 
     /**
      * @var string
      */
-    protected $county_code;
+    protected string $county_code;
 
     /**
      * @var string
      */
-    protected $language_code;
+    protected string $language_code;
 
     /**
      * @var string
      */
-    protected $currency_code;
+    protected string $currency_code;
 
     /**
      * @var string
      */
-    protected $business_name;
+    protected string $business_name;
 
     /**
      * @var string
      */
-    protected $business_address;
+    protected string $business_address;
 
     /**
      * @var string
      */
-    protected $business_phone;
+    protected string $business_phone;
 
     /**
      * @var string
      */
-    protected $business_type;
+    protected string $business_type;
 
     /**
      * @var string
      */
-    protected $shipping_address;
+    protected string $shipping_address;
 
     /**
      * @var string
      */
-    protected $account_type;
+    protected string $account_type;
 
     /**
      * @var string
      */
-    protected $account_capabilities;
+    protected string $account_capabilities;
 
     /**
      * @var string
      */
-    protected $location_details;
+    protected string $location_details;
 
     /**
      * @var string
      */
-    protected $market_url;
+    protected string $market_url;
 
     /**
      * @param array $attributes
@@ -99,7 +99,7 @@ class SquareMerchant implements ResourceOwnerInterface
     /**
      * @return string
      */
-    public function getId()
+    public function getId(): string
     {
         return $this->uid;
     }
@@ -107,7 +107,7 @@ class SquareMerchant implements ResourceOwnerInterface
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -115,7 +115,7 @@ class SquareMerchant implements ResourceOwnerInterface
     /**
      * @return string
      */
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -123,7 +123,7 @@ class SquareMerchant implements ResourceOwnerInterface
     /**
      * @return string
      */
-    public function getCountryCode()
+    public function getCountryCode(): string
     {
         return $this->country_code;
     }
@@ -131,7 +131,7 @@ class SquareMerchant implements ResourceOwnerInterface
     /**
      * @return string
      */
-    public function getLanguageCode()
+    public function getLanguageCode(): string
     {
         return $this->language_code;
     }
@@ -139,7 +139,7 @@ class SquareMerchant implements ResourceOwnerInterface
     /**
      * @return string
      */
-    public function getCurrencyCode()
+    public function getCurrencyCode(): string
     {
         return $this->currency_code;
     }
@@ -147,7 +147,7 @@ class SquareMerchant implements ResourceOwnerInterface
     /**
      * @return string
      */
-    public function getBusinessName()
+    public function getBusinessName(): string
     {
         return $this->business_name;
     }
@@ -155,7 +155,7 @@ class SquareMerchant implements ResourceOwnerInterface
     /**
      * @return string
      */
-    public function getBusinessAddress()
+    public function getBusinessAddress(): string
     {
         return $this->business_address;
     }
@@ -163,7 +163,7 @@ class SquareMerchant implements ResourceOwnerInterface
     /**
      * @return string
      */
-    public function getBusinessPhone()
+    public function getBusinessPhone(): string
     {
         return $this->business_phone;
     }
@@ -171,7 +171,7 @@ class SquareMerchant implements ResourceOwnerInterface
     /**
      * @return string
      */
-    public function getBusinessType()
+    public function getBusinessType(): string
     {
         return $this->business_type;
     }
@@ -179,7 +179,7 @@ class SquareMerchant implements ResourceOwnerInterface
     /**
      * @return string
      */
-    public function getShippingAddress()
+    public function getShippingAddress(): string
     {
         return $this->shipping_address;
     }
@@ -187,15 +187,15 @@ class SquareMerchant implements ResourceOwnerInterface
     /**
      * @return string
      */
-    public function getAccountType()
+    public function getAccountType(): string
     {
         return $this->account_type;
     }
 
     /**
-     * @return array
+     * @return string
      */
-    public function getAccountCapabilities()
+    public function getAccountCapabilities(): string
     {
         return $this->account_capabilities;
     }
@@ -203,7 +203,7 @@ class SquareMerchant implements ResourceOwnerInterface
     /**
      * @return string
      */
-    public function getLocationDetails()
+    public function getLocationDetails(): string
     {
         return $this->location_details;
     }
@@ -211,7 +211,7 @@ class SquareMerchant implements ResourceOwnerInterface
     /**
      * @return string
      */
-    public function getMarketUrl()
+    public function getMarketUrl(): string
     {
         return $this->market_url;
     }
@@ -219,7 +219,7 @@ class SquareMerchant implements ResourceOwnerInterface
     /**
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return get_object_vars($this);
     }

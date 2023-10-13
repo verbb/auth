@@ -16,17 +16,17 @@ class Config
     /**
      * @var string|null OAuth2 client ID from SC2.
      */
-    protected $clientId = null;
+    protected ?string $clientId = null;
 
     /**
      * @var string|null OAuth2 client secret from SC2.
      */
-    protected $clientSecret = null;
+    protected ?string $clientSecret = null;
 
     /**
      * @var null Callback / return URL. Must match URL configured on SC2 dashboard.
      */
-    protected $returnUrl = null;
+    protected ?string $returnUrl = null;
 
     /**
      * Note for Developers: For those looking at balance transfers and related operations, the required claim
@@ -34,7 +34,7 @@ class Config
      *
      * @var array List of default scopes.
      */
-    protected $scopes = [
+    protected array $scopes = [
         'login',                 // allows to verify the Steem identity.
         // 'offline',            // allows long-lived tokens.
         'vote',                  // allows upvote, downvote or unvote a post or comment.
@@ -48,12 +48,12 @@ class Config
     /**
      * @var string SC2 API base URL.
      */
-    protected $baseUrl = 'https://steemconnect.com';
+    protected string $baseUrl = 'https://steemconnect.com';
 
     /**
      * @var array List of knows SC2 endpoints.
      */
-    protected $endpoints = [
+    protected array $endpoints = [
         // OAuth2 endpoints.
         'authorization' => 'oauth2/authorize',
         'access_token'  => 'api/oauth2/token',
@@ -80,7 +80,7 @@ class Config
     /**
      * Retrieves the client ID (username) registered on SC2 and set on this config class instance.
      *
-     * @return null|string
+     * @return string
      */
     public function getClientId(): string
     {
@@ -90,7 +90,7 @@ class Config
     /**
      * Configure the SC2 client ID (Steem account created through SC2 dashboard).
      *
-     * @param null|string $clientId
+     * @param string $clientId
      *
      * @return Config
      */
@@ -104,7 +104,7 @@ class Config
     /**
      * Retrieves the SC2 client secret (which can be retrieved under SC2 dashboard).
      *
-     * @return null|string
+     * @return string
      */
     public function getClientSecret(): string
     {
@@ -114,7 +114,7 @@ class Config
     /**
      * Configure the SC2 client secret, used to authenticate the authorization requests.
      *
-     * @param null|string $clientSecret
+     * @param string $clientSecret
      *
      * @return Config
      */
@@ -138,7 +138,7 @@ class Config
     /**
      * Configure the return/callback return url.
      *
-     * @param null|string $returnUrl
+     * @param string $returnUrl
      *
      * @return Config
      */
@@ -156,7 +156,7 @@ class Config
      */
     public function getScopes(): array
     {
-        return (array) $this->scopes;
+        return $this->scopes;
     }
 
     /**

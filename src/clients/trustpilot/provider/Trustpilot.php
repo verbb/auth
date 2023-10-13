@@ -23,7 +23,7 @@ class Trustpilot extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return 'https://authenticate.trustpilot.com';
     }
@@ -36,7 +36,7 @@ class Trustpilot extends AbstractProvider
      * @param array $params
      * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         if (!empty($params['grant_type']) && $params['grant_type'] === 'refresh_token') {
             return 'https://api.trustpilot.com/v1/oauth/oauth-business-users-for-applications/refresh';
@@ -51,7 +51,7 @@ class Trustpilot extends AbstractProvider
      * @param AccessToken $token
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return sprintf('https://api.trustpilot.com/v1/business-units/%s/profileinfo', $token->getResourceOwnerId());
     }
@@ -64,7 +64,7 @@ class Trustpilot extends AbstractProvider
      *
      * @return array
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return [];
     }
@@ -77,7 +77,7 @@ class Trustpilot extends AbstractProvider
      * @param  array|string $data Parsed response data
      * @return void
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         if ($response->getStatusCode() >= 400) {
             throw new IdentityProviderException($response->getReasonPhrase(), $response->getStatusCode(), $data);
@@ -89,9 +89,9 @@ class Trustpilot extends AbstractProvider
      *
      * @param array $response
      * @param AccessToken $token
-     * @return ResourceOwnerInterface
+     * @return GenericResourceOwner|ResourceOwnerInterface
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): GenericResourceOwner|ResourceOwnerInterface
     {
         return new GenericResourceOwner($response, self::ACCESS_TOKEN_RESOURCE_OWNER_ID);
     }

@@ -11,7 +11,7 @@ class StravaResourceOwner implements ResourceOwnerInterface
      *
      * @var array
      */
-    protected $response;
+    protected array $response;
 
     /**
      * Creates new resource owner.
@@ -28,7 +28,7 @@ class StravaResourceOwner implements ResourceOwnerInterface
      *
      * @return int|null
      */
-    public function getId()
+    public function getId(): ?int
     {
         return $this->response['id'] ?: null;
     }
@@ -38,7 +38,7 @@ class StravaResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getFirstName()
+    public function getFirstName(): ?string
     {
         return $this->response['firstname'] ?: null;
     }
@@ -48,7 +48,7 @@ class StravaResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getLastName()
+    public function getLastName(): ?string
     {
         return $this->response['lastname'] ?: null;
     }
@@ -58,7 +58,7 @@ class StravaResourceOwner implements ResourceOwnerInterface
      *
      * @return bool
      */
-    public function getPremium()
+    public function getPremium(): bool
     {
         return $this->response['premium'];
     }
@@ -68,7 +68,7 @@ class StravaResourceOwner implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }

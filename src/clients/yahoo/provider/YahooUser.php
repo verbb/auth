@@ -9,13 +9,13 @@ class YahooUser implements ResourceOwnerInterface
     /**
      * @var array
      */
-    protected $response;
+    protected array $response;
 
 
     /**
      * @var image URL
      */
-    private $imageUrl;
+    private image $imageUrl;
 
     /**
      * @param array $response
@@ -35,7 +35,7 @@ class YahooUser implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         /*
         nickname is not coming in the response.
@@ -49,7 +49,7 @@ class YahooUser implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getFirstName()
+    public function getFirstName(): string
     {
         return $this->response['profile']['givenName'];
     }
@@ -59,7 +59,7 @@ class YahooUser implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getLastName()
+    public function getLastName(): string
     {
         return $this->response['profile']['familyName'];
     }
@@ -69,11 +69,13 @@ class YahooUser implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getEmail()
+    public function getEmail(): ?string
     {
         if (!empty($this->response['profile']['emails'])) {
             return $this->response['profile']['emails'][0]['handle'];
         }
+
+        return null;
     }
 
     /**
@@ -81,12 +83,12 @@ class YahooUser implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getAvatar()
+    public function getAvatar(): ?string
     {
         return $this->response['imageUrl'];
     }
 
-    public function setImageURL($url)
+    public function setImageURL($url): YahooUser
     {
         $this->response['imageUrl'] = $url;
         return $this;
@@ -97,7 +99,7 @@ class YahooUser implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }

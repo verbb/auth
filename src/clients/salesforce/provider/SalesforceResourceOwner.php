@@ -9,7 +9,7 @@ class SalesforceResourceOwner implements ResourceOwnerInterface
      *
      * @var array
      */
-    protected $response;
+    protected array $response;
 
     /**
      * Creates new resource owner.
@@ -24,9 +24,9 @@ class SalesforceResourceOwner implements ResourceOwnerInterface
     /**
      * Get user id
      *
-     * @return string|null
+     * @return array|string|null
      */
-    public function getId()
+    public function getId(): array|string|null
     {
         return $this->getResponseData('user_id');
     }
@@ -34,9 +34,9 @@ class SalesforceResourceOwner implements ResourceOwnerInterface
     /**
      * Get user first name
      *
-     * @return string|null
+     * @return array|string|null
      */
-    public function getFirstName()
+    public function getFirstName(): array|string|null
     {
         return $this->getResponseData('first_name');
     }
@@ -44,9 +44,9 @@ class SalesforceResourceOwner implements ResourceOwnerInterface
     /**
      * Get user last name
      *
-     * @return string|null
+     * @return array|string|null
      */
-    public function getLastName()
+    public function getLastName(): array|string|null
     {
         return $this->getResponseData('last_name');
     }
@@ -54,9 +54,9 @@ class SalesforceResourceOwner implements ResourceOwnerInterface
     /**
      * Get user email
      *
-     * @return string|null
+     * @return array|string|null
      */
-    public function getEmail()
+    public function getEmail(): array|string|null
     {
         return $this->getResponseData('email');
     }
@@ -64,9 +64,9 @@ class SalesforceResourceOwner implements ResourceOwnerInterface
     /**
      * Get user title
      *
-     * @return string|null
+     * @return array|string|null
      */
-    public function getTitle()
+    public function getTitle(): array|string|null
     {
         return $this->getResponseData('custom_attributes.title');
     }
@@ -75,11 +75,11 @@ class SalesforceResourceOwner implements ResourceOwnerInterface
      * Attempts to pull value from array using dot notation.
      *
      * @param string $path
-     * @param string $default
+     * @param string|null $default
      *
      * @return mixed
      */
-    protected function getResponseData($path, $default = null)
+    protected function getResponseData(string $path, string $default = null): mixed
     {
         $array = $this->response;
 
@@ -103,7 +103,7 @@ class SalesforceResourceOwner implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }

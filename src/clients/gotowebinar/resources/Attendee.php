@@ -3,16 +3,14 @@
 namespace verbb\auth\clients\gotowebinar\resources;
 
 use verbb\auth\clients\gotowebinar\resultset\SimpleResultSet;
+use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 
 class Attendee extends AuthenticatedResourceAbstract
 {
     /**
      * Get session attendees
      *
-     * @param string $webinarKey
-     * @param string $sessionKey
-     * @return array
-     * @throws \League\OAuth2\Client\Provider\Exception\IdentityProviderException
+     * @throws IdentityProviderException
      *
      * @link https://developer.goto.com/GoToWebinarV2/#operation/getAttendees
      */
@@ -29,11 +27,7 @@ class Attendee extends AuthenticatedResourceAbstract
     /**
      * Get attendee
      *
-     * @param string $webinarKey
-     * @param string $sessionKey
-     * @param string $registrantKey
-     * @return array
-     * @throws \League\OAuth2\Client\Provider\Exception\IdentityProviderException
+     * @throws IdentityProviderException
      *
      * @link https://developer.goto.com/GoToWebinarV2/#operation/getAttendee
      */
@@ -51,11 +45,7 @@ class Attendee extends AuthenticatedResourceAbstract
     /**
      * Get attendee poll answers
      *
-     * @param string $webinarKey
-     * @param string $sessionKey
-     * @param string $registrantKey
-     * @return array
-     * @throws \League\OAuth2\Client\Provider\Exception\IdentityProviderException
+     * @throws IdentityProviderException
      *
      * @link https://developer.goto.com/GoToWebinarV2/#operation/getAttendeePollAnswers
      */
@@ -73,11 +63,7 @@ class Attendee extends AuthenticatedResourceAbstract
     /**
      * Get attendee questions
      *
-     * @param string $webinarKey
-     * @param string $sessionKey
-     * @param string $registrantKey
-     * @return array
-     * @throws \League\OAuth2\Client\Provider\Exception\IdentityProviderException
+     * @throws IdentityProviderException
      *
      * @link https://developer.goto.com/GoToWebinarV2/#operation/getAttendeeQuestions
      */
@@ -95,11 +81,7 @@ class Attendee extends AuthenticatedResourceAbstract
     /**
      * Get attendee survey answers
      *
-     * @param string $webinarKey
-     * @param string $sessionKey
-     * @param string $registrantKey
-     * @return array
-     * @throws \League\OAuth2\Client\Provider\Exception\IdentityProviderException
+     * @throws IdentityProviderException
      *
      * @link https://developer.goto.com/GoToWebinarV2/#operation/getAttendeeSurveyAnswers
      */

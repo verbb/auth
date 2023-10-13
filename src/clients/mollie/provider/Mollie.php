@@ -6,49 +6,51 @@ use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Token\AccessTokenInterface;
 use Psr\Http\Message\ResponseInterface;
+use GuzzleHttp\Exception\GuzzleException;
+use DomainException;
 
 class Mollie extends AbstractProvider
 {
     /**
      * Version of this client.
      */
-    const CLIENT_VERSION = "2.6.0";
+    public const CLIENT_VERSION = "2.6.0";
 
     /**
      * The base url to the Mollie API.
      *
      * @const string
      */
-    const MOLLIE_API_URL = 'https://api.mollie.com';
+    public const MOLLIE_API_URL = 'https://api.mollie.com';
 
     /**
      * The base url to the Mollie web application.
      *
      * @const string
      */
-    const MOLLIE_WEB_URL = 'https://www.mollie.com';
+    public const MOLLIE_WEB_URL = 'https://www.mollie.com';
 
     /**
      * The prefix for the Client ID
      *
      * @const string
      */
-    const CLIENT_ID_PREFIX = 'app_';
+    public const CLIENT_ID_PREFIX = 'app_';
 
     /**
      * @var string HTTP method used to revoke tokens.
      */
-    const METHOD_DELETE = 'DELETE';
+    public const METHOD_DELETE = 'DELETE';
 
     /**
      * @var string Token type hint for Mollie access tokens.
      */
-    const TOKEN_TYPE_ACCESS = 'access_token';
+    public const TOKEN_TYPE_ACCESS = 'access_token';
 
     /**
      * @var string Token type hint for Mollie refresh tokens.
      */
-    const TOKEN_TYPE_REFRESH = 'refresh_token';
+    public const TOKEN_TYPE_REFRESH = 'refresh_token';
 
     /**
      * Shortcuts to the available Mollie scopes.
@@ -58,47 +60,47 @@ class Mollie extends AbstractProvider
      *
      * @see https://docs.mollie.com/oauth/permissions
      */
-    const SCOPE_PAYMENTS_READ = 'payments.read';
-    const SCOPE_PAYMENTS_WRITE = 'payments.write';
-    const SCOPE_REFUNDS_READ = 'refunds.read';
-    const SCOPE_REFUNDS_WRITE = 'refunds.write';
-    const SCOPE_CUSTOMERS_READ = 'customers.read';
-    const SCOPE_CUSTOMERS_WRITE = 'customers.write';
-    const SCOPE_MANDATES_READ = 'mandates.read';
-    const SCOPE_MANDATES_WRITE = 'mandates.write';
-    const SCOPE_SUBSCRIPTIONS_READ = 'subscriptions.read';
-    const SCOPE_SUBSCRIPTIONS_WRITE = 'subscriptions.write';
-    const SCOPE_PROFILES_READ = 'profiles.read';
-    const SCOPE_PROFILES_WRITE = 'profiles.write';
-    const SCOPE_INVOICES_READ = 'invoices.read';
-    const SCOPE_SETTLEMENTS_READ = 'settlements.read';
-    const SCOPE_ORDERS_READ = 'orders.read';
-    const SCOPE_ORDERS_WRITE = 'orders.write';
-    const SCOPE_SHIPMENTS_READ = 'shipments.read';
-    const SCOPE_SHIPMENTS_WRITE = 'shipments.write';
-    const SCOPE_ORGANIZATIONS_READ = 'organizations.read';
-    const SCOPE_ORGANIZATIONS_WRITE = 'organizations.write';
-    const SCOPE_ONBOARDING_READ = 'onboarding.read';
-    const SCOPE_ONBOARDING_WRITE = 'onboarding.write';
-    const SCOPE_PAYMENT_LINKS_READ = 'payment-links.read';
-    const SCOPE_PAYMENT_LINKS_WRITE = 'payment-links.write';
+    public const SCOPE_PAYMENTS_READ = 'payments.read';
+    public const SCOPE_PAYMENTS_WRITE = 'payments.write';
+    public const SCOPE_REFUNDS_READ = 'refunds.read';
+    public const SCOPE_REFUNDS_WRITE = 'refunds.write';
+    public const SCOPE_CUSTOMERS_READ = 'customers.read';
+    public const SCOPE_CUSTOMERS_WRITE = 'customers.write';
+    public const SCOPE_MANDATES_READ = 'mandates.read';
+    public const SCOPE_MANDATES_WRITE = 'mandates.write';
+    public const SCOPE_SUBSCRIPTIONS_READ = 'subscriptions.read';
+    public const SCOPE_SUBSCRIPTIONS_WRITE = 'subscriptions.write';
+    public const SCOPE_PROFILES_READ = 'profiles.read';
+    public const SCOPE_PROFILES_WRITE = 'profiles.write';
+    public const SCOPE_INVOICES_READ = 'invoices.read';
+    public const SCOPE_SETTLEMENTS_READ = 'settlements.read';
+    public const SCOPE_ORDERS_READ = 'orders.read';
+    public const SCOPE_ORDERS_WRITE = 'orders.write';
+    public const SCOPE_SHIPMENTS_READ = 'shipments.read';
+    public const SCOPE_SHIPMENTS_WRITE = 'shipments.write';
+    public const SCOPE_ORGANIZATIONS_READ = 'organizations.read';
+    public const SCOPE_ORGANIZATIONS_WRITE = 'organizations.write';
+    public const SCOPE_ONBOARDING_READ = 'onboarding.read';
+    public const SCOPE_ONBOARDING_WRITE = 'onboarding.write';
+    public const SCOPE_PAYMENT_LINKS_READ = 'payment-links.read';
+    public const SCOPE_PAYMENT_LINKS_WRITE = 'payment-links.write';
 
     /**
      * @var string
      */
-    private $mollieApiUrl = self::MOLLIE_API_URL;
+    private string $mollieApiUrl = self::MOLLIE_API_URL;
 
     /**
      * @var string
      */
-    private $mollieWebUrl = self::MOLLIE_WEB_URL;
+    private string $mollieWebUrl = self::MOLLIE_WEB_URL;
 
     public function __construct(array $options = [], array $collaborators = [])
     {
         parent::__construct($options, $collaborators);
 
-        if (isset($options["clientId"]) && strpos($options["clientId"], self::CLIENT_ID_PREFIX) !== 0) {
-            throw new \DomainException("Mollie needs the client ID to be prefixed with " . self::CLIENT_ID_PREFIX . ".");
+        if (isset($options["clientId"]) && !str_starts_with($options["clientId"], self::CLIENT_ID_PREFIX)) {
+            throw new DomainException("Mollie needs the client ID to be prefixed with " . self::CLIENT_ID_PREFIX . ".");
         }
     }
 
@@ -108,7 +110,7 @@ class Mollie extends AbstractProvider
      * @param string $url
      * @return Mollie
      */
-    public function setMollieApiUrl($url)
+    public function setMollieApiUrl(string $url): Mollie
     {
         $this->mollieApiUrl = $url;
 
@@ -121,7 +123,7 @@ class Mollie extends AbstractProvider
      * @param string $url
      * @return Mollie
      */
-    public function setMollieWebUrl($url)
+    public function setMollieWebUrl(string $url): Mollie
     {
         $this->mollieWebUrl = $url;
 
@@ -135,7 +137,7 @@ class Mollie extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return $this->mollieWebUrl . '/oauth2/authorize';
     }
@@ -148,7 +150,7 @@ class Mollie extends AbstractProvider
      * @param array $params
      * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return $this->mollieApiUrl . '/oauth2/tokens';
     }
@@ -159,7 +161,7 @@ class Mollie extends AbstractProvider
      * @param AccessToken $token
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return static::MOLLIE_API_URL . '/v2/organizations/me';
     }
@@ -169,10 +171,10 @@ class Mollie extends AbstractProvider
      *
      * @param string $accessToken
      *
-     * @return \Psr\Http\Message\ResponseInterface
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return ResponseInterface
+     * @throws GuzzleException
      */
-    public function revokeAccessToken($accessToken)
+    public function revokeAccessToken(string $accessToken): ResponseInterface
     {
         return $this->revokeToken(self::TOKEN_TYPE_ACCESS, $accessToken);
     }
@@ -182,10 +184,10 @@ class Mollie extends AbstractProvider
      *
      * @param string $refreshToken
      *
-     * @return \Psr\Http\Message\ResponseInterface
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return ResponseInterface
+     * @throws GuzzleException
      */
-    public function revokeRefreshToken($refreshToken)
+    public function revokeRefreshToken(string $refreshToken): ResponseInterface
     {
         return $this->revokeToken(self::TOKEN_TYPE_REFRESH, $refreshToken);
     }
@@ -196,10 +198,10 @@ class Mollie extends AbstractProvider
      * @param string $type
      * @param string $token
      *
-     * @return \Psr\Http\Message\ResponseInterface
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return ResponseInterface
+     * @throws GuzzleException
      */
-    public function revokeToken($type, $token)
+    public function revokeToken(string $type, string $token): ResponseInterface
     {
         return $this->getRevokeTokenResponse([
             'token_type_hint' => $type,
@@ -212,10 +214,10 @@ class Mollie extends AbstractProvider
      *
      * @param array $params
      *
-     * @return \Psr\Http\Message\ResponseInterface
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return ResponseInterface
+     * @throws GuzzleException
      */
-    protected function getRevokeTokenResponse(array $params)
+    protected function getRevokeTokenResponse(array $params): ResponseInterface
     {
         $params['client_id'] = $this->clientId;
         $params['client_secret'] = $this->clientSecret;
@@ -239,7 +241,7 @@ class Mollie extends AbstractProvider
      *
      * @return string[]
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return [
             self::SCOPE_ORGANIZATIONS_READ,
@@ -252,7 +254,7 @@ class Mollie extends AbstractProvider
      *
      * @return string Scope separator, defaults to ','
      */
-    protected function getScopeSeparator()
+    protected function getScopeSeparator(): string
     {
         return ' ';
     }
@@ -265,7 +267,7 @@ class Mollie extends AbstractProvider
      * @param array|string $data Parsed response data
      * @return void
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         if ($response->getStatusCode() >= 400) {
             if (isset($data['error'])) {
@@ -292,9 +294,9 @@ class Mollie extends AbstractProvider
      *
      * @param array $response
      * @param AccessToken $token
-     * @return ResourceOwnerInterface
+     * @return MollieResourceOwner|ResourceOwnerInterface
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): MollieResourceOwner|ResourceOwnerInterface
     {
         return new MollieResourceOwner($response);
     }
@@ -305,11 +307,11 @@ class Mollie extends AbstractProvider
      * @param AccessTokenInterface|string|null $token Either a string or an access token instance
      * @return array
      */
-    protected function getAuthorizationHeaders($token = null)
+    protected function getAuthorizationHeaders($token = null): array
     {
         $userAgent = implode(' ', [
             "MollieOAuth2PHP/" . self::CLIENT_VERSION,
-            "PHP/" . phpversion(),
+            "PHP/" . PHP_VERSION,
         ]);
 
         return [

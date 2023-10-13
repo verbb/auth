@@ -14,7 +14,7 @@ class SugarcrmResourceOwner implements ResourceOwnerInterface
      *
      * @var array
      */
-    protected $response;
+    protected array $response;
 
     /**
      * Creates new resource owner.
@@ -31,7 +31,7 @@ class SugarcrmResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->getResponseData('login_id');
     }
@@ -40,11 +40,11 @@ class SugarcrmResourceOwner implements ResourceOwnerInterface
      * Attempts to pull value from array using dot notation.
      *
      * @param string $path
-     * @param string $default
+     * @param string|null $default
      *
      * @return mixed
      */
-    protected function getResponseData($path, $default = null)
+    protected function getResponseData(string $path, string $default = null): mixed
     {
         return $this->getValueByKey($this->response, $path, $default);
     }
@@ -54,7 +54,7 @@ class SugarcrmResourceOwner implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }

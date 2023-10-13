@@ -7,6 +7,7 @@ use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
+use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 
 class Mastodon extends AbstractProvider
 {
@@ -18,13 +19,13 @@ class Mastodon extends AbstractProvider
      * ex) https://mstdn.jp
      * @var string
      */
-    protected $instance;
+    protected mixed $instance;
 
 
     /**
      * @var array
      */
-    protected $scope;
+    protected mixed $scope;
 
 
     /**
@@ -50,7 +51,7 @@ class Mastodon extends AbstractProvider
      * Get authorization url to begin OAuth flow
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return $this->instance.'/oauth/authorize';
     }
@@ -60,7 +61,7 @@ class Mastodon extends AbstractProvider
      * @param array $params
      * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return $this->instance.'/oauth/token';
     }
@@ -71,7 +72,7 @@ class Mastodon extends AbstractProvider
      * @param AccessToken $token
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return $this->instance . '/api/v1/accounts/verify_credentials';
     }
@@ -80,9 +81,9 @@ class Mastodon extends AbstractProvider
      * Get the default scopes used by this provider
      * @return array
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
-        return isset($this->scope) ? $this->scope : ['scope' => 'read'];
+        return $this->scope ?? ['scope' => 'read'];
     }
 
     /**
@@ -92,7 +93,7 @@ class Mastodon extends AbstractProvider
      * @param array|string $data
      * @return void
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         if (isset($data['error'])) {
             throw  new IdentityProviderException(
@@ -109,9 +110,9 @@ class Mastodon extends AbstractProvider
      *
      * @param array $response
      * @param AccessToken $token
-     * @return \League\OAuth2\Client\Provider\ResourceOwnerInterface|MastodonResourceOwner
+     * @return ResourceOwnerInterface|MastodonResourceOwner
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): MastodonResourceOwner|ResourceOwnerInterface
     {
         return new MastodonResourceOwner($response);
     }
@@ -123,7 +124,7 @@ class Mastodon extends AbstractProvider
      * @param AccessToken $token
      * @return mixed
      */
-    protected function fetchResourceOwnerDetails(AccessToken $token)
+    protected function fetchResourceOwnerDetails(AccessToken $token): mixed
     {
         return parent::fetchResourceOwnerDetails($token);
     }
@@ -135,7 +136,7 @@ class Mastodon extends AbstractProvider
      * @param array $options
      * @return string
      */
-    public function getAuthorizationUrl(array $options = [])
+    public function getAuthorizationUrl(array $options = []): string
     {
         return parent::getAuthorizationUrl($options);
     }

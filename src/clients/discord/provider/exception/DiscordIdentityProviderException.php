@@ -22,15 +22,15 @@ class DiscordIdentityProviderException extends IdentityProviderException
      * Creates client exception from response
      *
      * @param  ResponseInterface $response
-     * @param  array $data Parsed response data
+     * @param array $data Parsed response data
      *
      * @return IdentityProviderException
      */
-    public static function clientException(ResponseInterface $response, $data)
+    public static function clientException(ResponseInterface $response, array $data): IdentityProviderException
     {
         return static::fromResponse(
             $response,
-            isset($data['message']) ? $data['message'] : json_encode($data)
+            $data['message'] ?? json_encode($data)
         );
     }
 
@@ -38,11 +38,11 @@ class DiscordIdentityProviderException extends IdentityProviderException
      * Creates identity exception from response
      *
      * @param  ResponseInterface $response
-     * @param  string $message
+     * @param string|null $message
      *
      * @return IdentityProviderException
      */
-    protected static function fromResponse(ResponseInterface $response, $message = null)
+    protected static function fromResponse(ResponseInterface $response, string $message = null): IdentityProviderException
     {
         return new static($message, $response->getStatusCode(), (string) $response->getBody());
     }

@@ -15,7 +15,7 @@ class Box extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return 'https://app.box.com/api/oauth2/authorize';
     }
@@ -23,9 +23,8 @@ class Box extends AbstractProvider
     /**
      * Get access token url to retrieve token
      *
-     * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return 'https://app.box.com/api/oauth2/token';
     }
@@ -37,7 +36,7 @@ class Box extends AbstractProvider
      *
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return 'https://api.box.com/2.0/users/me';
     }
@@ -50,7 +49,7 @@ class Box extends AbstractProvider
      *
      * @return array
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return [];
     }
@@ -63,7 +62,7 @@ class Box extends AbstractProvider
      * @param  array $data Parsed response data
      * @return void
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         if (isset($data['type']) && $data['type'] === 'error') {
             throw new IdentityProviderException(
@@ -87,11 +86,11 @@ class Box extends AbstractProvider
     /**
      * Generate a user object from a successful user details request.
      *
-     * @param object $response
+     * @param array $response
      * @param AccessToken $token
      * @return BoxResourceOwner
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): BoxResourceOwner
     {
         return new BoxResourceOwner($response);
     }

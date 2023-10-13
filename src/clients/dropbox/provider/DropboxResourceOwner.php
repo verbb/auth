@@ -13,7 +13,7 @@ class DropboxResourceOwner implements ResourceOwnerInterface
      *
      * @var array
      */
-    protected $response;
+    protected array $response;
 
     /**
      * Creates new resource owner.
@@ -30,7 +30,7 @@ class DropboxResourceOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getId()
+    public function getId(): string
     {
         return $this->getValueByKey($this->response, 'account_id');
     }
@@ -40,7 +40,7 @@ class DropboxResourceOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->getValueByKey($this->response, 'name.display_name');
     }
@@ -50,7 +50,7 @@ class DropboxResourceOwner implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }

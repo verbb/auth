@@ -5,39 +5,36 @@ use verbb\auth\Auth;
 use verbb\auth\services\OAuth;
 use verbb\auth\services\Tokens;
 
-use Craft;
-
-use yii\log\Logger;
-
-use verbb\base\BaseHelper;
+use verbb\base\LogTrait;
+use verbb\base\helpers\Plugin;
 
 trait PluginTrait
 {
-    // Static Properties
+    // Properties
     // =========================================================================
 
-    public static Auth $plugin;
+    public static ?Auth $plugin = null;
 
 
-    // Public Methods
+    // Traits
     // =========================================================================
 
-    public static function log($message, $attributes = []): void
+    use LogTrait;
+    
+
+    // Static Methods
+    // =========================================================================
+
+    public static function config(): array
     {
-        if ($attributes) {
-            $message = Craft::t('verbb-auth', $message, $attributes);
-        }
+        Plugin::bootstrapPlugin('auth');
 
-        Craft::getLogger()->log($message, Logger::LEVEL_INFO, 'verbb-auth');
-    }
-
-    public static function error($message, $attributes = []): void
-    {
-        if ($attributes) {
-            $message = Craft::t('verbb-auth', $message, $attributes);
-        }
-
-        Craft::getLogger()->log($message, Logger::LEVEL_ERROR, 'verbb-auth');
+        return [
+            'components' => [
+                'oauth' => OAuth::class,
+                'tokens' => Tokens::class,
+            ],
+        ];
     }
 
 
@@ -52,23 +49,6 @@ trait PluginTrait
     public function getTokens(): Tokens
     {
         return $this->get('tokens');
-    }
-
-
-    // Private Methods
-    // =========================================================================
-
-    private function _registerComponents(): void
-    {
-        $this->setComponents([
-            'oauth' => OAuth::class,
-            'tokens' => Tokens::class,
-        ]);
-    }
-
-    private function _registerLogTarget(): void
-    {
-        BaseHelper::setFileLogging('verbb-auth');
     }
 
 }

@@ -22,7 +22,7 @@ class TelegramUser implements ResourceOwnerInterface
         return $this->response['username'];
     }
     
-    public function getEmail()
+    public function getEmail(): mixed
     {
         return null;
     }

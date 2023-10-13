@@ -8,7 +8,7 @@ class NeonCrmResourceOwner implements ResourceOwnerInterface
 {
     use ArrayAccessorTrait;
 
-    protected $response;
+    protected array $response;
 
     public function __construct(array $response = [])
     {
@@ -20,7 +20,7 @@ class NeonCrmResourceOwner implements ResourceOwnerInterface
         return $this->getValueByKey($this->response, 'individualAccount.accountId');
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->getValueByKey($this->response, 'individualAccount.primaryContact.firstName') . ' ' . $this->getValueByKey($this->response, 'individualAccount.primaryContact.lastName');
     }
@@ -30,7 +30,7 @@ class NeonCrmResourceOwner implements ResourceOwnerInterface
         return $this->getValueByKey($this->response, 'individualAccount.primaryContact.email1');
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }

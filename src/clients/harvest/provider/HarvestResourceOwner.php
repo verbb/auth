@@ -10,14 +10,14 @@ class HarvestResourceOwner implements ResourceOwnerInterface
      *
      * @var string
      */
-    protected $domain;
+    protected string $domain;
 
     /**
      * Raw response
      *
      * @var array
      */
-    protected $response;
+    protected array $response;
 
     /**
      * Creates new resource owner.
@@ -34,7 +34,7 @@ class HarvestResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->response['user']['id'] ?: null;
     }
@@ -44,7 +44,7 @@ class HarvestResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->response['user']['email'] ?: null;
     }
@@ -54,7 +54,7 @@ class HarvestResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->response['user']['first_name'].' '.$this->response['user']['last_name'] ?: null;
     }
@@ -64,7 +64,7 @@ class HarvestResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getAvatar()
+    public function getAvatar(): ?string
     {
         return $this->response['user']['avatar_url'] ?: null;
     }
@@ -72,11 +72,11 @@ class HarvestResourceOwner implements ResourceOwnerInterface
     /**
      * Set resource owner domain
      *
-     * @param  string $domain
+     * @param string $domain
      *
      * @return ResourceOwner
      */
-    public function setDomain($domain)
+    public function setDomain(string $domain): ResourceOwner
     {
         $this->domain = $domain;
 
@@ -88,7 +88,7 @@ class HarvestResourceOwner implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }

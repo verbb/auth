@@ -12,11 +12,11 @@ class Okta extends AbstractProvider
 {
     use BearerAuthorizationTrait;
     
-    protected $issuer = '';
-    protected $apiVersion = 'v1';
+    protected string $issuer = '';
+    protected string $apiVersion = 'v1';
     
     
-    public function getBaseApiUrl()
+    public function getBaseApiUrl(): string
     {
         return $this->issuer . '/' . $this->apiVersion;
     }
@@ -27,7 +27,7 @@ class Okta extends AbstractProvider
      * @link https://developer.okta.com/docs/reference/api/oidc/#authorize
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return $this->getBaseApiUrl().'/authorize';
     }
@@ -40,7 +40,7 @@ class Okta extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return $this->getBaseApiUrl().'/token';
     }
@@ -53,17 +53,12 @@ class Okta extends AbstractProvider
      *
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return $this->getBaseApiUrl().'/userinfo';
     }
 
-    protected function getAuthorizationParameters(array $options)
-    {
-        return parent::getAuthorizationParameters($options);
-    }
-
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return [
             'openid',
@@ -72,12 +67,12 @@ class Okta extends AbstractProvider
         ];
     }
 
-    protected function getScopeSeparator()
+    protected function getScopeSeparator(): string
     {
         return ' ';
     }
 
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         // @codeCoverageIgnoreStart
         if (empty($data['error'])) {
@@ -96,10 +91,8 @@ class Okta extends AbstractProvider
         throw new IdentityProviderException($error, $code, $data);
     }
 
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): OktaUser
     {
-        $user = new OktaUser($response);
-
-        return $user;
+        return new OktaUser($response);
     }
 }

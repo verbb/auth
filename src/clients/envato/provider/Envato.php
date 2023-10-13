@@ -18,14 +18,14 @@ class Envato extends AbstractProvider
      *
      * @var string
      */
-    public $apiDomain = 'https://api.envato.com';
+    public string $apiDomain = 'https://api.envato.com';
 
     /**
      * Get authorization url to begin OAuth flow
      *
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return "$this->apiDomain/authorization";
     }
@@ -37,7 +37,7 @@ class Envato extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return "$this->apiDomain/token";
     }
@@ -49,7 +49,7 @@ class Envato extends AbstractProvider
      *
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return "$this->apiDomain/v1/market/private/user/username.json";
     }
@@ -59,7 +59,7 @@ class Envato extends AbstractProvider
      *
      * @return string
      */
-    public function getResourceOwnerEmailUrl()
+    public function getResourceOwnerEmailUrl(): string
     {
         return "$this->apiDomain/v1/market/private/user/email.json";
     }
@@ -70,7 +70,7 @@ class Envato extends AbstractProvider
      * @param array $extraParams
      * @return string
      */
-    public function getResourceOwnerPurchasesUrl($extraParams = [])
+    public function getResourceOwnerPurchasesUrl(array $extraParams = []): string
     {
 
         $purchasesEndpoint = "$this->apiDomain/v3/market/buyer/list-purchases";
@@ -92,7 +92,7 @@ class Envato extends AbstractProvider
      *
      * @return array
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return [];
     }
@@ -102,12 +102,9 @@ class Envato extends AbstractProvider
      * Requests and returns the resource owner of given access token.
      *
      * @param AccessToken $token
-     * @param string $endpoint
-     * @param array $extraParams
-     *
-     * @return ResourceOwnerInterface
+     * @return ResourceOwner
      */
-    public function getResourceOwner(AccessToken $token)
+    public function getResourceOwner(AccessToken $token): ResourceOwner
     {
         $response = $this->getResourceOwnerDetailsUrl($token);
 
@@ -118,12 +115,9 @@ class Envato extends AbstractProvider
      * Requests resource owner details.
      *
      * @param AccessToken $token
-     * @param string $endpoint
-     * @param array $extraParams
-     *
-     * @return mixed
+     * @return ResponseInterface
      */
-    protected function fetchResourceOwnerDetails(AccessToken $token)
+    protected function fetchResourceOwnerDetails(AccessToken $token): ResponseInterface
     {
 
         $url = $this->getResourceOwnerDetailsUrl($token);
@@ -143,7 +137,7 @@ class Envato extends AbstractProvider
      *
      * @return void
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         if ($response->getStatusCode() >= 400) {
             throw new IdentityProviderException(
@@ -160,9 +154,9 @@ class Envato extends AbstractProvider
      * @param array $response
      * @param AccessToken $token
      *
-     * @return \Smachi\OAuth2\Client\Provider\EnvatoUser
+     * @return ResourceOwner
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): ResourceOwner
     {
         $user = new EnvatoUser($response);
 

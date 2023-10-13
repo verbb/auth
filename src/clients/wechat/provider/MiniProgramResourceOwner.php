@@ -7,15 +7,16 @@ use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 use verbb\auth\clients\wechat\token\miniprogram\AccessToken;
 use verbb\auth\clients\wechat\support\miniprogram\MiniProgramDataCrypt;
+use Exception;
 
 class MiniProgramResourceOwner implements ResourceOwnerInterface
 {
     /** @var  AccessToken */
-    protected $token;
+    protected AccessToken $token;
 
     protected $appid;
-    protected $responseUserInfo;
-    protected $decryptData;
+    protected array $responseUserInfo;
+    protected string $decryptData;
 
     public function __construct(array $response, $token, $appid)
     {
@@ -33,9 +34,9 @@ class MiniProgramResourceOwner implements ResourceOwnerInterface
     /**
      * @param $response
      * @param AccessToken $token
-     * @throws \Exception
+     * @throws Exception
      */
-    private function checkSignature($response, $token)
+    private function checkSignature($response, AccessToken $token): void
     {
         if ($response['signature'] !== sha1(
             $response['rawData'].$token->getSessionKey()
@@ -45,10 +46,10 @@ class MiniProgramResourceOwner implements ResourceOwnerInterface
     }
 
     /**
-     * @return mixed
-     * @throws \Exception
+     * @return string
+     * @throws Exception
      */
-    private function decrypt()
+    private function decrypt(): string
     {
         $dataCrypt = new MiniProgramDataCrypt(
             $this->appid,
@@ -62,27 +63,27 @@ class MiniProgramResourceOwner implements ResourceOwnerInterface
 
         if ($errCode == 0) {
             return $data;
-        } else {
-            throw new IdentityProviderException('decrypt error', $errCode, $this->responseUserInfo);
         }
+
+        throw new IdentityProviderException('decrypt error', $errCode, $this->responseUserInfo);
     }
 
     /**
      * Returns the identifier of the authorized resource owner.
      *
-     * @return mixed
+     * @return string|null
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->decryptData ? $this->decryptData['openid'] : null;
     }
 
-    public function getDecryptData()
+    public function getDecryptData(): string
     {
         return $this->decryptData;
     }
 
-    public function getResponseUserInfo()
+    public function getResponseUserInfo(): array
     {
         return $this->responseUserInfo;
     }
@@ -92,7 +93,7 @@ class MiniProgramResourceOwner implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->token->getValues();
     }

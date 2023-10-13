@@ -7,6 +7,7 @@ use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use League\OAuth2\Client\Token\AccessToken;
 use Psr\Http\Message\ResponseInterface;
+use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 
 class Odnoklassniki extends AbstractProvider
 {
@@ -15,28 +16,19 @@ class Odnoklassniki extends AbstractProvider
     /**
      * @var string
      */
-    public $clientPublic = '';
+    public string $clientPublic = '';
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return 'https://www.odnoklassniki.ru/oauth/authorize';
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return 'https://api.odnoklassniki.ru/oauth/token.do';
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         $param = 'application_key='.$this->clientPublic
             .'&fields=uid,name,first_name,last_name,location,pic_3,gender,locale,photo_id'
@@ -45,31 +37,24 @@ class Odnoklassniki extends AbstractProvider
         return 'http://api.odnoklassniki.ru/fb.do?'.$param.'&access_token='.$token.'&sig='.$sign;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return [];
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         if (isset($data['error_code'])) {
             throw new IdentityProviderException($data['error_msg'], $data['error_code'], $response);
-        } elseif (isset($data['error'])) {
+        }
+
+        if (isset($data['error'])) {
             throw new IdentityProviderException($data['error'].': '.$data['error_description'],
                 $response->getStatusCode(), $response);
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): OdnoklassnikiResourceOwner|ResourceOwnerInterface
     {
         return new OdnoklassnikiResourceOwner($response);
     }

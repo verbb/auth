@@ -5,26 +5,27 @@ namespace verbb\auth\clients\gotowebinar\resources;
 use verbb\auth\clients\gotowebinar\resultset\PageResultSet;
 use verbb\auth\clients\gotowebinar\resultset\SimpleResultSet;
 use verbb\auth\clients\gotowebinar\helper\DateUtcHelper;
+use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
+use DateTime;
 
 class Session extends AuthenticatedResourceAbstract
 {
     /**
      * Get organizer sessions
      *
-     * @param \DateTime|null $from
-     * @param \DateTime|null $to
+     * @param DateTime|null $from
+     * @param DateTime|null $to
      * @param int $page
      * @param int $size
-     * @return array
-     * @throws \League\OAuth2\Client\Provider\Exception\IdentityProviderException
-     *
+     * @return PageResultSet
+     * @throws IdentityProviderException
      * @link https://developer.goto.com/GoToWebinarV2/#operation/getOrganizerSessions
      */
-    public function getSessions(?\DateTime $from = null, ?\DateTime $to = null, int $page = 0, int $size = 100): PageResultSet
+    public function getSessions(?DateTime $from = null, ?DateTime $to = null, int $page = 0, int $size = 100): PageResultSet
     {
         $query = [
-            'fromTime' => DateUtcHelper::date2utc($from ?? new \DateTime('-3 years')),
-            'toTime'   => DateUtcHelper::date2utc($to ?? new \DateTime('+3 years')),
+            'fromTime' => DateUtcHelper::date2utc($from ?? new DateTime('-3 years')),
+            'toTime'   => DateUtcHelper::date2utc($to ?? new DateTime('+3 years')),
             'page'     => $page,
             'size'     => $size
         ];
@@ -40,9 +41,8 @@ class Session extends AuthenticatedResourceAbstract
      * @param string $webinarKey
      * @param int $page
      * @param int $size
-     * @return array
-     * @throws \League\OAuth2\Client\Provider\Exception\IdentityProviderException
-     *
+     * @return PageResultSet
+     * @throws IdentityProviderException
      * @link https://developer.goto.com/GoToWebinarV2/#operation/getAllSessions
      */
     public function getWebinarSessions(string $webinarKey, int $page = 0, int $size = 100): PageResultSet
@@ -61,9 +61,8 @@ class Session extends AuthenticatedResourceAbstract
      *
      * @param string $webinarKey
      * @param string $sessionKey
-     * @return array
-     * @throws \League\OAuth2\Client\Provider\Exception\IdentityProviderException
-     *
+     * @return SimpleResultSet
+     * @throws IdentityProviderException
      * @link https://developer.goto.com/GoToWebinarV2/#operation/getWebinarSession
      */
     public function getWebinarSession(string $webinarKey, string $sessionKey): SimpleResultSet
@@ -81,9 +80,8 @@ class Session extends AuthenticatedResourceAbstract
      *
      * @param string $webinarKey
      * @param string $sessionKey
-     * @return array
-     * @throws \League\OAuth2\Client\Provider\Exception\IdentityProviderException
-     *
+     * @return SimpleResultSet
+     * @throws IdentityProviderException
      * @link https://developer.goto.com/GoToWebinarV2/#operation/getPerformance
      */
     public function getSessionPerformance(string $webinarKey, string $sessionKey): SimpleResultSet
@@ -101,9 +99,8 @@ class Session extends AuthenticatedResourceAbstract
      *
      * @param string $webinarKey
      * @param string $sessionKey
-     * @return array
-     * @throws \League\OAuth2\Client\Provider\Exception\IdentityProviderException
-     *
+     * @return SimpleResultSet
+     * @throws IdentityProviderException
      * @link https://developer.goto.com/GoToWebinarV2/#operation/getPolls
      */
     public function getSessionPolls(string $webinarKey, string $sessionKey): SimpleResultSet
@@ -121,9 +118,8 @@ class Session extends AuthenticatedResourceAbstract
      *
      * @param string $webinarKey
      * @param string $sessionKey
-     * @return array
-     * @throws \League\OAuth2\Client\Provider\Exception\IdentityProviderException
-     *
+     * @return SimpleResultSet
+     * @throws IdentityProviderException
      * @link https://developer.goto.com/GoToWebinarV2/#operation/getQuestions
      */
     public function getSessionQuestions(string $webinarKey, string $sessionKey): SimpleResultSet
@@ -141,9 +137,8 @@ class Session extends AuthenticatedResourceAbstract
      *
      * @param string $webinarKey
      * @param string $sessionKey
-     * @return array
-     * @throws \League\OAuth2\Client\Provider\Exception\IdentityProviderException
-     *
+     * @return SimpleResultSet
+     * @throws IdentityProviderException
      * @link https://developer.goto.com/GoToWebinarV2/#operation/getSurveys
      */
     public function getSessionSurveys(string $webinarKey, string $sessionKey): SimpleResultSet

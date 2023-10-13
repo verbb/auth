@@ -23,7 +23,7 @@ class ORCIDResourceOwner implements ResourceOwnerInterface
      *
      * @var array
      */
-    protected $response;
+    protected array $response;
 
     /**
      * Creates new resource owner.
@@ -41,7 +41,7 @@ class ORCIDResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getId()
+    public function getId(): ?string
     {
         return @$this->response['orcid-identifier']['uri'] ?: null;
     }
@@ -52,7 +52,7 @@ class ORCIDResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getName()
+    public function getName(): ?string
     {
         return @$this->response['person']['name']['credit-name']['value'] ?: null;
     }
@@ -62,7 +62,7 @@ class ORCIDResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getGivenName()
+    public function getGivenName(): ?string
     {
         return @$this->response['person']['name']['given-names']['value'] ?: null;
     }
@@ -72,7 +72,7 @@ class ORCIDResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getFirstName()
+    public function getFirstName(): ?string
     {
         return $this->getGivenName();
     }
@@ -82,7 +82,7 @@ class ORCIDResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getFamilyName()
+    public function getFamilyName(): ?string
     {
         return @$this->response['person']['name']['family-name']['value'] ?: null;
     }
@@ -92,7 +92,7 @@ class ORCIDResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getLastName()
+    public function getLastName(): ?string
     {
         return $this->getFamilyName();
     }
@@ -102,7 +102,7 @@ class ORCIDResourceOwner implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function getOtherNames()
+    public function getOtherNames(): array
     {
         $retval = array();
         foreach (@$this->response['person']['other-names']['other-name'] as $name) {
@@ -122,14 +122,16 @@ class ORCIDResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getEmail()
+    public function getEmail(): ?string
     {
         $retval = null;
         foreach (@$this->response['person']['emails']['email'] as $email) {
             if (@$email['primary']) {
                 $retval = @$email['email'];
                 break;
-            } elseif (is_null($retval)) {
+            }
+
+            if (is_null($retval)) {
                 $retval = @$email['email'];
             }
         }
@@ -144,7 +146,7 @@ class ORCIDResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getPrimaryEmail()
+    public function getPrimaryEmail(): ?string
     {
         $retval = null;
         foreach (@$this->response['person']['emails']['email'] as $email) {
@@ -162,7 +164,7 @@ class ORCIDResourceOwner implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function getEmails()
+    public function getEmails(): array
     {
         $retval = array();
         foreach (@$this->response['person']['emails']['email'] as $email) {
@@ -181,7 +183,7 @@ class ORCIDResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getAmr()
+    public function getAmr(): ?string
     {
         return @$this->response['amr'] ?: null;
     }
@@ -191,7 +193,7 @@ class ORCIDResourceOwner implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }

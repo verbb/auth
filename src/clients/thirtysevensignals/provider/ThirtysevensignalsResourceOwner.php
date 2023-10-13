@@ -9,7 +9,7 @@ class ThirtysevensignalsResourceOwner implements ResourceOwnerInterface
      *
      * @var array
      */
-    protected $response;
+    protected array $response;
 
     /**
      * Creates new resource owner.
@@ -26,7 +26,7 @@ class ThirtysevensignalsResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->response['identity']['id'] ?: null;
     }
@@ -36,7 +36,7 @@ class ThirtysevensignalsResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->response['identity']['email_address'] ?: null;
     }
@@ -46,7 +46,7 @@ class ThirtysevensignalsResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->response['identity']['first_name'].' '.$this->response['identity']['last_name'] ?: null;
     }
@@ -56,7 +56,7 @@ class ThirtysevensignalsResourceOwner implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }

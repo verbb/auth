@@ -2,60 +2,61 @@
 
 namespace verbb\auth\clients\vend\provider\vendapi;
 
+use Exception;
+
 class VendAPI
 {
     /**
      * @var mixed
      */
-    private $url;
+    private mixed $url;
 
     /**
      * @var mixed
      */
-    private $last_result_raw;
+    private mixed $last_result_raw;
     /**
      * @var mixed
      */
-    private $last_result;
+    private mixed $last_result;
 
     /**
      * @var mixed
      */
-    private $requestr;
+    private mixed $requestr;
 
     /**
      * @var mixed
      */
-    private $debug = false;
+    private mixed $debug = false;
 
     /**
      * Request all pages of the results, looping through returning as a single result set
      * @var boolean
      */
-    public $automatic_depage = false;
+    public bool $automatic_depage = false;
     /**
      * Default outlet to use for inventory, this shouldn't need to be changed
      * @var string
      */
-    public $default_outlet = 'Main Outlet';
+    public string $default_outlet = 'Main Outlet';
 
     /**
      * If rate limiting kicks in and the retry-after date is earlier than the current system time
      * then this API will sleep for 60 seconds, otherwise an exception will be thrown.
      * The right thing to do is ensure that your system has its time synchronised with a time server.
      */
-    public $allow_time_slip = true;
+    public bool $allow_time_slip = true;
 
-    private $tokenType;
-    private $token;
+    private string $tokenType;
+    private string $token;
 
     /**
      * @param string $url url of your shop eg https://shopname.vendhq.com
      * @param string $tokenType tokenType for api
      * @param string $accessToken accessToken for api
-     * @param string $requestClass used for testing
      */
-    public function __construct($url, $tokenType, $accessToken)
+    public function __construct(string $url, string $tokenType, string $accessToken)
     {
         // trim trailing slash for niceness
         $this->url = rtrim($url, '/');
@@ -68,9 +69,10 @@ class VendAPI
 
     /**
      * turn on debuging for this class and requester class
-     * @param  boolean $status
+     *
+     * @param boolean $status
      */
-    public function debug($status = true)
+    public function debug(bool $status = true): void
     {
         $this->requestr->setOpt('debug', $status);
         $this->debug = true;
@@ -83,10 +85,12 @@ class VendAPI
 
     /**
      * Update customer
+     *
      * @param object $customer
-     * @return object
+     * @return VendCustomer
+     * @throws Exception
      */
-    public function updateCustomer($customer)
+    public function updateCustomer(object $customer): VendCustomer
     {
         $result = $this->apiRequest('/api/customers', $customer);
         return new VendCustomer($result->customer, $this);
@@ -96,10 +100,9 @@ class VendAPI
      * Update config
      * @return object
      */
-    public function getConfig()
+    public function getConfig(): object
     {
-        $result = $this->apiRequest('/api/config');
-        return $result;
+        return $this->apiRequest('/api/config');
     }
 
     /**
@@ -107,12 +110,12 @@ class VendAPI
      *
      * @param string $id id of the webhook to get
      *
-     * @return object
+     * @return VendWebhook
      */
-    public function getWebhook($id)
+    public function getWebhook(string $id): VendWebhook
     {
         $result = $this->getWebhooks(array('id' => $id));
-        return is_array($result) && isset($result[0]) ? $result[0] : new VendWebhook(null, $this);
+        return isset($result[0]) ? $result[0] : new VendWebhook(null, $this);
     }
 
     /**
@@ -121,7 +124,7 @@ class VendAPI
      * @param array $options
      * @return array
      */
-    public function getWebhooks($options = array())
+    public function getWebhooks(array $options = array()): array
     {
         $path = '';
         if (count($options)) {
@@ -141,7 +144,7 @@ class VendAPI
      *
      * @return object
      */
-    public function deleteWebhook($id)
+    public function deleteWebhook(string $id): object
     {
         $path = '/' . urlencode($id);
 
@@ -150,9 +153,9 @@ class VendAPI
 
     /**
      * @param array $options
-     * @return mixed
+     * @return array
      */
-    public function getOutlets($options = array())
+    public function getOutlets(array $options = array()): array
     {
         $path = '';
         if (count($options)) {
@@ -166,9 +169,9 @@ class VendAPI
 
     /**
      * @param array $options
-     * @return mixed
+     * @return array
      */
-    public function getCustomers($options = array())
+    public function getCustomers(array $options = array()): array
     {
         $path = '';
         if (count($options)) {
@@ -186,7 +189,7 @@ class VendAPI
      * @param array $options .. optional
      * @return array
      */
-    public function getProducts($options = array())
+    public function getProducts(array $options = array()): array
     {
         $path = '';
         if (count($options)) {
@@ -203,12 +206,12 @@ class VendAPI
      *
      * @param string $id id of the register to get
      *
-     * @return object
+     * @return VendSale
      */
-    public function getRegister($id)
+    public function getRegister(string $id): VendSale
     {
         $result = $this->getRegisters(array('id' => $id));
-        return is_array($result) && isset($result[0]) ? $result[0] : new VendSale(null, $this);
+        return isset($result[0]) ? $result[0] : new VendSale(null, $this);
     }
 
     /**
@@ -217,7 +220,7 @@ class VendAPI
      * @param array $options .. optional
      * @return array
      */
-    public function getRegisters($options = array())
+    public function getRegisters(array $options = array()): array
     {
         $path = '';
         if (count($options)) {
@@ -236,7 +239,7 @@ class VendAPI
      * @param array $options .. optional
      * @return array
      */
-    public function getSales($options = array())
+    public function getSales(array $options = array()): array
     {
         $path = '';
         if (count($options)) {
@@ -254,12 +257,12 @@ class VendAPI
      *
      * @param string $id id of the product to get
      *
-     * @return object
+     * @return VendProduct
      */
-    public function getProduct($id)
+    public function getProduct(string $id): VendProduct
     {
         $result = $this->getProducts(array('id' => $id));
-        return is_array($result) && isset($result[0]) ? $result[0] : new VendProduct(null, $this);
+        return isset($result[0]) ? $result[0] : new VendProduct(null, $this);
     }
 
     /**
@@ -267,12 +270,12 @@ class VendAPI
      *
      * @param string $id id of the customer to get
      *
-     * @return object
+     * @return VendCustomer
      */
-    public function getCustomer($id)
+    public function getCustomer(string $id): VendCustomer
     {
         $result = $this->getCustomers(array('id' => $id));
-        return is_array($result) && isset($result[0]) ? $result[0] : new VendCustomer(null, $this);
+        return isset($result[0]) ? $result[0] : new VendCustomer(null, $this);
     }
 
     /**
@@ -280,32 +283,31 @@ class VendAPI
      *
      * @param string $id id of the sale to get
      *
-     * @return object
+     * @return VendSale
+     * @throws Exception
      */
-    public function getSale($id)
+    public function getSale(string $id): VendSale
     {
         $result = $this->apiGetSales('/' . $id);
-        return is_array($result) && isset($result[0]) ? $result[0] : new VendSale(null, $this);
+        return isset($result[0]) ? $result[0] : new VendSale(null, $this);
     }
 
     /**
      * @param $date
-     * @return mixed
+     * @return array
      */
-    public function getProductsSince($date)
+    public function getProductsSince($date): array
     {
-        $result = $this->getProducts(array('since' => $date));
-        return $result;
+        return $this->getProducts(array('since' => $date));
     }
 
     /**
      * @param $date
-     * @return mixed
+     * @return array
      */
-    public function getSalesSince($date)
+    public function getSalesSince($date): array
     {
-        $result = $this->getSales(array('since' => $date));
-        return $result;
+        return $this->getSales(array('since' => $date));
     }
 
     /**
@@ -315,20 +317,20 @@ class VendAPI
      *
      * @return object returned from vend
      */
-    public function request($path)
+    public function request(string $path): object
     {
         return $this->apiRequest($path);
     }
 
     /**
      * @param $path
-     * @return mixed
+     * @return array
      */
-    private function apiGetOutlets($path)
+    private function apiGetOutlets($path): array
     {
         $result = $this->apiRequest('/api/outlets' . $path);
         if (!isset($result->outlets) || !is_array($result->outlets)) {
-            throw new \Exception("Error: Unexpected result for request");
+            throw new Exception("Error: Unexpected result for request");
         }
         $outlets = array();
         foreach ($result->outlets as $outlet) {
@@ -340,13 +342,13 @@ class VendAPI
 
     /**
      * @param $path
-     * @return mixed
+     * @return array
      */
-    private function apiGetProducts($path)
+    private function apiGetProducts($path): array
     {
         $result = $this->apiRequest('/api/products' . $path);
         if (!isset($result->products) || !is_array($result->products)) {
-            throw new \Exception("Error: Unexpected result for request");
+            throw new Exception("Error: Unexpected result for request");
         }
         $products = array();
         foreach ($result->products as $product) {
@@ -358,13 +360,13 @@ class VendAPI
 
     /**
      * @param $path
-     * @return mixed
+     * @return array
      */
-    private function apiGetCustomers($path)
+    private function apiGetCustomers($path): array
     {
         $result = $this->apiRequest('/api/customers' . $path);
         if (!isset($result->customers) || !is_array($result->customers)) {
-            throw new \Exception("Error: Unexpected result for request");
+            throw new Exception("Error: Unexpected result for request");
         }
         $customers = array();
         foreach ($result->customers as $cust) {
@@ -376,13 +378,13 @@ class VendAPI
 
     /**
      * @param $path
-     * @return mixed
+     * @return array
      */
-    private function apiGetSales($path)
+    private function apiGetSales($path): array
     {
         $result = $this->apiRequest('/api/register_sales' . $path);
         if (!isset($result->register_sales) || !is_array($result->register_sales)) {
-            throw new \Exception("Error: Unexpected result for request");
+            throw new Exception("Error: Unexpected result for request");
         }
         $sales = array();
         foreach ($result->register_sales as $s) {
@@ -397,11 +399,11 @@ class VendAPI
      * @return array
      * @throws Exception
      */
-    private function apiGetRegisters($path)
+    private function apiGetRegisters($path): array
     {
         $result = $this->apiRequest('/api/registers' . $path);
         if (!isset($result->registers) || !is_array($result->registers)) {
-            throw new \Exception("Error: Unexpected result for request");
+            throw new Exception("Error: Unexpected result for request");
         }
         $sales = array();
         foreach ($result->registers as $r) {
@@ -416,11 +418,11 @@ class VendAPI
      * @return array
      * @throws Exception
      */
-    private function apiGetWebhooks($path)
+    private function apiGetWebhooks($path): array
     {
         $result = $this->apiRequest('/api/webhooks' . $path);
         if (!is_array($result)) {
-            throw new \Exception("Error: Unexpected result for request");
+            throw new Exception("Error: Unexpected result for request");
         }
         $webhooks = array();
         foreach ($result as $r) {
@@ -432,10 +434,12 @@ class VendAPI
 
     /**
      * Create new Webhook
-     * @param object $product
+     *
+     * @param $webhookData
      * @return object
+     * @throws Exception
      */
-    public function createWebook($webhookData)
+    public function createWebook($webhookData): object
     {
         $postData = 'data=' . json_encode($webhookData);
 
@@ -460,7 +464,7 @@ class VendAPI
                 $apiError = "Error: Unexpected HTTP " . $httpCode . " result from API";
             }
 
-            throw new \Exception($apiError, (int) $httpCode);
+            throw new Exception($apiError, (int) $httpCode);
         }
 
         return $result;
@@ -468,21 +472,22 @@ class VendAPI
 
     /**
      * @param $path
-     * @return array
+     * @return object
      * @throws Exception
      */
-    private function apiDeleteWebhook($path)
+    private function apiDeleteWebhook($path): object
     {
-        $result = $this->apiRequest('/api/webhooks' . $path, null, null, $type = 'delete');
-        return $result;
+        return $this->apiRequest('/api/webhooks' . $path, null, null, $type = 'delete');
     }
 
     /**
      * Save vendproduct object to vend
+     *
      * @param object $product
-     * @return object
+     * @return VendProduct
+     * @throws Exception
      */
-    public function saveProduct($product)
+    public function saveProduct(object $product): VendProduct
     {
         $result = $this->apiRequest('/api/products', $product->toArray());
 
@@ -491,10 +496,12 @@ class VendAPI
 
     /**
      * Save customer object to vend
+     *
      * @param object $cust
-     * @return object
+     * @return VendCustomer
+     * @throws Exception
      */
-    public function saveCustomer($cust)
+    public function saveCustomer(object $cust): VendCustomer
     {
         $result = $this->apiRequest('/api/customers', $cust->saveArray());
 
@@ -503,10 +510,12 @@ class VendAPI
 
     /**
      * Save sale object to vend
+     *
      * @param object $sale
-     * @return object
+     * @return VendSale
+     * @throws Exception
      */
-    public function saveSale($sale)
+    public function saveSale(object $sale): VendSale
     {
         $result = $this->apiRequest('/api/register_sales', $sale->toArray());
 
@@ -517,15 +526,15 @@ class VendAPI
      * make request to the vend api
      *
      * @param string $path the url to request
-     * @param array $data optional - if sending a post request, send fields through here
-     * @param boolean $depage do you want to grab and merge page results? .. will only depage on first page
+     * @param array|null $data optional - if sending a post request, send fields through here
+     * @param boolean|null $depage do you want to grab and merge page results? .. will only depage on first page
      *
      * @return object variable result based on request
      */
-    private function apiRequest($path, $data = null, $depage = null, $type = null)
+    private function apiRequest(string $path, array $data = null, bool $depage = null, $type = null): object
     {
-        $depage = $depage === null ? $this->automatic_depage : $depage;
-        if ($type !== null && $type == 'delete') {
+        $depage = $depage ?? $this->automatic_depage;
+        if ($type == 'delete') {
             $rawresult = $this->requestr->delete($path);
         } elseif ($data !== null) {
             // setup for a post
@@ -537,7 +546,7 @@ class VendAPI
 
         $result = json_decode($rawresult);
         if ($result === null) {
-            throw new \Exception("Error: Recieved null result from API");
+            throw new Exception("Error: Recieved null result from API");
         }
 
         // Check for 400+ error:
@@ -554,7 +563,7 @@ class VendAPI
                         $exMessage = "Rate limit hit on API yet retry-after time given is in the past. ";
                         $exMessage .= "Please check time of local system. ";
                         $exMessage .= "Set \$allow-time-slip to true to work around this problem";
-                        throw new \Exception($exMessage);
+                        throw new Exception($exMessage);
                     }
                 }
 
@@ -581,7 +590,7 @@ class VendAPI
                 $apiError = "Error: Unexpected HTTP " . $this->requestr->http_code . " result from API";
             }
 
-            throw new \Exception($apiError, (int) $this->requestr->http_code);
+            throw new Exception($apiError, (int) $this->requestr->http_code);
         }
 
         if ($depage && isset($result->pagination) && $result->pagination->page == 1) {
@@ -592,7 +601,7 @@ class VendAPI
         }
 
         if ($result && isset($result->error)) {
-            throw new \Exception($result->error . ' : ' . $result->details);
+            throw new Exception($result->error . ' : ' . $result->details);
         }
 
         if ($this->debug) {
@@ -611,7 +620,7 @@ class VendAPI
      *
      * @return object       merged object
      */
-    private function mergeObjects($obj1, $obj2)
+    private function mergeObjects(object $obj1, object $obj2): object
     {
         $obj3 = $obj1;
         foreach ($obj2 as $k => $v) {

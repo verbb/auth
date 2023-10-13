@@ -17,35 +17,24 @@ use Psr\Http\Message\ResponseInterface;
 
 class Authentiq extends AbstractProvider
 {
-    protected $scope = [];
-    protected $idToken, $domain, $urlAuthorize, $urlAccessToken, $algorithm;
+    protected array $scope = [];
+    protected $idToken, $urlAuthorize, $urlAccessToken, $algorithm;
+    protected string $domain;
 
-    protected function domain()
+    protected function domain(): string
     {
-        if (isset($this->domain)) {
-            return $this->domain;
-        } else {
-            return 'https://connect.authentiq.io/';
-        }
+        return $this->domain ?? 'https://connect.authentiq.io/';
     }
 
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
-        if (isset($this->urlAuthorize)) {
-            return $this->urlAuthorize;
-        } else {
-            return $this->domain() . '/authorize';
-        }
+        return $this->urlAuthorize ?? $this->domain() . '/authorize';
     }
 
 
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
-        if (isset($this->urlAccessToken)) {
-            return $this->urlAccessToken;
-        } else {
-            return $this->domain() . '/token';
-        }
+        return $this->urlAccessToken ?? $this->domain() . '/token';
     }
 
 
@@ -56,27 +45,27 @@ class Authentiq extends AbstractProvider
      * @return null
      */
 
-    public function getResourceOwnerDetailsUrl(\League\OAuth2\Client\Token\AccessToken $token)
+    public function getResourceOwnerDetailsUrl(\League\OAuth2\Client\Token\AccessToken $token): null
     {
         return null;
     }
 
-    public function getClientId()
+    public function getClientId(): string
     {
         return $this->clientId;
     }
 
-    public function getProviderAlgorithm()
+    public function getProviderAlgorithm(): ?array
     {
         if (isset($this->algorithm)) {
             return [$this->algorithm];
-        } else {
-            return ['HS256'];
         }
+
+        return ['HS256'];
     }
 
 
-    public function getDomain()
+    public function getDomain(): string
     {
         return $this->domain();
     }
@@ -86,15 +75,15 @@ class Authentiq extends AbstractProvider
      * @return array|string
      */
 
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array|string
     {
         if (in_array("openid", explode(" ", $this->scope))) {
             return $this->scope;
-        } else {
-            $scopes = explode(" ", $this->scope);
-            array_push($scopes, "openid");
-            return join(" ", $scopes);
         }
+
+        $scopes = explode(" ", $this->scope);
+        $scopes[] = "openid";
+        return implode(" ", $scopes);
     }
 
 
@@ -110,7 +99,7 @@ class Authentiq extends AbstractProvider
      * Error handling is done by the base package
      */
 
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         if (!empty($data['error'])) {
             $code  = 0;
@@ -124,7 +113,7 @@ class Authentiq extends AbstractProvider
     }
 
 
-    protected function getScopeSeparator()
+    protected function getScopeSeparator(): string
     {
         return ' ';
     }
@@ -140,7 +129,7 @@ class Authentiq extends AbstractProvider
      */
 
 
-    public function getResourceOwner(\League\OAuth2\Client\Token\AccessToken $token)
+    public function getResourceOwner(\League\OAuth2\Client\Token\AccessToken $token): AuthentiqResourceOwner
     {
         $data = $token->getIdTokenClaims();
         return $this->createResourceOwner($data, $token);
@@ -154,7 +143,7 @@ class Authentiq extends AbstractProvider
      * @return AuthentiqResourceOwner
      */
 
-    protected function createResourceOwner(array $response, \League\OAuth2\Client\Token\AccessToken $token)
+    protected function createResourceOwner(array $response, \League\OAuth2\Client\Token\AccessToken $token): AuthentiqResourceOwner
     {
         return new AuthentiqResourceOwner($response);
     }
@@ -166,7 +155,7 @@ class Authentiq extends AbstractProvider
      *  We name the response of this function  Access token (of Authentiq\Oauth2\Client\Token\AccessToken) to override the function declaration
      *
      */
-    protected function createAccessToken(array $response, AbstractGrant $grant)
+    protected function createAccessToken(array $response, AbstractGrant $grant): AccessToken
     {
         return new AccessToken($response, $this, $this->clientSecret);
     }

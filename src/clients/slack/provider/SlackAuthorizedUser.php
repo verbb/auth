@@ -15,12 +15,12 @@ class SlackAuthorizedUser implements ResourceOwnerInterface
     /**
      * @var array
      */
-    protected $response;
+    protected array $response;
 
     /**
      * SlackAuthorizedUser constructor.
      *
-     * @param $response
+     * @param array $response
      */
     public function __construct(array $response)
     {
@@ -32,7 +32,7 @@ class SlackAuthorizedUser implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getId()
+    public function getId(): string
     {
         return $this->response['user_id'];
     }
@@ -42,7 +42,7 @@ class SlackAuthorizedUser implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }
@@ -52,7 +52,7 @@ class SlackAuthorizedUser implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getUrl()
+    public function getUrl(): ?string
     {
         return $this->response['url'] ?: null;
     }
@@ -62,7 +62,7 @@ class SlackAuthorizedUser implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getTeam()
+    public function getTeam(): ?string
     {
         return $this->response['team'] ?: null;
     }
@@ -72,7 +72,7 @@ class SlackAuthorizedUser implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getUser()
+    public function getUser(): ?string
     {
         return $this->response['user'] ?: null;
     }
@@ -82,7 +82,7 @@ class SlackAuthorizedUser implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getTeamId()
+    public function getTeamId(): ?string
     {
         return $this->response['team_id'] ?: null;
     }
@@ -92,7 +92,7 @@ class SlackAuthorizedUser implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getUserId()
+    public function getUserId(): ?string
     {
         return $this->response['user_id'] ?: null;
     }

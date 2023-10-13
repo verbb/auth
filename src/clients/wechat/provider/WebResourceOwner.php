@@ -12,7 +12,7 @@ class WebResourceOwner implements ResourceOwnerInterface
      *
      * @var array
      */
-    protected $response;
+    protected array $response;
 
     /**
      * Creates new resource owner.
@@ -29,7 +29,7 @@ class WebResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->response['openid'] ?: null;
     }
@@ -39,7 +39,7 @@ class WebResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getNickname()
+    public function getNickname(): ?string
     {
         return $this->response['nickname'] ?: null;
     }
@@ -49,7 +49,7 @@ class WebResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getSex()
+    public function getSex(): ?string
     {
         return $this->response['sex'] ?: null;
     }
@@ -59,7 +59,7 @@ class WebResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getProvince()
+    public function getProvince(): ?string
     {
         return $this->response['province'] ?: null;
     }
@@ -69,7 +69,7 @@ class WebResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getCity()
+    public function getCity(): ?string
     {
         return $this->response['city'] ?: null;
     }
@@ -79,7 +79,7 @@ class WebResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getCountry()
+    public function getCountry(): ?string
     {
         return $this->response['country'] ?: null;
     }
@@ -89,7 +89,7 @@ class WebResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getHeadImgUrl()
+    public function getHeadImgUrl(): ?string
     {
         return $this->response['headimgurl'] ?: null;
     }
@@ -99,7 +99,7 @@ class WebResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getPrivilege()
+    public function getPrivilege(): ?string
     {
         return $this->response['privilege'] ?: null;
     }
@@ -109,7 +109,7 @@ class WebResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getUnionId()
+    public function getUnionId(): ?string
     {
         return $this->response['unionid'] ?: null;
     }
@@ -119,7 +119,7 @@ class WebResourceOwner implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }

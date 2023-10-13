@@ -10,7 +10,7 @@ class HubSpotResourceOwner implements ResourceOwnerInterface
      *
      * @var array
      */
-    protected $response;
+    protected array $response;
 
     /**
      * @param array $response
@@ -21,25 +21,25 @@ class HubSpotResourceOwner implements ResourceOwnerInterface
     }
 
     /**
-     * @return int
+     * @return array|int|string|null
      */
-    public function getId()
+    public function getId(): array|int|string|null
     {
         return $this->getResponseData('user_id');
     }
 
     /**
-     * @return string
+     * @return array|string|null
      */
-    public function getEmail()
+    public function getEmail(): array|string|null
     {
         return $this->getResponseData('user');
     }
 
     /**
-     * @return string
+     * @return array|string|null
      */
-    public function getHubSpotDomain()
+    public function getHubSpotDomain(): array|string|null
     {
         return $this->getResponseData('hub_domain');
     }
@@ -48,11 +48,11 @@ class HubSpotResourceOwner implements ResourceOwnerInterface
      * Attempts to pull value from array using dot notation.
      *
      * @param string $path
-     * @param string $default
+     * @param string|null $default
      *
      * @return mixed
      */
-    protected function getResponseData($path, $default = null)
+    protected function getResponseData(string $path, string $default = null): mixed
     {
         $array = $this->response;
 
@@ -71,7 +71,7 @@ class HubSpotResourceOwner implements ResourceOwnerInterface
         return $array;
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }

@@ -2,10 +2,12 @@
 
 namespace verbb\auth\clients\gotowebinar\resultset;
 
+use ArrayObject;
+
 /**
  * Class SimpleResultSet
  */
-class SimpleResultSet extends \ArrayObject implements ResultSetInterface
+class SimpleResultSet extends ArrayObject implements ResultSetInterface
 {
 
     /**
@@ -21,7 +23,7 @@ class SimpleResultSet extends \ArrayObject implements ResultSetInterface
      * {@inheritDoc}
      * @see \JsonSerializable::jsonSerialize()
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         return $this->getArrayCopy();
     }
@@ -30,7 +32,7 @@ class SimpleResultSet extends \ArrayObject implements ResultSetInterface
      * {@inheritDoc}
      * @see \DalPraS\OAuth2\Client\ResultSet\ResultSetInterface::getData()
      */
-    public function getData(): \ArrayObject
+    public function getData(): ArrayObject
     {
         return $this;
     }

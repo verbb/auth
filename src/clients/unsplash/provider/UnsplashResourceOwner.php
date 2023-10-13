@@ -12,7 +12,7 @@ class UnsplashResourceOwner implements ResourceOwnerInterface
     /**
      * @var array
      */
-    private $response;
+    private array $response;
 
     /**
      * @param array $response
@@ -25,7 +25,7 @@ class UnsplashResourceOwner implements ResourceOwnerInterface
     /**
      * @return mixed
      */
-    public function getId()
+    public function getId(): mixed
     {
         return $this->getValueByKey($this->response, 'id');
     }
@@ -33,7 +33,7 @@ class UnsplashResourceOwner implements ResourceOwnerInterface
     /**
      * @return mixed
      */
-    public function getUsername()
+    public function getUsername(): mixed
     {
         return $this->getValueByKey($this->response, 'username');
     }
@@ -41,7 +41,7 @@ class UnsplashResourceOwner implements ResourceOwnerInterface
     /**
      * @return mixed
      */
-    public function getName()
+    public function getName(): mixed
     {
         return $this->getValueByKey($this->response, 'name');
     }
@@ -49,7 +49,7 @@ class UnsplashResourceOwner implements ResourceOwnerInterface
     /**
      * @return mixed
      */
-    public function getFirstName()
+    public function getFirstName(): mixed
     {
         return $this->getValueByKey($this->response, 'first_name', '');
     }
@@ -57,7 +57,7 @@ class UnsplashResourceOwner implements ResourceOwnerInterface
     /**
      * @return mixed
      */
-    public function getLastName()
+    public function getLastName(): mixed
     {
         return $this->getValueByKey($this->response, 'last_name', '');
     }
@@ -65,7 +65,7 @@ class UnsplashResourceOwner implements ResourceOwnerInterface
     /**
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }

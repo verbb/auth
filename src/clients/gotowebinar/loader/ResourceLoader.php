@@ -3,6 +3,15 @@ namespace verbb\auth\clients\gotowebinar\loader;
 
 use verbb\auth\clients\gotowebinar\storage\TokenStorageInterface;
 use verbb\auth\clients\gotowebinar\provider\GotoWebinar;
+use DalPraS\OAuth2\Client\Resources\CoOrganizer;
+use DalPraS\OAuth2\Client\Resources\Session;
+use DalPraS\OAuth2\Client\Resources\Attendee;
+use DalPraS\OAuth2\Client\Provider\GotoWebinarResourceOwner;
+use DalPraS\OAuth2\Client\Resources\Registrant;
+use DalPraS\OAuth2\Client\Resources\Webinar;
+use League\OAuth2\Client\Token\AccessToken;
+use League\OAuth2\Client\Token\AccessTokenInterface;
+use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 
 /**
  * Store Organizer's accessTokens in a repository.
@@ -14,12 +23,12 @@ class ResourceLoader {
      *
      * @var \DalPraS\OAuth2\Client\Storage\TokenStorageInterface
      */
-    private $storage;
+    private TokenStorageInterface|\DalPraS\OAuth2\Client\Storage\TokenStorageInterface $storage;
 
     /**
      * @var \DalPraS\OAuth2\Client\Provider\GotoWebinar
      */
-    private $provider;
+    private \DalPraS\OAuth2\Client\Provider\GotoWebinar|GotoWebinar $provider;
 
     public function __construct(TokenStorageInterface $storage, GotoWebinar $provider) {
         $this->storage  = $storage;
@@ -30,10 +39,12 @@ class ResourceLoader {
      * Check if the token is valid and in case refreshes the token and
      * save it in your current storage.
      *
-     * @param \League\OAuth2\Client\Token\AccessToken|null $accessToken
-     * @return \League\OAuth2\Client\Token\AccessTokenInterface
+     * @param AccessToken|null $accessToken
+     * @return AccessTokenInterface|AccessToken|null
+     * @throws IdentityProviderException
      */
-    protected function refreshToken(?\League\OAuth2\Client\Token\AccessToken $accessToken) {
+    protected function refreshToken(?AccessToken $accessToken): AccessTokenInterface|AccessToken|null
+    {
         switch (true) {
             case $accessToken === null:
                 break;
@@ -53,31 +64,34 @@ class ResourceLoader {
      * Get the Webinar resource
      *
      * @param string $organizerKey
-     * @return \DalPraS\OAuth2\Client\Resources\Webinar|NULL
+     * @return Webinar|NULL
      */
-    public function getWebinarResource(string $organizerKey) {
+    public function getWebinarResource(string $organizerKey): ?Webinar
+    {
         $accessToken = $this->refreshToken($this->storage->fetchToken($organizerKey));
-        return $accessToken ? (new \DalPraS\OAuth2\Client\Resources\Webinar($this->provider, $accessToken)) : null;
+        return $accessToken ? (new Webinar($this->provider, $accessToken)) : null;
     }
 
     /**
      * Get the Registrant resource
      *
      * @param string $organizerKey
-     * @return \DalPraS\OAuth2\Client\Resources\Registrant|NULL
+     * @return Registrant|NULL
      */
-    public function getRegistrantResource(string $organizerKey) {
+    public function getRegistrantResource(string $organizerKey): ?Registrant
+    {
         $accessToken = $this->refreshToken($this->storage->fetchToken($organizerKey));
-        return $accessToken ? (new \DalPraS\OAuth2\Client\Resources\Registrant($this->provider, $accessToken)) : null;
+        return $accessToken ? (new Registrant($this->provider, $accessToken)) : null;
     }
 
     /**
      * Get the ResourceOwner using the storage with the OrganizerKey param.
      *
      * @param string $organizerKey
-     * @return \DalPraS\OAuth2\Client\Provider\GotoWebinarResourceOwner|NULL
+     * @return GotoWebinarResourceOwner|NULL
      */
-    public function getResourceOwner(string $organizerKey) {
+    public function getResourceOwner(string $organizerKey): ?GotoWebinarResourceOwner
+    {
         $accessToken = $this->refreshToken($this->storage->fetchToken($organizerKey));
         return $accessToken ? $this->provider->getResourceOwner($accessToken) : null;
     }
@@ -86,34 +100,34 @@ class ResourceLoader {
      * Get the Attenee resource
      *
      * @param string $organizerKey
-     * @return \DalPraS\OAuth2\Client\Resources\Attendee|NULL
+     * @return Attendee|NULL
      */
-    public function getAttendeesResource(string $organizerKey)
+    public function getAttendeesResource(string $organizerKey): ?Attendee
     {
         $accessToken = $this->refreshToken($this->storage->fetchToken($organizerKey));
-        return $accessToken ? (new \DalPraS\OAuth2\Client\Resources\Attendee($this->provider, $accessToken)) : null;
+        return $accessToken ? (new Attendee($this->provider, $accessToken)) : null;
     }
 
     /**
      * Get the Attenee resource
      *
      * @param string $organizerKey
-     * @return \DalPraS\OAuth2\Client\Resources\Session|NULL
+     * @return Session|NULL
      */
-    public function getSessionResource(string $organizerKey)
+    public function getSessionResource(string $organizerKey): ?Session
     {
         $accessToken = $this->refreshToken($this->storage->fetchToken($organizerKey));
-        return $accessToken ? (new \DalPraS\OAuth2\Client\Resources\Session($this->provider, $accessToken)) : null;
+        return $accessToken ? (new Session($this->provider, $accessToken)) : null;
     }
 
     /**
      * @param string $organizerKey
-     * @return \DalPraS\OAuth2\Client\Resources\CoOrganizer|null
+     * @return CoOrganizer|null
      */
-    public function getOrganizerResource(string $organizerKey)
+    public function getOrganizerResource(string $organizerKey): ?CoOrganizer
     {
         $accessToken = $this->refreshToken($this->storage->fetchToken($organizerKey));
-        return $accessToken ? (new \DalPraS\OAuth2\Client\Resources\CoOrganizer($this->provider, $accessToken)) : null;
+        return $accessToken ? (new CoOrganizer($this->provider, $accessToken)) : null;
     }
 
 }

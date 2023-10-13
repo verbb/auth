@@ -14,7 +14,7 @@ class Request
     /**
      * @var Request|null Current request instance.
      */
-    protected static $instance = null;
+    protected static ?Request $instance = null;
 
     /**
      * Protected CurrentRequest constructor.
@@ -27,9 +27,9 @@ class Request
     /**
      * Current request instance retriever methods.
      *
-     * @return SymfonyRequest
+     * @return Request|SymfonyRequest|null
      */
-    public static function current()
+    public static function current(): Request|SymfonyRequest|null
     {
         // this is a dummy call.
         $dummy = new self();

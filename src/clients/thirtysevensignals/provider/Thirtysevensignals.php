@@ -7,6 +7,8 @@ use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\ArrayAccessorTrait;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
+use GuzzleHttp\Psr7\Request;
+use Psr\Http\Message\RequestInterface;
 
 class Thirtysevensignals extends AbstractProvider
 {
@@ -18,7 +20,7 @@ class Thirtysevensignals extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return 'https://launchpad.37signals.com/authorization/new';
     }
@@ -29,7 +31,7 @@ class Thirtysevensignals extends AbstractProvider
      * @param  array $params Query parameters
      * @return string Query string
      */
-    protected function getAuthorizationQuery(array $params)
+    protected function getAuthorizationQuery(array $params): string
     {
         $params['type'] = 'web_server';
         return $this->buildQueryString($params);
@@ -38,9 +40,8 @@ class Thirtysevensignals extends AbstractProvider
     /**
      * Get access token url to retrieve token
      *
-     * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return 'https://launchpad.37signals.com/authorization/token';
     }
@@ -51,7 +52,7 @@ class Thirtysevensignals extends AbstractProvider
      * @param  array $params
      * @return string
      */
-    protected function getAccessTokenBody(array $params)
+    protected function getAccessTokenBody(array $params): string
     {
         $params['type'] = ($params['grant_type'] === 'refresh_token') ? 'refresh' : 'web_server';
         return $this->buildQueryString($params);
@@ -64,7 +65,7 @@ class Thirtysevensignals extends AbstractProvider
      *
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return 'https://launchpad.37signals.com/authorization.json';
     }
@@ -77,7 +78,7 @@ class Thirtysevensignals extends AbstractProvider
      *
      * @return array
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return [];
     }
@@ -90,7 +91,7 @@ class Thirtysevensignals extends AbstractProvider
      * @param  string $data Parsed response data
      * @return void
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         $errors = [
             'error_description',
@@ -108,11 +109,11 @@ class Thirtysevensignals extends AbstractProvider
     /**
      * Generate a user object from a successful user details request.
      *
-     * @param object $response
+     * @param array $response
      * @param AccessToken $token
      * @return ThirtysevensignalsResourceOwner
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): ThirtysevensignalsResourceOwner
     {
         return new ThirtysevensignalsResourceOwner($response);
     }
@@ -121,9 +122,9 @@ class Thirtysevensignals extends AbstractProvider
      * Returns a prepared request for requesting an access token.
      *
      * @param array $params Query string parameters
-     * @return \GuzzleHttp\Psr7\Request
+     * @return RequestInterface
      */
-    protected function getAccessTokenRequest(array $params)
+    protected function getAccessTokenRequest(array $params): RequestInterface
     {
         $request = parent::getAccessTokenRequest($params);
         $uri = $request->getUri()

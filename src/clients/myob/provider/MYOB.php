@@ -13,7 +13,7 @@ class MYOB extends AbstractProvider
 {
     use BearerAuthorizationTrait;
 
-    private $cftokenSent = false;
+    private bool $cftokenSent = false;
 
     /*
      * options:
@@ -46,7 +46,7 @@ class MYOB extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return 'https://secure.myob.com/oauth2/account/authorize';
     }
@@ -58,7 +58,7 @@ class MYOB extends AbstractProvider
      *
      * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         return 'https://secure.myob.com/oauth2/v1/authorize';
     }
@@ -70,7 +70,7 @@ class MYOB extends AbstractProvider
      *
      * @return string
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return 'https://secure.myob.com/oauth2/v1/Validate?scope=CompanyFile';
     }
@@ -80,7 +80,7 @@ class MYOB extends AbstractProvider
      *
      * @return array
      */
-    protected function getDefaultScopes()
+    protected function getDefaultScopes(): array
     {
         return ['CompanyFile'];
     }
@@ -93,7 +93,7 @@ class MYOB extends AbstractProvider
      *
      * @throws IdentityProviderException
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         if ($response->getStatusCode() >= 400) {
             $error = $data['ErrorCode'];
@@ -112,9 +112,9 @@ class MYOB extends AbstractProvider
      * @param array $response
      * @param AccessToken $token
      *
-     * @return League\OAuth2\Client\Provider\ResourceOwnerInterface
+     * @return MYOBResourceOwner
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): MYOBResourceOwner
     {
         return new MYOBResourceOwner($response);
     }
@@ -122,9 +122,8 @@ class MYOB extends AbstractProvider
     /**
      * Returns the default headers used by this provider.
      *
-     * @return array
      */
-    protected function getDefaultHeaders($token = null)
+    protected function getDefaultHeaders($token = null): array
     {
         $headers = [
             'x-myobapi-version' => 'v2',
@@ -142,7 +141,7 @@ class MYOB extends AbstractProvider
      * @return array
      */
 
-    protected function getAuthorizationHeaders($token = null)
+    protected function getAuthorizationHeaders($token = null): array
     {
         return ['Authorization' => 'Bearer ' . $token];
     }

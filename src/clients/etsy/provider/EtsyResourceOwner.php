@@ -13,12 +13,12 @@ class EtsyResourceOwner implements ResourceOwnerInterface
     /**
      * @var array
      */
-    protected $response;
+    protected array $response;
 
     /**
      * @var AccessToken
      */
-    protected $accessToken;
+    protected AccessToken $accessToken;
 
     public function __construct(array $response, AccessToken $accessToken)
     {
@@ -26,19 +26,13 @@ class EtsyResourceOwner implements ResourceOwnerInterface
         $this->accessToken = $accessToken;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getId()
     {
         $tokenData = explode('.', $this->accessToken->getToken());
         return $tokenData[0];
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }
