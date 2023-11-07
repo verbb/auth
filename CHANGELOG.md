@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.11 - 2023-11-07
+
+### Fixed
+- Fix `firebase/php-jwt` change causing issues with Apple and Azure providers.
+
 ## 1.0.10 - 2023-10-06
 
 ### Added
