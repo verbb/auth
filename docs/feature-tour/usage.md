@@ -102,8 +102,8 @@ public function actionLogin(): Response
 {
     // Create the provider class with the redirectUri pointing to our `actionCallback` method
     $provider = new \modules\socialmodule\providers\Facebook([
-        'clientId' => 'XXXXXX',
-        'clientSecret' => 'XXXXXX',
+        'clientId' => '••••••••••••••••••••••••••••',
+        'clientSecret' => '••••••••••••••••••••••••••••',
         'redirectUri' => UrlHelper::actionUrl('site-module/auth/callback'),
         'graphApiVersion' => 'v3.3',
     ]);
@@ -127,8 +127,8 @@ public function actionCallback(): Response
 {
     // Create the provider class with the redirectUri pointing to our `actionCallback` method
     $provider = new \modules\socialmodule\providers\Facebook([
-        'clientId' => 'XXXXXX',
-        'clientSecret' => 'XXXXXX',
+        'clientId' => '••••••••••••••••••••••••••••',
+        'clientSecret' => '••••••••••••••••••••••••••••',
         'redirectUri' => UrlHelper::actionUrl('social-module/auth/callback'),
         'graphApiVersion' => 'v3.3',
     ]);
