@@ -7,6 +7,7 @@ use verbb\auth\models\Token;
 
 use Craft;
 use craft\helpers\App;
+use craft\helpers\ArrayHelper;
 use craft\helpers\Json;
 
 use Exception;
@@ -15,6 +16,9 @@ use League\OAuth1\Client\Credentials\TokenCredentials as OAuth1Token;
 use League\OAuth1\Client\Server\Server as OAuth1Provider;
 use League\OAuth2\Client\Provider\AbstractProvider as OAuth2Provider;
 use League\OAuth2\Client\Token\AccessToken as OAuth2Token;
+
+use GuzzleHttp\Client;
+use function GuzzleHttp\default_user_agent;
 
 trait OAuthProviderTrait
 {
@@ -216,6 +220,38 @@ trait OAuthProviderTrait
         $oauthProvider = $this->getOAuthProvider();
         $token = $this->getToken();
 
+        // Combine the provider and Craft's Guzzle clients. We can't alter Guzzle config after the fact
+        $config = ArrayHelper::merge($oauthProvider->getHttpClient()->getConfig(), $this->_getGuzzleConfig());
+        $oauthProvider->setHttpClient(new Client($config));
+
         return $oauthProvider->getApiRequest($method, $uri, $token, $options);
+    }
+
+
+    // Private Methods
+    // =========================================================================
+
+    private function _getGuzzleConfig(): array
+    {
+        // Set the Craft header by default.
+        $defaultConfig = [
+            'headers' => [
+                'User-Agent' => 'Craft/' . Craft::$app->getVersion() . ' ' . default_user_agent(),
+            ],
+        ];
+
+        // Grab the config from config/guzzle.php that is used on every Guzzle request.
+        $configService = Craft::$app->getConfig();
+        $guzzleConfig = $configService->getConfigFromFile('guzzle');
+        $generalConfig = $configService->getGeneral();
+
+        // Merge everything together
+        $guzzleConfig = ArrayHelper::merge($defaultConfig, $guzzleConfig);
+
+        if ($generalConfig->httpProxy) {
+            $guzzleConfig['proxy'] = $generalConfig->httpProxy;
+        }
+
+        return $guzzleConfig;
     }
 }
