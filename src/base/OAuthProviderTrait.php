@@ -29,12 +29,6 @@ trait OAuthProviderTrait
     protected OAuth1Provider|OAuth2Provider|null $_oauthProvider = null;
 
 
-    // Abstract Methods
-    // =========================================================================
-    
-    abstract public static function getOAuthProviderClass(): string;
-
-
     // Public Methods
     // =========================================================================
 
