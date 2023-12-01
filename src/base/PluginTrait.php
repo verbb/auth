@@ -20,22 +20,6 @@ trait PluginTrait
     // =========================================================================
 
     use LogTrait;
-    
-
-    // Static Methods
-    // =========================================================================
-
-    public static function config(): array
-    {
-        Plugin::bootstrapPlugin('auth');
-
-        return [
-            'components' => [
-                'oauth' => OAuth::class,
-                'tokens' => Tokens::class,
-            ],
-        ];
-    }
 
 
     // Public Methods
@@ -49,6 +33,20 @@ trait PluginTrait
     public function getTokens(): Tokens
     {
         return $this->get('tokens');
+    }
+
+
+    // Private Methods
+    // =========================================================================
+
+    private function _registerComponents(): void
+    {
+        Plugin::bootstrapPlugin('auth');
+        
+        $this->setComponents([
+            'oauth' => OAuth::class,
+            'tokens' => Tokens::class,
+        ]);
     }
 
 }

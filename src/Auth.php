@@ -45,6 +45,8 @@ class Auth extends Module
 
         self::$plugin = $this;
 
+        $this->_registerComponents();
+
         // Setup a custom migrator track to allow us to use migrations in this module
         $this->set('migrator', [
             'class' => MigrationManager::class,
