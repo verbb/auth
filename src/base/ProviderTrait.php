@@ -19,7 +19,7 @@ trait ProviderTrait
     // Abstract Methods
     // =========================================================================
     
-    abstract public function getBaseApiUrl(): ?string;
+    abstract public function getBaseApiUrl(Token $token): ?string;
 
 
     // Public Methods
@@ -82,7 +82,7 @@ trait ProviderTrait
     {
         try {
             // Normalise the URL and query params
-            $baseUri = ArrayHelper::remove($options, 'base_uri', $this->getBaseApiUrl());
+            $baseUri = ArrayHelper::remove($options, 'base_uri', $this->getBaseApiUrl($token));
             $url = AuthUrlHelper::normalizeBaseUri($baseUri) . ltrim($uri, '/');
             $params = $this->getApiRequestQueryParams($token);
 

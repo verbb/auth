@@ -3,6 +3,7 @@ namespace verbb\auth\providers;
 
 use verbb\auth\base\ProviderTrait;
 use verbb\auth\clients\fitbit\provider\Fitbit as FitbitProvider;
+use verbb\auth\models\Token;
 
 class Fitbit extends FitbitProvider
 {
@@ -15,7 +16,7 @@ class Fitbit extends FitbitProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(): ?string
+    public function getBaseApiUrl(Token $token): ?string
     {
         return static::BASE_FITBIT_API_URL . '/1';
     }

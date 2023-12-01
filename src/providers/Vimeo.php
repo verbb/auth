@@ -16,7 +16,7 @@ class Vimeo extends VimeoProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(): ?string
+    public function getBaseApiUrl(Token $token): ?string
     {
         return 'https://api.vimeo.com/';
     }

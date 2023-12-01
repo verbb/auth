@@ -3,6 +3,7 @@ namespace verbb\auth\providers;
 
 use verbb\auth\base\ProviderTrait;
 use verbb\auth\clients\zendesk\provider\Zendesk as ZendeskProvider;
+use verbb\auth\models\Token;
 
 class Zendesk extends ZendeskProvider
 {
@@ -15,7 +16,7 @@ class Zendesk extends ZendeskProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(): ?string
+    public function getBaseApiUrl(Token $token): ?string
     {
         return 'https://' . $this->subdomain . '.zendesk.com/api/v2/';
     }

@@ -3,6 +3,7 @@ namespace verbb\auth\providers;
 
 use verbb\auth\base\ProviderTrait;
 use verbb\auth\clients\bitbucket\provider\Bitbucket as BitbucketProvider;
+use verbb\auth\models\Token;
 
 class Bitbucket extends BitbucketProvider
 {
@@ -15,7 +16,7 @@ class Bitbucket extends BitbucketProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(): ?string
+    public function getBaseApiUrl(Token $token): ?string
     {
         return 'https://api.bitbucket.org/2.0/';
     }

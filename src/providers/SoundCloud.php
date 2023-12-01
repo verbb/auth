@@ -3,6 +3,7 @@ namespace verbb\auth\providers;
 
 use verbb\auth\base\ProviderTrait;
 use verbb\auth\clients\soundcloud\provider\SoundCloud as SoundCloudProvider;
+use verbb\auth\models\Token;
 
 class SoundCloud extends SoundCloudProvider
 {
@@ -15,7 +16,7 @@ class SoundCloud extends SoundCloudProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(): ?string
+    public function getBaseApiUrl(Token $token): ?string
     {
         return 'https://api.soundcloud.com/';
     }

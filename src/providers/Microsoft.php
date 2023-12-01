@@ -16,7 +16,7 @@ class Microsoft extends MicrosoftProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(): ?string
+    public function getBaseApiUrl(Token $token): ?string
     {
         return 'https://graph.microsoft.com/v1.0/';
     }

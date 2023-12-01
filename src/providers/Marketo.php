@@ -3,6 +3,7 @@ namespace verbb\auth\providers;
 
 use verbb\auth\base\ProviderTrait;
 use verbb\auth\clients\marketo\provider\Marketo as MarketoProvider;
+use verbb\auth\models\Token;
 
 class Marketo extends MarketoProvider
 {
@@ -15,7 +16,7 @@ class Marketo extends MarketoProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(): ?string
+    public function getBaseApiUrl(Token $token): ?string
     {
         return null;
     }

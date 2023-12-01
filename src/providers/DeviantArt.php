@@ -3,6 +3,7 @@ namespace verbb\auth\providers;
 
 use verbb\auth\base\ProviderTrait;
 use verbb\auth\clients\deviantart\provider\DeviantArt as DeviantArtProvider;
+use verbb\auth\models\Token;
 
 class DeviantArt extends DeviantArtProvider
 {
@@ -15,7 +16,7 @@ class DeviantArt extends DeviantArtProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(): ?string
+    public function getBaseApiUrl(Token $token): ?string
     {
         return 'https://www.deviantart.com/api/v1/oauth2/';
     }

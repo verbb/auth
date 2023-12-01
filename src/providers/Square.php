@@ -3,6 +3,7 @@ namespace verbb\auth\providers;
 
 use verbb\auth\base\ProviderTrait;
 use verbb\auth\clients\square\provider\Square as SquareProvider;
+use verbb\auth\models\Token;
 
 class Square extends SquareProvider
 {
@@ -15,7 +16,7 @@ class Square extends SquareProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(): ?string
+    public function getBaseApiUrl(Token $token): ?string
     {
         return null;
     }

@@ -3,6 +3,7 @@ namespace verbb\auth\providers;
 
 use verbb\auth\base\ProviderTrait;
 use verbb\auth\clients\orcid\provider\ORCID as ORCIDProvider;
+use verbb\auth\models\Token;
 
 class ORCID extends ORCIDProvider
 {
@@ -15,7 +16,7 @@ class ORCID extends ORCIDProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(): ?string
+    public function getBaseApiUrl(Token $token): ?string
     {
         return 'https://pub.orcid.org/v2.1/';
     }

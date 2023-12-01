@@ -16,7 +16,7 @@ class Facebook extends FacebookProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(): ?string
+    public function getBaseApiUrl(Token $token): ?string
     {
         return $this->getBaseGraphUrl() . $this->graphApiVersion;
     }

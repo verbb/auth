@@ -3,6 +3,7 @@ namespace verbb\auth\providers;
 
 use verbb\auth\base\ProviderTrait;
 use verbb\auth\clients\mastodon\provider\Mastodon as MastodonProvider;
+use verbb\auth\models\Token;
 
 class Mastodon extends MastodonProvider
 {
@@ -15,7 +16,7 @@ class Mastodon extends MastodonProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(): ?string
+    public function getBaseApiUrl(Token $token): ?string
     {
         return $this->instance . '/api/v1/';
     }

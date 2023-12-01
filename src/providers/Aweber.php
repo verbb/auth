@@ -16,7 +16,7 @@ class Aweber extends AweberProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(): ?string
+    public function getBaseApiUrl(Token $token): ?string
     {
         return 'https://api.aweber.com/1.0';
     }

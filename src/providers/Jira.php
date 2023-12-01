@@ -3,6 +3,7 @@ namespace verbb\auth\providers;
 
 use verbb\auth\base\ProviderTrait;
 use verbb\auth\clients\jira\provider\Jira as JiraProvider;
+use verbb\auth\models\Token;
 
 class Jira extends JiraProvider
 {
@@ -15,7 +16,7 @@ class Jira extends JiraProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(): ?string
+    public function getBaseApiUrl(Token $token): ?string
     {
         return null;
     }

@@ -3,6 +3,7 @@ namespace verbb\auth\providers;
 
 use verbb\auth\base\ProviderTrait;
 use verbb\auth\clients\yahoo\provider\Yahoo as YahooProvider;
+use verbb\auth\models\Token;
 
 class Yahoo extends YahooProvider
 {
@@ -15,7 +16,7 @@ class Yahoo extends YahooProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(): ?string
+    public function getBaseApiUrl(Token $token): ?string
     {
         return 'https://social.yahooapis.com/v1/';
     }

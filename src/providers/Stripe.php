@@ -3,6 +3,7 @@ namespace verbb\auth\providers;
 
 use verbb\auth\base\ProviderTrait;
 use verbb\auth\clients\stripe\provider\Stripe as StripeProvider;
+use verbb\auth\models\Token;
 
 class Stripe extends StripeProvider
 {
@@ -15,7 +16,7 @@ class Stripe extends StripeProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(): ?string
+    public function getBaseApiUrl(Token $token): ?string
     {
         return 'https://api.stripe.com/v1/';
     }

@@ -3,6 +3,7 @@ namespace verbb\auth\providers;
 
 use verbb\auth\base\ProviderTrait;
 use verbb\auth\clients\freeagent\provider\FreeAgent as FreeAgentProvider;
+use verbb\auth\models\Token;
 
 class FreeAgent extends FreeAgentProvider
 {
@@ -15,7 +16,7 @@ class FreeAgent extends FreeAgentProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(): ?string
+    public function getBaseApiUrl(Token $token): ?string
     {
         return 'https://api.freeagent.com/v2/';
     }

@@ -3,6 +3,7 @@ namespace verbb\auth\providers;
 
 use verbb\auth\base\ProviderTrait;
 use verbb\auth\clients\buffer\provider\Buffer as BufferProvider;
+use verbb\auth\models\Token;
 
 class Buffer extends BufferProvider
 {
@@ -15,7 +16,7 @@ class Buffer extends BufferProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(): ?string
+    public function getBaseApiUrl(Token $token): ?string
     {
         return $this->getApiUrl();
     }

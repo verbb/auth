@@ -3,6 +3,7 @@ namespace verbb\auth\providers;
 
 use verbb\auth\base\ProviderTrait;
 use verbb\auth\clients\twitch\provider\Twitch as TwitchProvider;
+use verbb\auth\models\Token;
 
 class Twitch extends TwitchProvider
 {
@@ -15,7 +16,7 @@ class Twitch extends TwitchProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(): ?string
+    public function getBaseApiUrl(Token $token): ?string
     {
         return 'https://api.twitch.tv/helix/';
     }

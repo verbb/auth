@@ -3,6 +3,7 @@ namespace verbb\auth\providers;
 
 use verbb\auth\base\ProviderTrait;
 use verbb\auth\clients\mailchimp\provider\Mailchimp as MailchimpProvider;
+use verbb\auth\models\Token;
 
 class Mailchimp extends MailchimpProvider
 {
@@ -15,7 +16,7 @@ class Mailchimp extends MailchimpProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(): ?string
+    public function getBaseApiUrl(Token $token): ?string
     {
         return null;
     }

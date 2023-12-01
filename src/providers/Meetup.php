@@ -16,7 +16,7 @@ class Meetup extends MeetupProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(): ?string
+    public function getBaseApiUrl(Token $token): ?string
     {
         return 'https://api.meetup.com/2/';
     }

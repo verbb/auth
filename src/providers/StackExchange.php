@@ -16,7 +16,7 @@ class StackExchange extends StackExchangeProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(): ?string
+    public function getBaseApiUrl(Token $token): ?string
     {
         return 'https://api.stackexchange.com/2.2/';
     }

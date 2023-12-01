@@ -4,6 +4,7 @@ namespace verbb\auth\providers;
 use verbb\auth\base\ProviderTrait;
 use verbb\auth\clients\twitter\provider\Twitter as TwitterProvider;
 use verbb\auth\helpers\Session;
+use verbb\auth\models\Token;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -21,7 +22,7 @@ class Twitter extends TwitterProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(): ?string
+    public function getBaseApiUrl(Token $token): ?string
     {
         return 'https://api.twitter.com/2/';
     }

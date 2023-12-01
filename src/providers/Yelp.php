@@ -3,6 +3,7 @@ namespace verbb\auth\providers;
 
 use verbb\auth\base\ProviderTrait;
 use verbb\auth\clients\yelp\provider\Yelp as YelpProvider;
+use verbb\auth\models\Token;
 
 class Yelp extends YelpProvider
 {
@@ -15,7 +16,7 @@ class Yelp extends YelpProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(): ?string
+    public function getBaseApiUrl(Token $token): ?string
     {
         return null;
     }
