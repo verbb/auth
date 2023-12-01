@@ -35,6 +35,9 @@ class Auth extends Module
 
     public static string $moduleId = 'verbb-auth';
 
+    public string $handle = 'auth';
+    public ?string $t9nCategory = 'auth';
+
 
     // Public Methods
     // =========================================================================
