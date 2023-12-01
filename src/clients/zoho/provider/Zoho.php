@@ -33,6 +33,13 @@ class Zoho extends AbstractProvider
      */
     protected string $dc;
 
+    protected string|bool $useDeveloper = false;
+
+    public function getApiUrl(): string
+    {
+        return $this->useDeveloper ? 'https://developer.zohoapis.com' : 'https://www.zohoapis.com';
+    }
+
     /**
      * Get authorization url to begin OAuth flow
      *

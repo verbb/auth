@@ -3,6 +3,7 @@ namespace verbb\auth\providers;
 
 use verbb\auth\base\ProviderTrait;
 use verbb\auth\clients\zoho\provider\Zoho as ZohoProvider;
+use verbb\auth\models\Token;
 
 class Zoho extends ZohoProvider
 {
@@ -15,8 +16,9 @@ class Zoho extends ZohoProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(): ?string
+    public function getBaseApiUrl(Token $token): ?string
     {
-        return 'https://accounts.zoho.com/oauth/';
+        // Use the API domain from the token, or fallback to defualts
+        return $token->getToken()->getValues()['api_domain'] ?? $this->getApiUrl();
     }
 }
