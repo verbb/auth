@@ -9,6 +9,7 @@ use verbb\auth\records\Token as TokenRecord;
 
 use Craft;
 use craft\db\Query;
+use craft\helpers\Db;
 
 use yii\base\Component;
 
@@ -228,9 +229,7 @@ class Tokens extends Component
             ]));
         }
 
-        Craft::$app->getDb()->createCommand()
-            ->delete('{{%auth_oauth_tokens}}', ['id' => $token->id])
-            ->execute();
+        Db::delete('{{%auth_oauth_tokens}}', ['id' => $token->id]);
 
         // Fire an 'afterDeleteToken' event
         if ($this->hasEventHandlers(self::EVENT_AFTER_DELETE_TOKEN)) {
