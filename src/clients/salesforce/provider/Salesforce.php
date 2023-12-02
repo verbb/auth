@@ -1,5 +1,4 @@
 <?php
-
 namespace verbb\auth\clients\salesforce\provider;
 
 use Exception;
@@ -10,6 +9,7 @@ use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
+use verbb\auth\clients\salesforce\token\SalesforceAccessToken;
 
 class Salesforce extends AbstractProvider
 {
@@ -132,11 +132,11 @@ class Salesforce extends AbstractProvider
      *
      * @param  array $response
      * @param  AbstractGrant $grant
-     * @return \Stevenmaguire\OAuth2\Client\Token\AccessToken
+     * @return SalesforceAccessToken
      */
-    protected function createAccessToken(array $response, AbstractGrant $grant): \Stevenmaguire\OAuth2\Client\Token\AccessToken
+    protected function createAccessToken(array $response, AbstractGrant $grant): SalesforceAccessToken
     {
-        return new \Stevenmaguire\OAuth2\Client\Token\AccessToken($response);
+        return new SalesforceAccessToken($response);
     }
 
     /**

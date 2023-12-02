@@ -1,8 +1,9 @@
 <?php
-
 namespace verbb\auth\clients\salesforce\token;
 
-class AccessToken extends \League\OAuth2\Client\Token\AccessToken
+use League\OAuth2\Client\Token\AccessToken;
+
+class SalesforceAccessToken extends AccessToken
 {
     /**
      * All Salesforce Organisation IDs start with this Prefix
