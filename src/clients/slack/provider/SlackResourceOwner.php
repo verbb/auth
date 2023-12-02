@@ -17,7 +17,7 @@ class SlackResourceOwner implements ResourceOwnerInterface
     /**
      * @var array
      */
-    protected array $response;
+    protected array $response = [];
 
     /**
      * SlackResourceOwner constructor.

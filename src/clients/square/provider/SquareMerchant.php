@@ -9,77 +9,77 @@ class SquareMerchant implements ResourceOwnerInterface
     /**
      * @var string
      */
-    protected mixed $uid;
+    protected mixed $uid = '';
 
     /**
      * @var string
      */
-    protected string $name;
+    protected string $name = '';
 
     /**
      * @var string
      */
-    protected string $email;
+    protected string $email = '';
 
     /**
      * @var string
      */
-    protected string $county_code;
+    protected string $county_code = '';
 
     /**
      * @var string
      */
-    protected string $language_code;
+    protected string $language_code = '';
 
     /**
      * @var string
      */
-    protected string $currency_code;
+    protected string $currency_code = '';
 
     /**
      * @var string
      */
-    protected string $business_name;
+    protected string $business_name = '';
 
     /**
      * @var string
      */
-    protected string $business_address;
+    protected string $business_address = '';
 
     /**
      * @var string
      */
-    protected string $business_phone;
+    protected string $business_phone = '';
 
     /**
      * @var string
      */
-    protected string $business_type;
+    protected string $business_type = '';
 
     /**
      * @var string
      */
-    protected string $shipping_address;
+    protected string $shipping_address = '';
 
     /**
      * @var string
      */
-    protected string $account_type;
+    protected string $account_type = '';
 
     /**
      * @var string
      */
-    protected string $account_capabilities;
+    protected string $account_capabilities = '';
 
     /**
      * @var string
      */
-    protected string $location_details;
+    protected string $location_details = '';
 
     /**
      * @var string
      */
-    protected string $market_url;
+    protected string $market_url = '';
 
     /**
      * @param array $attributes

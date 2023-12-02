@@ -40,7 +40,7 @@ class Provider extends AbstractProvider
     /**
      * @var string Current response code.
      */
-    protected string $responseCode;
+    protected string $responseCode = '';
 
     public function getDefaultScopes() : array
     {

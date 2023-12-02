@@ -10,7 +10,7 @@ class Zendesk extends AbstractProvider
 {
     use BearerAuthorizationTrait;
 
-    protected string $subdomain;
+    protected string $subdomain = '';
 
     /**
      * @var string Key used in a token response to identify the resource owner.

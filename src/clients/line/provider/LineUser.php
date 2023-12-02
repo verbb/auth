@@ -9,7 +9,7 @@ class LineUser implements ResourceOwnerInterface
     /**
      * @var array
      */
-    protected array $response;
+    protected array $response = [];
 
     /**
      * @param array $response

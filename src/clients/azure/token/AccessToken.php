@@ -11,7 +11,7 @@ class AccessToken extends \League\OAuth2\Client\Token\AccessToken
 {
     protected mixed $idToken;
 
-    protected array $idTokenClaims;
+    protected array $idTokenClaims = [];
 
     public function __construct(array $options, $provider)
     {

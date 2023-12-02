@@ -31,7 +31,7 @@ class Zoho extends AbstractProvider
      * @var string define which data center you want to use
      * @link https://www.zoho.com/crm/developer/docs/api/multi-dc.html
      */
-    protected string $dc;
+    protected string $dc = '';
 
     protected string|bool $useDeveloper = false;
 

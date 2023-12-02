@@ -71,7 +71,7 @@ class Facebook extends AbstractProvider
      *
      * @var string[]
      */
-    protected array $fields;
+    protected array $fields = [];
 
     /**
      * @param array $options

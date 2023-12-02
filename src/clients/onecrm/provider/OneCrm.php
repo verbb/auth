@@ -1,19 +1,18 @@
 <?php
 namespace verbb\auth\clients\onecrm\provider;
 
-use GuzzleHttp\Client as HttpClient;
 use League\OAuth2\Client\Provider\AbstractProvider;
-use Psr\Http\Message\ResponseInterface;
-use League\OAuth2\Client\Provider\GenericProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 class OneCrm extends AbstractProvider
 {
     use BearerAuthorizationTrait;
 
-    protected string $apiDomain = null;
+    protected string $apiDomain = '';
 
     public function getBaseAuthorizationUrl(): string
     {
@@ -25,14 +24,35 @@ class OneCrm extends AbstractProvider
         return $this->getApiUrl() . 'auth/user/access_token';
     }
 
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
+    {
+        return $this->getApiUrl() . 'accounts';
+    }
+
     public function getApiUrl(): string
     {
         return rtrim($this->apiDomain, '/') . '/api.php/';
     }
 
+    protected function getDefaultScopes(): array
+    {
+        return [];
+    }
+
     protected function getScopeSeparator(): string
     {
         return ' ';
+    }
+
+    protected function checkResponse(ResponseInterface $response, $data): void
+    {
+        if (isset($data['error'])) {
+            throw new IdentityProviderException(
+                ($data['error']['message'] ?? $response->getReasonPhrase()),
+                $response->getStatusCode(),
+                $response
+            );
+        }
     }
 
     protected function createResourceOwner(array $response, AccessToken $token): OneCrmResourceOwner

@@ -11,14 +11,14 @@ class EnvatoUser implements ResourceOwnerInterface
      *
      * @var string
      */
-    protected string $domain;
+    protected string $domain = '';
 
     /**
      * Raw response
      *
      * @var array
      */
-    protected array $response;
+    protected array $response = [];
 
     /**
      * Creates new resource owner.

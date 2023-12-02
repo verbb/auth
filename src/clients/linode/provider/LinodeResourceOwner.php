@@ -22,7 +22,7 @@ class LinodeResourceOwner implements ResourceOwnerInterface
     use ArrayAccessorTrait;
 
     /** @var array */
-    protected array $response;
+    protected array $response = [];
 
     /**
      * Creates new resource owner.

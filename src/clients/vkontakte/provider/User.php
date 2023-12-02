@@ -14,7 +14,7 @@ class User implements ResourceOwnerInterface
     /**
      * @type array
      */
-    protected array $response;
+    protected array $response = [];
 
     /**
      * User constructor.

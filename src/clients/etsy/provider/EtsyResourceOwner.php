@@ -13,7 +13,7 @@ class EtsyResourceOwner implements ResourceOwnerInterface
     /**
      * @var array
      */
-    protected array $response;
+    protected array $response = [];
 
     /**
      * @var AccessToken

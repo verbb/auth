@@ -9,7 +9,7 @@ class MollieResourceOwner implements ResourceOwnerInterface
      *
      * @var array
      */
-    protected array $response;
+    protected array $response = [];
 
     /**
      * Set response

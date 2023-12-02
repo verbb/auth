@@ -11,7 +11,7 @@ class AzureResourceOwner implements ResourceOwnerInterface
      *
      * @var array
      */
-    protected array $data;
+    protected array $data = [];
 
     /**
      * Creates new azure resource owner.

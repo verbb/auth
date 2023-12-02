@@ -8,7 +8,7 @@ class ConstantContactAccount implements ResourceOwnerInterface
 {
     use ArrayAccessorTrait;
     
-    protected array $response;
+    protected array $response = [];
 
     public function __construct(array $response)
     {

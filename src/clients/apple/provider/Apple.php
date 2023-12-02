@@ -35,17 +35,17 @@ class Apple extends AbstractProvider
     /**
      * @var string the team id
      */
-    protected string $teamId;
+    protected string $teamId = '';
 
     /**
      * @var string the key file id
      */
-    protected string $keyFileId;
+    protected string $keyFileId = '';
 
     /**
      * @var string the key file path
      */
-    protected string $keyFilePath;
+    protected string $keyFilePath = '';
 
     /**
      * Constructs Apple's OAuth 2.0 service provider.

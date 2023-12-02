@@ -28,7 +28,7 @@ class Azure extends AbstractProvider
     public string $urlLogin = 'https://login.microsoftonline.com/';
 
     /** @var array|null */
-    protected ?array $openIdConfiguration;
+    protected ?array $openIdConfiguration = [];
 
     public array $scope = [];
 

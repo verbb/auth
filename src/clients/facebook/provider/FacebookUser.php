@@ -9,7 +9,7 @@ class FacebookUser implements ResourceOwnerInterface
     /**
      * @var array
      */
-    protected array $data;
+    protected array $data = [];
 
     /**
      * @param  array $response

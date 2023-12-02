@@ -9,7 +9,7 @@ class AweberResourceOwner implements ResourceOwnerInterface
      *
      * @var array
      */
-    protected array $response;
+    protected array $response = [];
 
     /**
      * Creates new resource owner.

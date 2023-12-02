@@ -58,12 +58,12 @@ class StackExchange extends AbstractProvider
     /**
      * @var string
      */
-    protected string $scope;
+    protected string $scope = '';
 
     /**
      * @var string
      */
-    protected string $key;
+    protected string $key = '';
 
     /**
      * @var string

@@ -19,7 +19,7 @@ class Authentiq extends AbstractProvider
 {
     protected array $scope = [];
     protected $idToken, $urlAuthorize, $urlAccessToken, $algorithm;
-    protected string $domain;
+    protected string $domain = '';
 
     protected function domain(): string
     {

@@ -20,7 +20,7 @@ class Jira extends AbstractProvider
      *
      * @var string URL used for non-OAuth API calls
      */
-    protected string $apiUrl;
+    protected string $apiUrl = '';
 
     /**
      * Check a provider response for errors.

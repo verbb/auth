@@ -19,7 +19,7 @@ class MastodonResourceOwner implements ResourceOwnerInterface
     /**
      * @var array
      */
-    protected array $response;
+    protected array $response = [];
 
     public function __construct(array $response = array())
     {

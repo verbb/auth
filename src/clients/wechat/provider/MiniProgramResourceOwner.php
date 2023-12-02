@@ -15,8 +15,8 @@ class MiniProgramResourceOwner implements ResourceOwnerInterface
     protected AccessToken $token;
 
     protected $appid;
-    protected array $responseUserInfo;
-    protected string $decryptData;
+    protected array $responseUserInfo = [];
+    protected string $decryptData = '';
 
     public function __construct(array $response, $token, $appid)
     {

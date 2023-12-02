@@ -8,7 +8,7 @@ use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 
 class TikTokResourceOwner implements ResourceOwnerInterface
 {
-    protected array $response;
+    protected array $response = [];
 
     public function __construct(array $response)
     {

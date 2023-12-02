@@ -16,13 +16,13 @@ class Shopify extends AbstractProvider
      * @var string This will be prepended to the base uri.
      * @link https://help.shopify.com/api/guides/authentication/oauth#asking-for-permission
      */
-    protected string $shop;
+    protected string $shop = '';
 
     /**
      * @var string If set, this will be sent to shopify as the "per-user" parameter.
      * @link https://help.shopify.com/api/guides/authentication/oauth#asking-for-permission
      */
-    protected string $accessType;
+    protected string $accessType = '';
 
     public function getBaseAuthorizationUrl(): string
     {

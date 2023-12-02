@@ -38,7 +38,7 @@ class Twitter extends AbstractProvider
      *
      * @var string
      */
-    protected string $pkceVerifier;
+    protected string $pkceVerifier = '';
 
     /**
      * Get the unhashed PKCE Verifier string for the request.
