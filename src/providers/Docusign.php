@@ -16,7 +16,7 @@ class Docusign extends DocusignProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return $this->sandbox ? self::URL_ROOT_SANDBOX : self::URL_ROOT;
     }

@@ -16,7 +16,7 @@ class Yahoo extends YahooProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return 'https://social.yahooapis.com/v1/';
     }

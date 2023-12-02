@@ -16,7 +16,7 @@ class Trustpilot extends TrustpilotProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return 'https://api.trustpilot.com/v1/';
     }

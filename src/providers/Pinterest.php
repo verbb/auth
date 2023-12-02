@@ -16,12 +16,12 @@ class Pinterest extends PinterestProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return 'https://api.pinterest.com/v1/';
     }
 
-    public function getApiRequestQueryParams(Token $token): array
+    public function getApiRequestQueryParams(?Token $token): array
     {
         return [
             'access_token' => (string)$token->getToken(),

@@ -16,7 +16,7 @@ class Spotify extends SpotifyProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return 'https://api.spotify.com/v1/';
     }

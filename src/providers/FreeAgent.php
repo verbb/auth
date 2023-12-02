@@ -16,7 +16,7 @@ class FreeAgent extends FreeAgentProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return 'https://api.freeagent.com/v2/';
     }

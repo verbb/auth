@@ -16,7 +16,7 @@ class Reddit extends RedditProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return 'https://oauth.reddit.com/api/v1/';
     }

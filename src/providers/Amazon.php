@@ -16,7 +16,7 @@ class Amazon extends AmazonProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return 'https://api.amazon.com/';
     }

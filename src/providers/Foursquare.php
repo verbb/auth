@@ -16,7 +16,7 @@ class Foursquare extends FoursquareProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return 'https://api.foursquare.com/v2/';
     }

@@ -16,7 +16,7 @@ class Mollie extends MollieProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return static::MOLLIE_API_URL . '/v2/';
     }

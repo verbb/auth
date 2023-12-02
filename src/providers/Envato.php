@@ -16,7 +16,7 @@ class Envato extends EnvatoProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return $this->apiDomain . '/v1/market/private';
     }

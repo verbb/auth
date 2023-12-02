@@ -16,7 +16,7 @@ class Zendesk extends ZendeskProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return 'https://' . $this->subdomain . '.zendesk.com/api/v2/';
     }

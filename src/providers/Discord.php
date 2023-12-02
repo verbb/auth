@@ -16,7 +16,7 @@ class Discord extends DiscordProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return 'https://discordapp.com/api/';
     }

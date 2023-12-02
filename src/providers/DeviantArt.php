@@ -16,7 +16,7 @@ class DeviantArt extends DeviantArtProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return 'https://www.deviantart.com/api/v1/oauth2/';
     }

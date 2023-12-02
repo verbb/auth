@@ -16,7 +16,7 @@ class Pipedrive extends PipedriveProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return 'https://api-proxy.pipedrive.com/';
     }

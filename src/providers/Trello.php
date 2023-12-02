@@ -16,7 +16,7 @@ class Trello extends TrelloProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return 'https://api.trello.com/1/';
     }

@@ -16,7 +16,7 @@ class Gitlab extends GitlabProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return 'https://gitlab.com/api/v3/';
     }

@@ -16,7 +16,7 @@ class Sugarcrm extends SugarcrmProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return $this->url . '/rest/v11/';
     }

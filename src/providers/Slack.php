@@ -16,7 +16,7 @@ class Slack extends SlackProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return 'https://slack.com/api/';
     }

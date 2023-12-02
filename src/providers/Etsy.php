@@ -16,7 +16,7 @@ class Etsy extends EtsyProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return $this->baseApiUrl . '/application/';
     }

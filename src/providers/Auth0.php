@@ -16,7 +16,7 @@ class Auth0 extends Auth0Provider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return $this->baseUrl();
     }

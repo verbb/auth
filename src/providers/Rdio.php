@@ -16,7 +16,7 @@ class Rdio extends RdioProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return 'https://www.yammer.com/api/v1/';
     }

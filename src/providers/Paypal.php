@@ -16,7 +16,7 @@ class Paypal extends PaypalProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return $this->getApiUrl();
     }

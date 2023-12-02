@@ -22,7 +22,7 @@ class Twitter extends TwitterProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return 'https://api.twitter.com/2/';
     }

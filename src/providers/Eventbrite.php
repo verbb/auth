@@ -16,7 +16,7 @@ class Eventbrite extends EventbriteProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return 'https://www.eventbriteapi.com/v3';
     }

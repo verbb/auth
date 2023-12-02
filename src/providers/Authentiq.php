@@ -16,7 +16,7 @@ class Authentiq extends AuthentiqProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return 'https://connect.authentiq.io/';
     }

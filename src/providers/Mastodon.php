@@ -16,7 +16,7 @@ class Mastodon extends MastodonProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return $this->instance . '/api/v1/';
     }

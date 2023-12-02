@@ -16,12 +16,12 @@ class Odnoklassniki extends OdnoklassnikiProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return 'https://api.odnoklassniki.ru/fb.do';
     }
 
-    public function getApiRequestQueryParams(Token $token): array
+    public function getApiRequestQueryParams(?Token $token): array
     {
         return [
             'access_token' => (string)$token->getToken(),

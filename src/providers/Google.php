@@ -16,7 +16,7 @@ class Google extends GoogleProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return 'https://www.googleapis.com/';
     }

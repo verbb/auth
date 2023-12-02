@@ -16,7 +16,7 @@ class WeChat extends WeChatProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return 'https://api.weixin.qq.com/sns';
     }

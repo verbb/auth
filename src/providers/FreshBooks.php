@@ -16,7 +16,7 @@ class FreshBooks extends FreshBooksProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return 'https://api.freshbooks.com/auth/api/v1';
     }

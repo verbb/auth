@@ -16,7 +16,7 @@ class ConstantContact extends ConstantContactProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return 'https://api.cc.email/v3/';
     }

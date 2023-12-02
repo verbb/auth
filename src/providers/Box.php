@@ -16,7 +16,7 @@ class Box extends BoxProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return 'https://api.box.com/2.0/';
     }

@@ -16,7 +16,7 @@ class Uber extends UberProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return 'https://api.uber.com/' . $this->version;
     }

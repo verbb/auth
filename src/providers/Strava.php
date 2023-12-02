@@ -16,7 +16,7 @@ class Strava extends StravaProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return 'https://www.strava.com/api/v3/';
     }

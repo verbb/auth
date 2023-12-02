@@ -16,7 +16,7 @@ class Linode extends LinodeProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return 'https://api.linode.com/v4/';
     }

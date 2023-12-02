@@ -16,7 +16,7 @@ class Fitbit extends FitbitProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return static::BASE_FITBIT_API_URL . '/1';
     }

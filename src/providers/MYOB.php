@@ -16,7 +16,7 @@ class MYOB extends MYOBProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return null;
     }

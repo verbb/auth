@@ -16,7 +16,7 @@ class Infusionsoft extends InfusionsoftProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return 'https://api.infusionsoft.com/crm/rest/v1';
     }

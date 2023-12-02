@@ -16,7 +16,7 @@ class NeonCrm extends NeonCrmProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return 'https://api.neoncrm.com/v2/';
     }

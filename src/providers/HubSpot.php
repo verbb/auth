@@ -16,7 +16,7 @@ class HubSpot extends HubSpotProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return $this->baseApiUrl;
     }

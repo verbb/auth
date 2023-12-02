@@ -16,7 +16,7 @@ class Salesforce extends SalesforceProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return null;
     }

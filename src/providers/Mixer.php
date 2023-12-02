@@ -16,7 +16,7 @@ class Mixer extends MixerProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return null;
     }

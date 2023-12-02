@@ -16,7 +16,7 @@ class Buddy extends BuddyProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return 'https://api.buddy.works';
     }

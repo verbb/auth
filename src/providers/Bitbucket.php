@@ -16,7 +16,7 @@ class Bitbucket extends BitbucketProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return 'https://api.bitbucket.org/2.0/';
     }

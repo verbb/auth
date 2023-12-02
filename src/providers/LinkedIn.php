@@ -16,7 +16,7 @@ class LinkedIn extends LinkedInProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return 'https://api.linkedin.com/v2/';
     }

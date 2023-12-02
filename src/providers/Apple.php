@@ -16,7 +16,7 @@ class Apple extends AppleProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return 'https://appleid.apple.com/auth/';
     }

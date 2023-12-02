@@ -16,7 +16,7 @@ class Basecamp extends BasecampProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return $this->getHost();
     }

@@ -16,7 +16,7 @@ class Dropbox extends DropboxProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return 'https://api.dropbox.com/2/';
     }

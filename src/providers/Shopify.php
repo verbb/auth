@@ -16,7 +16,7 @@ class Shopify extends ShopifyProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return 'https://' . $this->shop . '/admin/';
     }

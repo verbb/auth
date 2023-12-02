@@ -16,7 +16,7 @@ class ORCID extends ORCIDProvider
     // Public Methods
     // =========================================================================
 
-    public function getBaseApiUrl(Token $token): ?string
+    public function getBaseApiUrl(?Token $token): ?string
     {
         return 'https://pub.orcid.org/v2.1/';
     }
