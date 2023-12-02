@@ -1,6 +1,6 @@
 <?php
 
-namespace verbb\auth\clients\zoho\accesstoken;
+namespace verbb\auth\clients\zoho\token;
 
 use League\OAuth2\Client\Token\AccessToken;
 

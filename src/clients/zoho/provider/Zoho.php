@@ -8,7 +8,7 @@ use Psr\Http\Message\ResponseInterface;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use League\OAuth2\Client\Token\AccessToken;
-use verbb\auth\clients\zoho\accesstoken\ZohoAccessToken;
+use verbb\auth\clients\zoho\token\ZohoAccessToken;
 
 class Zoho extends AbstractProvider
 {
