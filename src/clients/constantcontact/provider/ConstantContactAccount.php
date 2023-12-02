@@ -1,5 +1,4 @@
 <?php
-
 namespace verbb\auth\clients\constantcontact\provider;
 
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
@@ -9,14 +8,8 @@ class ConstantContactAccount implements ResourceOwnerInterface
 {
     use ArrayAccessorTrait;
     
-    /**
-     * @var array
-     */
     protected array $response;
 
-    /**
-     * @param array $response
-     */
     public function __construct(array $response)
     {
         $this->response = $response;
@@ -27,11 +20,6 @@ class ConstantContactAccount implements ResourceOwnerInterface
         return $this->getValueByKey($this->response, 'encoded_account_id');
     }
 
-    /**
-     * Get account name.
-     *
-     * @return string
-     */
     public function getName(): string
     {
         return $this->getValueByKey($this->response, 'organization_name');
