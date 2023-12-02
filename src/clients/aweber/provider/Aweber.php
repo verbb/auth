@@ -1,77 +1,42 @@
 <?php 
-
 namespace verbb\auth\clients\aweber\provider;
 
-use GuzzleHttp\Psr7\Uri;
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;
+use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
+use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
 class Aweber extends AbstractProvider
 {
-    /**
-     * Default scopes
-     *
-     * @var array
-     */
-    public array $defaultScopes = ['account.read list.read'];
+    use BearerAuthorizationTrait;
 
-    /**
-     * Base url for authorization.
-     *
-     * @var string
-     */
-    protected string $urlAuthorize = 'https://auth.aweber.com/oauth2/authorize';
-
-    /**
-     * Base url for access token.
-     *
-     * @var string
-     */
-    protected string $urlAccessToken = 'https://auth.aweber.com/oauth2/token';
-
-    /**
-     * Base url for resource owner.
-     *
-     * @var string
-     */
-    protected string $urlResourceOwnerDetails = 'https://api.aweber.com/1.0/accounts';
-
-    /**
-     * Get authorization url to begin OAuth flow
-     *
-     * @return string
-     */
     public function getBaseAuthorizationUrl(): string
     {
-        return $this->urlAuthorize;
+        return 'https://auth.aweber.com/oauth2/authorize';
     }
 
-    /**
-     * Get access token url to retrieve token
-     *
-     */
     public function getBaseAccessTokenUrl(array $params): string
     {
-        return $this->urlAccessToken;
+        return 'https://auth.aweber.com/oauth2/token';
     }
 
-    /**
-     * Get default scopes
-     *
-     * @return array
-     */
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
+    {
+        return 'https://api.aweber.com/1.0/accounts';
+    }
+
     protected function getDefaultScopes(): array
     {
-        return $this->defaultScopes;
+        return ['account.read', 'list.read'];
     }
 
-    /**
-     * Check a provider response for errors.
-     *
-     * @throws IdentityProviderException
-     */
+    protected function getScopeSeparator(): string
+    {
+        return ' ';
+    }
+
     protected function checkResponse(ResponseInterface $response, $data): void
     {
         if (isset($data['error'])) {
@@ -83,29 +48,16 @@ class Aweber extends AbstractProvider
         }
     }
 
-    /**
-     * Generate a user object from a successful user details request.
-     *
-     * @param array $response
-     * @param AccessToken $token
-     * @return AweberResourceOwner
-     */
     protected function createResourceOwner(array $response, AccessToken $token): AweberResourceOwner
     {
         return new AweberResourceOwner($response);
     }
 
-    /**
-     * Get provider url to fetch user details
-     *
-     * @param  AccessToken $token
-     *
-     * @return string
-     */
-    public function getResourceOwnerDetailsUrl(AccessToken $token): string
+    protected function getAccessTokenRequest(array $params): RequestInterface
     {
-        $uri = new Uri($this->urlResourceOwnerDetails);
+        $request = parent::getAccessTokenRequest($params);
+        $uri = $request->getUri()->withUserInfo($this->clientId, $this->clientSecret);
 
-        return (string) Uri::withQueryValue($uri, 'access_token', (string) $token);
+        return $request->withUri($uri);
     }
 }
