@@ -51,6 +51,11 @@ trait OAuthProviderTrait
         return $this->redirectUri;
     }
 
+    public function getBaseApiUrl(?Token $token): ?string
+    {
+        return $this->getOAuthProvider()->getBaseApiUrl($token);
+    }
+
     public function getOAuthVersion(): int
     {
         // Determine the OAuth version based on the string class, because we check against
@@ -223,9 +228,15 @@ trait OAuthProviderTrait
     public function getClient(): Client
     {
         $oauthProvider = $this->getOAuthProvider();
+        $token = $this->getToken();
 
         // Combine the provider and Craft's Guzzle clients. We can't alter Guzzle config after the fact
         $config = ArrayHelper::merge($oauthProvider->getHttpClient()->getConfig(), $this->_getGuzzleConfig());
+
+        // Allow implementers to override the `baseApiUrl` for a provider for convenience
+        if ($baseUrl = $this->getBaseApiUrl($token)) {
+            $config['base_uri'] = $baseUrl;
+        }
         
         return new Client($config);
     }

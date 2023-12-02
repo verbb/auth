@@ -19,7 +19,7 @@ trait ProviderTrait
     // Abstract Methods
     // =========================================================================
     
-    abstract public function getBaseApiUrl(Token $token): ?string;
+    abstract public function getBaseApiUrl(?Token $token): ?string;
 
 
     // Public Methods
@@ -31,7 +31,7 @@ trait ProviderTrait
         return $this->getDefaultScopes();
     }
 
-    public function getApiRequestQueryParams(Token $token): array
+    public function getApiRequestQueryParams(?Token $token): array
     {
         return [];
     }
@@ -78,7 +78,7 @@ trait ProviderTrait
         return $token;
     }
 
-    public function getApiRequest(string $method = 'GET', string $uri = '', Token $token, array $options = [], bool $forceRefresh = true): mixed
+    public function getApiRequest(string $method = 'GET', string $uri = '', ?Token $token, array $options = [], bool $forceRefresh = true): mixed
     {
         try {
             // Normalise the URL and query params
