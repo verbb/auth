@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.12 - 2023-12-08
+
+### Added
+- Add support for Craft’s custom Guzzle config when making requests.
+
+### Fixed
+- Fix trailing slash on `base_uri` for requests.
+
 ## 1.0.11 - 2023-11-07
 
 ### Fixed
