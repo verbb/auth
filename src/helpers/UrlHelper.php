@@ -31,6 +31,6 @@ class UrlHelper
             }
         }
 
-        return $uri . '/';
+        return $uri;
     }
 }
