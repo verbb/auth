@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.14 - 2023-12-17
+
+### Fixed
+- Fix requests not working correctly when either the `uri`, `url` or `baseUri` contained a dot character, or ended in a filename.
+
+### Removed
+- Removed `UrlHelper::normalizeBaseUri()` which is no longer required.
+
 ## 1.0.13 - 2023-12-17
 
 ### Added
