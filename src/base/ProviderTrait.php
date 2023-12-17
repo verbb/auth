@@ -25,6 +25,11 @@ trait ProviderTrait
     // Public Methods
     // =========================================================================
 
+    public function getGrant(): string
+    {
+        return 'authorization_code';
+    }
+
     public function defaultScopes(): array
     {
         // Open up the default protected `getDefaultScopes()` function

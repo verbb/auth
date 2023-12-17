@@ -39,6 +39,12 @@ class OAuth extends Component
 
         $this->trigger(self::EVENT_BEFORE_AUTHORIZATION_REDIRECT, $event);
 
+        // Check if this we need to authorize with an `authorization_code` grant
+        if ($provider->getGrant() !== 'authorization_code') {
+            // Return straight to the callback to trigger the access token fetching
+            return Craft::$app->getResponse()->redirect($provider->getRedirectUri());
+        }
+
         return Craft::$app->getResponse()->redirect($event->authUrl);
     }
 
