@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.13 - 2023-12-17
+
+### Added
+- Add Fedex client.
+- Add the ability to set the grant on providers, for providers that strictly accept only one kind.
+
+### Fixed
+- Fix incorrect base URI handling.
+
 ## 1.0.12 - 2023-12-08
 
 ### Added
