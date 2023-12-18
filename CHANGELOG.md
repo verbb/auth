@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.15 - 2023-12-18
+
+### Fixed
+- Fix `baseUri` normalization for credentials clients.
+
 ## 1.0.14 - 2023-12-17
 
 ### Fixed
