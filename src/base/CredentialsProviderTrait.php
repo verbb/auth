@@ -36,6 +36,20 @@ trait CredentialsProviderTrait
         // Normalise the URI
         $uri = ltrim($uri, '/');
 
+        // Normalize the Base URI if we provide a URI. Sometimes, we may provide the "Base URI" as
+        // the full URL for the request which can throw an error if we add a trailing slash
+        if ($uri) {
+            // We can't modify Guzzle client options, so re-make it
+            $config = $credentialsProvider->getConfig();
+
+            if (isset($config['base_uri']) && !str_ends_with($config['base_uri'], '/')) {
+                $config['base_uri'] .= '/';
+            }
+
+            // Guzzle doesn't support modifying config, so create again
+            $credentialsProvider = Craft::createGuzzleClient($config);
+        }
+
         return $credentialsProvider->request($method, $uri, $options);
     }
 }

@@ -39,11 +39,20 @@ class OAuth extends Component
 
         $this->trigger(self::EVENT_BEFORE_AUTHORIZATION_REDIRECT, $event);
 
+        // Check if this we need to authorize with an `authorization_code` grant
+        if ($provider->getGrant() !== 'authorization_code') {
+            // Return straight to the callback to trigger the access token fetching
+            return Craft::$app->getResponse()->redirect($provider->getRedirectUri());
+        }
+
         return Craft::$app->getResponse()->redirect($event->authUrl);
     }
 
     public function callback(string $ownerHandle, OAuthProviderInterface $provider): Token
     {
+        // Trigger an event on the provider
+        $provider->beforeFetchAccessToken();
+
         // Allow plugins to modify the Authorization URL
         $event = new AccessTokenEvent([
             'provider' => $provider,
@@ -57,6 +66,9 @@ class OAuth extends Component
 
         // Create a Token model from the access model to be returned
         $token = Auth::$plugin->getTokens()->createToken($ownerHandle, $provider, $accessToken);
+
+        // Trigger an event on the provider
+        $provider->afterFetchAccessToken($token);
 
         // Allow plugins to modify the access token URL
         $event = new AccessTokenEvent([

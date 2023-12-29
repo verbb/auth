@@ -166,10 +166,6 @@ trait OAuthProviderTrait
 
         // OAuth v2
         if ($this->getIsOAuth2()) {
-            $code = $request->getParam('code');
-            $state = $request->getParam('state');
-            $sessionState = Session::get('state');
-
             // Check for error
             $error = $request->getParam('error_code');
 
@@ -179,16 +175,25 @@ trait OAuthProviderTrait
                 throw new Exception('An error occurred.');
             }
 
-            // Run CSRF checks
-            if ($state !== $sessionState) {
-                Auth::error('Invalid callback state. State is mismatched: {state} - {sessionState}.', ['state' => $state, 'sessionState' => $sessionState]);
+            $grant = $this->getGrant();
+            $code = $request->getParam('code');
+            $state = $request->getParam('state');
+            $sessionState = Session::get('state');
 
-                throw new Exception('Invalid callback state. State is mismatched.');
+            if ($grant === 'authorization_code') {
+                // Run CSRF checks
+                if ($state !== $sessionState) {
+                    Auth::error('Invalid callback state. State is mismatched: {state} - {sessionState}.', ['state' => $state, 'sessionState' => $sessionState]);
+
+                    throw new Exception('Invalid callback state. State is mismatched.');
+                }
+
+                $accessToken = $oauthProvider->getAccessToken($grant, $this->getAccessTokenOptions([
+                    'code' => $code,
+                ]));
+            } else if ($grant === 'client_credentials') {
+                $accessToken = $oauthProvider->getAccessToken($grant);
             }
-
-            $accessToken = $oauthProvider->getAccessToken('authorization_code', $this->getAccessTokenOptions([
-                'code' => $code,
-            ]));
 
             // Some providers (Facebook, Instagram) have long-lived tokens, so use those
             if (method_exists($oauthProvider, 'getLongLivedAccessToken')) {
@@ -202,6 +207,11 @@ trait OAuthProviderTrait
     public function getToken(): ?Token
     {
         return null; 
+    }
+
+    public function getGrant(): string
+    {
+        return $this->getOAuthProvider()->getGrant();
     }
 
     public function beforeFetchAccessToken(): void
@@ -219,19 +229,23 @@ trait OAuthProviderTrait
         $oauthProvider = $this->getOAuthProvider();
         $token = $this->getToken();
 
-        // Ensure that the prepped Guzzle client is used
-        $oauthProvider->setHttpClient($this->getClient());
+        // Check if `client_credentials` grant - a new token should be fetched each time
+        // TODO: handle this a little better...
+        if ($this->getGrant() === 'client_credentials') {
+            $accessToken = $oauthProvider->getAccessToken('client_credentials');
 
-        return $oauthProvider->getApiRequest($method, $uri, $token, $options);
+            $token = new Token();
     }
 
     public function getClient(): Client
     {
-        $oauthProvider = $this->getOAuthProvider();
-        $token = $this->getToken();
+            $token->setToken($accessToken);
+            $token->accessToken = $accessToken->getToken();
+        }
 
         // Combine the provider and Craft's Guzzle clients. We can't alter Guzzle config after the fact
         $config = ArrayHelper::merge($oauthProvider->getHttpClient()->getConfig(), $this->_getGuzzleConfig());
+        $oauthProvider->setHttpClient(new Client($config));
 
         // Allow implementers to override the `baseApiUrl` for a provider for convenience
         if ($baseUrl = $this->getBaseApiUrl($token)) {

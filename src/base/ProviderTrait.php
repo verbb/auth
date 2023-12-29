@@ -25,6 +25,11 @@ trait ProviderTrait
     // Public Methods
     // =========================================================================
 
+    public function getGrant(): string
+    {
+        return 'authorization_code';
+    }
+
     public function defaultScopes(): array
     {
         // Open up the default protected `getDefaultScopes()` function
@@ -83,7 +88,10 @@ trait ProviderTrait
         try {
             // Normalise the URL and query params
             $baseUri = ArrayHelper::remove($options, 'base_uri', $this->getBaseApiUrl($token));
-            $url = AuthUrlHelper::normalizeBaseUri($baseUri) . ltrim($uri, '/');
+            $baseUri = rtrim($baseUri, '/');
+
+            // For cases where we want to pass in an absolute URL
+            $url = UrlHelper::isAbsoluteUrl($uri) ? $uri : $baseUri . '/' . ltrim($uri, '/');
             $params = $this->getApiRequestQueryParams($token);
 
             if ($query = ArrayHelper::remove($options, 'query')) {

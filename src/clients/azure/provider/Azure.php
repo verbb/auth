@@ -307,7 +307,7 @@ class Azure extends AbstractProvider
     public function validateAccessToken(string $accessToken): array
     {
         $keys = $this->getJwtVerificationKeys();
-        $tokenClaims = (array)JWT::decode($accessToken, $keys, ['RS256']);
+        $tokenClaims = (array)JWT::decode($accessToken, $keys);
 
         $this->validateTokenClaims($tokenClaims);
 

@@ -23,7 +23,7 @@ class LinkedIn extends AbstractProvider
      *
      * @var array
      */
-    public array $defaultScopes = ['r_liteprofile', 'r_emailaddress'];
+    public $defaultScopes = ['openid', 'email', 'profile'];
 
     /**
      * Requested fields in scope, seeded with default values
@@ -35,6 +35,9 @@ class LinkedIn extends AbstractProvider
         'id', 'firstName', 'lastName', 'localizedFirstName', 'localizedLastName',
         'profilePicture(displayImage~:playableStreams)',
     ];
+
+    protected $restProtocolVersion;
+    protected $restVersion;
 
     /**
      * Constructs an OAuth 2.0 service provider.
@@ -53,9 +56,29 @@ class LinkedIn extends AbstractProvider
             throw new InvalidArgumentException('The fields option must be an array');
         }
 
+        $this->restProtocolVersion = $options['restProtocolVersion'] ?? '';
+        $this->restVersion = $options['restVersion'] ?? '';
+
+        // Some APIs need to override the default scopes
+        $this->defaultScopes = $options['defaultScopes'] ?? $this->defaultScopes;
+
         parent::__construct($options, $collaborators);
     }
 
+    protected function getDefaultHeaders()
+    {
+        $headers = [];
+
+        if ($this->restProtocolVersion) {
+            $headers['X-Restli-Protocol-Version'] = $this->restProtocolVersion;
+        }
+
+        if ($this->restVersion) {
+            $headers['LinkedIn-Version'] = $this->restVersion;
+        }
+
+        return $headers;
+    }
 
     /**
      * Creates an access token from a response.

@@ -1,0 +1,20 @@
+[
+    {
+        "title": "Get Started",
+        "collapsable": false,
+        "children": [
+            "get-started/installation-setup",
+            "get-started/requirements"
+        ]
+    },
+    {
+        "title": "Feature Tour",
+        "collapsable": false,
+        "children": [
+            "feature-tour/usage",
+            "feature-tour/tokens",
+            "feature-tour/providers",
+            "feature-tour/events"
+        ]
+    }
+]

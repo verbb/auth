@@ -62,7 +62,10 @@ class Spotify extends AbstractProvider
      */
     protected function getDefaultScopes(): array
     {
-        return [];
+        return [
+            // Don't use enum's until PHP 8.1 support can be guaranteed
+            'user-read-email',
+        ];
     }
 
     /**
