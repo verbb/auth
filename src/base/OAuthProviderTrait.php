@@ -235,17 +235,23 @@ trait OAuthProviderTrait
             $accessToken = $oauthProvider->getAccessToken('client_credentials');
 
             $token = new Token();
-    }
-
-    public function getClient(): Client
-    {
             $token->setToken($accessToken);
             $token->accessToken = $accessToken->getToken();
         }
 
+        // Ensure that the prepped Guzzle client is used
+        $oauthProvider->setHttpClient($this->getClient());
+
+        return $oauthProvider->getApiRequest($method, $uri, $token, $options);
+    }
+
+    public function getClient(): Client
+    {
+        $oauthProvider = $this->getOAuthProvider();
+        $token = $this->getToken();
+
         // Combine the provider and Craft's Guzzle clients. We can't alter Guzzle config after the fact
         $config = ArrayHelper::merge($oauthProvider->getHttpClient()->getConfig(), $this->_getGuzzleConfig());
-        $oauthProvider->setHttpClient(new Client($config));
 
         // Allow implementers to override the `baseApiUrl` for a provider for convenience
         if ($baseUrl = $this->getBaseApiUrl($token)) {
