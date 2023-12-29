@@ -1398,6 +1398,22 @@
       "oAP" : "\/src\/clients\/okta\/provider\/OktaUser.php",
       "oF" : 0
     },
+    "\/src\/clients\/onecrm\/provider\/OneCrm.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/clients\/onecrm\/provider\/OneCrm-output.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/onecrm\/provider\/OneCrmResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/clients\/onecrm\/provider\/OneCrmResourceOwner-output.php",
+      "oF" : 0
+    },
     "\/src\/clients\/orcid\/provider\/ORCID.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -1526,12 +1542,12 @@
       "oAP" : "\/src\/clients\/salesforce\/provider\/SalesforceResourceOwner.php",
       "oF" : 0
     },
-    "\/src\/clients\/salesforce\/token\/AccessToken.php" : {
+    "\/src\/clients\/salesforce\/token\/SalesforceAccessToken.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
-      "oAP" : "\/src\/clients\/salesforce\/token\/AccessToken.php",
+      "oAP" : "\/src\/clients\/salesforce\/token\/SalesforceAccessToken-output.php",
       "oF" : 0
     },
     "\/src\/clients\/shopify\/provider\/Shopify.php" : {
@@ -2278,14 +2294,6 @@
       "oAP" : "\/src\/clients\/zendesk\/provider\/ZendeskResourceOwner.php",
       "oF" : 0
     },
-    "\/src\/clients\/zoho\/accesstoken\/ZohoAccessToken.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/src\/clients\/zoho\/accesstoken\/ZohoAccessToken.php",
-      "oF" : 0
-    },
     "\/src\/clients\/zoho\/provider\/Zoho.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -2300,6 +2308,14 @@
       "hM" : 0,
       "oA" : 2,
       "oAP" : "\/src\/clients\/zoho\/provider\/ZohoUser.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/zoho\/token\/ZohoAccessToken.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/src\/clients\/zoho\/token\/ZohoAccessToken-output.php",
       "oF" : 0
     },
     "\/src\/events\/AccessTokenEvent.php" : {
@@ -2790,6 +2806,14 @@
       "hM" : 0,
       "oA" : 2,
       "oAP" : "\/src\/providers\/Okta.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/OneCrm.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/providers\/OneCrm-output.php",
       "oF" : 0
     },
     "\/src\/providers\/ORCID.php" : {
