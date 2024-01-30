@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.16 - 2024-01-30
+
+### Added
+- Add support for `multipart` request shortcut.
+- Add `user-read-email` as default scope for Spotify client.
+
 ## 1.0.15 - 2023-12-18
 
 ### Fixed
