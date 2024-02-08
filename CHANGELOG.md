@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.17 - 2024-02-08
+
+### Added
+- Add JP Zoho data center.
+
+### Fixed
+- Fix Zoho using incorrect authorization URL for data center.
+
 ## 1.0.16 - 2024-01-30
 
 ### Added
