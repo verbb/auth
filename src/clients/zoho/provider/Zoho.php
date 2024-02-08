@@ -40,8 +40,7 @@ class Zoho extends AbstractProvider
      */
     public function getBaseAuthorizationUrl()
     {
-        $dc = $this->dc && $this->dc == 'CN' ? $this->dc : 'US';
-        return $this->getDcDomain($dc) . '/oauth/v2/auth';
+        return $this->getDcDomain($this->dc) . '/oauth/v2/auth';
     }
 
     /**
