@@ -106,7 +106,7 @@ trait ProviderTrait
             $token = $this->refreshToken($token);
             $accessToken = $token->getToken();
 
-            // Normalise passing in `form_params` or `json`, like Guzzle normally would
+            // Normalise passing in `form_params`, `json` or `multipart`, like Guzzle normally would
             if ($json = ArrayHelper::remove($options, 'json')) {
                 $options['body'] = Json::encode($json);
                 $options['headers']['Content-Type'] = 'application/json';
@@ -115,6 +115,12 @@ trait ProviderTrait
             if ($formParams = ArrayHelper::remove($options, 'form_params')) {
                 $options['body'] = http_build_query($formParams, '', '&');
                 $options['headers']['Content-Type'] = 'application/x-www-form-urlencoded';
+            }
+
+            if ($multipart = ArrayHelper::remove($options, 'multipart')) {
+                $options['body'] =  $multipart;
+                $boundary = ArrayHelper::remove($options, 'boundary');
+                $options['headers']['Content-Type'] = 'multipart/form-data; boundary=' . $boundary;
             }
 
             // Perform the actual request

@@ -25,6 +25,7 @@ class Zoho extends AbstractProvider
         'EU' => 'https://accounts.zoho.eu',
         'IN' => 'https://accounts.zoho.in',
         'CN' => 'https://accounts.zoho.com.cn',
+        'JP' => 'https://accounts.zoho.jp',
     ];
 
     /**
@@ -47,8 +48,7 @@ class Zoho extends AbstractProvider
      */
     public function getBaseAuthorizationUrl(): string
     {
-        $dc = $this->dc == 'CN' ? $this->dc : 'US';
-        return $this->getDcDomain($dc) . '/oauth/v2/auth';
+        return $this->getDcDomain($this->dc) . '/oauth/v2/auth';
     }
 
     /**
