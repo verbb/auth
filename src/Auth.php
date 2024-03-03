@@ -10,18 +10,10 @@ use verbb\base\base\Module;
 
 class Auth extends Module
 {
-    // Static Methods
+    // Constants
     // =========================================================================
 
-    public static function registerModule(): void
-    {
-        // Register this module as a Yii module, to be called in other plugins
-        if (!Craft::$app->hasModule(self::$moduleId)) {
-            Craft::$app->setModule(self::$moduleId, new Auth(self::$moduleId));
-
-            Craft::$app->getModule(self::$moduleId);
-        }
-    }
+    public const ID = 'verbb-auth';
 
 
     // Traits
@@ -32,8 +24,6 @@ class Auth extends Module
 
     // Properties
     // =========================================================================
-
-    public static string $moduleId = 'verbb-auth';
 
     public string $handle = 'auth';
     public ?string $t9nCategory = 'auth';
@@ -53,7 +43,7 @@ class Auth extends Module
         // Setup a custom migrator track to allow us to use migrations in this module
         $this->set('migrator', [
             'class' => MigrationManager::class,
-            'track' => 'module:' . self::$moduleId,
+            'track' => 'module:' . Auth::ID,
             'migrationNamespace' => 'verbb\\auth\\migrations',
             'migrationPath' => __DIR__ . DIRECTORY_SEPARATOR . 'migrations',
         ]);

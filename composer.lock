@@ -6688,7 +6688,7 @@
                 "shasum": ""
             },
             "require": {
-                "craftcms/cms": "^5.0.0-alpha.1",
+                "craftcms/cms": "^5.0.0-beta.1",
                 "php": "^8.0.2"
             },
             "type": "yii-module",

@@ -16,24 +16,19 @@ composer require verbb/auth
 ```
 
 ## Setup
-There's a few things you'll need to do to get the Auth module working for your plugin.
-
-### Initialize
-In your plugin's `init()` function, you'll need to initialize the Auth module.
+To use the Auth module in your plugin, just call `Auth::getInstance()` or `Auth::$plugin`.
 
 ```php
 public function init(): void
 {
     parent::init();
 
-    // Initialize the Auth module
-    \verbb\auth\Auth::registerModule();
+    \verbb\auth\Auth::getInstance()->getOAuth();
+    \verbb\auth\Auth::$plugin->getOAuth();
 
     // ...
 }
 ```
-
-With that done, you'll be able to access the methods in the Auth module.
 
 ### Migrations
 Because the Auth plugin stores OAuth tokens in its own database table that's plugin-agnostic, you'll need to ensure that Auth's migration is run. In your plugin's `migrations\Install.php` file, add the following:
@@ -44,7 +39,7 @@ class Install extends \craft\db\Migration
     public function safeUp(): bool
     {
         // Ensure that the Auth module kicks off setting up tables
-        \verbb\auth\Auth::$plugin->migrator->up();
+        \verbb\auth\Auth::getInstance()->migrator->up();
 
         // Create any tables that your plugin requires
         $this->createTables();
