@@ -2,7 +2,7 @@
 namespace verbb\auth\providers;
 
 use verbb\auth\base\ProviderTrait;
-use verbb\auth\clients\auth0\provider\IdentityServer4 as IdentityServer4Provider;
+use verbb\auth\clients\identityserver4\provider\IdentityServer4 as IdentityServer4Provider;
 
 class IdentityServer4 extends IdentityServer4Provider
 {
