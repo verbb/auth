@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.19 - 2024-03-23
+
+### Fixed
+- Fix namespace for IdentityServer4 provider.
+
 ## 1.0.18 - 2024-03-22
 
 ### Added
