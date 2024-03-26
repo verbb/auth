@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.20 - 2024-03-26
+
+### Fixed
+- Fix some Salesforce provider settings.
+
 ## 1.0.19 - 2024-03-23
 
 ### Fixed
