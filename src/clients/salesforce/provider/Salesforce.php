@@ -126,21 +126,6 @@ class Salesforce extends AbstractProvider
     }
 
     /**
-     * Creates an access token from a response.
-     *
-     * The grant that was used to fetch the response can be used to provide
-     * additional context.
-     *
-     * @param  array $response
-     * @param  AbstractGrant $grant
-     * @return AccessToken
-     */
-    protected function createAccessToken(array $response, AbstractGrant $grant)
-    {
-        return new \Stevenmaguire\OAuth2\Client\Token\AccessToken($response);
-    }
-
-    /**
      * Updates the provider domain with a given value.
      *
      * @throws  InvalidArgumentException
