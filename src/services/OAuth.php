@@ -65,7 +65,7 @@ class OAuth extends Component
         $accessToken = $provider->getAccessToken();
 
         // Create a Token model from the access model to be returned
-        $token = Auth::$plugin->getTokens()->createToken($ownerHandle, $provider, $accessToken);
+        $token = Auth::getInstance()->getTokens()->createToken($ownerHandle, $provider, $accessToken);
 
         // Trigger an event on the provider
         $provider->afterFetchAccessToken($token);

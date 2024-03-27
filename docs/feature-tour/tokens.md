@@ -21,26 +21,26 @@ For example, the [Social Login](https://github.com/verbb/social-login) allows us
 use verbb\auth\Auth;
 
 // Get all tokens for a plugin
-$tokens = Auth::$plugin->getTokens()->getAllOwnerTokens('plugin-handle');
+$tokens = Auth::getInstance()->getTokens()->getAllOwnerTokens('plugin-handle');
 
 // Get all tokens for a plugin and reference
-$tokens = Auth::$plugin->getTokens()->getAllTokensByOwnerReference('plugin-handle', 'myToken');
+$tokens = Auth::getInstance()->getTokens()->getAllTokensByOwnerReference('plugin-handle', 'myToken');
 
 // Get the latest token for a plugin and reference
-$token = Auth::$plugin->getTokens()->getTokenByOwnerReference('plugin-handle', 'myToken');
+$token = Auth::getInstance()->getTokens()->getTokenByOwnerReference('plugin-handle', 'myToken');
 
 // Create a Token object from a provider and the returned OAuth access token
-$token = Auth::$plugin->getTokens()->createToken('plugin-handle', $provider, $accessToken);
+$token = Auth::getInstance()->getTokens()->createToken('plugin-handle', $provider, $accessToken);
 
 // For a given token, update or create it. This is useful when creating or updating tokens for a plugin, provider and reference
-$success = Auth::$plugin->getTokens()->upsertToken($token);
+$success = Auth::getInstance()->getTokens()->upsertToken($token);
 
 // Refresh an access token (if the access token supports refreshing)
-$success = Auth::$plugin->getTokens()->refreshToken($token, $accessToken);
+$success = Auth::getInstance()->getTokens()->refreshToken($token, $accessToken);
 
 // Saves a token
-$success = Auth::$plugin->getTokens()->saveToken($token);
+$success = Auth::getInstance()->getTokens()->saveToken($token);
 
 // Deletes a token
-$success = Auth::$plugin->getTokens()->deleteToken($token);
+$success = Auth::getInstance()->getTokens()->deleteToken($token);
 ```

@@ -109,7 +109,7 @@ public function actionLogin(): Response
     ]);
 
     // Redirect to the provider platform to login and authorize
-    return Auth::$plugin->getOAuth()->connect('my-plugin-handle', $provider);
+    return Auth::getInstance()->getOAuth()->connect('my-plugin-handle', $provider);
 }
 ```
 
@@ -134,13 +134,13 @@ public function actionCallback(): Response
     ]);
 
     // Fetch the Token model from the provider
-    $token = Auth::$plugin->getOAuth()->callback('my-plugin-handle', $provider);
+    $token = Auth::getInstance()->getOAuth()->callback('my-plugin-handle', $provider);
 
     // Record a referene
     $token->reference = 'some-reference';
 
     // Save it to the database
-    Auth::$plugin->getTokens()->upsertToken($token);
+    Auth::getInstance()->getTokens()->upsertToken($token);
 
     // Redirect to somewhere
     return $this->redirect('/module');

@@ -66,7 +66,7 @@ trait ProviderTrait
 
                 if ($newAccessToken) {
                     // Update the database token
-                    Auth::$plugin->getTokens()->refreshToken($token, $newAccessToken);
+                    Auth::getInstance()->getTokens()->refreshToken($token, $newAccessToken);
 
                     return $token;
                 }

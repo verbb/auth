@@ -24,7 +24,7 @@ public function init(): void
     parent::init();
 
     \verbb\auth\Auth::getInstance()->getOAuth();
-    \verbb\auth\Auth::$plugin->getOAuth();
+    \verbb\auth\Auth::getInstance()->getOAuth();
 
     // ...
 }
