@@ -54,6 +54,6 @@ class Install extends \craft\db\Migration
 
 This will ensure that the Auth database tables are created (if they don't already exist from another plugin requiring it), ready for you to add tokens to.
 
-If you're including this in a modulem, you'll not be able to make use of the `migrations\Install.php` migration that plugins have access to. Instead, you'll want to call this through a [content migration](https://craftcms.com/docs/5.x/extend/migrations.html).
+If you're including this in a module, you'll not be able to make use of the `migrations\Install.php` migration that plugins have access to. Instead, you'll want to call this through a [content migration](https://craftcms.com/docs/5.x/extend/migrations.html).
 
 That completes the setup side of things!
