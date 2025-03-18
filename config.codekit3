@@ -2411,6 +2411,46 @@
       "oAP" : "\/src\/clients\/weibo\/provider\/WeiboResourceOwner.php",
       "oF" : 0
     },
+    "\/src\/clients\/xero\/provider\/exception\/XeroProviderException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/clients\/xero\/provider\/exception\/XeroProviderException-output.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/xero\/provider\/Xero.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/clients\/xero\/provider\/Xero-output.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/xero\/provider\/XeroPkce.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/clients\/xero\/provider\/XeroPkce-output.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/xero\/provider\/XeroResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/clients\/xero\/provider\/XeroResourceOwner-output.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/xero\/provider\/XeroTenant.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/clients\/xero\/provider\/XeroTenant-output.php",
+      "oF" : 0
+    },
     "\/src\/clients\/yahoo\/provider\/Yahoo.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -3283,6 +3323,14 @@
       "hM" : 0,
       "oA" : 2,
       "oAP" : "\/src\/providers\/Weibo.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/Xero.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/providers\/Xero-output.php",
       "oF" : 0
     },
     "\/src\/providers\/Yahoo.php" : {

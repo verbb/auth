@@ -16,15 +16,19 @@ composer require verbb/auth
 ```
 
 ## Setup
-To use the Auth module in your plugin, just call `Auth::getInstance()`.
+To use the Auth module in your plugin, just call `Auth::getInstance()` and any service or function you require.
 
 ```php
 public function init(): void
 {
     parent::init();
 
-    \verbb\auth\Auth::getInstance()->getOAuth();
-    \verbb\auth\Auth::getInstance()->getOAuth();
+    // For example, connecting your "my-plugin" plugin's provider. 
+    // Provider being a class that includes `OAuthProviderTrait` or implements `OAuthProviderInterface`
+    \verbb\auth\Auth::getInstance()->getOAuth()->connect('my-plugin', $providerInstance);
+
+    // Or, getting all stored tokens for your plugin
+    \verbb\auth\Auth::getInstance()->getTokens()->getAllOwnerTokens('my-plugin');
 
     // ...
 }
