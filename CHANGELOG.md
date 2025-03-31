@@ -1,7 +1,12 @@
 # Changelog
 
-## 2.0.20 - Unreleased
-- Update `league/oauth2-client` dependency with refresh token fix. Provides official compatibility with PHP 8.3 and 8.4
+## 2.0.20 - 2025-03-01
+
+### Changed
+- Update `league/oauth2-client` dependency with refresh token fix. Provides official compatibility with PHP 8.3+.
+
+### Fixed
+- Fix OneCRM provider.
 
 ## 2.0.19 - 2025-01-03
 
