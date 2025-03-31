@@ -70,7 +70,7 @@ class OneCrm extends AbstractProvider
             'headers' => [
                 'content-type' => 'application/json',
             ],
-            'body' => json_decode($params),
+            'body' => json_encode($params),
         ];
 
         return $this->getRequest($method, $url, $options);
