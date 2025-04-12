@@ -2,10 +2,10 @@
 namespace verbb\auth\providers;
 
 use verbb\auth\base\ProviderTrait;
-use verbb\auth\clients\gitlab\provider\Gitlab as GitlabProvider;
+use verbb\auth\clients\github\provider\GithubNew as GithubNewProvider;
 use verbb\auth\models\Token;
 
-class Gitlab extends GitlabProvider
+class GithubNew extends GithubNewProvider
 {
     // Traits
     // =========================================================================
@@ -18,6 +18,6 @@ class Gitlab extends GitlabProvider
 
     public function getBaseApiUrl(?Token $token): ?string
     {
-        return 'https://gitlab.com/api/v3/';
+        return 'https://api.github.com/';
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Gitlab OAuth2 Provider
+ * GitlabNew OAuth2 Provider
  * (c) Omines Internetbureau B.V. - https://omines.nl/
  *
  * For the full copyright and license information, please view the LICENSE
@@ -10,18 +10,18 @@
 
 namespace verbb\auth\clients\gitlab\provider;
 
-use Gitlab\Client;
-use Gitlab\HttpClient\Builder;
+use GitlabNew\Client;
+use GitlabNew\HttpClient\Builder;
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 use League\OAuth2\Client\Token\AccessToken;
 use LogicException;
 
 /**
- * GitlabResourceOwner.
+ * GitlabNewResourceOwner.
  *
  * @author Niels Keurentjes <niels.keurentjes@omines.com>
  */
-class GitlabResourceOwner implements ResourceOwnerInterface
+class GitlabNewResourceOwner implements ResourceOwnerInterface
 {
     public const PATH_API = '/api/v4/';
 
@@ -49,13 +49,13 @@ class GitlabResourceOwner implements ResourceOwnerInterface
     /**
      * Returns an authenticated API client.
      *
-     * Requires optional Gitlab API client to be installed.
+     * Requires optional GitlabNew API client to be installed.
      *
      * @infection-ignore-all
      */
     public function getApiClient(Builder $builder = null): Client
     {
-        if (!class_exists('\\Gitlab\\Client')) {
+        if (!class_exists('\\GitlabNew\\Client')) {
             throw new LogicException(__METHOD__ . ' requires package m4tthumphrey/php-gitlab-api to be installed and autoloaded'); // @codeCoverageIgnore
         }
         $client = new Client($builder);

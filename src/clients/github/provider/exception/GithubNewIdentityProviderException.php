@@ -6,7 +6,7 @@ use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 
 use Psr\Http\Message\ResponseInterface;
 
-class GithubIdentityProviderException extends IdentityProviderException
+class GithubNewIdentityProviderException extends IdentityProviderException
 {
     /**
      * Creates client exception from response.
