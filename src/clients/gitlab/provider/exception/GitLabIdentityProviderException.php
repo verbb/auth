@@ -1,7 +1,7 @@
 <?php
 
 /*
- * GitlabNew OAuth2 Provider
+ * GitLab OAuth2 Provider
  * (c) Omines Internetbureau B.V. - https://omines.nl/
  *
  * For the full copyright and license information, please view the LICENSE
@@ -14,11 +14,11 @@ use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * GitlabNewIdentityProviderException.
+ * GitLabIdentityProviderException.
  *
  * @author Niels Keurentjes <niels.keurentjes@omines.com>
  */
-final class GitlabNewIdentityProviderException extends IdentityProviderException
+final class GitLabIdentityProviderException extends IdentityProviderException
 {
     /**
      * Creates client exception from response.

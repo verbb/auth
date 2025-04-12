@@ -2,7 +2,7 @@
 
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 
-class PaypalNewResourceOwner implements ResourceOwnerInterface
+class PayPalResourceOwner implements ResourceOwnerInterface
 {
     /**
      * Raw response

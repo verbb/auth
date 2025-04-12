@@ -2,10 +2,10 @@
 namespace verbb\auth\providers;
 
 use verbb\auth\base\ProviderTrait;
-use verbb\auth\clients\paypal\provider\PaypalNew as PaypalNewProvider;
+use verbb\auth\clients\paypal\provider\PayPal as PayPalProvider;
 use verbb\auth\models\Token;
 
-class PaypalNew extends PaypalNewProvider
+class PayPal extends PayPalProvider
 {
     // Traits
     // =========================================================================
