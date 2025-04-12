@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.21 - 2025-04-12
+
+### Changed
+- Update GitHub, GitLab and PayPal provider classes to be proper case.
+
 ## 2.0.20 - 2025-03-01
 
 ### Changed
