@@ -64,6 +64,16 @@ class AzureResourceOwner implements ResourceOwnerInterface
     }
 
     /**
+     * Retrieves user principal name of resource owner.
+     *
+     * @return string|null
+     */
+    public function getEmail(): ?string
+    {
+        return $this->claim('upn');
+    }
+
+    /**
      * Retrieves tenant id of resource owner.
      *
      * @return string|null
