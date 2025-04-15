@@ -875,52 +875,52 @@
       "oAP" : "\/src\/clients\/freshbooks\/provider\/FreshBooksOwner.php",
       "oF" : 0
     },
-    "\/src\/clients\/github\/provider\/exception\/GithubIdentityProviderException.php" : {
+    "\/src\/clients\/github\/provider\/exception\/GitHubIdentityProviderException.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/src\/clients\/github\/provider\/exception\/GithubIdentityProviderException.php",
+      "oA" : 1,
+      "oAP" : "\/src\/clients\/github\/provider\/exception\/GitHubIdentityProviderException-output.php",
       "oF" : 0
     },
-    "\/src\/clients\/github\/provider\/Github.php" : {
+    "\/src\/clients\/github\/provider\/GitHub.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/src\/clients\/github\/provider\/Github.php",
+      "oA" : 1,
+      "oAP" : "\/src\/clients\/github\/provider\/GitHub-output.php",
       "oF" : 0
     },
-    "\/src\/clients\/github\/provider\/GithubResourceOwner.php" : {
+    "\/src\/clients\/github\/provider\/GitHubResourceOwner.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/src\/clients\/github\/provider\/GithubResourceOwner.php",
+      "oA" : 1,
+      "oAP" : "\/src\/clients\/github\/provider\/GitHubResourceOwner-output.php",
       "oF" : 0
     },
-    "\/src\/clients\/gitlab\/provider\/exception\/GitlabIdentityProviderException.php" : {
+    "\/src\/clients\/gitlab\/provider\/exception\/GitLabIdentityProviderException.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
-      "oAP" : "\/src\/clients\/gitlab\/provider\/exception\/GitlabIdentityProviderException.php",
+      "oAP" : "\/src\/clients\/gitlab\/provider\/exception\/GitLabIdentityProviderException-output.php",
       "oF" : 0
     },
-    "\/src\/clients\/gitlab\/provider\/Gitlab.php" : {
+    "\/src\/clients\/gitlab\/provider\/GitLab.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
-      "oAP" : "\/src\/clients\/gitlab\/provider\/Gitlab.php",
+      "oAP" : "\/src\/clients\/gitlab\/provider\/GitLab-output.php",
       "oF" : 0
     },
-    "\/src\/clients\/gitlab\/provider\/GitlabResourceOwner.php" : {
+    "\/src\/clients\/gitlab\/provider\/GitLabResourceOwner.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
-      "oAP" : "\/src\/clients\/gitlab\/provider\/GitlabResourceOwner.php",
+      "oAP" : "\/src\/clients\/gitlab\/provider\/GitLabResourceOwner-output.php",
       "oF" : 0
     },
     "\/src\/clients\/google\/exception\/HostedDomainException.php" : {
@@ -1611,20 +1611,20 @@
       "oAP" : "\/src\/clients\/orcid\/provider\/ORCIDResourceOwner.php",
       "oF" : 0
     },
-    "\/src\/clients\/paypal\/provider\/Paypal.php" : {
+    "\/src\/clients\/paypal\/provider\/PayPal.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
-      "oAP" : "\/src\/clients\/paypal\/provider\/Paypal.php",
+      "oAP" : "\/src\/clients\/paypal\/provider\/PayPal-output.php",
       "oF" : 0
     },
-    "\/src\/clients\/paypal\/provider\/PaypalResourceOwner.php" : {
+    "\/src\/clients\/paypal\/provider\/PayPalResourceOwner.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
-      "oAP" : "\/src\/clients\/paypal\/provider\/PaypalResourceOwner.php",
+      "oAP" : "\/src\/clients\/paypal\/provider\/PayPalResourceOwner-output.php",
       "oF" : 0
     },
     "\/src\/clients\/pinterest\/provider\/exception\/PinterestIdentityProviderException.php" : {
@@ -2829,20 +2829,20 @@
       "oAP" : "\/src\/providers\/Generic.php",
       "oF" : 0
     },
-    "\/src\/providers\/Github.php" : {
+    "\/src\/providers\/GitHub.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/src\/providers\/Github.php",
+      "oA" : 1,
+      "oAP" : "\/src\/providers\/GitHub-output.php",
       "oF" : 0
     },
-    "\/src\/providers\/Gitlab.php" : {
+    "\/src\/providers\/GitLab.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/src\/providers\/Gitlab.php",
+      "oA" : 1,
+      "oAP" : "\/src\/providers\/GitLab-output.php",
       "oF" : 0
     },
     "\/src\/providers\/Google.php" : {
@@ -3077,12 +3077,12 @@
       "oAP" : "\/src\/providers\/ORCID.php",
       "oF" : 0
     },
-    "\/src\/providers\/Paypal.php" : {
+    "\/src\/providers\/PayPal.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
-      "oAP" : "\/src\/providers\/Paypal.php",
+      "oAP" : "\/src\/providers\/PayPal-output.php",
       "oF" : 0
     },
     "\/src\/providers\/Pinterest.php" : {
