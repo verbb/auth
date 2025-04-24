@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.38 - 2025-04-24
+
+### Added
+- Add `email` for Azure provider resources for common scenarios.
+
 ## 1.0.37 - 2025-03-07
 
 ### Added
