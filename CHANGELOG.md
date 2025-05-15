@@ -141,6 +141,11 @@
 - Fix an error with URL generation for authenticated requests.
 - Fix error handling for IdentityServer4 provider.
 
+## 1.0.39 - 2025-05-15
+
+### Added
+- Add support for `psr/http-message` "^1.0 || ^2.0".
+
 ## 1.0.38 - 2025-04-24
 
 ### Added
