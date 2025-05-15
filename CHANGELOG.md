@@ -4,6 +4,8 @@
 
 ### Added
 - Add `email` for Azure provider resources for common scenarios.
+- Add support for `psr/http-message` "^1.0 || ^2.0".
+- Add Bluesky icon.
 
 ## 2.0.21 - 2025-04-12
 
