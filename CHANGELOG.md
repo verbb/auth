@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.0.23 - 2025-04-15
+## 2.0.23 - 2025-05-15
 
 ### Added
 - Add support for `psr/http-message` "^1.0 || ^2.0".
