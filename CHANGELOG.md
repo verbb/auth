@@ -141,6 +141,16 @@
 - Fix an error with URL generation for authenticated requests.
 - Fix error handling for IdentityServer4 provider.
 
+## 1.0.38 - 2025-04-24
+
+### Added
+- Add `email` for Azure provider resources for common scenarios.
+
+## 1.0.37 - 2025-03-07
+
+### Added
+- Add Bluesky icon.
+
 ## 1.0.36 - 2025-01-03
 
 ### Changed
