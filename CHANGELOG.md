@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.24 - 2025-06-17
+
+### Fixed
+- Fix a merge issue with `AzureResourceOwner`.
+
 ## 2.0.23 - 2025-05-15
 
 ### Added
