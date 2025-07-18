@@ -152,6 +152,11 @@
 - Fix an error with URL generation for authenticated requests.
 - Fix error handling for IdentityServer4 provider.
 
+## 1.0.40 - 2025-07-16
+
+### Added
+- Unlock `league/oauth2-client` from `2.7.0`.
+
 ## 1.0.39 - 2025-05-15
 
 ### Added
@@ -370,7 +375,7 @@
 ## 1.0.1 - 2023-04-05
 
 ### Fixed
-- Fix some providers’ base URI not normalizing correctly (Facebook). 
+- Fix some providers’ base URI not normalizing correctly (Facebook).
 
 ## 1.0.0 - 2023-02-01
 
