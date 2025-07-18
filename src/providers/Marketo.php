@@ -18,6 +18,6 @@ class Marketo extends MarketoProvider
 
     public function getBaseApiUrl(?Token $token): ?string
     {
-        return null;
+        return $this->getApiUrl();
     }
 }

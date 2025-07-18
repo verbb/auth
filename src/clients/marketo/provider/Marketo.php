@@ -1,60 +1,65 @@
 <?php
-
 namespace verbb\auth\clients\marketo\provider;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
-use League\OAuth2\Client\Grant\AbstractGrant;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;
+use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
+use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
 class Marketo extends AbstractProvider
 {
-    protected $baseUrl;
+    use BearerAuthorizationTrait;
 
-    public function getBaseUrl()
+    protected string $apiDomain = '';
+
+    public function getBaseAuthorizationUrl(): string
     {
-        return $this->baseUrl;
+        return $this->getApiUrl() . 'identity/oauth/authorize';
     }
 
-    /**
-     * Returns the base URL for requesting an access token.
-     *
-     * @param array $params
-     * @return string
-     */
     public function getBaseAccessTokenUrl(array $params): string
     {
-        return $this->getBaseUrl() . "/identity/oauth/token";
+        return $this->getApiUrl() . 'identity/oauth/token';
     }
 
-    protected function createAccessToken(array $response, AbstractGrant $grant): \Kristenlk\OAuth2\Client\Token\AccessToken
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
-        return new \Kristenlk\OAuth2\Client\Token\AccessToken($response);
+        return ''; // Marketo does not provide user details via token
     }
 
-    /**
-     * Check a provider response for errors.
-     *
-     * @param ResponseInterface $response
-     * @param array|string $data
-     *
-     * @throws IdentityProviderException
-     */
+    public function getApiUrl(): string
+    {
+        return rtrim($this->apiDomain, '/') . '/';
+    }
+
+    protected function getDefaultScopes(): array
+    {
+        return [];
+    }
+
     protected function checkResponse(ResponseInterface $response, $data): void
     {
-        if ($response->getStatusCode() >= 400) {
+        if (isset($data['error'])) {
             throw new IdentityProviderException(
-                $data['error'] ?: $response->getReasonPhrase(),
+                $data['error_description'] ?? $data['error'],
                 $response->getStatusCode(),
                 $response
             );
         }
     }
 
+    protected function createResourceOwner(array $response, AccessToken $token): MarketoResourceOwner
+    {
+        return new MarketoResourceOwner($response);
+    }
 
-    public function getBaseAuthorizationUrl() {}
-    public function getResourceOwnerDetailsUrl(AccessToken $token) {}
-    protected function getDefaultScopes() {}
-    protected function createResourceOwner(array $response, AccessToken $token) {}
+    protected function getAccessTokenRequest(array $params): RequestInterface
+    {
+        $request = parent::getAccessTokenRequest($params);
+        $uri = $request->getUri()->withUserInfo($this->clientId, $this->clientSecret);
+
+        return $request->withUri($uri);
+    }
 }
