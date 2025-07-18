@@ -1,5 +1,18 @@
 # Changelog
 
+## 2.0.25 - 2025-07-18
+
+### Added
+- Add SuiteCRM provider.
+- Add Procurios provider.
+- Add Marketo provider.
+- Add LiveChat provider.
+- Add Intercom provider.
+- Add HelpScout provider.
+- Add Front provider.
+- Add CleverReach provider.
+- Add the ability for providers to modify the options for a request.
+
 ## 2.0.24 - 2025-06-17
 
 ### Fixed
