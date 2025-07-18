@@ -228,6 +228,11 @@ trait OAuthProviderTrait
         return;
     }
 
+    public function getRequestOptions(Token $token): array
+    {
+        return [];
+    }
+
     public function request(string $method = 'GET', string $uri = '', array $options = [])
     {
         $oauthProvider = $this->getOAuthProvider();
@@ -245,6 +250,9 @@ trait OAuthProviderTrait
 
         // Ensure that the prepped Guzzle client is used
         $oauthProvider->setHttpClient($this->getClient());
+
+        // Allow providers to modify the options for a request
+        $options = array_merge($this->getRequestOptions($token), $options);
 
         return $oauthProvider->getApiRequest($method, $uri, $token, $options);
     }
