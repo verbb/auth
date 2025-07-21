@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.26 - 2025-07-22
+
+### Fixed
+- Fix PSR autoloading issue for Procurios due to typo.
+
 ## 2.0.25 - 2025-07-18
 
 ### Added
