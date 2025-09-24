@@ -523,6 +523,22 @@
       "oAP" : "\/src\/clients\/buffer\/provider\/exception\/BufferProviderException.php",
       "oF" : 0
     },
+    "\/src\/clients\/cleverreach\/provider\/CleverReach.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/clients\/cleverreach\/provider\/CleverReach-output.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/cleverreach\/provider\/CleverReachResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/clients\/cleverreach\/provider\/CleverReachResourceOwner-output.php",
+      "oF" : 0
+    },
     "\/src\/clients\/constantcontact\/provider\/ConstantContact.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -875,6 +891,22 @@
       "oAP" : "\/src\/clients\/freshbooks\/provider\/FreshBooksOwner.php",
       "oF" : 0
     },
+    "\/src\/clients\/front\/provider\/Front.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/clients\/front\/provider\/Front-output.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/front\/provider\/FrontResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/clients\/front\/provider\/FrontResourceOwner-output.php",
+      "oF" : 0
+    },
     "\/src\/clients\/github\/provider\/exception\/GitHubIdentityProviderException.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -1147,6 +1179,22 @@
       "oAP" : "\/src\/clients\/harvest\/provider\/HarvestResourceOwner.php",
       "oF" : 0
     },
+    "\/src\/clients\/helpscout\/provider\/HelpScout.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/clients\/helpscout\/provider\/HelpScout-output.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/helpscout\/provider\/HelpScoutResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/clients\/helpscout\/provider\/HelpScoutResourceOwner-output.php",
+      "oF" : 0
+    },
     "\/src\/clients\/heroku\/provider\/exception\/ProviderConfigurationException.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -1267,6 +1315,22 @@
       "oAP" : "\/src\/clients\/instagram\/provider\/InstagramResourceOwner.php",
       "oF" : 0
     },
+    "\/src\/clients\/intercom\/provider\/Intercom.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/clients\/intercom\/provider\/Intercom-output.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/intercom\/provider\/IntercomResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/clients\/intercom\/provider\/IntercomResourceOwner-output.php",
+      "oF" : 0
+    },
     "\/src\/clients\/jira\/provider\/exception\/JiraIdentityProviderException.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -1355,6 +1419,22 @@
       "oAP" : "\/src\/clients\/linode\/provider\/LinodeResourceOwner.php",
       "oF" : 0
     },
+    "\/src\/clients\/livechat\/provider\/LiveChat.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/clients\/livechat\/provider\/LiveChat-output.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/livechat\/provider\/LiveChatResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/clients\/livechat\/provider\/LiveChatResourceOwner-output.php",
+      "oF" : 0
+    },
     "\/src\/clients\/mailchimp\/provider\/exception\/ProviderConfigurationException.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -1403,12 +1483,12 @@
       "oAP" : "\/src\/clients\/marketo\/provider\/Marketo.php",
       "oF" : 0
     },
-    "\/src\/clients\/marketo\/token\/AccessToken.php" : {
+    "\/src\/clients\/marketo\/provider\/MarketoResourceOwner.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/src\/clients\/marketo\/token\/AccessToken.php",
+      "oA" : 1,
+      "oAP" : "\/src\/clients\/marketo\/provider\/MarketoResourceOwner-output.php",
       "oF" : 0
     },
     "\/src\/clients\/mastodon\/provider\/Mastodon.php" : {
@@ -1673,6 +1753,22 @@
       "hM" : 0,
       "oA" : 2,
       "oAP" : "\/src\/clients\/pipedrive\/provider\/PipedriveResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/procurios\/provider\/Procurios.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/clients\/procurios\/provider\/Procurios-output.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/procurios\/provider\/ProcuriosResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/clients\/procurios\/provider\/ProcuriosResourceOwner-output.php",
       "oF" : 0
     },
     "\/src\/clients\/rdio\/provider\/Rdio.php" : {
@@ -2001,6 +2097,22 @@
       "hM" : 0,
       "oA" : 2,
       "oAP" : "\/src\/clients\/sugarcrm\/provider\/SugarcrmResourceOwner.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/suitecrm\/provider\/SuiteCrm.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/clients\/suitecrm\/provider\/SuiteCrm-output.php",
+      "oF" : 0
+    },
+    "\/src\/clients\/suitecrm\/provider\/SuiteCrmResourceOwner.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/clients\/suitecrm\/provider\/SuiteCrmResourceOwner-output.php",
       "oF" : 0
     },
     "\/src\/clients\/telegram\/provider\/Telegram.php" : {
@@ -2677,6 +2789,14 @@
       "oAP" : "\/src\/providers\/Buffer.php",
       "oF" : 0
     },
+    "\/src\/providers\/CleverReach.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/providers\/CleverReach-output.php",
+      "oF" : 0
+    },
     "\/src\/providers\/ConstantContact.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -2821,6 +2941,14 @@
       "oAP" : "\/src\/providers\/FreshBooks.php",
       "oF" : 0
     },
+    "\/src\/providers\/Front.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/providers\/Front-output.php",
+      "oF" : 0
+    },
     "\/src\/providers\/Generic.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -2877,6 +3005,14 @@
       "oAP" : "\/src\/providers\/Harvest.php",
       "oF" : 0
     },
+    "\/src\/providers\/HelpScout.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/providers\/HelpScout-output.php",
+      "oF" : 0
+    },
     "\/src\/providers\/Heroku.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -2925,6 +3061,14 @@
       "oAP" : "\/src\/providers\/Instagram.php",
       "oF" : 0
     },
+    "\/src\/providers\/Intercom.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/providers\/Intercom-output.php",
+      "oF" : 0
+    },
     "\/src\/providers\/Jira.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -2955,6 +3099,14 @@
       "hM" : 0,
       "oA" : 2,
       "oAP" : "\/src\/providers\/Linode.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/LiveChat.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/providers\/LiveChat-output.php",
       "oF" : 0
     },
     "\/src\/providers\/Mailchimp.php" : {
@@ -3101,6 +3253,14 @@
       "oAP" : "\/src\/providers\/Pipedrive.php",
       "oF" : 0
     },
+    "\/src\/providers\/Procurios.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/providers\/Procurios-output.php",
+      "oF" : 0
+    },
     "\/src\/providers\/Rdio.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -3203,6 +3363,14 @@
       "hM" : 0,
       "oA" : 2,
       "oAP" : "\/src\/providers\/Sugarcrm.php",
+      "oF" : 0
+    },
+    "\/src\/providers\/SuiteCrm.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/src\/providers\/SuiteCrm-output.php",
       "oF" : 0
     },
     "\/src\/providers\/Telegram.php" : {

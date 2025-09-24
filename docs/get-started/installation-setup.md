@@ -9,8 +9,8 @@ composer require verbb/auth
 
 ```json
 "require": {
-    "craftcms/cms": "^5.0.0",
-    "verbb/auth": "^2.0.0"
+    "craftcms/cms": "^6.0.0",
+    "verbb/auth": "^3.0.0"
 }
 ```
 
