@@ -11,7 +11,7 @@ class AuthorizationUrlEvent extends Event
     // =========================================================================
 
     public OAuthProviderInterface $provider;
-    public string $ownerHandle;
-    public string $authUrl;
+    public ?string $ownerHandle = null;
+    public ?string $authUrl = null;
 
 }
