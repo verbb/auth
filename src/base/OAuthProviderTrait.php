@@ -196,7 +196,9 @@ trait OAuthProviderTrait
                     'code' => $code,
                 ]));
             } else if ($grant === 'client_credentials') {
-                $accessToken = $oauthProvider->getAccessToken($grant);
+                $accessToken = $oauthProvider->getAccessToken($grant, $this->getAccessTokenOptions([
+                    'scope' => $this->scopes,
+                ]));
             }
 
             // Some providers (Facebook, Instagram) have long-lived tokens, so use those
