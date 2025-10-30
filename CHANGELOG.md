@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.27 - 2025-10-31
+
+### Fixed
+- Fix Client Credentials grants to using `getAccessTokenOptions()` and `scopes` in request.
+- Fix type error for `AuthorizationUrlEvent`.
+
 ## 2.0.26 - 2025-07-22
 
 ### Fixed
