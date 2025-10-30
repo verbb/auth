@@ -170,6 +170,12 @@
 - Fix an error with URL generation for authenticated requests.
 - Fix error handling for IdentityServer4 provider.
 
+## 1.0.41 - 2025-10-31
+
+### Fixed
+- Fix Client Credentials grants to using `getAccessTokenOptions()` and `scopes` in request.
+- Fix type error for `AuthorizationUrlEvent`.
+
 ## 1.0.40 - 2025-07-16
 
 ### Added
@@ -393,7 +399,7 @@
 ## 1.0.1 - 2023-04-05
 
 ### Fixed
-- Fix some providers’ base URI not normalizing correctly (Facebook).
+- Fix some providers’ base URI not normalizing correctly (Facebook). 
 
 ## 1.0.0 - 2023-02-01
 
