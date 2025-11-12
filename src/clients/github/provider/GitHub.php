@@ -125,7 +125,7 @@ class GitHub extends AbstractProvider
      * @param  AccessToken $token
      * @return ResourceOwner
      */
-    protected function createResourceOwner(array $response, AccessToken $token): ResourceOwner
+    protected function createResourceOwner(array $response, AccessToken $token): GithubResourceOwner
     {
         $user = new GitHubResourceOwner($response);
 
