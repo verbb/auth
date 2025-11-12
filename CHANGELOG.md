@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.28 - 2025-11-12
+
+### Fixed
+- Fix `GithubResourceOwner` typing.
+
 ## 2.0.27 - 2025-10-31
 
 ### Fixed
