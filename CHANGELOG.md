@@ -176,6 +176,11 @@
 - Fix an error with URL generation for authenticated requests.
 - Fix error handling for IdentityServer4 provider.
 
+## 1.0.42 - 2025-11-12
+
+### Fixed
+- Fix `GithubResourceOwner` typing.
+
 ## 1.0.41 - 2025-10-31
 
 ### Fixed
@@ -405,7 +410,7 @@
 ## 1.0.1 - 2023-04-05
 
 ### Fixed
-- Fix some providers’ base URI not normalizing correctly (Facebook). 
+- Fix some providers’ base URI not normalizing correctly (Facebook).
 
 ## 1.0.0 - 2023-02-01
 
