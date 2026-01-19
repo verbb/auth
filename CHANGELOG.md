@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.29 - 2026-01-19
+
+### Fixed
+- Fix Client Credentials grants to using `getAccessTokenOptions()` and `scopes` in request.
+
 ## 2.0.28 - 2025-11-12
 
 ### Fixed
