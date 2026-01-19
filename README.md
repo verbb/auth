@@ -1,4 +1,4 @@
-<p align="center"><img src="https://verbb.imgix.net/plugins/auth/auth-icon.svg" width="100" height="100" alt="Auth icon"></p>
+<p align="center"><img src="https://assets.verbb.io/plugins/auth/auth-icon.svg" width="100" height="100" alt="Auth icon"></p>
 <h1 align="center">Auth for Craft CMS</h1>
 
 Auth is a module for Craft plugins and modules for making working with authenticating third-party APIs a breeze. We currently support OAuth1/OAuth2 providers and extend the [league/oauth1-client](https://github.com/thephpleague/oauth2-client) and [league/oauth2-client](https://github.com/thephpleague/oauth2-client) packages.
