@@ -181,6 +181,11 @@
 - Fix an error with URL generation for authenticated requests.
 - Fix error handling for IdentityServer4 provider.
 
+## 1.0.43 - 2026-01-19
+
+### Fixed
+- Fix Client Credentials grants to using `getAccessTokenOptions()` and `scopes` in request.
+
 ## 1.0.42 - 2025-11-12
 
 ### Fixed
