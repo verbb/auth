@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.30 - 2026-02-06
+
+### Fixed
+- Update Marketo to use `client_credentials` grant.
+
 ## 2.0.29 - 2026-01-19
 
 ### Fixed
