@@ -20,4 +20,9 @@ class Marketo extends MarketoProvider
     {
         return $this->getApiUrl();
     }
+
+    public function getGrant(): string
+    {
+        return 'client_credentials';
+    }
 }
