@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.31 - 2026-02-07
+
+### Fixed
+- Fix client credentials based grants throwing an error for scopes for some providers.
+
 ## 2.0.30 - 2026-02-06
 
 ### Fixed
