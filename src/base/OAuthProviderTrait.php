@@ -29,6 +29,8 @@ trait OAuthProviderTrait
     public ?string $clientId = null;
     public ?string $clientSecret = null;
     public ?string $redirectUri = null;
+    public array $scopes = [];
+    public string $scopeSeparator = ' ';
 
     protected OAuth1Provider|OAuth2Provider|null $_oauthProvider = null;
 
