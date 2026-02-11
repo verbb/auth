@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.32 - 2026-02-11
+
+### Fixed
+- Update Marketo to use `access_token` params.
+
 ## 2.0.31 - 2026-02-07
 
 ### Fixed
