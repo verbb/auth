@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.0.33 - 2026-02-18
+
+### Changed
+- Update `firebase/php-jwt` to support `7.x`.
+
+### Removed
+- Remove direct `paragonie/random-lib` dependency and use native PHP randomness for Twitter PKCE verifier generation.
+
 ## 2.0.32 - 2026-02-11
 
 ### Fixed
