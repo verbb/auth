@@ -19,7 +19,6 @@ use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use RandomLib\Factory as RandomLibFactory;
 
 /**
  * Represents a Twitter OAuth2 service provider (authorization server).
@@ -199,11 +198,16 @@ class Twitter extends AbstractProvider
      */
     public function generatePkceVerifier(): string
     {
-        $generator = (new RandomLibFactory)->getMediumStrengthGenerator();
-        return $generator->generateString(
-            $generator->generateInt(43, 128), // Length between 43-128 characters
-            '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-._~'
-        );
+        $alphabet = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-._~';
+        $maxIndex = strlen($alphabet) - 1;
+        $length = random_int(43, 128); // PKCE spec allows length between 43-128 characters.
+
+        $verifier = '';
+        for ($i = 0; $i < $length; $i++) {
+            $verifier .= $alphabet[random_int(0, $maxIndex)];
+        }
+
+        return $verifier;
     }
 
     /**
