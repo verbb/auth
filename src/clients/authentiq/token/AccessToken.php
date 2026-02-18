@@ -10,9 +10,9 @@
 namespace verbb\auth\clients\authentiq\token;
 
 use Exception;
-use Firebase\JWT\BeforeValidException;
 use InvalidArgumentException;
 use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 use RuntimeException;
 
 class AccessToken extends \League\OAuth2\Client\Token\AccessToken
@@ -42,7 +42,15 @@ class AccessToken extends \League\OAuth2\Client\Token\AccessToken
                 $tokens = explode('.', $this->idToken);
                 // Check if the id_token contains signature and try to decode it.
                 if (count($tokens) == 3 && !empty($tokens[2])) {
-                    $idTokenClaims = (array)JWT::decode($this->idToken, $clientSecret, $provider->getProviderAlgorithm());
+                    $providerAlgorithms = $provider->getProviderAlgorithm();
+                    $algorithm = $providerAlgorithms[0] ?? 'HS256';
+
+                    // firebase/php-jwt >= 6 expects a Key object, older versions expect key + allowed algorithms.
+                    if (class_exists(Key::class)) {
+                        $idTokenClaims = (array)JWT::decode($this->idToken, new Key($clientSecret, $algorithm));
+                    } else {
+                        $idTokenClaims = (array)JWT::decode($this->idToken, $clientSecret, [$algorithm]);
+                    }
                 }
             } catch (Exception $e) {
                 throw new RuntimeException("Unable to decode the id_token! The secret or the encryption algorithm used is incorrect");
