@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.34 - 2026-03-25
+
+### Added
+- Add RedirectUri helper to assist with redirection handling.
+
 ## 2.0.33 - 2026-02-18
 
 ### Changed
