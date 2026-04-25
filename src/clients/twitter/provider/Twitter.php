@@ -46,7 +46,7 @@ class Twitter extends AbstractProvider
      */
     public function getPkceVerifier(): string
     {
-        if (!isset($this->pkceVerifier)) {
+        if (!$this->pkceVerifier) {
             $this->pkceVerifier = $this->generatePkceVerifier();
         }
 
