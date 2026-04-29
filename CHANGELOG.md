@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.35 - 2026-04-29
+
+### Changed
+- Update `pkceVerifier` check logic.
+
 ## 2.0.34 - 2026-03-25
 
 ### Added
