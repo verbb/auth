@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.36 - 2026-06-11
+
+### Fixed
+- Update `client_credentials` clients handling of scopes.
+
 ## 2.0.35 - 2026-04-29
 
 ### Changed
