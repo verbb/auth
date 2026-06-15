@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.0.37 - 2026-06-16
+
+### Fixed
+- Fix intermittent 401 errors for OAuth integrations when multiple queue workers refresh the same token concurrently.
+- Reload OAuth tokens from the database before refreshing and before retrying 401 responses.
+- Improve logging when token refresh fails due to `invalid_grant` (rotated refresh tokens).
+
 ## 2.0.36 - 2026-06-11
 
 ### Fixed

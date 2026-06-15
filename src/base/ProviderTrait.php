@@ -5,6 +5,7 @@ use verbb\auth\Auth;
 use verbb\auth\helpers\UrlHelper as AuthUrlHelper;
 use verbb\auth\models\Token;
 
+use Craft;
 use craft\helpers\ArrayHelper;
 use craft\helpers\Json;
 use craft\helpers\UrlHelper;
@@ -80,37 +81,44 @@ trait ProviderTrait
 
     public function refreshToken(Token $token, bool $force = false): ?Token
     {
-        $accessToken = $token->getToken();
+        $token = $this->_reloadToken($token);
 
-        try {
-            // Does the provider have an expires value, and is it expired?
-            if ($force || ($accessToken->getExpires() && $accessToken->hasExpired())) {
-                // Get the provider to generate a new refresh token from the current one
-                $newAccessToken = $this->getRefreshToken($accessToken);
-
-                if ($newAccessToken) {
-                    // Update the database token
-                    Auth::getInstance()->getTokens()->refreshToken($token, $newAccessToken);
-
-                    return $token;
-                }
-            }
-        } catch (Throwable $e) {
-            Auth::error('Unable to refresh token for “{provider}”: “{message}” {file}:{line}', [
-                'provider' => get_class($this),
-                'message' => $e->getMessage(),
-                'file' => $e->getFile(),
-                'line' => $e->getLine(),
-            ]);
+        if (!$this->_tokenNeedsRefresh($token, $force)) {
+            return $token;
         }
 
-        return $token;
+        $mutexName = $this->_getRefreshMutexName($token);
+
+        if (!$mutexName) {
+            return $this->_performTokenRefresh($token, $force);
+        }
+
+        $mutex = Craft::$app->getMutex();
+
+        if (!$mutex->acquire($mutexName, 30)) {
+            Auth::error('Unable to acquire token refresh lock for “{provider}” (token #{id}). Reloading token from the database.', [
+                'provider' => get_class($this),
+                'id' => $token->id,
+            ]);
+
+            return $this->_reloadToken($token);
+        }
+
+        try {
+            $token = $this->_reloadToken($token);
+
+            if (!$this->_tokenNeedsRefresh($token, $force)) {
+                return $token;
+            }
+
+            return $this->_performTokenRefresh($token, $force);
+        } finally {
+            $mutex->release($mutexName);
+        }
     }
 
     public function getApiRequest(string $method = 'GET', string $uri = '', ?Token $token, array $options = [], bool $forceRefresh = true): mixed
     {
-        // Retain original variables for the retry request, as it can be modified
-        $originalToken = $token;
         $originalOptions = $options;
 
         try {
@@ -173,15 +181,107 @@ trait ProviderTrait
 
             // If this has failed as unauthorized, assume it's because the token needs refreshing
             if ($e->getCode() === 401 && $forceRefresh) {
-                // Force-refresh the token
+                $token = $this->_reloadToken($token);
+
+                // Another process may have already refreshed the token
+                if (!$this->_tokenNeedsRefresh($token, false)) {
+                    return $this->getApiRequest($method, $uri, $token, $originalOptions, false);
+                }
+
                 $this->refreshToken($token, true);
 
-                // Then try again, with the new access token
+                // Reload again in case another process refreshed while we were waiting on the lock
+                $token = $this->_reloadToken($token);
+
+                // Then try again, with the latest access token
                 return $this->getApiRequest($method, $uri, $token, $originalOptions, false);
             }
 
             // Otherwise, throw the error as normal to allow plugins upstream to handle it
             throw $e;
         }
+    }
+
+
+    // Private Methods
+    // =========================================================================
+
+    private function _reloadToken(?Token $token): ?Token
+    {
+        if (!$token) {
+            return null;
+        }
+
+        $tokens = Auth::getInstance()->getTokens();
+
+        if ($token->id) {
+            return $tokens->getTokenById($token->id) ?? $token;
+        }
+
+        if ($token->ownerHandle && $token->reference) {
+            return $tokens->getTokenByOwnerReference($token->ownerHandle, $token->reference) ?? $token;
+        }
+
+        return $token;
+    }
+
+    private function _getRefreshMutexName(Token $token): ?string
+    {
+        if ($token->id) {
+            return 'auth-token-refresh-' . $token->id;
+        }
+
+        if ($token->ownerHandle && $token->reference) {
+            return 'auth-token-refresh-' . $token->ownerHandle . '-' . $token->reference;
+        }
+
+        return null;
+    }
+
+    private function _tokenNeedsRefresh(Token $token, bool $force): bool
+    {
+        $accessToken = $token->getToken();
+
+        if (!$accessToken instanceof OAuth2Token) {
+            return false;
+        }
+
+        return $force || ($accessToken->getExpires() && $accessToken->hasExpired());
+    }
+
+    private function _performTokenRefresh(Token $token, bool $force): ?Token
+    {
+        $accessToken = $token->getToken();
+
+        try {
+            if ($force || ($accessToken->getExpires() && $accessToken->hasExpired())) {
+                $newAccessToken = $this->getRefreshToken($accessToken);
+
+                if ($newAccessToken) {
+                    Auth::getInstance()->getTokens()->refreshToken($token, $newAccessToken);
+
+                    return $token;
+                }
+            }
+        } catch (Throwable $e) {
+            $message = $e->getMessage();
+
+            Auth::error('Unable to refresh token for “{provider}” (token #{id}): “{message}” {file}:{line}', [
+                'provider' => get_class($this),
+                'id' => $token->id,
+                'message' => $message,
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+            ]);
+
+            if (str_contains(strtolower($message), 'invalid_grant')) {
+                Auth::error('Token refresh failed with invalid_grant for “{provider}” (token #{id}). The refresh token may have been rotated by another process.', [
+                    'provider' => get_class($this),
+                    'id' => $token->id,
+                ]);
+            }
+        }
+
+        return $this->_reloadToken($token);
     }
 }
