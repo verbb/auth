@@ -10,8 +10,17 @@ class RedirectUri
     // Static Methods
     // =========================================================================
 
-    public static function getCallbackUri(?string $redirectUri, string $path, bool $useActionInHeadless = false): string
-    {
+    /**
+     * @param bool $useActionInHeadless When headless mode is enabled, use the action endpoint instead of a CP URL.
+     * @param bool $useCpUrlWhenDetached When `cpTrigger` is empty (detached CP), use a CP URL instead of a site URL.
+     *     CP-admin OAuth plugins should leave this enabled. Front-end login plugins should disable it.
+     */
+    public static function getCallbackUri(
+        ?string $redirectUri,
+        string $path,
+        bool $useActionInHeadless = false,
+        bool $useCpUrlWhenDetached = true,
+    ): string {
         if ($redirectUri = App::parseEnv($redirectUri)) {
             return $redirectUri;
         }
@@ -26,7 +35,7 @@ class RedirectUri
             return rtrim(UrlHelper::baseCpUrl(), '/') . '/' . trim($actionRoute, '/');
         }
 
-        if ($generalConfig->headlessMode || !$generalConfig->cpTrigger) {
+        if ($generalConfig->headlessMode || ($useCpUrlWhenDetached && !$generalConfig->cpTrigger)) {
             return UrlHelper::cpUrl($path, null, null, $siteId);
         }
 
