@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.38 - 2026-06-30
+
+### Fixed
+- Fix `RedirectUri::getCallbackUri()` using a CP URL for detached installs (`cpTrigger = null`) when front-end login plugins expect a site URL.
+
 ## 2.0.37 - 2026-06-16
 
 ### Fixed
