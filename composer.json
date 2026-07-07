@@ -21,7 +21,7 @@
         "craftcms/cms": "^5.0.0",
         "firebase/php-jwt": "~6.0 || ~7.0",
         "jakeasmith/http_build_url": "^1.0",
-        "lcobucci/jwt": "^3.4 || ^4.0",
+        "lcobucci/jwt": "^4.0 || ^5.0",
         "league/oauth1-client": "^1.9",
         "league/oauth2-client": "^2.8.1",
         "mollie/mollie-api-php": "^1.19 || ^2.39",
