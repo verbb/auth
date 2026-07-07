@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.39 - 2026-07-07
+
+### Changed
+- Update `lcobucci/jwt` to support `5.x`.
+
 ## 2.0.38 - 2026-06-30
 
 ### Fixed
