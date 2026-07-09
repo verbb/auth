@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.40 - 2026-07-09
+
+### Fixed
+- Fix Apple sign-in fatal when is_private_email claim is omitted from the id_token.
+
 ## 2.0.39 - 2026-07-07
 
 ### Changed
