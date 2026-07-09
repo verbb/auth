@@ -13,19 +13,19 @@ use UnexpectedValueException;
 class AppleAccessToken extends AccessToken
 {
     /**
-     * @var string
+     * @var string|null
      */
-    protected mixed $idToken;
+    protected mixed $idToken = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    protected mixed $email;
+    protected mixed $email = null;
 
     /**
-     * @var boolean
+     * @var boolean|null
      */
-    protected mixed $isPrivateEmail;
+    protected mixed $isPrivateEmail = null;
 
     /**
      * Constructs an access token.
@@ -117,6 +117,6 @@ class AppleAccessToken extends AccessToken
      */
     public function isPrivateEmail(): bool
     {
-        return $this->isPrivateEmail;
+        return (bool) $this->isPrivateEmail;
     }
 }
