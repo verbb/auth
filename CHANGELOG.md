@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.41 - 2026-07-11
+
+### Fixed
+- Fix `client_credentials` API requests sending an empty `scope` parameter for providers like Marketo that reject it.
+
 ## 2.0.40 - 2026-07-09
 
 ### Fixed
