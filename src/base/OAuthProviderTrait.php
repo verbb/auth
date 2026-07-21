@@ -249,13 +249,13 @@ trait OAuthProviderTrait
         // Check if `client_credentials` grant - a new token should be fetched each time
         // TODO: handle this a little better...
         if ($this->getGrant() === 'client_credentials') {
-            $options = [];
+            $tokenOptions = [];
 
             if (!empty($this->scopes)) {
-                $options['scope'] = $this->scopes;
+                $tokenOptions['scope'] = $this->scopes;
             }
 
-            $accessToken = $oauthProvider->getAccessToken('client_credentials', $this->getAccessTokenOptions($options));
+            $accessToken = $oauthProvider->getAccessToken('client_credentials', $this->getAccessTokenOptions($tokenOptions));
 
             $token = new Token();
             $token->setToken($accessToken);
