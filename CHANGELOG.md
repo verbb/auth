@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.42 - 2026-07-21
+
+### Fixed
+- Fix `client_credentials` API requests discarding the request payload (empty body), introduced in 2.0.41.
+
 ## 2.0.41 - 2026-07-11
 
 ### Fixed
