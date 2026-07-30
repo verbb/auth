@@ -181,10 +181,14 @@ trait ProviderTrait
 
             // If this has failed as unauthorized, assume it's because the token needs refreshing
             if ($e->getCode() === 401 && $forceRefresh) {
+                $failedAccessToken = $token->accessToken ?? null;
                 $token = $this->_reloadToken($token);
 
-                // Another process may have already refreshed the token
-                if (!$this->_tokenNeedsRefresh($token, false)) {
+                // Another process may have already refreshed the token. Compare access token
+                // strings — do not use expiry metadata here. Providers like Salesforce often omit
+                // `expires_in`, so `_tokenNeedsRefresh($token, false)` would always be false and
+                // we'd skip the refresh, then retry with the same dead token.
+                if ($failedAccessToken && $token->accessToken && $token->accessToken !== $failedAccessToken) {
                     return $this->getApiRequest($method, $uri, $token, $originalOptions, false);
                 }
 
