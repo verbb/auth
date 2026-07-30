@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.43 - 2026-07-30
+
+### Fixed
+- Fix OAuth 401 retries skipping token refresh for providers that omit access-token expiry (for example Salesforce), which caused repeated `INVALID_SESSION_ID` failures until reconnecting.
+
 ## 2.0.42 - 2026-07-21
 
 ### Fixed
