@@ -72,6 +72,17 @@ class Salesforce extends AbstractProvider
     }
 
     /**
+     * Always use PKCE for Salesforce authorization-code flows.
+     *
+     * Safe when the Connected/External Client App does not require PKCE, and
+     * required when “Require Proof Key for Code Exchange (PKCE)” is enabled.
+     */
+    protected function getPkceMethod(): string
+    {
+        return AbstractProvider::PKCE_METHOD_S256;
+    }
+
+    /**
      * Retrives the currently configured provider domain.
      *
      * @return string

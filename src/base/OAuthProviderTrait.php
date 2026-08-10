@@ -138,6 +138,11 @@ trait OAuthProviderTrait
 
             Session::set('state', $oauthProvider->getState());
             Session::set('origin', $request->getReferrer());
+
+            // Persist League OAuth2 PKCE verifier across the redirect when enabled
+            if (method_exists($oauthProvider, 'getPkceCode') && ($pkceCode = $oauthProvider->getPkceCode())) {
+                Session::set('pkceCode', $pkceCode);
+            }
         }
 
         return $authUrl;
@@ -192,6 +197,11 @@ trait OAuthProviderTrait
                     Auth::error('Invalid callback state. State is mismatched: {state} - {sessionState}.', ['state' => $state, 'sessionState' => $sessionState]);
 
                     throw new Exception('Invalid callback state. State is mismatched.');
+                }
+
+                // Restore League OAuth2 PKCE verifier for the token exchange
+                if (method_exists($oauthProvider, 'setPkceCode') && ($pkceCode = Session::get('pkceCode'))) {
+                    $oauthProvider->setPkceCode($pkceCode);
                 }
 
                 $accessToken = $oauthProvider->getAccessToken($grant, $this->getAccessTokenOptions([
