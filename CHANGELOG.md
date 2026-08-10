@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.44 - 2026-08-11
+
+### Added
+- Add PKCE (S256) support for Salesforce OAuth authorization-code flows.
+- Persist and restore League OAuth2 PKCE verifiers across the OAuth redirect for any provider that enables PKCE.
+
 ## 2.0.43 - 2026-07-30
 
 ### Fixed
