@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.0.45 - 2026-08-25
+
+### Added
+- Add `Tokens::EVENT_TOKEN_REFRESH_FAILED`, fired when a refresh token is permanently rejected (e.g. Google `invalid_grant`).
+- Add `OAuthTokenRefreshException` so consumers can detect “reconnect required” without parsing provider error bodies.
+
+### Fixed
+- On `invalid_grant` (and similar permanent refresh failures), delete the stored OAuth token and throw instead of retrying API calls with a dead access token. Fixes integrations that appeared “Connected” for ~a week then failed until reconnect (common when a Google OAuth app is still in **Testing** publishing status).
+
 ## 2.0.44 - 2026-08-11
 
 ### Added

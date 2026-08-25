@@ -106,3 +106,18 @@ Event::on(Tokens::class, Tokens::EVENT_AFTER_DELETE_TOKEN, function(TokenEvent $
     // ...
 });
 ```
+
+## The `tokenRefreshFailed` event
+The event that is triggered when refreshing an access token fails permanently (for example Google returns `invalid_grant` because the refresh token was revoked or expired). Auth deletes the stored token after this event so `getToken()` returns `null` and consumers can prompt the user to reconnect.
+
+```php
+use verbb\auth\events\TokenEvent;
+use verbb\auth\services\Tokens;
+use yii\base\Event;
+
+Event::on(Tokens::class, Tokens::EVENT_TOKEN_REFRESH_FAILED, function(TokenEvent $event) {
+    $token = $event->token;
+    $exception = $event->exception;
+    // Prompt reconnect for $token->ownerHandle / $token->reference
+});
+```

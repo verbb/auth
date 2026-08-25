@@ -2,8 +2,11 @@
 namespace verbb\auth\base;
 
 use verbb\auth\Auth;
+use verbb\auth\events\TokenEvent;
+use verbb\auth\exceptions\OAuthTokenRefreshException;
 use verbb\auth\helpers\UrlHelper as AuthUrlHelper;
 use verbb\auth\models\Token;
+use verbb\auth\services\Tokens;
 
 use Craft;
 use craft\helpers\ArrayHelper;
@@ -172,6 +175,11 @@ trait ProviderTrait
 
             return $parsed;
         } catch (Throwable $e) {
+            // Refresh already failed permanently — do not retry the API with a deleted token.
+            if ($e instanceof OAuthTokenRefreshException) {
+                throw $e;
+            }
+
             Auth::error('An error was thrown for an API request for “{provider}”: “{message}” {file}:{line}', [
                 'provider' => get_class($this),
                 'message' => $e->getMessage(),
@@ -278,14 +286,41 @@ trait ProviderTrait
                 'line' => $e->getLine(),
             ]);
 
-            if (str_contains(strtolower($message), 'invalid_grant')) {
-                Auth::error('Token refresh failed with invalid_grant for “{provider}” (token #{id}). The refresh token may have been rotated by another process.', [
+            // Permanent rejection (revoked, Testing-mode 7-day expiry, rotated, etc.) —
+            // drop the stored token so isConnected()-style checks flip and callers reconnect.
+            if ($this->_isInvalidGrant($message)) {
+                Auth::error('Token refresh failed with invalid_grant for “{provider}” (token #{id}). The refresh token is no longer valid; deleting stored token so the owner can reconnect.', [
                     'provider' => get_class($this),
                     'id' => $token->id,
                 ]);
+
+                $tokens = Auth::getInstance()->getTokens();
+
+                if ($tokens->hasEventHandlers(Tokens::EVENT_TOKEN_REFRESH_FAILED)) {
+                    $tokens->trigger(Tokens::EVENT_TOKEN_REFRESH_FAILED, new TokenEvent([
+                        'token' => $token,
+                        'exception' => $e,
+                    ]));
+                }
+
+                $tokens->deleteToken($token);
+
+                throw new OAuthTokenRefreshException(
+                    'OAuth refresh token is no longer valid. Reconnect the integration to continue.',
+                    (int)$e->getCode(),
+                    $e
+                );
             }
         }
 
         return $this->_reloadToken($token);
+    }
+
+    private function _isInvalidGrant(string $message): bool
+    {
+        $normalized = strtolower($message);
+
+        return str_contains($normalized, 'invalid_grant')
+            || str_contains($normalized, 'token has been expired or revoked');
     }
 }

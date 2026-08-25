@@ -44,3 +44,15 @@ $success = Auth::getInstance()->getTokens()->saveToken($token);
 // Deletes a token
 $success = Auth::getInstance()->getTokens()->deleteToken($token);
 ```
+
+## Refresh failures
+
+When a provider permanently rejects a refresh token (commonly Google `invalid_grant`), Auth:
+
+1. Fires `Tokens::EVENT_TOKEN_REFRESH_FAILED`
+2. Deletes the stored token
+3. Throws `verbb\auth\exceptions\OAuthTokenRefreshException`
+
+Plugins should catch that exception (or listen for the event) and ask the user to reconnect. Do not keep treating the integration as connected while a dead refresh token row remains in `auth_oauth_tokens`.
+
+For Google Cloud OAuth apps, refresh tokens issued while the consent screen publishing status is **Testing** expire after **7 days**. Publish the app (or use an Internal Workspace app) and reconnect once so a long-lived refresh token is issued.

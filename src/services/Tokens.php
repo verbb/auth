@@ -26,6 +26,12 @@ class Tokens extends Component
     public const EVENT_BEFORE_DELETE_TOKEN = 'beforeDeleteToken';
     public const EVENT_AFTER_DELETE_TOKEN = 'afterDeleteToken';
 
+    /**
+     * Fired when a stored refresh token is permanently rejected (e.g. `invalid_grant`).
+     * Auth deletes the token after this event; consumers should prompt reconnect.
+     */
+    public const EVENT_TOKEN_REFRESH_FAILED = 'tokenRefreshFailed';
+
 
     // Public Methods
     // =========================================================================
