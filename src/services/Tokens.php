@@ -174,7 +174,11 @@ class Tokens extends Component
         $tokenRecord->resourceOwnerId = $token->resourceOwnerId;
         $tokenRecord->values = $token->values;
 
-        $tokenRecord->save(false);
+        if (!$tokenRecord->save(false)) {
+            Auth::error('Token record could not be saved.');
+
+            return false;
+        }
 
         if (!$token->id) {
             $token->id = $tokenRecord->id;

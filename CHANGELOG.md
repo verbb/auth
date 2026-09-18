@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+### Fixed
+- Return token persistence failures instead of reporting a successful save, and report missing stored tokens before constructing OAuth API requests.
+
 ## 2.0.45 - 2026-08-25
 
 ### Added

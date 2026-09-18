@@ -272,6 +272,10 @@ trait OAuthProviderTrait
             $token->accessToken = $accessToken->getToken();
         }
 
+        if (!$token) {
+            throw new Exception('Unable to make an OAuth request without a stored token. Reconnect the integration and try again.');
+        }
+
         // Ensure that the prepped Guzzle client is used
         $oauthProvider->setHttpClient($this->getClient());
 
