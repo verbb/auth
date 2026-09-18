@@ -111,9 +111,9 @@ class Snapchat extends AbstractProvider
             $queryString['access_token'] = (string) $token;
         }
 
-        $url = http_build_url($url, [
-            'query' => http_build_query($queryString),
-        ]);
+        $url = (new \Uri\Rfc3986\Uri($url))
+            ->withQuery(http_build_query($queryString))
+            ->toRawString();
 
         return $this->createRequest($method, $url, null, $options);
     }
