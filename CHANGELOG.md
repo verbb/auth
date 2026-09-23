@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.47 - 2026-09-23
+
+### Changed
+- Switch to RFC 3986 URI parser.
+
 ## 2.0.46 - 2026-09-18
 
 ### Fixed
