@@ -57,6 +57,13 @@ class OAuth extends Component
         return $this->_activeTransaction = Auth::getInstance()->getOAuthTransactions()->claim($ownerHandle, $transactionId);
     }
 
+    public function claimAuthorizedCallback(string $ownerHandle, callable $authorizeUser, ?string $transactionId = null): array
+    {
+        $this->_activeTransaction = null;
+
+        return $this->_activeTransaction = Auth::getInstance()->getOAuthTransactions()->claimAuthorized($ownerHandle, $authorizeUser, $transactionId);
+    }
+
     public function callback(string $ownerHandle, OAuthProviderInterface $provider, string|int|null $reference = null): Token
     {
         $transaction = $this->_activeTransaction ?? $this->claimCallback($ownerHandle);

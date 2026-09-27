@@ -4,6 +4,7 @@
 
 ### Fixed
 - Fixed a high-severity OAuth callback integrity vulnerability.
+- Fixed OAuth callbacks retaining authority after the initiating Craft user loses access.
 
 ## 2.0.47 - 2026-09-23
 

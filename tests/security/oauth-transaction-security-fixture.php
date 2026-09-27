@@ -194,6 +194,40 @@ namespace {
         }
     }
 
+    class FixtureStoredUser
+    {
+        public bool $admin = false;
+        public bool $locked = false;
+        public bool $passwordResetRequired = false;
+        public string $status = 'active';
+        public array $permissions = ['manage-integrations'];
+
+        public function getStatus(): string
+        {
+            return $this->status;
+        }
+
+        public function can(string $permission): bool
+        {
+            return $this->admin || in_array($permission, $this->permissions, true);
+        }
+    }
+
+    class FixtureUsers
+    {
+        public ?FixtureStoredUser $storedUser;
+
+        public function __construct()
+        {
+            $this->storedUser = new FixtureStoredUser();
+        }
+
+        public function getUserById(int $userId): ?FixtureStoredUser
+        {
+            return $userId === 42 ? $this->storedUser : null;
+        }
+    }
+
     class FixtureEndException extends RuntimeException
     {
     }
@@ -206,6 +240,7 @@ namespace {
         public Response $response;
         public FixtureSession $session;
         public FixtureUser $user;
+        public FixtureUsers $users;
 
         public function __construct()
         {
@@ -216,6 +251,7 @@ namespace {
             $this->response = new Response();
             $this->session = new FixtureSession();
             $this->user = new FixtureUser();
+            $this->users = new FixtureUsers();
         }
 
         public function getCache(): FixtureCache
@@ -256,6 +292,11 @@ namespace {
         public function getUser(): FixtureUser
         {
             return $this->user;
+        }
+
+        public function getUsers(): FixtureUsers
+        {
+            return $this->users;
         }
 
         public function end(int $status = 0, ?Response $response = null): never
@@ -468,6 +509,79 @@ namespace {
         $wrongActorRejected = true;
     }
     check('A different signed-in Craft user cannot claim the transaction', $wrongActorRejected);
+    $app->user->id = 42;
+
+    $authorizedActorState = 'authorized-actor-state';
+    resetResponse($app);
+    $transactions->begin('fixture', new FixtureProvider($authorizedActorState), 'target-authorized-actor', [], 'https://provider.test/authorize');
+    copyResponseCookie($app, $authorizedActorState);
+    $app->user->id = null;
+    $app->request->fixtureQueryParams = ['state' => $authorizedActorState];
+    $transaction = $transactions->claimAuthorized('fixture', fn(FixtureStoredUser $user): bool => $user->can('manage-integrations'));
+    check('An active permitted initiator can finish without a PHP login session', $transaction['initiatingUserId'] === 42);
+
+    $revokedActorState = 'revoked-actor-state';
+    $app->user->id = 42;
+    resetResponse($app);
+    $transactions->begin('fixture', new FixtureProvider($revokedActorState), 'target-revoked-actor', [], 'https://provider.test/authorize');
+    copyResponseCookie($app, $revokedActorState);
+    $app->user->id = null;
+    $app->users->storedUser->permissions = [];
+    $app->request->fixtureQueryParams = ['state' => $revokedActorState];
+    $revokedActorRejected = false;
+    try {
+        $transactions->claimAuthorized('fixture', fn(FixtureStoredUser $user): bool => $user->can('manage-integrations'));
+    } catch (Throwable) {
+        $revokedActorRejected = true;
+    }
+    $revokedCacheKey = 'verbb-auth.oauth-transaction.' . hash('sha256', $revokedActorState);
+    check('A callback is rejected and consumed after its initiator loses permission', $revokedActorRejected && $app->cache->get($revokedCacheKey) === false);
+
+    foreach (['suspended', 'locked', 'password-reset', 'deleted'] as $invalidActorState) {
+        $state = "invalid-actor-{$invalidActorState}";
+        $app->user->id = 42;
+        $app->users->storedUser = new FixtureStoredUser();
+        resetResponse($app);
+        $transactions->begin('fixture', new FixtureProvider($state), "target-{$invalidActorState}", [], 'https://provider.test/authorize');
+        copyResponseCookie($app, $state);
+        $app->user->id = null;
+
+        if ($invalidActorState === 'suspended') {
+            $app->users->storedUser->status = 'suspended';
+        } elseif ($invalidActorState === 'locked') {
+            $app->users->storedUser->locked = true;
+        } elseif ($invalidActorState === 'password-reset') {
+            $app->users->storedUser->passwordResetRequired = true;
+        } else {
+            $app->users->storedUser = null;
+        }
+
+        $app->request->fixtureQueryParams = ['state' => $state];
+        $invalidActorRejected = false;
+        try {
+            $transactions->claimAuthorized('fixture', fn(FixtureStoredUser $user): bool => $user->can('manage-integrations'));
+        } catch (Throwable) {
+            $invalidActorRejected = true;
+        }
+        check("A {$invalidActorState} initiator cannot finish an OAuth callback", $invalidActorRejected);
+    }
+
+    $app->users->storedUser = new FixtureStoredUser();
+    $app->user->id = 42;
+
+    $missingInitiatorState = 'missing-initiator-state';
+    $app->user->id = null;
+    resetResponse($app);
+    $transactions->begin('fixture', new FixtureProvider($missingInitiatorState), 'target-missing-initiator', [], 'https://provider.test/authorize');
+    copyResponseCookie($app, $missingInitiatorState);
+    $app->request->fixtureQueryParams = ['state' => $missingInitiatorState];
+    $missingInitiatorRejected = false;
+    try {
+        $transactions->claimAuthorized('fixture', fn(FixtureStoredUser $user): bool => $user->can('manage-integrations'));
+    } catch (Throwable) {
+        $missingInitiatorRejected = true;
+    }
+    check('An OAuth transaction without an initiating user cannot use the authorized callback path', $missingInitiatorRejected);
     $app->user->id = 42;
 
     $expiredState = 'expired-state';

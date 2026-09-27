@@ -6,10 +6,12 @@ use verbb\auth\helpers\Session;
 
 use Craft;
 use craft\base\Component;
+use craft\elements\User;
 use craft\helpers\UrlHelper;
 
 use yii\web\BadRequestHttpException;
 use yii\web\Cookie;
+use yii\web\ForbiddenHttpException;
 use yii\web\Response;
 
 class OAuthTransactions extends Component
@@ -152,6 +154,34 @@ class OAuthTransactions extends Component
 
         $this->_clearCookie($transactionId);
         $this->_restoreContext($transaction);
+
+        return $transaction;
+    }
+
+    /**
+     * @param callable(User): bool $authorizeUser
+     */
+    public function claimAuthorized(?string $ownerHandle, callable $authorizeUser, ?string $transactionId = null): array
+    {
+        // Claim first so a rejected callback cannot be retried after the actor regains access.
+        $transaction = $this->claim($ownerHandle, $transactionId);
+        $initiatingUserId = $transaction['initiatingUserId'] ?? null;
+
+        if (!is_int($initiatingUserId) && !(is_string($initiatingUserId) && ctype_digit($initiatingUserId))) {
+            throw new ForbiddenHttpException('The OAuth transaction is no longer authorized.');
+        }
+
+        $user = Craft::$app->getUsers()->getUserById((int)$initiatingUserId);
+
+        if (
+            !$user ||
+            $user->getStatus() !== User::STATUS_ACTIVE ||
+            $user->locked ||
+            $user->passwordResetRequired ||
+            !$authorizeUser($user)
+        ) {
+            throw new ForbiddenHttpException('The OAuth transaction is no longer authorized.');
+        }
 
         return $transaction;
     }
