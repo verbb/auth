@@ -18,6 +18,7 @@ namespace {
     require $vendorDir . '/yiisoft/yii2/Yii.php';
     require $vendorDir . '/craftcms/cms/src/Craft.php';
     require __DIR__ . '/../../src/base/OAuthProviderInterface.php';
+    require __DIR__ . '/../../src/helpers/Redirect.php';
     require __DIR__ . '/../../src/helpers/Session.php';
     require __DIR__ . '/../../src/services/OAuthTransactions.php';
 
@@ -124,6 +125,11 @@ namespace {
             return $this->fixtureHostInfo;
         }
 
+        public function getBaseUrl(): string
+        {
+            return '';
+        }
+
         public function getIsSecureConnection(): bool
         {
             return str_starts_with($this->fixtureHostInfo, 'https://');
@@ -155,6 +161,23 @@ namespace {
         public function remove(string $key): void
         {
             unset($this[$key]);
+        }
+    }
+
+    class FixtureSecurity extends yii\base\Security
+    {
+        public function hashData($data, $key = null, $rawHash = false): string
+        {
+            return parent::hashData($data, 'fixture-security-key', $rawHash);
+        }
+
+        public function validateData($data, $key = null, $rawHash = false): string|false
+        {
+            if (!is_string($data)) {
+                return false;
+            }
+
+            return parent::validateData($data, 'fixture-security-key', $rawHash);
         }
     }
 
@@ -274,9 +297,9 @@ namespace {
             return $this->session;
         }
 
-        public function getSecurity(): yii\base\Security
+        public function getSecurity(): FixtureSecurity
         {
-            return new yii\base\Security();
+            return new FixtureSecurity();
         }
 
         public function getMutex(): FixtureMutex
@@ -368,6 +391,80 @@ namespace {
     $transaction = $transactions->claim('fixture');
     check('Same browser can claim its transaction', $transaction['reference'] === 'target-a');
     check('Explicit context is restored after a valid claim', $app->session->get('verbb-auth.target') === 'alpha');
+
+    $unsafeReturnState = 'unsafe-return-state';
+    resetResponse($app);
+    $transactions->begin('fixture', new class($unsafeReturnState) extends FixtureProvider {
+        public function getOAuthTransactionData(): array
+        {
+            return [
+                'state' => 'unsafe-return-state',
+                'transactionKey' => 'unsafe-return-state',
+                'origin' => 'https://evil.test/failure',
+                'redirect' => 'https://site.test/success?marker={{7*7}}',
+            ];
+        }
+    }, 'target-return', [], 'https://provider.test/authorize');
+    copyResponseCookie($app, $unsafeReturnState);
+    resetResponse($app);
+    $app->request->fixtureQueryParams = ['state' => $unsafeReturnState];
+    $transactions->claim('fixture');
+    check('Unsigned external callback origin falls back to the initiating site', Session::get('origin') === 'https://site.test/');
+    check('Same-origin callback redirect remains literal data', Session::get('redirect') === 'https://site.test/success?marker={{7*7}}');
+
+    $explicitReturnState = 'explicit-return-state';
+    resetResponse($app);
+    $transactions->begin('fixture', new FixtureProvider($explicitReturnState), 'target-explicit-return', [
+        'redirect' => 'https://frontend.test/finished',
+    ], 'https://provider.test/authorize');
+    copyResponseCookie($app, $explicitReturnState);
+    resetResponse($app);
+    $app->request->fixtureQueryParams = ['state' => $explicitReturnState];
+    $transactions->claim('fixture');
+    check('Explicit consumer callback destination can use another origin', Session::get('redirect') === 'https://frontend.test/finished');
+
+    $signedReturnState = 'signed-return-state';
+    $signedReturnUrl = 'https://frontend.test/signed-finished';
+    resetResponse($app);
+    $app->request->fixtureQueryParams = [
+        'redirect' => $app->getSecurity()->hashData($signedReturnUrl),
+    ];
+    $transactions->begin('fixture', new class($signedReturnState, $signedReturnUrl) extends FixtureProvider {
+        public function __construct(string $state, private string $returnUrl)
+        {
+            parent::__construct($state);
+        }
+
+        public function getOAuthTransactionData(): array
+        {
+            return array_merge(parent::getOAuthTransactionData(), [
+                'redirect' => $this->returnUrl,
+            ]);
+        }
+    }, 'target-signed-return', [], 'https://provider.test/authorize');
+    copyResponseCookie($app, $signedReturnState);
+    resetResponse($app);
+    $app->request->fixtureQueryParams = ['state' => $signedReturnState];
+    $transactions->claim('fixture');
+    check('Auth-validated external callback destination remains supported', Session::get('redirect') === $signedReturnUrl);
+
+    $forgedReturnState = 'forged-return-state';
+    resetResponse($app);
+    $app->request->fixtureQueryParams = [];
+    $transactions->begin('fixture', new class($forgedReturnState) extends FixtureProvider {
+        public function getOAuthTransactionData(): array
+        {
+            return array_merge(parent::getOAuthTransactionData(), [
+                'redirect' => 'https://evil.test/phish',
+                'redirectValidated' => true,
+            ]);
+        }
+    }, 'target-forged-return', [], 'https://provider.test/authorize');
+    copyResponseCookie($app, $forgedReturnState);
+    resetResponse($app);
+    $app->request->fixtureQueryParams = ['state' => $forgedReturnState];
+    $transactions->claim('fixture');
+    check('Provider metadata cannot mark its own external callback destination as trusted', Session::get('redirect') === 'https://site.test/start');
 
     $replayed = false;
     try {

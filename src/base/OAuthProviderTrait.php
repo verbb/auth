@@ -2,6 +2,7 @@
 namespace verbb\auth\base;
 
 use verbb\auth\Auth;
+use verbb\auth\helpers\Redirect;
 use verbb\auth\models\Token;
 
 use Craft;
@@ -118,12 +119,13 @@ trait OAuthProviderTrait
         $request = Craft::$app->getRequest();
         $oauthProvider = $this->getOAuthProvider();
 
-        // Allow passing in a `redirect` param to redirect to upon callback
-        $redirect = Craft::$app->getSecurity()->validateData($request->getParam('redirect'));
-        $redirect = $redirect ?: $request->getReferrer();
+        // Signed redirects are an explicit application choice. An unsigned referrer must stay on the initiating origin.
+        $redirect = $request->getParam('redirect');
+        $redirect = is_string($redirect) ? Redirect::allowed(Craft::$app->getSecurity()->validateData($redirect)) : null;
+        $origin = Redirect::safeReferrer($request->getReferrer());
         $this->_oauthTransactionData = [
-            'redirect' => $redirect,
-            'origin' => $request->getReferrer(),
+            'redirect' => $redirect ?? $origin,
+            'origin' => $origin,
         ];
 
         // OAuth v1

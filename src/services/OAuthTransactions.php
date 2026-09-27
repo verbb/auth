@@ -2,6 +2,7 @@
 namespace verbb\auth\services;
 
 use verbb\auth\base\OAuthProviderInterface;
+use verbb\auth\helpers\Redirect;
 use verbb\auth\helpers\Session;
 
 use Craft;
@@ -36,7 +37,10 @@ class OAuthTransactions extends Component
 
         if ($context === []) {
             $context = Session::getAll();
+            unset($context['redirect'], $context['origin']);
         }
+
+        $this->_normalizeReturnUrls($providerData, $context);
 
         if ($grant === 'client_credentials') {
             $transactionId = Craft::$app->getSecurity()->generateRandomString(48);
@@ -325,6 +329,25 @@ class OAuthTransactions extends Component
         $providerData['transactionKey'] ??= $providerData['state'] ?? null;
 
         return $providerData;
+    }
+
+    private function _normalizeReturnUrls(array &$providerData, array &$context): void
+    {
+        $origin = Redirect::safeReferrer($providerData['origin'] ?? null);
+        $signedRedirect = Craft::$app->getRequest()->getParam('redirect');
+        $signedRedirect = is_string($signedRedirect) ? Redirect::allowed(Craft::$app->getSecurity()->validateData($signedRedirect)) : null;
+        $redirect = $signedRedirect ?? Redirect::sameOrigin($providerData['redirect'] ?? null);
+
+        $providerData['origin'] = $origin;
+        $providerData['redirect'] = $redirect ?? $origin;
+
+        if (array_key_exists('origin', $context)) {
+            $context['origin'] = Redirect::safeReferrer($context['origin']);
+        }
+
+        if (array_key_exists('redirect', $context)) {
+            $context['redirect'] = Redirect::allowed($context['redirect']) ?? $origin;
+        }
     }
 
     private function _queryValue(string $name): ?string
