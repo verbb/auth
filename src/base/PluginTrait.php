@@ -3,6 +3,7 @@ namespace verbb\auth\base;
 
 use verbb\auth\Auth;
 use verbb\auth\services\OAuth;
+use verbb\auth\services\OAuthTransactions;
 use verbb\auth\services\Tokens;
 
 use Craft;
@@ -61,6 +62,11 @@ trait PluginTrait
         return $this->get('tokens');
     }
 
+    public function getOAuthTransactions(): OAuthTransactions
+    {
+        return $this->get('oauthTransactions');
+    }
+
 
     // Private Methods
     // =========================================================================
@@ -71,6 +77,7 @@ trait PluginTrait
         
         $this->setComponents([
             'oauth' => OAuth::class,
+            'oauthTransactions' => OAuthTransactions::class,
             'tokens' => Tokens::class,
         ]);
     }

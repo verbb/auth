@@ -2,7 +2,6 @@
 namespace verbb\auth\base;
 
 use verbb\auth\Auth;
-use verbb\auth\helpers\Session;
 use verbb\auth\models\Token;
 
 use Craft;
@@ -13,6 +12,7 @@ use craft\helpers\Json;
 use Exception;
 
 use League\OAuth1\Client\Credentials\TokenCredentials as OAuth1Token;
+use League\OAuth1\Client\Credentials\TemporaryCredentials;
 use League\OAuth1\Client\Server\Server as OAuth1Provider;
 use League\OAuth2\Client\Provider\AbstractProvider as OAuth2Provider;
 use League\OAuth2\Client\Token\AccessToken as OAuth2Token;
@@ -33,6 +33,7 @@ trait OAuthProviderTrait
     public string $scopeSeparator = ' ';
 
     protected OAuth1Provider|OAuth2Provider|null $_oauthProvider = null;
+    protected array $_oauthTransactionData = [];
 
 
     // Public Methods
@@ -120,13 +121,20 @@ trait OAuthProviderTrait
         // Allow passing in a `redirect` param to redirect to upon callback
         $redirect = Craft::$app->getSecurity()->validateData($request->getParam('redirect'));
         $redirect = $redirect ?: $request->getReferrer();
-        Session::set('redirect', $redirect);
+        $this->_oauthTransactionData = [
+            'redirect' => $redirect,
+            'origin' => $request->getReferrer(),
+        ];
 
         // OAuth v1
         if ($this->getIsOAuth1()) {
             $temporaryCredentials = $oauthProvider->getTemporaryCredentials();
 
-            Session::set('temporaryCredentials', $temporaryCredentials);
+            $this->_oauthTransactionData['temporaryCredentials'] = [
+                'identifier' => $temporaryCredentials->getIdentifier(),
+                'secret' => $temporaryCredentials->getSecret(),
+            ];
+            $this->_oauthTransactionData['transactionKey'] = $temporaryCredentials->getIdentifier();
 
             $authUrl = $oauthProvider->getAuthorizationUrl($temporaryCredentials);
         }
@@ -136,12 +144,15 @@ trait OAuthProviderTrait
             // Must do this before calling `getState()`
             $authUrl = $oauthProvider->getAuthorizationUrl($this->getAuthorizationUrlOptions());
 
-            Session::set('state', $oauthProvider->getState());
-            Session::set('origin', $request->getReferrer());
-
+            $this->_oauthTransactionData['state'] = $oauthProvider->getState();
+            $this->_oauthTransactionData['transactionKey'] = $oauthProvider->getState();
             // Persist League OAuth2 PKCE verifier across the redirect when enabled
             if (method_exists($oauthProvider, 'getPkceCode') && ($pkceCode = $oauthProvider->getPkceCode())) {
-                Session::set('pkceCode', $pkceCode);
+                $this->_oauthTransactionData['pkceCode'] = $pkceCode;
+            }
+
+            if (method_exists($oauthProvider, 'getPkceVerifier')) {
+                $this->_oauthTransactionData['pkceVerifier'] = $oauthProvider->getPkceVerifier();
             }
         }
 
@@ -151,6 +162,16 @@ trait OAuthProviderTrait
     public function getAccessTokenOptions(array $options = []): array
     {
         return $options;
+    }
+
+    public function getOAuthTransactionData(): array
+    {
+        return $this->_oauthTransactionData;
+    }
+
+    public function setOAuthTransactionData(array $data): void
+    {
+        $this->_oauthTransactionData = $data;
     }
 
     public function getAccessToken(): OAuth1Token|OAuth2Token|null
@@ -163,9 +184,19 @@ trait OAuthProviderTrait
         if ($this->getIsOAuth1()) {
             $oauthToken = $request->getParam('oauth_token');
             $oauthVerifier = $request->getParam('oauth_verifier');
+            $temporaryCredentialsData = $this->_oauthTransactionData['temporaryCredentials'] ?? null;
 
-            // Retrieve the temporary credentials we saved before.
-            $temporaryCredentials = Session::get('temporaryCredentials');
+            if (!is_string($oauthToken) || $oauthToken === '' || !is_string($oauthVerifier) || $oauthVerifier === '' || !is_array($temporaryCredentialsData)) {
+                throw new Exception('Invalid OAuth 1 callback.');
+            }
+
+            if (!hash_equals((string)($temporaryCredentialsData['identifier'] ?? ''), $oauthToken)) {
+                throw new Exception('Invalid OAuth 1 callback token.');
+            }
+
+            $temporaryCredentials = new TemporaryCredentials();
+            $temporaryCredentials->setIdentifier($temporaryCredentialsData['identifier'] ?? '');
+            $temporaryCredentials->setSecret($temporaryCredentialsData['secret'] ?? '');
 
             // Obtain token credentials from the server.
             $accessToken = $oauthProvider->getTokenCredentials($temporaryCredentials, $oauthToken, $oauthVerifier);
@@ -189,19 +220,26 @@ trait OAuthProviderTrait
             $grant = $this->getGrant();
             $code = $request->getParam('code');
             $state = $request->getParam('state');
-            $sessionState = Session::get('state');
+            $transactionState = $this->_oauthTransactionData['state'] ?? null;
 
             if ($grant === 'authorization_code') {
-                // Run CSRF checks
-                if ($state !== $sessionState) {
-                    Auth::error('Invalid callback state. State is mismatched: {state} - {sessionState}.', ['state' => $state, 'sessionState' => $sessionState]);
+                if (!is_string($state) || $state === '' || !is_string($transactionState) || $transactionState === '' || !hash_equals($transactionState, $state)) {
+                    Auth::error('Invalid callback state. State is mismatched: {state} - {transactionState}.', ['state' => $state, 'transactionState' => $transactionState]);
 
                     throw new Exception('Invalid callback state. State is mismatched.');
                 }
 
+                if (!is_string($code) || $code === '') {
+                    throw new Exception('Invalid callback authorization code.');
+                }
+
                 // Restore League OAuth2 PKCE verifier for the token exchange
-                if (method_exists($oauthProvider, 'setPkceCode') && ($pkceCode = Session::get('pkceCode'))) {
+                if (method_exists($oauthProvider, 'setPkceCode') && ($pkceCode = $this->_oauthTransactionData['pkceCode'] ?? null)) {
                     $oauthProvider->setPkceCode($pkceCode);
+                }
+
+                if (method_exists($oauthProvider, 'setPkceVerifier') && ($pkceVerifier = $this->_oauthTransactionData['pkceVerifier'] ?? null)) {
+                    $oauthProvider->setPkceVerifier($pkceVerifier);
                 }
 
                 $accessToken = $oauthProvider->getAccessToken($grant, $this->getAccessTokenOptions([
@@ -233,6 +271,10 @@ trait OAuthProviderTrait
 
     public function getGrant(): string
     {
+        if ($this->getIsOAuth1()) {
+            return 'oauth1';
+        }
+
         return $this->getOAuthProvider()->getGrant();
     }
 

@@ -3,7 +3,6 @@ namespace verbb\auth\providers;
 
 use verbb\auth\base\ProviderTrait;
 use verbb\auth\clients\twitter\provider\Twitter as TwitterProvider;
-use verbb\auth\helpers\Session;
 use verbb\auth\models\Token;
 
 use Psr\Http\Message\RequestInterface;
@@ -31,19 +30,10 @@ class Twitter extends TwitterProvider
     // Protected Methods
     // =========================================================================
 
-    protected function getAuthorizationQuery(array $params): string
-    {
-        // Store PKCE token
-        Session::set('oauth2verifier', $this->getPkceVerifier());
-
-        return parent::getAuthorizationQuery($params);
-    }
-
     protected function getAccessTokenRequest(array $params): RequestInterface
     {
-        // Apply PKCE token
         if (!isset($params['code_verifier'])) {
-            $params['code_verifier'] = Session::get('oauth2verifier');
+            $params['code_verifier'] = $this->getPkceVerifier();
         }
 
         return parent::getAccessTokenRequest($params);

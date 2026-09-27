@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+### Fixed
+- Fixed a high-severity OAuth callback integrity vulnerability.
+
 ## 2.0.47 - 2026-09-23
 
 ### Changed

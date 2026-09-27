@@ -109,7 +109,7 @@ public function actionLogin(): Response
     ]);
 
     // Redirect to the provider platform to login and authorize
-    return Auth::getInstance()->getOAuth()->connect('my-plugin-handle', $provider);
+    return Auth::getInstance()->getOAuth()->connect('my-plugin-handle', $provider, 'some-reference');
 }
 ```
 
@@ -125,6 +125,16 @@ Let's add some code to handle generating the token.
 ```php
 public function actionCallback(): Response
 {
+    $oauth = Auth::getInstance()->getOAuth();
+
+    // For callback URLs on another host, establish browser continuity before leaving for the provider.
+    if ($response = $oauth->prepareCallback('my-plugin-handle')) {
+        return $response;
+    }
+
+    // Claim the short-lived, one-use transaction and restore its explicit callback context.
+    $oauth->claimCallback('my-plugin-handle');
+
     // Create the provider class with the redirectUri pointing to our `actionCallback` method
     $provider = new \modules\socialmodule\providers\Facebook([
         'clientId' => '••••••••••••••••••••••••••••',
@@ -134,7 +144,7 @@ public function actionCallback(): Response
     ]);
 
     // Fetch the Token model from the provider
-    $token = Auth::getInstance()->getOAuth()->callback('my-plugin-handle', $provider);
+    $token = $oauth->callback('my-plugin-handle', $provider, 'some-reference');
 
     // Record a referene
     $token->reference = 'some-reference';
@@ -147,7 +157,19 @@ public function actionCallback(): Response
 }
 ```
 
-Here, we grab our provider, then call `callback()` to use the authentication code returned from the provider to fetch an access token. We then call `upsertToken()` to save this to the database, while also adding a `reference` for our uses. `upsertToken()` will either create a new token, or find an existing token with the same `ownerHandle`, `providerType`, `tokenType` and `reference`. We could call `saveToken()` but that would likely cause duplicates every time we run this callback.
+Here, we grab our provider, claim the OAuth transaction, then call `callback()` to use the authentication code returned from the provider to fetch an access token. Pass the same stable reference to `connect()` and `callback()` so the transaction cannot be used for a different configured target. We then call `upsertToken()` to save this to the database, while also adding a `reference` for our uses. `upsertToken()` will either create a new token, or find an existing token with the same `ownerHandle`, `providerType`, `tokenType` and `reference`. We could call `saveToken()` but that would likely cause duplicates every time we run this callback.
+
+OAuth transactions expire after 15 minutes, can be claimed once, and are bound to the browser that started them. Auth stores the callback context in the server cache so the flow does not depend on the PHP session surviving an off-site redirect. When the callback uses another host, `prepareCallback()` performs one first-party redirect through that host to establish the transaction cookie before continuing to the provider. Proxy callback URLs with a `return` parameter establish continuity on the returned-to host while keeping the proxy URL registered with the provider. This also supports Apple’s cross-site POST callback and keeps concurrent browser tabs isolated from one another.
+
+If your callback needs values such as a provider handle, pass only those explicit values as the fourth `connect()` argument. `claimCallback()` restores them through Auth’s session helper for compatibility:
+
+```php
+return $oauth->connect('my-plugin-handle', $provider, $provider->handle, [
+    'providerHandle' => $provider->handle,
+]);
+```
+
+The former `Session::storeSession()` and permissive one-argument `Session::restoreSession()` snapshot workflow must not be used for new integrations. Existing callbacks should move to `prepareCallback()` and `claimCallback()` so Auth can enforce the owner, browser, provider and target boundaries.
 
 You can see this can be improved be having somewhere central to store the provider config - but that'll be up to you to implement in your plugin.
 
@@ -155,10 +177,8 @@ You can see this can be improved be having somewhere central to store the provid
 So what does Auth do to help with this overall process, rather than doing it youself?
 - Provide single-line calls to generate authentication URL and fetch access tokens.
 - Works for either OAuth 1 or 2 with consolidated handling.
-- Adds session variables before an authorization URL redirect to:
-    - `redirect` to allow a redirect after hitting the callback endpoint.
-    - `state` to validate the state returned by the authorization URL for CSRF protection.
-    - `origin` to keep track of the referrer.
+- Stores a short-lived OAuth transaction before redirecting, including the validated return URLs, provider state, PKCE or OAuth 1 credentials, owner and configured target.
+- Restores explicitly supplied callback context even when the PHP session does not survive the provider redirect.
 - Fire a number of events before the authorization URL redirect and before/after access tokens.
 - Saves saving the token to the database table.
 - Handles creating or updating the token to the database, depending on your criteria

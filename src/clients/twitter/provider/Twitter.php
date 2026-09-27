@@ -53,6 +53,11 @@ class Twitter extends AbstractProvider
         return $this->pkceVerifier;
     }
 
+    public function setPkceVerifier(string $pkceVerifier): void
+    {
+        $this->pkceVerifier = $pkceVerifier;
+    }
+
     /**
      * Returns the base URL for authorizing a client.
      *
