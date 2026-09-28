@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.0.48 - 2026-09-29
 
 ### Fixed
 - Fixed a high-severity external identity verification vulnerability.
