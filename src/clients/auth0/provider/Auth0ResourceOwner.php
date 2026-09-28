@@ -33,6 +33,11 @@ class Auth0ResourceOwner implements ResourceOwnerInterface
         return $this->getValueByKey($this->response, 'email');
     }
 
+    public function getEmailVerified(): mixed
+    {
+        return $this->getValueByKey($this->response, 'email_verified');
+    }
+
     /**
      * Returns full name of the resource owner
      *

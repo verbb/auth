@@ -74,6 +74,11 @@ class GoogleUser implements ResourceOwnerInterface
         return $this->getResponseValue('email');
     }
 
+    public function getEmailVerified(): mixed
+    {
+        return $this->getResponseValue('email_verified');
+    }
+
     /**
      * Get hosted domain.
      *

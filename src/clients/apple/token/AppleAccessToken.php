@@ -22,6 +22,8 @@ class AppleAccessToken extends AccessToken
      */
     protected mixed $email = null;
 
+    protected ?bool $emailVerified = null;
+
     /**
      * @var boolean|null
      */
@@ -37,52 +39,66 @@ class AppleAccessToken extends AccessToken
      *
      * @throws Exception
      */
-    public function __construct(array $keys, array $options = [])
+    public function __construct(array $keys, array $options = [], ?string $expectedAudience = null)
     {
-        if (array_key_exists('refresh_token', $options)) {
-            if (empty($options['id_token'])) {
-                throw new InvalidArgumentException('Required option not passed: "id_token"');
-            }
+        if (empty($options['id_token'])) {
+            throw new InvalidArgumentException('Required option not passed: "id_token"');
+        }
 
-            $decoded = null;
-            $last = end($keys);
-            foreach ($keys as $key) {
+        $decoded = null;
+        $last = end($keys);
+        foreach ($keys as $key) {
+            try {
                 try {
-                    try {
-                        $decoded = JWT::decode($options['id_token'], $key);
-                    } catch (\UnexpectedValueException $e) {
-                        $decodeMethodReflection = new \ReflectionMethod(JWT::class, 'decode');
-                        $decodeMethodParameters = $decodeMethodReflection->getParameters();
-                        
-                        // Backwards compatibility for firebase/php-jwt >=5.2.0 <=5.5.1 supported by PHP 5.6
-                        if (array_key_exists(2, $decodeMethodParameters) && 'allowed_algs' === $decodeMethodParameters[2]->getName()) {
-                            $decoded = JWT::decode($options['id_token'], $key, ['RS256']);
-                        } else {
-                            $headers = (object) ['alg' => 'RS256'];
-                            $decoded = JWT::decode($options['id_token'], $key, $headers);
-                        }
-                    }
-                    break;
-                } catch (Exception $exception) {
-                    if ($last === $key) {
-                        throw $exception;
+                    $decoded = JWT::decode($options['id_token'], $key);
+                } catch (UnexpectedValueException $e) {
+                    $decodeMethodReflection = new \ReflectionMethod(JWT::class, 'decode');
+                    $decodeMethodParameters = $decodeMethodReflection->getParameters();
+
+                    if (array_key_exists(2, $decodeMethodParameters) && 'allowed_algs' === $decodeMethodParameters[2]->getName()) {
+                        $decoded = JWT::decode($options['id_token'], $key, ['RS256']);
+                    } else {
+                        $headers = (object)['alg' => 'RS256'];
+                        $decoded = JWT::decode($options['id_token'], $key, $headers);
                     }
                 }
+                break;
+            } catch (Exception $exception) {
+                if ($last === $key) {
+                    throw $exception;
+                }
             }
-            if (null === $decoded) {
-                throw new Exception('Got no data within "id_token"!');
-            }
-            $payload = json_decode(json_encode($decoded), true);
+        }
 
-            $options['resource_owner_id'] = $payload['sub'];
+        if ($decoded === null) {
+            throw new Exception('Got no data within "id_token"!');
+        }
 
-            if (isset($payload['email_verified']) && $payload['email_verified']) {
-                $options['email'] = $payload['email'];
-            }
+        $payload = json_decode(json_encode($decoded), true);
 
-            if (isset($payload['is_private_email'])) {
-                $this->isPrivateEmail = $payload['is_private_email'];
-            }
+        if (($payload['iss'] ?? null) !== 'https://appleid.apple.com') {
+            throw new UnexpectedValueException('The Apple identity token has an invalid issuer.');
+        }
+
+        $audience = $payload['aud'] ?? null;
+
+        if ($expectedAudience !== null && !(is_array($audience) ? in_array($expectedAudience, $audience, true) : $audience === $expectedAudience)) {
+            throw new UnexpectedValueException('The Apple identity token has an invalid audience.');
+        }
+
+        if (empty($payload['sub']) || !is_string($payload['sub'])) {
+            throw new UnexpectedValueException('The Apple identity token has no subject.');
+        }
+
+        $options['resource_owner_id'] = $payload['sub'];
+        $this->emailVerified = $this->normalizeBoolean($payload['email_verified'] ?? null);
+
+        if ($this->emailVerified === true && isset($payload['email']) && is_string($payload['email'])) {
+            $options['email'] = $payload['email'];
+        }
+
+        if (array_key_exists('is_private_email', $payload)) {
+            $this->isPrivateEmail = $this->normalizeBoolean($payload['is_private_email']);
         }
 
         parent::__construct($options);
@@ -107,9 +123,14 @@ class AppleAccessToken extends AccessToken
     /**
      * @return string
      */
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
+    }
+
+    public function getEmailVerified(): ?bool
+    {
+        return $this->emailVerified;
     }
 
     /**
@@ -118,5 +139,18 @@ class AppleAccessToken extends AccessToken
     public function isPrivateEmail(): bool
     {
         return (bool) $this->isPrivateEmail;
+    }
+
+    private function normalizeBoolean(mixed $value): ?bool
+    {
+        if ($value === true || $value === 1 || $value === '1' || $value === 'true') {
+            return true;
+        }
+
+        if ($value === false || $value === 0 || $value === '0' || $value === 'false') {
+            return false;
+        }
+
+        return null;
     }
 }

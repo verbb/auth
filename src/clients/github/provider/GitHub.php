@@ -10,6 +10,8 @@ use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 
+use Throwable;
+
 class GitHub extends AbstractProvider
 {
     use BearerAuthorizationTrait;
@@ -69,15 +71,28 @@ class GitHub extends AbstractProvider
     {
         $response = parent::fetchResourceOwnerDetails($token);
 
-        if (empty($response['email'])) {
-            $url = $this->getResourceOwnerDetailsUrl($token) . '/emails';
+        $url = $this->getResourceOwnerDetailsUrl($token) . '/emails';
+        $request = $this->getAuthenticatedRequest(self::METHOD_GET, $url, $token);
+        $verifiedPrimaryEmail = null;
+        $emailVerified = null;
 
-            $request = $this->getAuthenticatedRequest(self::METHOD_GET, $url, $token);
+        try {
+            $emails = $this->getParsedResponse($request);
+            $emailVerified = false;
 
-            $responseEmail = $this->getParsedResponse($request);
-
-            $response['email'] = $responseEmail[0]['email'] ?? null;
+            foreach ($emails as $email) {
+                if (($email['primary'] ?? false) === true && ($email['verified'] ?? false) === true) {
+                    $verifiedPrimaryEmail = $email['email'] ?? null;
+                    $emailVerified = $verifiedPrimaryEmail !== null;
+                    break;
+                }
+            }
+        } catch (Throwable) {
+            // A token without email-list access can still identify an existing connection by GitHub user ID.
         }
+
+        $response['email'] = $verifiedPrimaryEmail;
+        $response['email_verified'] = $emailVerified;
 
         return $response;
     }
@@ -93,7 +108,7 @@ class GitHub extends AbstractProvider
     protected function getDefaultScopes(): array
     {
         return [
-            'user.email',
+            'user:email',
         ];
     }
 

@@ -87,6 +87,11 @@ class DiscordResourceOwner implements ResourceOwnerInterface
         return $this->getValueByKey($this->response, 'verified', false);
     }
 
+    public function getEmailVerified(): bool
+    {
+        return $this->getVerified();
+    }
+
     /**
      * Get resource owner email
      *

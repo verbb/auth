@@ -73,6 +73,11 @@ class OktaUser implements ResourceOwnerInterface
     {
         return $this->response['email'] ?? null;
     }
+
+    public function getEmailVerified(): mixed
+    {
+        return $this->response['email_verified'] ?? null;
+    }
     
     /**
      * Get preferred username.

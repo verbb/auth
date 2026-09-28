@@ -62,6 +62,25 @@ class UserProfile
         return ArrayHelper::getValue($this->data, $name) ?? ArrayHelper::getValue($response, $name);
     }
 
+    public function getEmailVerified(): ?bool
+    {
+        $value = $this->data['emailVerified'] ?? ArrayHelper::getValue($this->data['response'] ?? [], 'email_verified');
+
+        if ($value === null) {
+            return null;
+        }
+
+        if ($value === true || $value === 1 || $value === '1' || $value === 'true') {
+            return true;
+        }
+
+        if ($value === false || $value === 0 || $value === '0' || $value === 'false') {
+            return false;
+        }
+
+        return null;
+    }
+
     public function __isset($name)
     {
 

@@ -154,6 +154,11 @@ class LinkedInResourceOwner extends GenericResourceOwner
         return $this->getAttribute('email');
     }
 
+    public function getEmailVerified(): mixed
+    {
+        return $this->getAttribute('email_verified');
+    }
+
     /**
      * Attempts to sort the collection of profile pictures included in the profile
      * before caching them in the resource owner instance.

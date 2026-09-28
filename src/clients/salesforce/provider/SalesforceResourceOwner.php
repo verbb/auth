@@ -61,6 +61,16 @@ class SalesforceResourceOwner implements ResourceOwnerInterface
         return $this->getResponseData('email');
     }
 
+    public function getEmailVerified(): mixed
+    {
+        return $this->getResponseData('email_verified');
+    }
+
+    public function getOrganizationId(): array|string|null
+    {
+        return $this->getResponseData('organization_id');
+    }
+
     /**
      * Get user title
      *

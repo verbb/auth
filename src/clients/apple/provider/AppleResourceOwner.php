@@ -89,6 +89,11 @@ class AppleResourceOwner extends GenericResourceOwner
         return $this->getAttribute('email');
     }
 
+    public function getEmailVerified(): ?bool
+    {
+        return $this->getAttribute('emailVerified');
+    }
+
     /**
      * @return bool
      */

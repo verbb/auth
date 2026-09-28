@@ -83,7 +83,7 @@ class Apple extends AbstractProvider
      */
     protected function createAccessToken(array $response, AbstractGrant $grant): AccessTokenInterface|AppleAccessToken
     {
-        return new AppleAccessToken($this->getAppleKeys(), $response);
+        return new AppleAccessToken($this->getAppleKeys(), $response, $this->clientId);
     }
 
     /**
@@ -224,8 +224,9 @@ class Apple extends AbstractProvider
                 ['sub' => $token->getResourceOwnerId()],
                 $response,
                 [
-                    'email' => $token->getValues()['email'] ?? ($response['email'] ?? null),
-                    'isPrivateEmail' => $token instanceof AppleAccessToken ? $token->isPrivateEmail() : null
+                    'email' => $token instanceof AppleAccessToken ? $token->getEmail() : null,
+                    'emailVerified' => $token instanceof AppleAccessToken ? $token->getEmailVerified() : null,
+                    'isPrivateEmail' => $token instanceof AppleAccessToken ? $token->isPrivateEmail() : null,
                 ]
             ),
             $token->getResourceOwnerId()

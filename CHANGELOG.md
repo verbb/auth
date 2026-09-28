@@ -3,6 +3,7 @@
 ## Unreleased
 
 ### Fixed
+- Fixed a high-severity external identity verification vulnerability.
 - Fixed a high-severity OAuth callback integrity vulnerability.
 - Fixed OAuth callbacks retaining authority after the initiating Craft user loses access.
 - Fixed OAuth callbacks accepting unsigned external return URLs.
