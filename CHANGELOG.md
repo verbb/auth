@@ -6,6 +6,7 @@
 - Fixed a high-severity OAuth callback integrity vulnerability.
 - Fixed OAuth callbacks retaining authority after the initiating Craft user loses access.
 - Fixed OAuth callbacks accepting unsigned external return URLs.
+- Fixed a high-severity external service transport vulnerability.
 
 ## 2.0.47 - 2026-09-23
 

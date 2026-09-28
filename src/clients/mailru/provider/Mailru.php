@@ -24,7 +24,7 @@ class Mailru extends AbstractProvider
     {
         $param = 'app_id=' . $this->clientId . '&method=users.getInfo&secure=1&session_key=' . $token->getToken();
         $sign = md5(str_replace('&', '', $param) . $this->clientSecret);
-        return 'http://www.appsmail.ru/platform/api?' . $param . '&sig=' . $sign;
+        return 'https://www.appsmail.ru/platform/api?' . $param . '&sig=' . $sign;
     }
 
     protected function getDefaultScopes(): array

@@ -34,7 +34,7 @@ class Odnoklassniki extends AbstractProvider
             .'&fields=uid,name,first_name,last_name,location,pic_3,gender,locale,photo_id'
             .'&method=users.getCurrentUser';
         $sign = md5(str_replace('&', '', $param).md5($token.$this->clientSecret));
-        return 'http://api.odnoklassniki.ru/fb.do?'.$param.'&access_token='.$token.'&sig='.$sign;
+        return 'https://api.ok.ru/fb.do?'.$param.'&access_token='.$token.'&sig='.$sign;
     }
 
     protected function getDefaultScopes(): array
