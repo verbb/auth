@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.49 - 2026-10-02
+
+### Fixed
+- Fix Client Credentials API requests discarding provider response values required to resolve API URLs.
+
 ## 2.0.48 - 2026-09-29
 
 ### Fixed
