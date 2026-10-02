@@ -19,6 +19,7 @@ use League\OAuth2\Client\Provider\AbstractProvider as OAuth2Provider;
 use League\OAuth2\Client\Token\AccessToken as OAuth2Token;
 
 use GuzzleHttp\Client;
+
 use function GuzzleHttp\default_user_agent;
 
 trait OAuthProviderTrait
@@ -148,6 +149,7 @@ trait OAuthProviderTrait
 
             $this->_oauthTransactionData['state'] = $oauthProvider->getState();
             $this->_oauthTransactionData['transactionKey'] = $oauthProvider->getState();
+
             // Persist League OAuth2 PKCE verifier across the redirect when enabled
             if (method_exists($oauthProvider, 'getPkceCode') && ($pkceCode = $oauthProvider->getPkceCode())) {
                 $this->_oauthTransactionData['pkceCode'] = $pkceCode;
@@ -247,7 +249,7 @@ trait OAuthProviderTrait
                 $accessToken = $oauthProvider->getAccessToken($grant, $this->getAccessTokenOptions([
                     'code' => $code,
                 ]));
-            } else if ($grant === 'client_credentials') {
+            } elseif ($grant === 'client_credentials') {
                 $options = [];
 
                 if (!empty($this->scopes)) {
@@ -268,7 +270,7 @@ trait OAuthProviderTrait
 
     public function getToken(): ?Token
     {
-        return null; 
+        return null;
     }
 
     public function getGrant(): string
@@ -311,9 +313,13 @@ trait OAuthProviderTrait
 
             $accessToken = $oauthProvider->getAccessToken('client_credentials', $this->getAccessTokenOptions($tokenOptions));
 
-            $token = new Token();
-            $token->setToken($accessToken);
-            $token->accessToken = $accessToken->getToken();
+            // Keep response-specific values such as Salesforce's `instance_url` available while
+            // ensuring the per-request token remains detached from the persisted token record.
+            $token = Auth::getInstance()->getTokens()->createToken(
+                $token?->ownerHandle ?? '',
+                $this,
+                $accessToken,
+            );
         }
 
         if (!$token) {
@@ -341,7 +347,7 @@ trait OAuthProviderTrait
         if ($baseUrl = $this->getBaseApiUrl($token)) {
             $config['base_uri'] = $baseUrl;
         }
-        
+
         return new Client($config);
     }
 
