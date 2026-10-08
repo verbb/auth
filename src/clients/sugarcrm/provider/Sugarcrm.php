@@ -1,5 +1,4 @@
-<?php 
-
+<?php
 namespace verbb\auth\clients\sugarcrm\provider;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
@@ -49,8 +48,20 @@ class Sugarcrm extends AbstractProvider
         $statusCode = $response->getStatusCode();
 
         if ($statusCode >= 400) {
+            $message = $response->getReasonPhrase();
+
+            // Sugar responses vary by endpoint and version, so prefer its human-readable fields before the error code.
+            if (is_array($data)) {
+                foreach (['error_message', 'description', 'error'] as $key) {
+                    if (isset($data[$key]) && is_string($data[$key]) && $data[$key] !== '') {
+                        $message = $data[$key];
+                        break;
+                    }
+                }
+            }
+
             throw new IdentityProviderException(
-                $data['description'] ?? $response->getReasonPhrase(),
+                $message,
                 $statusCode,
                 $response
             );
