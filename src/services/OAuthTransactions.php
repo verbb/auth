@@ -42,7 +42,7 @@ class OAuthTransactions extends Component
 
         $this->_normalizeReturnUrls($providerData, $context);
 
-        if ($grant === 'client_credentials') {
+        if ($this->_usesDirectCallback($grant)) {
             $transactionId = Craft::$app->getSecurity()->generateRandomString(48);
         }
 
@@ -196,7 +196,7 @@ class OAuthTransactions extends Component
 
     private function _authorizationTarget(array $transaction): string
     {
-        if ($transaction['grant'] === 'client_credentials') {
+        if ($this->_usesDirectCallback($transaction['grant'])) {
             return UrlHelper::urlWithParams($transaction['callbackUri'], [
                 self::CALLBACK_PARAM => $transaction['id'],
             ]);
@@ -207,6 +207,11 @@ class OAuthTransactions extends Component
         }
 
         return $transaction['authorizationUrl'];
+    }
+
+    private function _usesDirectCallback(string $grant): bool
+    {
+        return in_array($grant, ['client_credentials', 'password'], true);
     }
 
     private function _bindTransaction(array &$transaction): string

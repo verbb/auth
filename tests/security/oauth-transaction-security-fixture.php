@@ -719,16 +719,19 @@ namespace {
     $app->request->fixtureQueryParams = ['oauth_token' => $oauth1State, 'oauth_verifier' => 'verifier'];
     check('OAuth 1 callback uses its temporary token as the transaction key', $transactions->claim('fixture')['id'] === $oauth1State);
 
-    resetResponse($app);
-    $app->request->fixtureQueryParams = [];
-    $response = $transactions->begin('fixture', new FixtureProvider('unused-provider-state', 'https://site.test/callback', 'client_credentials'), 'target-h', [], null);
-    parse_str(parse_url($response->getHeaders()->get('location'), PHP_URL_QUERY), $clientCredentialsQuery);
-    $clientCredentialsId = $clientCredentialsQuery[OAuthTransactions::CALLBACK_PARAM] ?? null;
-    check('Client credentials uses a private local transaction identifier', is_string($clientCredentialsId) && $clientCredentialsId !== 'unused-provider-state');
-    copyResponseCookie($app, $clientCredentialsId);
-    resetResponse($app);
-    $app->request->fixtureQueryParams = [OAuthTransactions::CALLBACK_PARAM => $clientCredentialsId];
-    check('Client credentials callback does not require provider state', $transactions->claim('fixture')['grant'] === 'client_credentials');
+    foreach (['client_credentials', 'password'] as $directGrant) {
+        $providerState = "unused-{$directGrant}-state";
+        resetResponse($app);
+        $app->request->fixtureQueryParams = [];
+        $response = $transactions->begin('fixture', new FixtureProvider($providerState, 'https://site.test/callback', $directGrant), "target-{$directGrant}", [], null);
+        parse_str(parse_url($response->getHeaders()->get('location'), PHP_URL_QUERY), $directGrantQuery);
+        $directGrantId = $directGrantQuery[OAuthTransactions::CALLBACK_PARAM] ?? null;
+        check("{$directGrant} uses a private local transaction identifier", is_string($directGrantId) && $directGrantId !== $providerState);
+        copyResponseCookie($app, $directGrantId);
+        resetResponse($app);
+        $app->request->fixtureQueryParams = [OAuthTransactions::CALLBACK_PARAM => $directGrantId];
+        check("{$directGrant} callback does not require provider state", $transactions->claim('fixture')['grant'] === $directGrant);
+    }
 
     $proxyState = 'proxy-return-state';
     resetResponse($app);

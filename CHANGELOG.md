@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+### Fixed
+- Fix OAuth password grants failing to create secure callback transactions. ([formie#2988](https://github.com/verbb/formie/issues/2988))
+
 ## 2.0.49 - 2026-10-02
 
 ### Fixed
