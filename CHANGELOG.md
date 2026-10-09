@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.0.51 - 2026-10-09
 
 ### Fixed
 - Fix SugarCRM API errors omitting provider messages. ([formie#2988](https://github.com/verbb/formie/issues/2988))
