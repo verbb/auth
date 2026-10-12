@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+### Fixed
+- Fixed a low-severity external identity validation vulnerability.
+
 ## 2.0.51 - 2026-10-09
 
 ### Fixed
