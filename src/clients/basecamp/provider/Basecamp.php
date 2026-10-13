@@ -1,5 +1,4 @@
 <?php
-
 namespace verbb\auth\clients\basecamp\provider;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
@@ -11,8 +10,8 @@ use Psr\Http\Message\ResponseInterface;
 
 class Basecamp extends AbstractProvider
 {
-    use ArrayAccessorTrait,
-        BearerAuthorizationTrait;
+    use ArrayAccessorTrait;
+    use BearerAuthorizationTrait;
 
     /**
      * Basecamp environment specific host; defaults to api
@@ -67,8 +66,9 @@ class Basecamp extends AbstractProvider
             'type' => $this->type,
         ], $params);
 
-        $query = array_filter($params, function ($key) {
-            return in_array($key, ['type', 'refresh_token']);
+        // League sends refresh credentials in the POST body; keep them out of request URLs.
+        $query = array_filter($params, function($key) {
+            return $key === 'type';
         }, ARRAY_FILTER_USE_KEY);
 
         return $this->getHost() . '/authorization/token?'.http_build_query($query);

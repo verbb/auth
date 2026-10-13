@@ -4,6 +4,7 @@
 
 ### Fixed
 - Fixed a low-severity external identity validation vulnerability.
+- Fixed a low-severity information disclosure vulnerability.
 
 ## 2.0.51 - 2026-10-09
 
