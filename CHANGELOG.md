@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.0.53 - 2026-10-16
 
 ### Fixed
 - Fix the SuiteCRM OAuth client failing to load. ([#18](https://github.com/verbb/auth/issues/18))
