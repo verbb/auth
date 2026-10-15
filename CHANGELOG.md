@@ -4,7 +4,9 @@
 
 ### Fixed
 - Fix the SuiteCRM OAuth client failing to load. ([#18](https://github.com/verbb/auth/issues/18))
-- Fix Salesforce OAuth errors omitting the provider's error description.
+- Fix OAuth and API errors omitting provider descriptions across multiple providers, including Salesforce, Google, Microsoft, LinkedIn, Mailchimp, and Docusign.
+- Fix PayPal, Constant Contact, Drip, Shopify, and Square failing to report some rejected requests.
+- Fix IdentityServer4, Etsy, Harvest, and GoToWebinar errors preventing provider failures from being reported.
 
 ## 2.0.52 - 2026-10-15
 

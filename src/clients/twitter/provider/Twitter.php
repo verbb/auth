@@ -10,8 +10,9 @@
  * @link https://packagist.org/packages/smolblog/oauth2-twitter Packagist
  * @link https://github.com/smolblog/oauth2-twitter GitHub
  */
-
 namespace verbb\auth\clients\twitter\provider;
+
+use verbb\auth\helpers\ProviderError;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
@@ -162,7 +163,7 @@ class Twitter extends AbstractProvider
             return;
         }
 
-        $error = $data['error_description'] ?? '';
+        $error = ProviderError::message($data, $response->getReasonPhrase());
         $code = $data['code'] ?? $response->getStatusCode();
 
         throw new IdentityProviderException($error, $code, $data);
@@ -208,6 +209,7 @@ class Twitter extends AbstractProvider
         $length = random_int(43, 128); // PKCE spec allows length between 43-128 characters.
 
         $verifier = '';
+
         for ($i = 0; $i < $length; $i++) {
             $verifier .= $alphabet[random_int(0, $maxIndex)];
         }

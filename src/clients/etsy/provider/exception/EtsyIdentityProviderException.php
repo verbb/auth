@@ -1,13 +1,13 @@
 <?php
-
 namespace verbb\auth\clients\etsy\provider\exception;
+
+use verbb\auth\helpers\ProviderError;
 
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use Psr\Http\Message\ResponseInterface;
 
 class EtsyIdentityProviderException extends IdentityProviderException
 {
-
     /**
      * Creates client exception from response.
      *
@@ -20,7 +20,7 @@ class EtsyIdentityProviderException extends IdentityProviderException
     {
         return static::fromResponse(
             $response,
-            $data['message'] ?? $response->getReasonPhrase()
+            ProviderError::message($data, $response->getReasonPhrase())
         );
     }
 
@@ -36,7 +36,7 @@ class EtsyIdentityProviderException extends IdentityProviderException
     {
         return static::fromResponse(
             $response,
-            $data['error'] ?? $response->getReasonPhrase()
+            ProviderError::message($data, $response->getReasonPhrase())
         );
     }
 

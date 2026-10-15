@@ -1,6 +1,8 @@
 <?php
 namespace verbb\auth\clients\amazoncognito\provider;
 
+use verbb\auth\helpers\ProviderError;
+
 use League\OAuth2\Client\Exception\HostedDomainException;
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
@@ -25,7 +27,7 @@ class AmazonCognito extends AbstractProvider
      * @var string The full domain to AWS Cognito.
      */
     protected $domain;
-    
+
     /**
      * @param array $options
      * @param array $collaborators
@@ -35,7 +37,7 @@ class AmazonCognito extends AbstractProvider
     public function __construct($options = [], array $collaborators = [])
     {
         parent::__construct($options, $collaborators);
-        
+
         if (!empty($options['domain'])) {
             $this->domain = $options['domain'];
         } else {
@@ -157,10 +159,10 @@ class AmazonCognito extends AbstractProvider
         if (empty($data['error'])) {
             return;
         }
-        
+
         $code = 0;
-        $error = $data['error'];
-        
+        $error = ProviderError::message($data, $response->getReasonPhrase());
+
         throw new IdentityProviderException($error, $code, $data);
     }
 

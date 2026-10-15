@@ -1,4 +1,7 @@
-<?php namespace verbb\auth\clients\microsoft\provider;
+<?php
+namespace verbb\auth\clients\microsoft\provider;
+
+use verbb\auth\helpers\ProviderError;
 
 use GuzzleHttp\Psr7\Uri;
 use League\OAuth2\Client\Provider\AbstractProvider;
@@ -74,7 +77,7 @@ class Microsoft extends AbstractProvider
     {
         if (isset($data['error'])) {
             throw new IdentityProviderException(
-                ($data['error']['message'] ?? $response->getReasonPhrase()),
+                ProviderError::message($data, $response->getReasonPhrase()),
                 $response->getStatusCode(),
                 $response
             );

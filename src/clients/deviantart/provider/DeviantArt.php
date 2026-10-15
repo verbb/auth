@@ -1,6 +1,7 @@
 <?php
-
 namespace verbb\auth\clients\deviantart\provider;
+
+use verbb\auth\helpers\ProviderError;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
@@ -36,7 +37,7 @@ class DeviantArt extends AbstractProvider
     {
         if (isset($data['error'])) {
             throw new IdentityProviderException(
-                $data['error'] ?: $response->getReasonPhrase(),
+                ProviderError::message($data, $response->getReasonPhrase()),
                 $response->getStatusCode(),
                 $response->getBody()
             );
@@ -60,6 +61,7 @@ class DeviantArt extends AbstractProvider
     protected function parseResponse(ResponseInterface $response): array|string
     {
         $statusCode = $response->getStatusCode();
+
         if ($statusCode > 500) {
             throw new IdentityProviderException(
                 'The OAuth server returned an unexpected response',

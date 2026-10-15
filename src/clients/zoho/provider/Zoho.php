@@ -1,6 +1,8 @@
 <?php
-
 namespace verbb\auth\clients\zoho\provider;
+
+use verbb\auth\clients\zoho\token\ZohoAccessToken;
+use verbb\auth\helpers\ProviderError;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Grant\AbstractGrant;
@@ -8,7 +10,6 @@ use Psr\Http\Message\ResponseInterface;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use League\OAuth2\Client\Token\AccessToken;
-use verbb\auth\clients\zoho\token\ZohoAccessToken;
 
 class Zoho extends AbstractProvider
 {
@@ -105,7 +106,7 @@ class Zoho extends AbstractProvider
         }
         // @codeCoverageIgnoreEnd
 
-        $error = $data['error'];
+        $error = ProviderError::message($data, $response->getReasonPhrase());
         throw new IdentityProviderException(
             $error,
             $response->getStatusCode(),

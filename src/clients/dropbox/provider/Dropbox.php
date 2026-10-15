@@ -1,6 +1,7 @@
 <?php
-
 namespace verbb\auth\clients\dropbox\provider;
+
+use verbb\auth\helpers\ProviderError;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
@@ -74,7 +75,7 @@ class Dropbox extends AbstractProvider
     {
         if (isset($data['error'])) {
             throw new IdentityProviderException(
-                $data['error'] ?: $response->getReasonPhrase(),
+                ProviderError::message($data, $response->getReasonPhrase()),
                 $response->getStatusCode(),
                 $response
             );

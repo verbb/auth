@@ -1,6 +1,9 @@
 <?php
-
 namespace verbb\auth\clients\apple\provider;
+
+use verbb\auth\clients\apple\provider\exception\AppleAccessDeniedException;
+use verbb\auth\clients\apple\token\AppleAccessToken;
+use verbb\auth\helpers\ProviderError;
 
 use Exception;
 use Firebase\JWT\JWK;
@@ -10,10 +13,8 @@ use Lcobucci\JWT\Signer\Key\InMemory;
 use Lcobucci\JWT\Signer;
 use Lcobucci\JWT\Signer\Key;
 use League\OAuth2\Client\Grant\AbstractGrant;
-use verbb\auth\clients\apple\provider\exception\AppleAccessDeniedException;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Token\AccessTokenInterface;
-use verbb\auth\clients\apple\token\AppleAccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
 
@@ -120,6 +121,7 @@ class Apple extends AbstractProvider
     protected function getAuthorizationParameters(array $options): array
     {
         $options = parent::getAuthorizationParameters($options);
+
         if (str_contains($options['scope'], 'name') || str_contains($options['scope'], 'email')) {
             $options['response_mode'] = 'form_post';
         }
@@ -203,7 +205,7 @@ class Apple extends AbstractProvider
     {
         if ($response->getStatusCode() >= 400) {
             throw new AppleAccessDeniedException(
-                array_key_exists('error', $data) ? $data['error'] : $response->getReasonPhrase(),
+                ProviderError::message($data, $response->getReasonPhrase()),
                 array_key_exists('code', $data) ? $data['code'] : $response->getStatusCode(),
                 $response
             );
@@ -288,6 +290,7 @@ class Apple extends AbstractProvider
             'client_secret' => $clientSecret->toString(),
             'token'         => $token
         ];
+
         if ($tokenTypeHint !== null) {
             $params += [
                 'token_type_hint' => $tokenTypeHint
@@ -296,6 +299,7 @@ class Apple extends AbstractProvider
 
         $method  = $this->getAccessTokenMethod();
         $url     = $this->getBaseRevokeTokenUrl($params);
+
         if (property_exists($this, 'optionProvider')) {
             $options = $this->optionProvider->getAccessTokenOptions(self::METHOD_POST, $params);
         } else {

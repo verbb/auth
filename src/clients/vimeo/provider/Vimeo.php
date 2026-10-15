@@ -1,6 +1,7 @@
 <?php
-
 namespace verbb\auth\clients\vimeo\provider;
+
+use verbb\auth\helpers\ProviderError;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
@@ -43,7 +44,7 @@ class Vimeo extends AbstractProvider
         if (!empty($data['error'])) {
             $error = $data['error']['message'] ?? '';
             $code = isset($data['error']['code']) ? (int)$data['error']['code'] : 0;
-            throw new IdentityProviderException($error, $code, $data);
+            throw new IdentityProviderException(ProviderError::message($data, $response->getReasonPhrase()), $code, $data);
         }
     }
 

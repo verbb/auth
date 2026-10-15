@@ -1,6 +1,7 @@
 <?php
-
 namespace verbb\auth\clients\infusionsoft\provider;
+
+use verbb\auth\helpers\ProviderError;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
@@ -35,7 +36,7 @@ class Infusionsoft extends AbstractProvider
 
         if ($statusCode >= 400) {
             throw new IdentityProviderException(
-                $data['message'] ?? $response->getReasonPhrase(),
+                ProviderError::message($data, $response->getReasonPhrase()),
                 $statusCode,
                 $response
             );

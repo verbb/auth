@@ -7,8 +7,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace verbb\auth\clients\gitlab\provider\exception;
+
+use verbb\auth\helpers\ProviderError;
 
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use Psr\Http\Message\ResponseInterface;
@@ -29,7 +30,7 @@ final class GitLabIdentityProviderException extends IdentityProviderException
     {
         return self::fromResponse(
             $response,
-            $data['message'] ?? $response->getReasonPhrase()
+            ProviderError::message($data, $response->getReasonPhrase())
         );
     }
 
@@ -43,7 +44,7 @@ final class GitLabIdentityProviderException extends IdentityProviderException
     {
         return self::fromResponse(
             $response,
-            $data['error'] ?? $response->getReasonPhrase()
+            ProviderError::message($data, $response->getReasonPhrase())
         );
     }
 

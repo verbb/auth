@@ -1,5 +1,4 @@
 <?php
-
 namespace verbb\auth\clients\etsy\provider;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
@@ -7,16 +6,15 @@ use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
-use verbb\auth\clients\etsy\exception\EtsyIdentityProviderException;
+use verbb\auth\clients\etsy\provider\exception\EtsyIdentityProviderException;
 
 class Etsy extends AbstractProvider
 {
-
     use BearerAuthorizationTrait;
 
     protected string $baseApiUrl = 'https://openapi.etsy.com/v3';
 
-    public function getBaseAuthorizationUrl() : string
+    public function getBaseAuthorizationUrl(): string
     {
         return 'https://www.etsy.com/oauth/connect';
     }
@@ -26,19 +24,19 @@ class Etsy extends AbstractProvider
         return $this->baseApiUrl . '/public/oauth/token?' . $this->buildQueryString($params);
     }
 
-    public function getResourceOwnerDetailsUrl(AccessToken $token) : string
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         // we need to get the userId from the access token
         $tokenData = explode('.', $token->getToken());
         return $this->baseApiUrl . '/application/users/' . $tokenData[0];
     }
 
-    protected function getDefaultScopes() : array
+    protected function getDefaultScopes(): array
     {
         return ['email_r'];
     }
 
-    protected function checkResponse(ResponseInterface $response, $data) : void
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         if ($response->getStatusCode() >= 400) {
             throw EtsyIdentityProviderException::clientException($response, $data);
@@ -54,19 +52,19 @@ class Etsy extends AbstractProvider
         return new EtsyResourceOwner($response, $token);
     }
 
-    public function getDefaultHeaders() : array
+    public function getDefaultHeaders(): array
     {
         return [
             'x-api-key' => $this->clientId
         ];
     }
 
-    protected function getScopeSeparator() : string
+    protected function getScopeSeparator(): string
     {
         return ' ';
     }
 
-    public function getPreChallenge() : string
+    public function getPreChallenge(): string
     {
         return substr(
             strtr(
@@ -79,7 +77,7 @@ class Etsy extends AbstractProvider
         );
     }
 
-    public function getPKCE($preChallenge) : string
+    public function getPKCE($preChallenge): string
     {
         return trim(
             strtr(

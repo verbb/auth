@@ -1,6 +1,7 @@
 <?php
-
 namespace verbb\auth\clients\harvest\provider\exception;
+
+use verbb\auth\helpers\ProviderError;
 
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use Psr\Http\Message\ResponseInterface;
@@ -15,11 +16,11 @@ class HarvestIdentityProviderException extends IdentityProviderException
      *
      * @return IdentityProviderException
      */
-    public static function clientException(ResponseInterface $response, string $data): IdentityProviderException
+    public static function clientException(ResponseInterface $response, mixed $data): IdentityProviderException
     {
         return static::fromResponse(
             $response,
-            $data['message'] ?? $response->getReasonPhrase()
+            ProviderError::message($data, $response->getReasonPhrase())
         );
     }
 
@@ -31,11 +32,11 @@ class HarvestIdentityProviderException extends IdentityProviderException
      *
      * @return IdentityProviderException
      */
-    public static function oauthException(ResponseInterface $response, string $data): IdentityProviderException
+    public static function oauthException(ResponseInterface $response, mixed $data): IdentityProviderException
     {
         return static::fromResponse(
             $response,
-            $data['error'] ?? $response->getReasonPhrase()
+            ProviderError::message($data, $response->getReasonPhrase())
         );
     }
 

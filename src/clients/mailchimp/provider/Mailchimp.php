@@ -1,6 +1,7 @@
-<?php 
-
+<?php
 namespace verbb\auth\clients\mailchimp\provider;
+
+use verbb\auth\helpers\ProviderError;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
@@ -99,9 +100,10 @@ class Mailchimp extends AbstractProvider
     protected function checkResponse(ResponseInterface $response, $data): void
     {
         $statusCode = $response->getStatusCode();
+
         if ($statusCode >= 400) {
             throw new IdentityProviderException(
-                $data['description'] ?? $response->getReasonPhrase(),
+                ProviderError::message($data, $response->getReasonPhrase()),
                 $statusCode,
                 $response
             );

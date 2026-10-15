@@ -1,6 +1,7 @@
 <?php
-
 namespace verbb\auth\clients\stripe\provider;
+
+use verbb\auth\helpers\ProviderError;
 
 use League\OAuth2\Client\Grant\AbstractGrant;
 use League\OAuth2\Client\Provider\AbstractProvider;
@@ -80,7 +81,7 @@ class Stripe extends AbstractProvider
     {
         if ($response->getStatusCode() >= 400) {
             throw new IdentityProviderException(
-                $data['error'] ?: $response->getReasonPhrase(),
+                ProviderError::message($data, $response->getReasonPhrase()),
                 $response->getStatusCode(),
                 $response
             );

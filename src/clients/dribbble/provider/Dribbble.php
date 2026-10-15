@@ -1,6 +1,8 @@
 <?php
 namespace verbb\auth\clients\dribbble\provider;
 
+use verbb\auth\helpers\ProviderError;
+
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
@@ -67,7 +69,7 @@ class Dribbble extends AbstractProvider
     protected function checkResponse(ResponseInterface $response, $data): void
     {
         if ($response->getStatusCode() >= 400) {
-            $errorString = $data['error'] ?? $response->getReasonPhrase();
+            $errorString = ProviderError::message($data, $response->getReasonPhrase());
             throw new IdentityProviderException(
                 $errorString,
                 $response->getStatusCode(),

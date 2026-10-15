@@ -3,6 +3,7 @@ namespace verbb\auth\providers;
 
 use verbb\auth\base\ProviderTrait;
 use verbb\auth\clients\twitter\provider\Twitter as TwitterProvider;
+use verbb\auth\helpers\ProviderError;
 use verbb\auth\models\Token;
 
 use Psr\Http\Message\RequestInterface;
@@ -45,7 +46,7 @@ class Twitter extends TwitterProvider
         $statusCode = $response->getStatusCode();
 
         if ($statusCode >= 400) {
-            $error = $data['error_description'] ?? '';
+            $error = ProviderError::message($data, $response->getReasonPhrase());
             $code = $data['code'] ?? $statusCode;
 
             throw new IdentityProviderException($error, $code, $data);

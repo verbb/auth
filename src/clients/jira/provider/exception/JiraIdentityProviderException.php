@@ -1,6 +1,7 @@
 <?php
-
 namespace verbb\auth\clients\jira\provider\exception;
+
+use verbb\auth\helpers\ProviderError;
 
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use Psr\Http\Message\ResponseInterface;
@@ -19,7 +20,7 @@ class JiraIdentityProviderException extends IdentityProviderException
     {
         return static::fromResponse(
             $response,
-            $data['message'] ?? $response->getReasonPhrase()
+            ProviderError::message($data, $response->getReasonPhrase())
         );
     }
 
@@ -35,7 +36,7 @@ class JiraIdentityProviderException extends IdentityProviderException
     {
         return static::fromResponse(
             $response,
-            $data['error'] ?? $response->getReasonPhrase()
+            ProviderError::message($data, $response->getReasonPhrase())
         );
     }
 

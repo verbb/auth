@@ -1,15 +1,15 @@
 <?php
-
 namespace verbb\auth\clients\harvest\provider;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
-use GlobalVisionMedia\OAuth2\Client\Provider\Exception\HarvestIdentityProviderException;
+use verbb\auth\clients\harvest\provider\exception\HarvestIdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\RequestInterface;
 
-class Harvest extends AbstractProvider {
+class Harvest extends AbstractProvider
+{
     use BearerAuthorizationTrait;
 
     protected $userAgent;
@@ -69,20 +69,20 @@ class Harvest extends AbstractProvider {
      *
      * @return array
      */ protected function getDefaultScopes(): array
-{
+    {
         return [];
     }
 
-    
-  /**
-   * Returns the default headers used by this provider.
-   *
-   */
-   protected function getDefaultHeaders($token = null): array
-   {
 
-    return ['Harvest-Account-Id' => $this->accountId,
-            'User-Agent'         => $this->userAgent ];
+    /**
+     * Returns the default headers used by this provider.
+     *
+     */
+    protected function getDefaultHeaders($token = null): array
+    {
+
+        return ['Harvest-Account-Id' => $this->accountId,
+                'User-Agent'         => $this->userAgent ];
     }
     /**
      * Check a provider response for errors.

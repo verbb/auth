@@ -1,6 +1,7 @@
 <?php
-
 namespace verbb\auth\clients\line\provider;
+
+use verbb\auth\helpers\ProviderError;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
@@ -74,7 +75,7 @@ class Line extends AbstractProvider
                 $error = $error['message'];
             }
 
-            throw new IdentityProviderException($error, $code, $data);
+            throw new IdentityProviderException(ProviderError::message($data, $response->getReasonPhrase()), $code, $data);
         }
     }
 

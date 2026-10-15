@@ -1,4 +1,7 @@
-<?php namespace verbb\auth\clients\paypal\provider;
+<?php
+namespace verbb\auth\clients\paypal\provider;
+
+use verbb\auth\helpers\ProviderError;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
@@ -112,9 +115,10 @@ class PayPal extends AbstractProvider
     protected function checkResponse(ResponseInterface $response, $data): void
     {
         $statusCode = $response->getStatusCode();
-        if ($statusCode > 400) {
+
+        if ($statusCode >= 400) {
             throw new IdentityProviderException(
-                $data['error_description'] ?: $response->getReasonPhrase(),
+                ProviderError::message($data, $response->getReasonPhrase()),
                 $statusCode,
                 $response
             );

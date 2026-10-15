@@ -1,6 +1,7 @@
 <?php
-
 namespace verbb\auth\clients\github\provider\exception;
+
+use verbb\auth\helpers\ProviderError;
 
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 
@@ -20,7 +21,7 @@ class GitHubIdentityProviderException extends IdentityProviderException
     {
         return static::fromResponse(
             $response,
-            $data['message'] ?? $response->getReasonPhrase()
+            ProviderError::message($data, $response->getReasonPhrase())
         );
     }
 
@@ -36,7 +37,7 @@ class GitHubIdentityProviderException extends IdentityProviderException
     {
         return static::fromResponse(
             $response,
-            $data['error'] ?? $response->getReasonPhrase()
+            ProviderError::message($data, $response->getReasonPhrase())
         );
     }
 

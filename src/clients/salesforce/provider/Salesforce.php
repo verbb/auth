@@ -1,6 +1,9 @@
 <?php
 namespace verbb\auth\clients\salesforce\provider;
 
+use verbb\auth\clients\salesforce\token\SalesforceAccessToken;
+use verbb\auth\helpers\ProviderError;
+
 use Exception;
 use InvalidArgumentException;
 use League\OAuth2\Client\Grant\AbstractGrant;
@@ -9,7 +12,6 @@ use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
-use verbb\auth\clients\salesforce\token\SalesforceAccessToken;
 
 class Salesforce extends AbstractProvider
 {
@@ -116,19 +118,7 @@ class Salesforce extends AbstractProvider
         $statusCode = $response->getStatusCode();
 
         if ($statusCode >= 400) {
-            $message = $response->getReasonPhrase();
-
-            // OAuth token errors use an object; REST API errors use a list of messages.
-            if (is_array($data)) {
-                $restError = is_array($data[0] ?? null) ? $data[0] : [];
-
-                foreach ([$data['error_description'] ?? null, $restError['message'] ?? null, $data['error'] ?? null] as $candidate) {
-                    if (is_string($candidate) && trim($candidate) !== '') {
-                        $message = $candidate;
-                        break;
-                    }
-                }
-            }
+            $message = ProviderError::message($data, $response->getReasonPhrase());
 
             throw new IdentityProviderException(
                 $message,

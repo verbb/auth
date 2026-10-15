@@ -1,6 +1,7 @@
 <?php
-
 namespace verbb\auth\clients\tumblr\provider;
+
+use verbb\auth\helpers\ProviderError;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
@@ -35,7 +36,7 @@ class Tumblr extends AbstractProvider
     protected function checkResponse(ResponseInterface $response, $data): void
     {
         if ($response->getStatusCode() >= 400) {
-            throw new IdentityProviderException($response->getReasonPhrase(), $response->getStatusCode(), $data);
+            throw new IdentityProviderException(ProviderError::message($data, $response->getReasonPhrase()), $response->getStatusCode(), $data);
         }
     }
 

@@ -1,6 +1,8 @@
 <?php
 namespace verbb\auth\clients\neoncrm\provider;
 
+use verbb\auth\helpers\ProviderError;
+
 use GuzzleHttp\Client as HttpClient;
 use League\OAuth2\Client\Provider\AbstractProvider;
 use Psr\Http\Message\ResponseInterface;
@@ -49,7 +51,7 @@ class NeonCrm extends AbstractProvider
     {
         if (isset($data['error'])) {
             throw new IdentityProviderException(
-                ($data['error']['message'] ?? $response->getReasonPhrase()),
+                ProviderError::message($data, $response->getReasonPhrase()),
                 $response->getStatusCode(),
                 $response
             );

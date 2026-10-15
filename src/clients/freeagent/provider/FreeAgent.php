@@ -1,6 +1,8 @@
 <?php
 namespace verbb\auth\clients\freeagent\provider;
 
+use verbb\auth\helpers\ProviderError;
+
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;
@@ -48,7 +50,7 @@ class FreeAgent extends AbstractProvider
     {
         if (isset($data['error'])) {
             throw new IdentityProviderException(
-                ($data['error']['message'] ?? $response->getReasonPhrase()),
+                ProviderError::message($data, $response->getReasonPhrase()),
                 $response->getStatusCode(),
                 $response
             );

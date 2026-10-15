@@ -1,6 +1,7 @@
 <?php
-
 namespace verbb\auth\clients\shopify\provider;
+
+use verbb\auth\helpers\ProviderError;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
@@ -9,7 +10,6 @@ use Psr\Http\Message\ResponseInterface;
 
 class Shopify extends AbstractProvider
 {
-
     public const ACCESS_TOKEN_RESOURCE_OWNER_ID = 'id';
 
     /**
@@ -66,12 +66,13 @@ class Shopify extends AbstractProvider
 
     public function checkResponse(ResponseInterface $response, $data)
     {
-        if (!empty($data['errors'])) {
-            throw new IdentityProviderException($data['errors'], 0, $data);
+        if ($response->getStatusCode() >= 400 || !empty($data['error']) || !empty($data['errors'])) {
+            throw new IdentityProviderException(ProviderError::message($data, $response->getReasonPhrase()), 0, $data);
         }
 
         return $data;
     }
+
 
     protected function createResourceOwner(array $response, AccessToken $token): ShopifyStore
     {

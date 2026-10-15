@@ -1,6 +1,7 @@
 <?php
-
 namespace verbb\auth\clients\docusign\provider;
+
+use verbb\auth\helpers\ProviderError;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Token\AccessToken;
@@ -79,7 +80,7 @@ class Docusign extends AbstractProvider
     {
         if ($response->getStatusCode() >= 400) {
             throw new IdentityProviderException(
-                $response->getReasonPhrase(),
+                ProviderError::message($data, $response->getReasonPhrase()),
                 $response->getStatusCode(),
                 $response->getReasonPhrase()
             );

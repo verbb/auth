@@ -1,13 +1,15 @@
 <?php
 namespace verbb\auth\clients\auth0\provider;
 
+use verbb\auth\clients\auth0\provider\exception\AccountNotProvidedException;
+use verbb\auth\clients\auth0\provider\exception\Auth0IdentityProviderException;
+use verbb\auth\clients\auth0\provider\exception\InvalidRegionException;
+use verbb\auth\helpers\ProviderError;
+
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
-use verbb\auth\clients\auth0\provider\exception\AccountNotProvidedException;
-use verbb\auth\clients\auth0\provider\exception\Auth0IdentityProviderException;
-use verbb\auth\clients\auth0\provider\exception\InvalidRegionException;
 
 class Auth0 extends AbstractProvider
 {
@@ -35,6 +37,7 @@ class Auth0 extends AbstractProvider
         if (empty($this->account)) {
             throw new AccountNotProvidedException();
         }
+
         if (!in_array($this->region, $this->availableRegions)) {
             throw new InvalidRegionException();
         }
@@ -78,7 +81,7 @@ class Auth0 extends AbstractProvider
         if ($response->getStatusCode() >= 400) {
             throw Auth0IdentityProviderException::fromResponse(
                 $response,
-                $data['error'] ?: $response->getReasonPhrase()
+                ProviderError::message($data, $response->getReasonPhrase())
             );
         }
     }

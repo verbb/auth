@@ -1,6 +1,7 @@
 <?php
-
 namespace verbb\auth\clients\yahoo\provider;
+
+use verbb\auth\helpers\ProviderError;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
@@ -93,7 +94,7 @@ class Yahoo extends AbstractProvider
                 $code = -1;
                 $error = $error['description'];
             }
-            throw new IdentityProviderException($error, $code, $data);
+            throw new IdentityProviderException(ProviderError::message($data, $response->getReasonPhrase()), $code, $data);
         }
     }
 

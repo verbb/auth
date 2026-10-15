@@ -1,5 +1,6 @@
 <?php
 require (getenv('VERBB_AUTH_TEST_VENDOR') ?: dirname(__DIR__) . '/vendor') . '/autoload.php';
+require __DIR__ . '/../src/helpers/ProviderError.php';
 require __DIR__ . '/../src/clients/salesforce/provider/Salesforce.php';
 
 use GuzzleHttp\Client;
@@ -32,7 +33,7 @@ $response = new Response(400);
 $cases = [
     'OAuth description takes precedence' => [
         ['error' => 'invalid_grant', 'error_description' => 'authentication failure'],
-        'authentication failure',
+        'invalid_grant: authentication failure',
     ],
     'OAuth code without a description' => [['error' => 'invalid_client_id'], 'invalid_client_id'],
     'Empty description falls back to the code' => [['error_description' => '', 'error' => 'invalid_grant'], 'invalid_grant'],
@@ -75,5 +76,5 @@ try {
     $provider->getAccessToken('password', ['username' => 'fixture@example.test', 'password' => 'fixture']);
     check('Token exchange throws', false);
 } catch (IdentityProviderException $exception) {
-    check('Token exchange exposes the OAuth description', $exception->getMessage() === 'authentication failure');
+    check('Token exchange exposes the OAuth description', $exception->getMessage() === 'invalid_grant: authentication failure');
 }

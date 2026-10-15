@@ -1,8 +1,8 @@
 <?php
-
 namespace verbb\auth\clients\snapchat\provider;
 
 use verbb\auth\clients\snapchat\provider\exception\SnapchatIdentityProviderException;
+use verbb\auth\helpers\ProviderError;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
@@ -144,7 +144,7 @@ class Snapchat extends AbstractProvider
     {
         if ($response->getStatusCode() >= 400) {
             throw new SnapchatIdentityProviderException(
-                $data['error'] ?? $response->getReasonPhrase(),
+                ProviderError::message($data, $response->getReasonPhrase()),
                 $response->getStatusCode(),
                 $response
             );

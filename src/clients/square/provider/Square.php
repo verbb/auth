@@ -1,8 +1,8 @@
 <?php
-
 namespace verbb\auth\clients\square\provider;
 
 use verbb\auth\clients\square\grant\RenewToken;
+use verbb\auth\helpers\ProviderError;
 
 use League\OAuth2\Client\Grant\GrantFactory;
 use League\OAuth2\Client\Provider\AbstractProvider;
@@ -79,7 +79,7 @@ class Square extends AbstractProvider
         try {
             $factory->getGrant('renew_token');
         } catch (InvalidGrantException $e) {
-            $factory->setGrant('renew_token', new RenewToken);
+            $factory->setGrant('renew_token', new RenewToken());
         }
 
         return parent::setGrantFactory($factory);
@@ -117,8 +117,8 @@ class Square extends AbstractProvider
 
     protected function checkResponse(ResponseInterface $response, $data): void
     {
-        if (!empty($data['type']) && $response->getStatusCode() >= 400) {
-            throw new IdentityProviderException($data['message'], 0, $data);
+        if ($response->getStatusCode() >= 400 || !empty($data['error']) || !empty($data['errors'])) {
+            throw new IdentityProviderException(ProviderError::message($data, $response->getReasonPhrase()), 0, $data);
         }
     }
 

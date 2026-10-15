@@ -1,12 +1,13 @@
 <?php
-
 namespace verbb\auth\clients\gotowebinar\provider\exception;
+
+use verbb\auth\helpers\ProviderError;
 
 use Psr\Http\Message\ResponseInterface;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 
-class GotoWebinarProviderException extends IdentityProviderException {
-
+class GotoWebinarProviderException extends IdentityProviderException
+{
     /**
      * @var int
      */
@@ -17,7 +18,8 @@ class GotoWebinarProviderException extends IdentityProviderException {
      * @param int $code
      * @param array|string $body The response body
      */
-    public function __construct($message, $code, $body) {
+    public function __construct($message, $code, $body)
+    {
         $this->httpStatusCode = $code;
         parent::__construct($message, $code, $body);
     }
@@ -30,9 +32,9 @@ class GotoWebinarProviderException extends IdentityProviderException {
      *
      * @return GotoWebinarProviderException
      */
-    public static function clientException(ResponseInterface $response, string $data): GotoWebinarProviderException
+    public static function clientException(ResponseInterface $response, mixed $data): GotoWebinarProviderException
     {
-        return static::fromResponse($response, $data['errorCode'] ?? $response->getReasonPhrase());
+        return static::fromResponse($response, ProviderError::message($data, $response->getReasonPhrase()));
     }
 
     /**
@@ -43,9 +45,9 @@ class GotoWebinarProviderException extends IdentityProviderException {
      *
      * @return GotoWebinarProviderException
      */
-    public static function oauthException(ResponseInterface $response, string $data): GotoWebinarProviderException
+    public static function oauthException(ResponseInterface $response, mixed $data): GotoWebinarProviderException
     {
-        return static::fromResponse($response, $data['errorCode'] ?? $response->getReasonPhrase());
+        return static::fromResponse($response, ProviderError::message($data, $response->getReasonPhrase()));
     }
 
     /**
@@ -70,6 +72,7 @@ class GotoWebinarProviderException extends IdentityProviderException {
     public function generateHttpResponse(ResponseInterface $response): ResponseInterface
     {
         $headers = $this->getHttpHeaders();
+
         foreach ($headers as $header => $content) {
             $response = $response->withHeader($header, $content);
         }

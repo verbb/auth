@@ -1,6 +1,8 @@
 <?php
 namespace verbb\auth\clients\constantcontact\provider;
 
+use verbb\auth\helpers\ProviderError;
+
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;
@@ -42,12 +44,13 @@ class ConstantContact extends AbstractProvider
 
     public function checkResponse(ResponseInterface $response, $data)
     {
-        if (!empty($data['errors'])) {
-            throw new IdentityProviderException($data['errors'], 0, $data);
+        if ($response->getStatusCode() >= 400 || !empty($data['error']) || !empty($data['errors'])) {
+            throw new IdentityProviderException(ProviderError::message($data, $response->getReasonPhrase()), 0, $data);
         }
 
         return $data;
     }
+
 
     protected function createResourceOwner(array $response, AccessToken $token): ConstantContactAccount
     {

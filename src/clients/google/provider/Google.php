@@ -1,8 +1,8 @@
 <?php
-
 namespace verbb\auth\clients\google\provider;
 
 use verbb\auth\clients\google\exception\HostedDomainException;
+use verbb\auth\helpers\ProviderError;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
@@ -117,7 +117,7 @@ class Google extends AbstractProvider
             $error = $error['message'];
         }
 
-        throw new IdentityProviderException($error, $code, $data);
+        throw new IdentityProviderException(ProviderError::message($data, $response->getReasonPhrase()), $code, $data);
     }
 
     protected function createResourceOwner(array $response, AccessToken $token): GoogleUser

@@ -1,6 +1,7 @@
 <?php
-
 namespace verbb\auth\clients\okta\provider;
+
+use verbb\auth\helpers\ProviderError;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
@@ -11,16 +12,16 @@ use Psr\Http\Message\ResponseInterface;
 class Okta extends AbstractProvider
 {
     use BearerAuthorizationTrait;
-    
+
     protected string $issuer = '';
     protected string $apiVersion = 'v1';
-    
-    
+
+
     public function getBaseApiUrl(): string
     {
         return $this->issuer . '/' . $this->apiVersion;
     }
-    
+
     /**
      * Get authorization url to begin OAuth flow
      *
@@ -88,7 +89,7 @@ class Okta extends AbstractProvider
             $error = $error['message'];
         }
 
-        throw new IdentityProviderException($error, $code, $data);
+        throw new IdentityProviderException(ProviderError::message($data, $response->getReasonPhrase()), $code, $data);
     }
 
     protected function createResourceOwner(array $response, AccessToken $token): OktaUser

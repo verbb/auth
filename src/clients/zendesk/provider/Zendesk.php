@@ -1,4 +1,7 @@
-<?php namespace verbb\auth\clients\zendesk\provider;
+<?php
+namespace verbb\auth\clients\zendesk\provider;
+
+use verbb\auth\helpers\ProviderError;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
@@ -105,9 +108,10 @@ class Zendesk extends AbstractProvider
     protected function checkResponse(ResponseInterface $response, $data): void
     {
         $statusCode = $response->getStatusCode();
+
         if ($statusCode >= 400) {
             throw new IdentityProviderException(
-                $data['description'] ?? $response->getReasonPhrase(),
+                ProviderError::message($data, $response->getReasonPhrase()),
                 $statusCode,
                 $response
             );

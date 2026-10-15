@@ -6,19 +6,23 @@
  * Date: 14/3/2017
  * Time: 8:28 μμ
  */
-
 namespace verbb\auth\clients\authentiq\provider;
+
+use verbb\auth\clients\authentiq\token\AccessToken;
+use verbb\auth\helpers\ProviderError;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Grant\AbstractGrant;
-use verbb\auth\clients\authentiq\token\AccessToken;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use Psr\Http\Message\ResponseInterface;
 
 class Authentiq extends AbstractProvider
 {
     protected array $scope = [];
-    protected $idToken, $urlAuthorize, $urlAccessToken, $algorithm;
+    protected $idToken;
+    protected $urlAuthorize;
+    protected $urlAccessToken;
+    protected $algorithm;
     protected string $domain = '';
 
     protected function domain(): string
@@ -104,11 +108,12 @@ class Authentiq extends AbstractProvider
         if (!empty($data['error'])) {
             $code  = 0;
             $error = $data['error'];
+
             if (is_array($error)) {
                 $code  = $error['code'];
                 $error = $error['message'];
             }
-            throw new IdentityProviderException($error, $code, $data);
+            throw new IdentityProviderException(ProviderError::message($data, $response->getReasonPhrase()), $code, $data);
         }
     }
 

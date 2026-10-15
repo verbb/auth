@@ -1,6 +1,8 @@
 <?php
 namespace verbb\auth\clients\basecamp\provider;
 
+use verbb\auth\helpers\ProviderError;
+
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;
@@ -134,7 +136,7 @@ class Basecamp extends AbstractProvider
         // by Basecamp were not very well documented. This method will need some
         // improvement as the API continues to mature.
         if ($response->getStatusCode() != 200) {
-            throw new IdentityProviderException('Unexpected response code', $response->getStatusCode(), $response);
+            throw new IdentityProviderException(ProviderError::message($data, 'Unexpected response code'), $response->getStatusCode(), $response);
         }
     }
 

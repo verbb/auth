@@ -1,8 +1,9 @@
 <?php
-
 namespace verbb\auth\clients\xero\provider;
 
 use verbb\auth\clients\xero\provider\exception\XeroProviderException;
+use verbb\auth\helpers\ProviderError;
+
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 use League\OAuth2\Client\Token\AccessToken;
@@ -14,7 +15,7 @@ use Psr\Http\Message\ResponseInterface;
  */
 class Xero extends AbstractProvider
 {
-    const METHOD_DELETE = 'DELETE';
+    public const METHOD_DELETE = 'DELETE';
 
     /**
      * Returns the base URL for authorizing a client.
@@ -128,7 +129,7 @@ class Xero extends AbstractProvider
     {
         if ($response->getStatusCode() >= 400) {
             throw new XeroProviderException(
-                isset($data['error']) ? $data['error'] : $response->getReasonPhrase(),
+                ProviderError::message($data, $response->getReasonPhrase()),
                 $response->getStatusCode(),
                 $response
             );

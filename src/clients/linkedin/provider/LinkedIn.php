@@ -1,9 +1,9 @@
 <?php
-
 namespace verbb\auth\clients\linkedin\provider;
 
-use verbb\auth\clients\linkedin\token\LinkedInAccessToken;
 use verbb\auth\clients\linkedin\provider\exception\LinkedInAccessDeniedException;
+use verbb\auth\clients\linkedin\token\LinkedInAccessToken;
+use verbb\auth\helpers\ProviderError;
 
 use Exception;
 use InvalidArgumentException;
@@ -169,7 +169,7 @@ class LinkedIn extends AbstractProvider
 
         if ($response->getStatusCode() >= 400) {
             throw new IdentityProviderException(
-                $data['message'] ?? $response->getReasonPhrase(),
+                ProviderError::message($data, $response->getReasonPhrase()),
                 $data['status'] ?? $response->getStatusCode(),
                 $response
             );

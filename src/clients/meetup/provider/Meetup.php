@@ -1,8 +1,9 @@
 <?php
 
 declare(strict_types=1);
-
 namespace verbb\auth\clients\meetup\provider;
+
+use verbb\auth\helpers\ProviderError;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
@@ -46,7 +47,7 @@ class Meetup extends AbstractProvider
 
         if ($response->getStatusCode() !== 200) {
             throw new IdentityProviderException(
-                'Invalid response status',
+                ProviderError::message($data, 'Invalid response status'),
                 0,
                 $data
             );
