@@ -14,11 +14,6 @@ class SuiteCrm extends AbstractProvider
 
     protected string $apiDomain = '';
 
-    public function getBaseAuthorizationUrl(): string
-    {
-        return $this->getApiUrl() . 'Api/access_token';
-    }
-
     public function getBaseAccessTokenUrl(array $params): string
     {
         return $this->getApiUrl() . 'Api/access_token';
