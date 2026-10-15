@@ -4,6 +4,7 @@
 
 ### Fixed
 - Fix the SuiteCRM OAuth client failing to load. ([#18](https://github.com/verbb/auth/issues/18))
+- Fix Salesforce OAuth errors omitting the provider's error description.
 
 ## 2.0.52 - 2026-10-15
 
