@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.0.55 - 2026-10-17
 
 ### Fixed
 - Fix SuiteCRM API requests using the installation root instead of the V8 API URL. ([formie#3010](https://github.com/verbb/formie/issues/3010))
