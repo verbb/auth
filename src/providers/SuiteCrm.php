@@ -18,6 +18,6 @@ class SuiteCrm extends SuiteCrmProvider
 
     public function getBaseApiUrl(?Token $token): ?string
     {
-        return $this->getApiUrl();
+        return $this->getApiUrl() . 'Api/V8/';
     }
 }
