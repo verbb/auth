@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+### Fixed
+- Fix the SuiteCRM OAuth authorization URL using an incorrect endpoint. ([#19](https://github.com/verbb/auth/issues/19))
+
 ## 2.0.53 - 2026-10-16
 
 ### Fixed

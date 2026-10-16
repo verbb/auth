@@ -26,7 +26,7 @@ class SuiteCrm extends AbstractProvider
 
     public function getBaseAuthorizationUrl(): string
     {
-        return $this->getApiUrl() . 'auth/user/authorize';
+        return $this->getApiUrl() . 'Api/authorize';
     }
 
     public function getApiUrl(): string
