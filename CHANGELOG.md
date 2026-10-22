@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+### Fixed
+- Fix SuiteCRM token refreshes being rejected during Formie integration deliveries. ([#20](https://github.com/verbb/auth/issues/20))
+
 ## 2.0.55 - 2026-10-17
 
 ### Fixed

@@ -58,8 +58,8 @@ class SuiteCrm extends AbstractProvider
     protected function getAccessTokenRequest(array $params): RequestInterface
     {
         $request = parent::getAccessTokenRequest($params);
-        $uri = $request->getUri()->withUserInfo($this->clientId, $this->clientSecret);
 
-        return $request->withUri($uri);
+        // Keep credentials out of the URI so guarded transports can validate the token endpoint.
+        return $request->withHeader('Authorization', 'Basic ' . base64_encode($this->clientId . ':' . $this->clientSecret));
     }
 }
