@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+### Fixed
+- Fix LinkedIn requests reporting errors for successful responses with an empty body.
+
 ## 2.0.57 - 2026-10-28
 
 ### Fixed

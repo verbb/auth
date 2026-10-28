@@ -154,6 +154,16 @@ class LinkedIn extends AbstractProvider
         return $this->defaultScopes;
     }
 
+    protected function parseResponse(ResponseInterface $response): mixed
+    {
+        // Post creation and image uploads can succeed without a response body.
+        if ((string)$response->getBody() === '') {
+            return [];
+        }
+
+        return parent::parseResponse($response);
+    }
+
     /**
      * Check a provider response for errors.
      *
@@ -165,7 +175,7 @@ class LinkedIn extends AbstractProvider
      */
     protected function checkResponse(ResponseInterface $response, $data): void
     {
-        $this->checkResponseUnauthorized($response, $data);
+        $this->checkResponseUnauthorized($response, is_array($data) ? $data : []);
 
         if ($response->getStatusCode() >= 400) {
             throw new IdentityProviderException(
