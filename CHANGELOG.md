@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+### Fixed
+- Fix Azure authorization requests ignoring configured prompt options.
+
 ## 2.0.56 - 2026-10-23
 
 ### Fixed
