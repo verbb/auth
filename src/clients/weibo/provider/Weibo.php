@@ -1,4 +1,5 @@
-<?php namespace verbb\auth\clients\weibo\provider;
+<?php
+namespace verbb\auth\clients\weibo\provider;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
@@ -52,6 +53,7 @@ class Weibo extends AbstractProvider
     {
         $url = $this->getUidUrl($token);
         $request = $this->getAuthenticatedRequest(self::METHOD_GET, $url, $token);
+
         return $this->getSpecificResponse($request);
     }
 
@@ -93,6 +95,7 @@ class Weibo extends AbstractProvider
     {
         $uid = json_decode(array_keys($this->fetchUid($token))[0], true);
         $this->uid = $uid['uid'];
+
         return $this->domain . '/2/users/show.json?source=' . $this->clientId . '&access_token=' . $token . '&uid=' . $this->uid;
     }
 
@@ -128,10 +131,10 @@ class Weibo extends AbstractProvider
      * Generate a user object from a successful user details request.
      * @param array $response
      * @param AccessToken $token
-     * @return weiboResourceOwner
+     * @return WeiboResourceOwner
      */
-    protected function createResourceOwner(array $response, AccessToken $token): weiboResourceOwner
+    protected function createResourceOwner(array $response, AccessToken $token): WeiboResourceOwner
     {
-        return new weiboResourceOwner($response);
+        return new WeiboResourceOwner($response);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 namespace verbb\auth\clients\zendesk\provider;
 
+use verbb\auth\clients\zendesk\provider\exception\ProviderConfigurationException;
 use verbb\auth\helpers\ProviderError;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
@@ -36,7 +37,7 @@ class Zendesk extends AbstractProvider
         parent::__construct($options, $collaborators);
 
         if (empty($this->subdomain)) {
-            throw new Exception\ProviderConfigurationException(
+            throw new ProviderConfigurationException(
                 'No subdomain has been configured for this Zendesk provider; it has to have a subdomain.'
             );
         }

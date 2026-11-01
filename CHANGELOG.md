@@ -13,6 +13,7 @@
 - Fix an error when fetching Square account details.
 - Fix an error when fetching MYOB account details.
 - Fix an error when reading Intercom account details.
+- Fix Weibo account details and the Zendesk missing-subdomain error failing to load their classes on case-sensitive filesystems.
 
 ## 2.0.58 - 2026-10-29
 
