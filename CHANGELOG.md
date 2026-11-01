@@ -14,6 +14,7 @@
 - Fix an error when fetching MYOB account details.
 - Fix an error when reading Intercom account details.
 - Fix Weibo account details and the Zendesk missing-subdomain error failing to load their classes on case-sensitive filesystems.
+- Fix the MYOB company lookup error message throwing a PHP error instead of the intended exception.
 
 ## 2.0.58 - 2026-10-29
 

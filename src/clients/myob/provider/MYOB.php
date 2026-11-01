@@ -1,5 +1,4 @@
 <?php
-
 namespace verbb\auth\clients\myob\provider;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
@@ -98,6 +97,7 @@ class MYOB extends AbstractProvider
         if ($response->getStatusCode() >= 400) {
             $error = $data['ErrorCode'];
             $errorDescription = $data['Errors'][0]['Name'] . "\n" . $data['Errors'][0]['Message'];
+
             throw new IdentityProviderException(
                 "MYOB API Error {$response->getBody()}: {$data['ErrorCode']}: {$data['Errors'][0]['Name']} ({$data['Errors'][0]['Message']})",
                 $response->getStatusCode(),
@@ -129,8 +129,13 @@ class MYOB extends AbstractProvider
             'x-myobapi-version' => 'v2',
             'x-myobapi-key' => $this->clientId
         ];
-        if (!($this->cftokenSent)) $headers['x-myobapi-cftoken'] = $this->cftoken;
+
+        if (!($this->cftokenSent)) {
+            $headers['x-myobapi-cftoken'] = $this->cftoken;
+        }
+
         $this->cftokenSent = true;
+
         return $headers;
     }
 
@@ -154,9 +159,12 @@ class MYOB extends AbstractProvider
         $companies = $this->getParsedResponse($request);
 
         foreach ($companies as $company) {
-            if ($company['Name'] == $this->companyName) return $company['Uri'];
+            if ($company['Name'] == $this->companyName) {
+                return $company['Uri'];
+            }
         }
-        throw new InvalidArgumentException("Could not retrieve Company URL for {$this->CompanyName}");
+
+        throw new InvalidArgumentException("Could not retrieve Company URL for {$this->companyName}");
     }
 
 }
