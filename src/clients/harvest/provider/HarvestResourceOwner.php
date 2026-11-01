@@ -74,9 +74,9 @@ class HarvestResourceOwner implements ResourceOwnerInterface
      *
      * @param string $domain
      *
-     * @return ResourceOwner
+     * @return HarvestResourceOwner
      */
-    public function setDomain(string $domain): ResourceOwner
+    public function setDomain(string $domain): HarvestResourceOwner
     {
         $this->domain = $domain;
 

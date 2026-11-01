@@ -55,10 +55,7 @@ class Harvest extends AbstractProvider
      */
     public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
-        if ($this->domain === 'https://api.harvestapp.com') {
-            return $this->apiDomain.'/account/who_am_i';
-        }
-        return $this->domain.'/account/who_am_i';
+        return $this->apiDomain . '/account/who_am_i';
     }
 
     /**
@@ -108,13 +105,13 @@ class Harvest extends AbstractProvider
      *
      * @param array $response
      * @param AccessToken $token
-     * @return ResourceOwner
+     * @return HarvestResourceOwner
      */
-    protected function createResourceOwner(array $response, AccessToken $token): ResourceOwner
+    protected function createResourceOwner(array $response, AccessToken $token): HarvestResourceOwner
     {
         $user = new HarvestResourceOwner($response);
 
-        return $user->setDomain($this->domain);
+        return $user->setDomain($this->apiDomain);
     }
 
     /**
@@ -129,6 +126,7 @@ class Harvest extends AbstractProvider
     public function getAuthenticatedRequest($method, $url, $token, array $options = []): RequestInterface
     {
         $options['headers'] = array('Content-Type' => 'application/json','Accept' => 'application/json');
+
         return $this->createRequest($method, $url, $token, $options);
     }
 }
