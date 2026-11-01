@@ -1,8 +1,6 @@
 <?php
-
 namespace verbb\auth\clients\pipedrive\provider;
 
-use verbb\auth\clients\pipedrive\PipedriveResourceOwner;
 use verbb\auth\clients\pipedrive\provider\exception\PipedriveIdentityProviderException;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
