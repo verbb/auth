@@ -1,5 +1,4 @@
 <?php
-
 namespace verbb\auth\clients\square\provider;
 
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
@@ -24,7 +23,7 @@ class SquareMerchant implements ResourceOwnerInterface
     /**
      * @var string
      */
-    protected string $county_code = '';
+    protected string $country_code = '';
 
     /**
      * @var string
@@ -91,6 +90,7 @@ class SquareMerchant implements ResourceOwnerInterface
         }
 
         $attributes = array_intersect_key($attributes, $this->toArray());
+
         foreach ($attributes as $key => $value) {
             $this->$key = $value;
         }
