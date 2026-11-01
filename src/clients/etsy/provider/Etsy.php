@@ -12,7 +12,7 @@ class Etsy extends AbstractProvider
 {
     use BearerAuthorizationTrait;
 
-    protected string $baseApiUrl = 'https://openapi.etsy.com/v3';
+    protected string $etsyApiUrl = 'https://openapi.etsy.com/v3';
 
     public function getBaseAuthorizationUrl(): string
     {
@@ -21,14 +21,15 @@ class Etsy extends AbstractProvider
 
     public function getBaseAccessTokenUrl(array $params): string
     {
-        return $this->baseApiUrl . '/public/oauth/token?' . $this->buildQueryString($params);
+        return $this->etsyApiUrl . '/public/oauth/token?' . $this->buildQueryString($params);
     }
 
     public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         // we need to get the userId from the access token
         $tokenData = explode('.', $token->getToken());
-        return $this->baseApiUrl . '/application/users/' . $tokenData[0];
+
+        return $this->etsyApiUrl . '/application/users/' . $tokenData[0];
     }
 
     protected function getDefaultScopes(): array

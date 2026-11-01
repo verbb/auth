@@ -8,7 +8,7 @@ use Psr\Http\Message\ResponseInterface;
 
 class HubSpot extends AbstractProvider
 {
-    protected string $baseApiUrl = 'https://api.hubapi.com/oauth/v1';
+    protected string $hubspotApiUrl = 'https://api.hubapi.com/oauth/v1';
 
     /**
      * Get authorization url to begin OAuth flow
@@ -29,12 +29,12 @@ class HubSpot extends AbstractProvider
      */
     public function getBaseAccessTokenUrl(array $params): string
     {
-        return $this->baseApiUrl . '/token';
+        return $this->hubspotApiUrl . '/token';
     }
 
     public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
-        return $this->baseApiUrl . '/access-tokens/' . $token->getToken();
+        return $this->hubspotApiUrl . '/access-tokens/' . $token->getToken();
     }
 
     /**
@@ -70,6 +70,7 @@ class HubSpot extends AbstractProvider
     protected function checkResponse(ResponseInterface $response, $data): void
     {
         $statusCode = $response->getStatusCode();
+
         if ($statusCode >= 400) {
             throw new IdentityProviderException(
                 $data['message'] ?? $response->getReasonPhrase(),

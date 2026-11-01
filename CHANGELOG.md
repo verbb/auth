@@ -8,6 +8,7 @@
 - Fix an error when fetching Pipedrive account details.
 - Fix Disqus account detail requests not including the access token.
 - Fix OAuth callbacks containing a provider error throwing a PHP error instead of the intended exception.
+- Fix the Etsy and HubSpot providers causing a PHP fatal error when loaded.
 
 ## 2.0.58 - 2026-10-29
 

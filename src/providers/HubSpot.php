@@ -18,6 +18,6 @@ class HubSpot extends HubSpotProvider
 
     public function getBaseApiUrl(?Token $token): ?string
     {
-        return $this->baseApiUrl;
+        return $this->hubspotApiUrl;
     }
 }
