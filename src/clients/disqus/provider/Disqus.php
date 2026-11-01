@@ -26,7 +26,7 @@ class Disqus extends AbstractProvider
 
     public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
-        return 'https://disqus.com/api/3.0/users/details.json?access_token' . $token;
+        return 'https://disqus.com/api/3.0/users/details.json?access_token=' . $token;
     }
 
     protected function getDefaultScopes(): array
@@ -39,6 +39,7 @@ class Disqus extends AbstractProvider
         if (!empty($data['error'])) {
             $error = $data['error']['message'] ?? '';
             $code = isset($data['error']['code']) ? (int)$data['error']['code'] : 0;
+
             throw new IdentityProviderException(ProviderError::message($data, $response->getReasonPhrase()), $code, $data);
         }
     }

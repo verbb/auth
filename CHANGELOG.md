@@ -6,6 +6,7 @@
 - Fix an error when fetching Envato account details.
 - Fix an error when fetching Harvest account details.
 - Fix an error when fetching Pipedrive account details.
+- Fix Disqus account detail requests not including the access token.
 
 ## 2.0.58 - 2026-10-29
 
