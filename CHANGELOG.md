@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.0.59 - 2026-11-01
 
 ### Fixed
 - Fix an error when fetching Envato account details.
