@@ -2,6 +2,7 @@
 namespace verbb\auth\clients\okta\provider;
 
 use verbb\auth\helpers\ProviderError;
+use verbb\auth\models\Token;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
@@ -17,7 +18,7 @@ class Okta extends AbstractProvider
     protected string $apiVersion = 'v1';
 
 
-    public function getBaseApiUrl(): string
+    public function getBaseApiUrl(?Token $token = null): string
     {
         return $this->issuer . '/' . $this->apiVersion;
     }
@@ -79,6 +80,7 @@ class Okta extends AbstractProvider
         if (empty($data['error'])) {
             return;
         }
+
         // @codeCoverageIgnoreEnd
 
         $code = $response->getStatusCode();
