@@ -6,6 +6,8 @@ use League\OAuth2\Client\Tool\ArrayAccessorTrait;
 
 class IntercomResourceOwner implements ResourceOwnerInterface
 {
+    use ArrayAccessorTrait;
+
     protected array $response;
 
     public function __construct(array $response = [])
