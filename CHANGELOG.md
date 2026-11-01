@@ -11,6 +11,7 @@
 - Fix the Etsy and HubSpot providers causing a PHP fatal error when loaded.
 - Fix the Okta provider causing a PHP fatal error when loaded.
 - Fix an error when fetching Square account details.
+- Fix an error when fetching MYOB account details.
 
 ## 2.0.58 - 2026-10-29
 
