@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.0.60 - 2026-11-02
 
 ### Fixed
 - Fix Neon CRM token requests failing for organizations using a custom domain. ([#21](https://github.com/verbb/auth/issues/21))
