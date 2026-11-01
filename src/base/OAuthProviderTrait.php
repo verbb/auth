@@ -216,7 +216,7 @@ trait OAuthProviderTrait
                     $error = Json::encode($error);
                 }
 
-                Auth::error('An error occurred: {error}.', $error);
+                Auth::error('An error occurred: {error}.', ['error' => $error]);
 
                 throw new Exception('An error occurred.');
             }
