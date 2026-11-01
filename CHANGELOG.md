@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+### Fixed
+- Fix an error when fetching Envato account details.
+
 ## 2.0.58 - 2026-10-29
 
 ### Fixed

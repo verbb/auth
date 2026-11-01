@@ -5,7 +5,6 @@ use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 
 class EnvatoUser implements ResourceOwnerInterface
 {
-
     /**
      * Domain
      *
@@ -37,7 +36,7 @@ class EnvatoUser implements ResourceOwnerInterface
      */
     public function getId(): ?string
     {
-        return $this->response['id'] ?: NULL;
+        return $this->response['id'] ?: null;
     }
 
     /**
@@ -47,7 +46,7 @@ class EnvatoUser implements ResourceOwnerInterface
      */
     public function getEmail(): ?string
     {
-        return $this->response['email'] ?: NULL;
+        return $this->response['email'] ?: null;
     }
 
 
@@ -58,7 +57,7 @@ class EnvatoUser implements ResourceOwnerInterface
      */
     public function getUsername(): ?string
     {
-        return $this->response['username'] ?: NULL;
+        return $this->response['username'] ?: null;
     }
 
     /**
@@ -86,9 +85,9 @@ class EnvatoUser implements ResourceOwnerInterface
      *
      * @param string $domain
      *
-     * @return ResourceOwner
+     * @return EnvatoUser
      */
-    public function setDomain(string $domain): ResourceOwner
+    public function setDomain(string $domain): EnvatoUser
     {
         $this->domain = $domain;
 

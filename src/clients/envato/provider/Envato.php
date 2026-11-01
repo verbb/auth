@@ -1,5 +1,4 @@
 <?php
-
 namespace verbb\auth\clients\envato\provider;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
@@ -10,7 +9,6 @@ use Psr\Http\Message\ResponseInterface;
 
 class Envato extends AbstractProvider
 {
-
     use BearerAuthorizationTrait;
 
     /**
@@ -102,11 +100,12 @@ class Envato extends AbstractProvider
      * Requests and returns the resource owner of given access token.
      *
      * @param AccessToken $token
-     * @return ResourceOwner
+     * @return EnvatoUser
      */
-    public function getResourceOwner(AccessToken $token): ResourceOwner
+    public function getResourceOwner(AccessToken $token): EnvatoUser
     {
-        $response = $this->getResourceOwnerDetailsUrl($token);
+        // `fetchResourceOwnerDetails()` here returns the raw response, so use League's parsed details.
+        $response = parent::fetchResourceOwnerDetails($token);
 
         return $this->createResourceOwner($response, $token);
     }
@@ -154,9 +153,9 @@ class Envato extends AbstractProvider
      * @param array $response
      * @param AccessToken $token
      *
-     * @return ResourceOwner
+     * @return EnvatoUser
      */
-    protected function createResourceOwner(array $response, AccessToken $token): ResourceOwner
+    protected function createResourceOwner(array $response, AccessToken $token): EnvatoUser
     {
         $user = new EnvatoUser($response);
 
