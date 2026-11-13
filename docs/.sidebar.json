@@ -13,8 +13,14 @@
         "children": [
             "feature-tour/usage",
             "feature-tour/tokens",
-            "feature-tour/providers",
-            "feature-tour/events"
+            "feature-tour/providers"
+        ]
+    },
+    {
+        "title": "Developers",
+        "collapsable": false,
+        "children": [
+            "developers/events"
         ]
     }
 ]
