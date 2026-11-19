@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+### Fixed
+- Fix OAuth callback errors from providers like LinkedIn being reported as “Invalid callback authorization code” instead of the provider’s error message.
+
 ## 2.0.60 - 2026-11-02
 
 ### Fixed

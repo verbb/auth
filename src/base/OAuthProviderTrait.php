@@ -208,17 +208,28 @@ trait OAuthProviderTrait
 
         // OAuth v2
         if ($this->getIsOAuth2()) {
-            // Check for error
-            $error = $request->getParam('error_code');
+            // Check for an error from the provider. Most use the standard `error` and `error_description`
+            // parameters, but some (like Facebook) also send `error_code` and `error_message`.
+            $error = $request->getParam('error') ?: $request->getParam('error_code');
 
             if ($error) {
-                if (is_array($error)) {
-                    $error = Json::encode($error);
+                $details = [];
+
+                foreach ([$error, $request->getParam('error_description') ?: $request->getParam('error_message')] as $detail) {
+                    if (is_array($detail)) {
+                        $detail = Json::encode($detail);
+                    }
+
+                    if (is_scalar($detail) && (string)$detail !== '') {
+                        $details[] = (string)$detail;
+                    }
                 }
+
+                $error = implode(': ', $details);
 
                 Auth::error('An error occurred: {error}.', ['error' => $error]);
 
-                throw new Exception('An error occurred.');
+                throw new Exception('The provider returned an error: ' . $error);
             }
 
             $grant = $this->getGrant();
