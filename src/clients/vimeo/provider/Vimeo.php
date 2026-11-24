@@ -1,5 +1,4 @@
 <?php
-
 namespace verbb\auth\clients\vimeo\provider;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
@@ -33,7 +32,8 @@ class Vimeo extends AbstractProvider
      */
     public function getResourceOwnerDetailsUrl(AccessToken $token)
     {
-        return 'https://api.vimeo.com/me?access_token=' . $token;
+        // The token is sent as a Bearer header. Keep it out of the URL, which Guzzle includes in error messages.
+        return 'https://api.vimeo.com/me';
     }
 
     /**
@@ -60,6 +60,7 @@ class Vimeo extends AbstractProvider
         if (!empty($data['error'])) {
             $error = isset($data['error']['message']) ? $data['error']['message'] : '';
             $code = isset($data['error']['code']) ? intval($data['error']['code']) : 0;
+
             throw new IdentityProviderException($error, $code, $data);
         }
     }
