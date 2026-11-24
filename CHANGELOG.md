@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.0.62 - 2026-11-24
 
 ### Fixed
 - Fixed a moderate-severity information disclosure vulnerability.
