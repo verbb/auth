@@ -14,6 +14,9 @@ use craft\helpers\Json;
 use craft\helpers\UrlHelper;
 
 use Closure;
+use Error;
+use Exception;
+use ReflectionProperty;
 use Throwable;
 
 use League\OAuth2\Client\Token\AccessTokenInterface;
@@ -23,7 +26,7 @@ trait ProviderTrait
 {
     // Abstract Methods
     // =========================================================================
-    
+
     abstract public function getBaseApiUrl(?Token $token): ?string;
 
 
@@ -180,6 +183,9 @@ trait ProviderTrait
                 throw $e;
             }
 
+            // Request exceptions include the full URL, which can hold the token for providers that send it as a query param
+            $this->_redactExceptionMessage($e, $token);
+
             Auth::error('An error was thrown for an API request for “{provider}”: “{message}” {file}:{line}', [
                 'provider' => get_class($this),
                 'message' => $e->getMessage(),
@@ -276,6 +282,8 @@ trait ProviderTrait
                 }
             }
         } catch (Throwable $e) {
+            $this->_redactExceptionMessage($e, $token);
+
             $message = $e->getMessage();
 
             Auth::error('Unable to refresh token for “{provider}” (token #{id}): “{message}” {file}:{line}', [
@@ -314,6 +322,36 @@ trait ProviderTrait
         }
 
         return $this->_reloadToken($token);
+    }
+
+    private function _redactExceptionMessage(Throwable $e, ?Token $token): void
+    {
+        $message = $e->getMessage();
+        $redacted = $message;
+
+        $secrets = [$token?->accessToken, $token?->refreshToken];
+
+        // Tokens built in memory may only have the League token object populated
+        $accessToken = $token?->getToken();
+
+        if ($accessToken instanceof OAuth2Token) {
+            $secrets[] = $accessToken->getToken();
+            $secrets[] = $accessToken->getRefreshToken();
+        }
+
+        foreach (array_unique(array_filter($secrets)) as $secret) {
+            $redacted = str_replace([$secret, rawurlencode($secret), urlencode($secret)], '[redacted]', $redacted);
+        }
+
+        $redacted = preg_replace('/([?&](?:access_token|refresh_token|client_secret|oauth_token|appsecret_proof)=)[^&#\s`\'"]+/i', '$1[redacted]', $redacted);
+
+        if ($redacted === $message) {
+            return;
+        }
+
+        // Update the message in place so callers still receive the original exception, with its class, code, request and response
+        $property = new ReflectionProperty($e instanceof Exception ? Exception::class : Error::class, 'message');
+        $property->setValue($e, $redacted);
     }
 
     private function _isInvalidGrant(string $message): bool

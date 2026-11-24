@@ -20,11 +20,4 @@ class Aweber extends AweberProvider
     {
         return 'https://api.aweber.com/1.0';
     }
-
-    public function getApiRequestQueryParams(?Token $token): array
-    {
-        return [
-            'access_token' => (string)($token?->getToken() ?? ''),
-        ];
-    }
 }

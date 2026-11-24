@@ -1,9 +1,9 @@
 <?php
-
 namespace verbb\auth\clients\unsplash\provider;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Token\AccessToken;
+use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
 use Exception;
 
@@ -15,6 +15,8 @@ use Exception;
  */
 class Unsplash extends AbstractProvider
 {
+    use BearerAuthorizationTrait;
+
     /**
      * Used for public scoped requests
      * @return string
@@ -47,7 +49,7 @@ class Unsplash extends AbstractProvider
      */
     public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
-        return 'https://api.unsplash.com/me?access_token=' . $token;
+        return 'https://api.unsplash.com/me';
     }
 
     /**
@@ -67,6 +69,7 @@ class Unsplash extends AbstractProvider
     {
         if (! empty($data['error'])) {
             $message = $data['error'].": ".$data['error_description'];
+
             throw new Exception($message);
         }
     }

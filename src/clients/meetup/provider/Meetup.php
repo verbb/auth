@@ -9,10 +9,13 @@ use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 use League\OAuth2\Client\Token\AccessToken;
+use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
 
 class Meetup extends AbstractProvider
 {
+    use BearerAuthorizationTrait;
+
     public const ACCESS_TOKEN_RESOURCE_OWNER_ID = 'id';
 
     public function getBaseAuthorizationUrl(): string
@@ -27,7 +30,7 @@ class Meetup extends AbstractProvider
 
     public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
-        return sprintf('https://api.meetup.com/2/member/self?access_token=%s', $token->getToken());
+        return 'https://api.meetup.com/2/member/self';
     }
 
     protected function getDefaultScopes(): array

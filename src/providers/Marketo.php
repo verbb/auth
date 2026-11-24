@@ -21,13 +21,6 @@ class Marketo extends MarketoProvider
         return $this->getApiUrl();
     }
 
-    public function getApiRequestQueryParams(?Token $token): array
-    {
-        return [
-            'access_token' => (string)($token?->getToken() ?? ''),
-        ];
-    }
-
     public function getGrant(): string
     {
         return 'client_credentials';

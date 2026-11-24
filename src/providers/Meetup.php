@@ -20,11 +20,4 @@ class Meetup extends MeetupProvider
     {
         return 'https://api.meetup.com/2/';
     }
-
-    public function getApiRequestQueryParams(?Token $token): array
-    {
-        return [
-            'access_token' => (string)($token?->getToken() ?? ''),
-        ];
-    }
 }

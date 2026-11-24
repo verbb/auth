@@ -1,5 +1,4 @@
 <?php
-
 namespace verbb\auth\clients\pinterest\provider;
 
 use verbb\auth\clients\pinterest\provider\exception\PinterestIdentityProviderException;
@@ -7,11 +6,13 @@ use verbb\auth\clients\pinterest\provider\exception\PinterestIdentityProviderExc
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;
+use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\RequestInterface;
 
 class Pinterest extends AbstractProvider
 {
+    use BearerAuthorizationTrait;
+
     /**
      * @var string Key used in a token response to identify the resource owner.
      */
@@ -73,7 +74,7 @@ class Pinterest extends AbstractProvider
     {
         return 'https://api.pinterest.com/v1/oauth/token';
     }
-    
+
     /**
      * Get provider url to fetch user details
      *
@@ -83,39 +84,7 @@ class Pinterest extends AbstractProvider
      */
     public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
-        $url = "https://api.pinterest.com/v1/me/?access_token={$token->getToken()}";
-        $url .= "&fields=first_name%2Cid%2Clast_name%2Curl%2Cimage%2Cusername%2Ccreated_at%2Ccounts";
-        return $url;
-    }
-
-    /**
-     * Returns an authenticated PSR-7 request instance.
-     *
-     * @param  string $method
-     * @param  string $url
-     * @param  AccessToken|string $token
-     * @param  array $options Any of "headers", "body", and "protocolVersion".
-     *
-     * @return RequestInterface
-     */
-    public function getAuthenticatedRequest($method, $url, $token, array $options = []): RequestInterface
-    {
-        $parsedUrl = parse_url($url);
-        $queryString = array();
-
-        if (isset($parsedUrl['query'])) {
-            parse_str($parsedUrl['query'], $queryString);
-        }
-
-        if (!isset($queryString['access_token'])) {
-            $queryString['access_token'] = (string) $token;
-        }
-
-        $url = (new \Uri\Rfc3986\Uri($url))
-            ->withQuery(http_build_query($queryString))
-            ->toRawString();
-
-        return $this->createRequest($method, $url, null, $options);
+        return 'https://api.pinterest.com/v1/me/?fields=first_name%2Cid%2Clast_name%2Curl%2Cimage%2Cusername%2Ccreated_at%2Ccounts';
     }
 
     /**
@@ -130,7 +99,7 @@ class Pinterest extends AbstractProvider
     {
         return ['read_public'];
     }
-    
+
     /**
      * Check a provider response for errors.
      *
@@ -150,7 +119,7 @@ class Pinterest extends AbstractProvider
             );
         }
     }
-    
+
     /**
      * Generate a user object from a successful user details request.
      *

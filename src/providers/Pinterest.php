@@ -20,11 +20,4 @@ class Pinterest extends PinterestProvider
     {
         return 'https://api.pinterest.com/v1/';
     }
-
-    public function getApiRequestQueryParams(?Token $token): array
-    {
-        return [
-            'access_token' => (string)($token?->getToken() ?? ''),
-        ];
-    }
 }

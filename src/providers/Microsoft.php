@@ -20,11 +20,4 @@ class Microsoft extends MicrosoftProvider
     {
         return 'https://graph.microsoft.com/v1.0/';
     }
-
-    public function getApiRequestQueryParams(?Token $token): array
-    {
-        return [
-            'access_token' => (string)($token?->getToken() ?? ''),
-        ];
-    }
 }

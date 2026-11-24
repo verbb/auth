@@ -20,11 +20,4 @@ class Dribbble extends DribbbleProvider
     {
         return 'https://api.dribbble.com/v2/';
     }
-
-    public function getApiRequestQueryParams(?Token $token): array
-    {
-        return [
-            'access_token' => (string)($token?->getToken() ?? ''),
-        ];
-    }
 }

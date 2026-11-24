@@ -20,11 +20,4 @@ class Unsplash extends UnsplashProvider
     {
         return 'https://api.unsplash.com/';
     }
-
-    public function getApiRequestQueryParams(?Token $token): array
-    {
-        return [
-            'access_token' => (string)($token?->getToken() ?? ''),
-        ];
-    }
 }

@@ -45,7 +45,7 @@ class Dribbble extends AbstractProvider
      */
     public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
-        return 'https://api.dribbble.com/v2/user?' . http_build_query(['access_token' => $token->getToken()]);
+        return 'https://api.dribbble.com/v2/user';
     }
 
     /**
@@ -70,6 +70,7 @@ class Dribbble extends AbstractProvider
     {
         if ($response->getStatusCode() >= 400) {
             $errorString = ProviderError::message($data, $response->getReasonPhrase());
+
             throw new IdentityProviderException(
                 $errorString,
                 $response->getStatusCode(),
