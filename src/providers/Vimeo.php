@@ -20,11 +20,4 @@ class Vimeo extends VimeoProvider
     {
         return 'https://api.vimeo.com/';
     }
-
-    public function getApiRequestQueryParams(?Token $token): array
-    {
-        return [
-            'access_token' => (string)($token?->getToken() ?? ''),
-        ];
-    }
 }

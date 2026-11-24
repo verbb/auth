@@ -26,7 +26,8 @@ class Vimeo extends AbstractProvider
 
     public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
-        return 'https://api.vimeo.com/me?access_token=' . $token;
+        // The token is sent as a Bearer header. Keep it out of the URL, which Guzzle includes in error messages.
+        return 'https://api.vimeo.com/me';
     }
 
     protected function getScopeSeparator(): string
@@ -44,6 +45,7 @@ class Vimeo extends AbstractProvider
         if (!empty($data['error'])) {
             $error = $data['error']['message'] ?? '';
             $code = isset($data['error']['code']) ? (int)$data['error']['code'] : 0;
+
             throw new IdentityProviderException(ProviderError::message($data, $response->getReasonPhrase()), $code, $data);
         }
     }
